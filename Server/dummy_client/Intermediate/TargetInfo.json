@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "dummy_client",
+			"Path": "..\\Source\\dummy_client.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "dummy_clientEditor",
+			"Path": "..\\Source\\dummy_clientEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}

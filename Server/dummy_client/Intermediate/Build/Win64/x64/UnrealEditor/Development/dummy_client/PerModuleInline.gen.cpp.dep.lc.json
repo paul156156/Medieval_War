@@ -1,0 +1,14 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\users\\blues\\documents\\github\\medieval_war\\server\\dummy_client\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\dummy_client\\permoduleinline.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\users\\blues\\documents\\github\\medieval_war\\server\\dummy_client\\intermediate\\build\\win64\\x64\\dummy_clienteditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
+        "Includes": [
+            "c:\\users\\blues\\documents\\github\\medieval_war\\server\\dummy_client\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\dummy_client\\definitions.dummy_client.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\core\\public\\hal\\permoduleinline.inl"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}
