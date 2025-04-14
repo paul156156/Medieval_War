@@ -62,6 +62,14 @@ void Adummy_clientCharacter::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
 
+    // 디버그 출력
+    FVector Velocity = GetVelocity();
+    if (Velocity.SizeSquared() > 0.0f)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("Character velocity: X=%.2f Y=%.2f Z=%.2f"),
+            Velocity.X, Velocity.Y, Velocity.Z);
+    }
+
     // 플레이어가 로컬 컨트롤러를 가지고 있고, 네트워크 업데이트가 활성화된 경우
     if (IsLocallyControlled() && bEnableNetworkUpdates && NetworkManager && NetworkManager->IsConnected())
     {
@@ -109,8 +117,18 @@ void Adummy_clientCharacter::SendPositionToServer()
     FRotator CurrentRotation = GetActorRotation();
 
     // 이동 중인지 확인 (속도 체크)
-    float ForwardValue = GetInputAxisValue("MoveForward");
-    float RightValue = GetInputAxisValue("MoveRight");
+    float ForwardValue = 0.0f;
+    float RightValue = 0.0f;
+
+    if (Controller && Controller->IsLocalPlayerController())
+    {
+        ForwardValue = GetInputAxisValue("MoveForward");
+        RightValue = GetInputAxisValue("MoveRight");
+
+        // 디버그 출력 추가
+        UE_LOG(LogTemp, Display, TEXT("Input Values - Forward: %.2f, Right: %.2f"),
+            ForwardValue, RightValue);
+    }
 
     // 이동 패킷 전송
     NetworkManager->SendMovePacket(ForwardValue, RightValue, CurrentLocation, CurrentRotation);
@@ -212,6 +230,15 @@ void Adummy_clientCharacter::UpdateOtherPlayerCharacters(float DeltaTime)
             float RotAlpha = FMath::Clamp(OtherPlayer.Value.RotationInterpolationTime / 0.1f, 0.0f, 1.0f);
             FRotator NewRot = FMath::Lerp(OtherPlayer.Key->GetActorRotation(), OtherPlayer.Value.TargetRotation, RotAlpha);
             OtherPlayer.Key->SetActorRotation(NewRot);
+
+            // 입력 제어 비활성화 확인 (다른 플레이어 캐릭터는 입력을 받지 않도록)
+            if (ACharacter* OtherCharacter = Cast<ACharacter>(OtherPlayer.Key))
+            {
+                if (APlayerController* PC = Cast<APlayerController>(OtherCharacter->GetController()))
+                {
+                    PC->DisableInput(PC);
+                }
+            }
         }
         else
         {
@@ -253,6 +280,7 @@ AActor* Adummy_clientCharacter::SpawnOtherPlayerCharacterInternal(const FVector&
 {
     if (!GetWorld() || !OtherPlayerCharacterClass)
     {
+        UE_LOG(LogTemp, Error, TEXT("Failed to spawn other player: Invalid World or Character Class"));
         return nullptr;
     }
 
@@ -264,6 +292,23 @@ AActor* Adummy_clientCharacter::SpawnOtherPlayerCharacterInternal(const FVector&
 
     if (NewPlayerActor)
     {
+        UE_LOG(LogTemp, Display, TEXT("Spawned other player character at: X=%.2f Y=%.2f Z=%.2f"),
+            Position.X, Position.Y, Position.Z);
+
+        // 플레이어 입력 비활성화
+        if (ACharacter* OtherCharacter = Cast<ACharacter>(NewPlayerActor))
+        {
+            // AI 컨트롤러 대신 기본 컨트롤러 사용
+            AController* NewController = GetWorld()->SpawnActor<AController>(AController::StaticClass());
+            if (NewController)
+            {
+                OtherCharacter->AIControllerClass = nullptr;
+                OtherCharacter->bUseControllerRotationYaw = false;
+                NewController->Possess(OtherCharacter);
+                NewController->SetIgnoreMoveInput(true);
+            }
+        }
+
         // 캐릭터 정보 저장
         FOtherPlayerInfo PlayerInfo;
         PlayerInfo.TargetPosition = Position;
@@ -275,6 +320,10 @@ AActor* Adummy_clientCharacter::SpawnOtherPlayerCharacterInternal(const FVector&
 
         // 블루프린트 이벤트 호출
         OnOtherPlayerSpawned(NewPlayerActor);
+    }
+    else
+    {
+        UE_LOG(LogTemp, Error, TEXT("Failed to spawn other player character!"));
     }
 
     return NewPlayerActor;
