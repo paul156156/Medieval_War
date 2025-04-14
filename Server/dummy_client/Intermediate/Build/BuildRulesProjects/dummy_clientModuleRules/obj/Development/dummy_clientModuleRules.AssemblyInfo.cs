@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("dummy_clientModuleRules")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Development")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+af32ab169bdc8f2dfdc6274f9a5bf443ac297503")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0e7f56e6199ccbeb22a7020d96e205bda6719c84")]
 [assembly: System.Reflection.AssemblyProductAttribute("dummy_clientModuleRules")]
 [assembly: System.Reflection.AssemblyTitleAttribute("dummy_clientModuleRules")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
