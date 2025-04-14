@@ -1,129 +1,209 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
-
 #include "dummy_clientCharacter.h"
-#include "Engine/LocalPlayer.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/InputComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/Controller.h"
-#include "EnhancedInputComponent.h"
-#include "EnhancedInputSubsystems.h"
-#include "InputActionValue.h"
-
-DEFINE_LOG_CATEGORY(LogTemplateCharacter);
-
-//////////////////////////////////////////////////////////////////////////
-// Adummy_clientCharacter
+#include "GameFramework/SpringArmComponent.h"
+#include "dummy_clientGameMode.h"
+#include "NetworkManager.h"
 
 Adummy_clientCharacter::Adummy_clientCharacter()
+    : NetworkManager(nullptr)
+    , bEnableNetworkUpdates(true)
+    , LastPositionSentTime(0.0f)
+    , PositionUpdateInterval(0.1f) // 10Hz 업데이트 간격
 {
-	// Set size for collision capsule
-	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
-		
-	// Don't rotate when the controller rotates. Let that just affect the camera.
-	bUseControllerRotationPitch = false;
-	bUseControllerRotationYaw = false;
-	bUseControllerRotationRoll = false;
+    // 캡슐 컴포넌트 설정
+    GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 
-	// Configure character movement
-	GetCharacterMovement()->bOrientRotationToMovement = true; // Character moves in the direction of input...	
-	GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.0f, 0.0f); // ...at this rotation rate
+    // 입력 설정
+    BaseTurnRate = 45.f;
+    BaseLookUpRate = 45.f;
 
-	// Note: For faster iteration times these variables, and many more, can be tweaked in the Character Blueprint
-	// instead of recompiling to adjust them
-	GetCharacterMovement()->JumpZVelocity = 700.f;
-	GetCharacterMovement()->AirControl = 0.35f;
-	GetCharacterMovement()->MaxWalkSpeed = 500.f;
-	GetCharacterMovement()->MinAnalogWalkSpeed = 20.f;
-	GetCharacterMovement()->BrakingDecelerationWalking = 2000.f;
-	GetCharacterMovement()->BrakingDecelerationFalling = 1500.0f;
+    // 컨트롤러 회전에 따라 캐릭터가 회전하지 않도록 설정
+    bUseControllerRotationPitch = false;
+    bUseControllerRotationYaw = false;
+    bUseControllerRotationRoll = false;
 
-	// Create a camera boom (pulls in towards the player if there is a collision)
-	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
-	CameraBoom->SetupAttachment(RootComponent);
-	CameraBoom->TargetArmLength = 400.0f; // The camera follows at this distance behind the character	
-	CameraBoom->bUsePawnControlRotation = true; // Rotate the arm based on the controller
+    // 캐릭터 무브먼트 컴포넌트 설정
+    GetCharacterMovement()->bOrientRotationToMovement = true;
+    GetCharacterMovement()->RotationRate = FRotator(0.0f, 540.0f, 0.0f);
+    GetCharacterMovement()->JumpZVelocity = 600.f;
+    GetCharacterMovement()->AirControl = 0.2f;
 
-	// Create a follow camera
-	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
-	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
-	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
+    // 카메라 붐 생성
+    CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
+    CameraBoom->SetupAttachment(RootComponent);
+    CameraBoom->TargetArmLength = 300.0f;
+    CameraBoom->bUsePawnControlRotation = true;
 
-	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
-	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
+    // 팔로우 카메라 생성
+    FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
+    FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
+    FollowCamera->bUsePawnControlRotation = false;
+
+    // Tick 함수 활성화
+    PrimaryActorTick.bCanEverTick = true;
 }
 
-//////////////////////////////////////////////////////////////////////////
-// Input
-
-void Adummy_clientCharacter::NotifyControllerChanged()
+void Adummy_clientCharacter::BeginPlay()
 {
-	Super::NotifyControllerChanged();
+    Super::BeginPlay();
 
-	// Add Input Mapping Context
-	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
-	{
-		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
-		{
-			Subsystem->AddMappingContext(DefaultMappingContext, 0);
-		}
-	}
+    // 네트워크 매니저 초기화
+    InitializeNetworkManager();
+}
+
+void Adummy_clientCharacter::Tick(float DeltaTime)
+{
+    Super::Tick(DeltaTime);
+
+    // 플레이어가 로컬 컨트롤러를 가지고 있고, 네트워크 업데이트가 활성화된 경우
+    if (IsLocallyControlled() && bEnableNetworkUpdates && NetworkManager && NetworkManager->IsConnected())
+    {
+        // 위치 업데이트 간격 체크
+        float CurrentTime = GetWorld()->GetTimeSeconds();
+        if (CurrentTime - LastPositionSentTime >= PositionUpdateInterval)
+        {
+            // 서버에 위치 정보 전송
+            SendPositionToServer();
+            LastPositionSentTime = CurrentTime;
+        }
+    }
+}
+
+void Adummy_clientCharacter::InitializeNetworkManager()
+{
+    // 게임 모드에서 네트워크 매니저 가져오기
+    if (Adummy_clientGameMode* GameMode = Cast<Adummy_clientGameMode>(GetWorld()->GetAuthGameMode()))
+    {
+        NetworkManager = GameMode->GetNetworkManager();
+
+        // 위치 업데이트 델리게이트 바인딩
+        if (NetworkManager)
+        {
+            NetworkManager->OnPositionUpdate.AddDynamic(this, &Adummy_clientCharacter::OnPositionUpdateReceived);
+        }
+    }
+}
+
+void Adummy_clientCharacter::SendPositionToServer()
+{
+    if (!NetworkManager)
+    {
+        return;
+    }
+
+    // 현재 위치와 회전값 가져오기
+    FVector CurrentLocation = GetActorLocation();
+    FRotator CurrentRotation = GetActorRotation();
+
+    // 이동 중인지 확인 (속도 체크)
+    float ForwardValue = GetInputAxisValue("MoveForward");
+    float RightValue = GetInputAxisValue("MoveRight");
+
+    // 이동 패킷 전송
+    NetworkManager->SendMovePacket(ForwardValue, RightValue, CurrentLocation, CurrentRotation);
+}
+
+void Adummy_clientCharacter::OnPositionUpdateReceived(const FVector& NewPosition)
+{
+    // 다른 플레이어의 위치 정보 수신
+    // 블루프린트에서 구현할 함수 호출
+    SpawnOtherPlayerCharacter(NewPosition);
+}
+
+void Adummy_clientCharacter::Jump()
+{
+    Super::Jump();
+
+    // 점프 상태 서버에 전송
+    if (NetworkManager && NetworkManager->IsConnected())
+    {
+        NetworkManager->SendJumpPacket(true, GetActorLocation());
+    }
+}
+
+void Adummy_clientCharacter::StopJumping()
+{
+    Super::StopJumping();
+
+    // 점프 중단 상태 서버에 전송
+    if (NetworkManager && NetworkManager->IsConnected())
+    {
+        NetworkManager->SendJumpPacket(false, GetActorLocation());
+    }
+}
+
+// 기본 입력 함수들 구현
+void Adummy_clientCharacter::MoveForward(float Value)
+{
+    if ((Controller != nullptr) && (Value != 0.0f))
+    {
+        // 현재 카메라가 바라보는 방향 찾기
+        const FRotator Rotation = Controller->GetControlRotation();
+        const FRotator YawRotation(0, Rotation.Yaw, 0);
+
+        // 전진 벡터 찾기
+        const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+        AddMovementInput(Direction, Value);
+    }
+}
+
+void Adummy_clientCharacter::MoveRight(float Value)
+{
+    if ((Controller != nullptr) && (Value != 0.0f))
+    {
+        // 현재 카메라가 바라보는 방향 찾기
+        const FRotator Rotation = Controller->GetControlRotation();
+        const FRotator YawRotation(0, Rotation.Yaw, 0);
+
+        // 오른쪽 벡터 찾기
+        const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+        AddMovementInput(Direction, Value);
+    }
+}
+
+void Adummy_clientCharacter::TurnAtRate(float Rate)
+{
+    // 초당 입력값과 turn rate 기반으로 회전 계산
+    AddControllerYawInput(Rate * BaseTurnRate * GetWorld()->GetDeltaSeconds());
+}
+
+void Adummy_clientCharacter::LookUpAtRate(float Rate)
+{
+    // 초당 입력값과 look up/down rate 기반으로 회전 계산
+    AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
+}
+
+void Adummy_clientCharacter::TouchStarted(ETouchIndex::Type FingerIndex, FVector Location)
+{
+    Jump();
+}
+
+void Adummy_clientCharacter::TouchStopped(ETouchIndex::Type FingerIndex, FVector Location)
+{
+    StopJumping();
 }
 
 void Adummy_clientCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
-	// Set up action bindings
-	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent)) {
-		
-		// Jumping
-		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ACharacter::Jump);
-		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
+    // 점프
+    PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &Adummy_clientCharacter::Jump);
+    PlayerInputComponent->BindAction("Jump", IE_Released, this, &Adummy_clientCharacter::StopJumping);
 
-		// Moving
-		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &Adummy_clientCharacter::Move);
+    // 이동
+    PlayerInputComponent->BindAxis("MoveForward", this, &Adummy_clientCharacter::MoveForward);
+    PlayerInputComponent->BindAxis("MoveRight", this, &Adummy_clientCharacter::MoveRight);
 
-		// Looking
-		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &Adummy_clientCharacter::Look);
-	}
-	else
-	{
-		UE_LOG(LogTemplateCharacter, Error, TEXT("'%s' Failed to find an Enhanced Input component! This template is built to use the Enhanced Input system. If you intend to use the legacy system, then you will need to update this C++ file."), *GetNameSafe(this));
-	}
-}
+    // 회전
+    PlayerInputComponent->BindAxis("Turn", this, &APawn::AddControllerYawInput);
+    PlayerInputComponent->BindAxis("TurnRate", this, &Adummy_clientCharacter::TurnAtRate);
+    PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
+    PlayerInputComponent->BindAxis("LookUpRate", this, &Adummy_clientCharacter::LookUpAtRate);
 
-void Adummy_clientCharacter::Move(const FInputActionValue& Value)
-{
-	// input is a Vector2D
-	FVector2D MovementVector = Value.Get<FVector2D>();
-
-	if (Controller != nullptr)
-	{
-		// find out which way is forward
-		const FRotator Rotation = Controller->GetControlRotation();
-		const FRotator YawRotation(0, Rotation.Yaw, 0);
-
-		// get forward vector
-		const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
-	
-		// get right vector 
-		const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
-
-		// add movement 
-		AddMovementInput(ForwardDirection, MovementVector.Y);
-		AddMovementInput(RightDirection, MovementVector.X);
-	}
-}
-
-void Adummy_clientCharacter::Look(const FInputActionValue& Value)
-{
-	// input is a Vector2D
-	FVector2D LookAxisVector = Value.Get<FVector2D>();
-
-	if (Controller != nullptr)
-	{
-		// add yaw and pitch input to controller
-		AddControllerYawInput(LookAxisVector.X);
-		AddControllerPitchInput(LookAxisVector.Y);
-	}
+    // 터치 기능 설정
+    PlayerInputComponent->BindTouch(IE_Pressed, this, &Adummy_clientCharacter::TouchStarted);
+    PlayerInputComponent->BindTouch(IE_Released, this, &Adummy_clientCharacter::TouchStopped);
 }
