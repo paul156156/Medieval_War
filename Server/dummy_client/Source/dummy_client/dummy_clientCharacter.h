@@ -6,6 +6,28 @@
 
 class UNetworkManager;
 
+// 다른 플레이어 캐릭터 정보 구조체
+USTRUCT()
+struct FOtherPlayerInfo
+{
+    GENERATED_BODY()
+
+    FVector TargetPosition;
+    FRotator TargetRotation;
+    float PositionInterpolationTime;
+    float RotationInterpolationTime;
+    bool IsJumping;
+
+    FOtherPlayerInfo()
+        : TargetPosition(FVector::ZeroVector)
+        , TargetRotation(FRotator::ZeroRotator)
+        , PositionInterpolationTime(0.0f)
+        , RotationInterpolationTime(0.0f)
+        , IsJumping(false)
+    {
+    }
+};
+
 UCLASS(config = Game)
 class Adummy_clientCharacter : public ACharacter
 {
@@ -38,9 +60,47 @@ protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Networking)
     float PositionUpdateInterval;
 
-    /** 다른 플레이어 위치 수신 처리 */
+    /** 다른 플레이어 캐릭터 클래스 */
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Networking)
+    TSubclassOf<AActor> OtherPlayerCharacterClass;
+
+    /** 다른 플레이어 캐릭터 맵 */
+    UPROPERTY()
+    TMap<AActor*, FOtherPlayerInfo> OtherPlayers;
+
+    /** 다른 플레이어 위치 업데이트 수신 */
     UFUNCTION()
     void OnPositionUpdateReceived(const FVector& NewPosition);
+
+    /** 다른 플레이어 회전 업데이트 수신 */
+    UFUNCTION()
+    void OnRotationUpdateReceived(const FRotator& NewRotation);
+
+    /** 다른 플레이어 점프 상태 업데이트 수신 */
+    UFUNCTION()
+    void OnJumpStateUpdateReceived(bool IsJumping);
+
+    /** 네트워크 연결 상태 변경 */
+    UFUNCTION()
+    void OnConnectionStatusChanged(bool IsConnected);
+
+    /** 다른 플레이어 캐릭터 업데이트 */
+    void UpdateOtherPlayerCharacters(float DeltaTime);
+
+    /** 다른 플레이어 캐릭터 스폰 내부 구현 */
+    AActor* SpawnOtherPlayerCharacterInternal(const FVector& Position);
+
+    /** 네트워크 연결됨 이벤트 */
+    UFUNCTION(BlueprintImplementableEvent, Category = "Networking")
+    void OnNetworkConnected();
+
+    /** 네트워크 연결 해제됨 이벤트 */
+    UFUNCTION(BlueprintImplementableEvent, Category = "Networking")
+    void OnNetworkDisconnected();
+
+    /** 다른 플레이어 스폰됨 이벤트 */
+    UFUNCTION(BlueprintImplementableEvent, Category = "Networking")
+    void OnOtherPlayerSpawned(AActor* OtherPlayerActor);
 
     ///// 기본 입력 관련 함수 /////
     virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
@@ -79,6 +139,9 @@ public:
     virtual void StopJumping() override;
 
     // 다른 플레이어 캐릭터 스폰 (서버로부터 받은 위치 정보로)
-    UFUNCTION(BlueprintImplementableEvent, Category = "Networking")
-    void SpawnOtherPlayerCharacter(const FVector& Position);
+    UFUNCTION(BlueprintCallable, Category = "Networking")
+    void SpawnOtherPlayerCharacter(const FVector& Position)
+    {
+        SpawnOtherPlayerCharacterInternal(Position);
+    }
 };

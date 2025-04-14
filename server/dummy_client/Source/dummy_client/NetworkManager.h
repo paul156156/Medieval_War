@@ -50,8 +50,11 @@ struct FPositionUpdatePacket
 };
 #pragma pack(pop)
 
-// 위치 업데이트 델리게이트
+// 네트워크 델리게이트 정의
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPositionUpdate, const FVector&, NewPosition);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnRotationUpdate, const FRotator&, NewRotation);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnJumpStateUpdate, bool, IsJumping);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnConnectionStatusChanged, bool, IsConnected);
 
 UCLASS(BlueprintType, Blueprintable)
 class DUMMY_CLIENT_API UNetworkManager : public UObject
@@ -85,9 +88,22 @@ public:
     UFUNCTION(BlueprintPure, Category = "Networking")
     bool IsConnected() const;
 
-    // 위치 업데이트 델리게이트
+    // 마지막 에러 코드 반환
+    UFUNCTION(BlueprintPure, Category = "Networking")
+    int32 GetLastErrorCode() const { return LastErrorCode; }
+
+    // 델리게이트
     UPROPERTY(BlueprintAssignable, Category = "Networking")
     FOnPositionUpdate OnPositionUpdate;
+
+    UPROPERTY(BlueprintAssignable, Category = "Networking")
+    FOnRotationUpdate OnRotationUpdate;
+
+    UPROPERTY(BlueprintAssignable, Category = "Networking")
+    FOnJumpStateUpdate OnJumpStateUpdate;
+
+    UPROPERTY(BlueprintAssignable, Category = "Networking")
+    FOnConnectionStatusChanged OnConnectionStatusChanged;
 
 private:
     // 소켓 객체
@@ -102,9 +118,15 @@ private:
     // 접속 여부
     bool bIsConnected;
 
+    // 마지막 에러 코드
+    int32 LastErrorCode;
+
     // 패킷 처리 함수
     void HandlePositionUpdatePacket(const FPositionUpdatePacket* Packet);
 
     // 타이머 핸들 (패킷 수신용)
     FTimerHandle PacketReceiverTimerHandle;
+
+    // 연결 상태 체크
+    void CheckConnectionStatus();
 };

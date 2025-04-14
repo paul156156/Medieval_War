@@ -10,15 +10,300 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodedummy_clientCharacter() {}
 
 // Begin Cross Module References
+COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
+COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FRotator();
 COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector();
 DUMMY_CLIENT_API UClass* Z_Construct_UClass_Adummy_clientCharacter();
 DUMMY_CLIENT_API UClass* Z_Construct_UClass_Adummy_clientCharacter_NoRegister();
 DUMMY_CLIENT_API UClass* Z_Construct_UClass_UNetworkManager_NoRegister();
+DUMMY_CLIENT_API UScriptStruct* Z_Construct_UScriptStruct_FOtherPlayerInfo();
+ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_ACharacter();
 ENGINE_API UClass* Z_Construct_UClass_UCameraComponent_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_USpringArmComponent_NoRegister();
 UPackage* Z_Construct_UPackage__Script_dummy_client();
 // End Cross Module References
+
+// Begin ScriptStruct FOtherPlayerInfo
+static FStructRegistrationInfo Z_Registration_Info_UScriptStruct_OtherPlayerInfo;
+class UScriptStruct* FOtherPlayerInfo::StaticStruct()
+{
+	if (!Z_Registration_Info_UScriptStruct_OtherPlayerInfo.OuterSingleton)
+	{
+		Z_Registration_Info_UScriptStruct_OtherPlayerInfo.OuterSingleton = GetStaticStruct(Z_Construct_UScriptStruct_FOtherPlayerInfo, (UObject*)Z_Construct_UPackage__Script_dummy_client(), TEXT("OtherPlayerInfo"));
+	}
+	return Z_Registration_Info_UScriptStruct_OtherPlayerInfo.OuterSingleton;
+}
+template<> DUMMY_CLIENT_API UScriptStruct* StaticStruct<FOtherPlayerInfo>()
+{
+	return FOtherPlayerInfo::StaticStruct();
+}
+struct Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Struct_MetaDataParams[] = {
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "// \xef\xbf\xbd\xd9\xb8\xef\xbf\xbd \xef\xbf\xbd\xc3\xb7\xef\xbf\xbd\xef\xbf\xbd\xcc\xbe\xef\xbf\xbd \xc4\xb3\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xc3\xbc\n" },
+#endif
+		{ "ModuleRelativePath", "dummy_clientCharacter.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "\xef\xbf\xbd\xd9\xb8\xef\xbf\xbd \xef\xbf\xbd\xc3\xb7\xef\xbf\xbd\xef\xbf\xbd\xcc\xbe\xef\xbf\xbd \xc4\xb3\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xc3\xbc" },
+#endif
+	};
+#endif // WITH_METADATA
+	static void* NewStructOps()
+	{
+		return (UScriptStruct::ICppStructOps*)new UScriptStruct::TCppStructOps<FOtherPlayerInfo>();
+	}
+	static const UECodeGen_Private::FStructParams StructParams;
+};
+const UECodeGen_Private::FStructParams Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics::StructParams = {
+	(UObject* (*)())Z_Construct_UPackage__Script_dummy_client,
+	nullptr,
+	&NewStructOps,
+	"OtherPlayerInfo",
+	nullptr,
+	0,
+	sizeof(FOtherPlayerInfo),
+	alignof(FOtherPlayerInfo),
+	RF_Public|RF_Transient|RF_MarkAsNative,
+	EStructFlags(0x00000001),
+	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics::Struct_MetaDataParams), Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics::Struct_MetaDataParams)
+};
+UScriptStruct* Z_Construct_UScriptStruct_FOtherPlayerInfo()
+{
+	if (!Z_Registration_Info_UScriptStruct_OtherPlayerInfo.InnerSingleton)
+	{
+		UECodeGen_Private::ConstructUScriptStruct(Z_Registration_Info_UScriptStruct_OtherPlayerInfo.InnerSingleton, Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics::StructParams);
+	}
+	return Z_Registration_Info_UScriptStruct_OtherPlayerInfo.InnerSingleton;
+}
+// End ScriptStruct FOtherPlayerInfo
+
+// Begin Class Adummy_clientCharacter Function OnConnectionStatusChanged
+struct Z_Construct_UFunction_Adummy_clientCharacter_OnConnectionStatusChanged_Statics
+{
+	struct dummy_clientCharacter_eventOnConnectionStatusChanged_Parms
+	{
+		bool IsConnected;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "/** \xef\xbf\xbd\xef\xbf\xbd\xc6\xae\xef\xbf\xbd\xef\xbf\xbd\xc5\xa9 \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd */" },
+#endif
+		{ "ModuleRelativePath", "dummy_clientCharacter.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "\xef\xbf\xbd\xef\xbf\xbd\xc6\xae\xef\xbf\xbd\xef\xbf\xbd\xc5\xa9 \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd" },
+#endif
+	};
+#endif // WITH_METADATA
+	static void NewProp_IsConnected_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_IsConnected;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+void Z_Construct_UFunction_Adummy_clientCharacter_OnConnectionStatusChanged_Statics::NewProp_IsConnected_SetBit(void* Obj)
+{
+	((dummy_clientCharacter_eventOnConnectionStatusChanged_Parms*)Obj)->IsConnected = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_Adummy_clientCharacter_OnConnectionStatusChanged_Statics::NewProp_IsConnected = { "IsConnected", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(dummy_clientCharacter_eventOnConnectionStatusChanged_Parms), &Z_Construct_UFunction_Adummy_clientCharacter_OnConnectionStatusChanged_Statics::NewProp_IsConnected_SetBit, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_Adummy_clientCharacter_OnConnectionStatusChanged_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_Adummy_clientCharacter_OnConnectionStatusChanged_Statics::NewProp_IsConnected,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_Adummy_clientCharacter_OnConnectionStatusChanged_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_Adummy_clientCharacter_OnConnectionStatusChanged_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_Adummy_clientCharacter, nullptr, "OnConnectionStatusChanged", nullptr, nullptr, Z_Construct_UFunction_Adummy_clientCharacter_OnConnectionStatusChanged_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_Adummy_clientCharacter_OnConnectionStatusChanged_Statics::PropPointers), sizeof(Z_Construct_UFunction_Adummy_clientCharacter_OnConnectionStatusChanged_Statics::dummy_clientCharacter_eventOnConnectionStatusChanged_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00080401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_Adummy_clientCharacter_OnConnectionStatusChanged_Statics::Function_MetaDataParams), Z_Construct_UFunction_Adummy_clientCharacter_OnConnectionStatusChanged_Statics::Function_MetaDataParams) };
+static_assert(sizeof(Z_Construct_UFunction_Adummy_clientCharacter_OnConnectionStatusChanged_Statics::dummy_clientCharacter_eventOnConnectionStatusChanged_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_Adummy_clientCharacter_OnConnectionStatusChanged()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_Adummy_clientCharacter_OnConnectionStatusChanged_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(Adummy_clientCharacter::execOnConnectionStatusChanged)
+{
+	P_GET_UBOOL(Z_Param_IsConnected);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->OnConnectionStatusChanged(Z_Param_IsConnected);
+	P_NATIVE_END;
+}
+// End Class Adummy_clientCharacter Function OnConnectionStatusChanged
+
+// Begin Class Adummy_clientCharacter Function OnJumpStateUpdateReceived
+struct Z_Construct_UFunction_Adummy_clientCharacter_OnJumpStateUpdateReceived_Statics
+{
+	struct dummy_clientCharacter_eventOnJumpStateUpdateReceived_Parms
+	{
+		bool IsJumping;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "/** \xef\xbf\xbd\xd9\xb8\xef\xbf\xbd \xef\xbf\xbd\xc3\xb7\xef\xbf\xbd\xef\xbf\xbd\xcc\xbe\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xc6\xae \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd */" },
+#endif
+		{ "ModuleRelativePath", "dummy_clientCharacter.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "\xef\xbf\xbd\xd9\xb8\xef\xbf\xbd \xef\xbf\xbd\xc3\xb7\xef\xbf\xbd\xef\xbf\xbd\xcc\xbe\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xc6\xae \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd" },
+#endif
+	};
+#endif // WITH_METADATA
+	static void NewProp_IsJumping_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_IsJumping;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+void Z_Construct_UFunction_Adummy_clientCharacter_OnJumpStateUpdateReceived_Statics::NewProp_IsJumping_SetBit(void* Obj)
+{
+	((dummy_clientCharacter_eventOnJumpStateUpdateReceived_Parms*)Obj)->IsJumping = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_Adummy_clientCharacter_OnJumpStateUpdateReceived_Statics::NewProp_IsJumping = { "IsJumping", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(dummy_clientCharacter_eventOnJumpStateUpdateReceived_Parms), &Z_Construct_UFunction_Adummy_clientCharacter_OnJumpStateUpdateReceived_Statics::NewProp_IsJumping_SetBit, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_Adummy_clientCharacter_OnJumpStateUpdateReceived_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_Adummy_clientCharacter_OnJumpStateUpdateReceived_Statics::NewProp_IsJumping,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_Adummy_clientCharacter_OnJumpStateUpdateReceived_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_Adummy_clientCharacter_OnJumpStateUpdateReceived_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_Adummy_clientCharacter, nullptr, "OnJumpStateUpdateReceived", nullptr, nullptr, Z_Construct_UFunction_Adummy_clientCharacter_OnJumpStateUpdateReceived_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_Adummy_clientCharacter_OnJumpStateUpdateReceived_Statics::PropPointers), sizeof(Z_Construct_UFunction_Adummy_clientCharacter_OnJumpStateUpdateReceived_Statics::dummy_clientCharacter_eventOnJumpStateUpdateReceived_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00080401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_Adummy_clientCharacter_OnJumpStateUpdateReceived_Statics::Function_MetaDataParams), Z_Construct_UFunction_Adummy_clientCharacter_OnJumpStateUpdateReceived_Statics::Function_MetaDataParams) };
+static_assert(sizeof(Z_Construct_UFunction_Adummy_clientCharacter_OnJumpStateUpdateReceived_Statics::dummy_clientCharacter_eventOnJumpStateUpdateReceived_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_Adummy_clientCharacter_OnJumpStateUpdateReceived()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_Adummy_clientCharacter_OnJumpStateUpdateReceived_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(Adummy_clientCharacter::execOnJumpStateUpdateReceived)
+{
+	P_GET_UBOOL(Z_Param_IsJumping);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->OnJumpStateUpdateReceived(Z_Param_IsJumping);
+	P_NATIVE_END;
+}
+// End Class Adummy_clientCharacter Function OnJumpStateUpdateReceived
+
+// Begin Class Adummy_clientCharacter Function OnNetworkConnected
+static const FName NAME_Adummy_clientCharacter_OnNetworkConnected = FName(TEXT("OnNetworkConnected"));
+void Adummy_clientCharacter::OnNetworkConnected()
+{
+	UFunction* Func = FindFunctionChecked(NAME_Adummy_clientCharacter_OnNetworkConnected);
+	ProcessEvent(Func,NULL);
+}
+struct Z_Construct_UFunction_Adummy_clientCharacter_OnNetworkConnected_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "Networking" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "/** \xef\xbf\xbd\xef\xbf\xbd\xc6\xae\xef\xbf\xbd\xef\xbf\xbd\xc5\xa9 \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xcc\xba\xef\xbf\xbd\xc6\xae */" },
+#endif
+		{ "ModuleRelativePath", "dummy_clientCharacter.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "\xef\xbf\xbd\xef\xbf\xbd\xc6\xae\xef\xbf\xbd\xef\xbf\xbd\xc5\xa9 \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xcc\xba\xef\xbf\xbd\xc6\xae" },
+#endif
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_Adummy_clientCharacter_OnNetworkConnected_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_Adummy_clientCharacter, nullptr, "OnNetworkConnected", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x08080800, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_Adummy_clientCharacter_OnNetworkConnected_Statics::Function_MetaDataParams), Z_Construct_UFunction_Adummy_clientCharacter_OnNetworkConnected_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_Adummy_clientCharacter_OnNetworkConnected()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_Adummy_clientCharacter_OnNetworkConnected_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+// End Class Adummy_clientCharacter Function OnNetworkConnected
+
+// Begin Class Adummy_clientCharacter Function OnNetworkDisconnected
+static const FName NAME_Adummy_clientCharacter_OnNetworkDisconnected = FName(TEXT("OnNetworkDisconnected"));
+void Adummy_clientCharacter::OnNetworkDisconnected()
+{
+	UFunction* Func = FindFunctionChecked(NAME_Adummy_clientCharacter_OnNetworkDisconnected);
+	ProcessEvent(Func,NULL);
+}
+struct Z_Construct_UFunction_Adummy_clientCharacter_OnNetworkDisconnected_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "Networking" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "/** \xef\xbf\xbd\xef\xbf\xbd\xc6\xae\xef\xbf\xbd\xef\xbf\xbd\xc5\xa9 \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xcc\xba\xef\xbf\xbd\xc6\xae */" },
+#endif
+		{ "ModuleRelativePath", "dummy_clientCharacter.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "\xef\xbf\xbd\xef\xbf\xbd\xc6\xae\xef\xbf\xbd\xef\xbf\xbd\xc5\xa9 \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xcc\xba\xef\xbf\xbd\xc6\xae" },
+#endif
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_Adummy_clientCharacter_OnNetworkDisconnected_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_Adummy_clientCharacter, nullptr, "OnNetworkDisconnected", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x08080800, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_Adummy_clientCharacter_OnNetworkDisconnected_Statics::Function_MetaDataParams), Z_Construct_UFunction_Adummy_clientCharacter_OnNetworkDisconnected_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_Adummy_clientCharacter_OnNetworkDisconnected()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_Adummy_clientCharacter_OnNetworkDisconnected_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+// End Class Adummy_clientCharacter Function OnNetworkDisconnected
+
+// Begin Class Adummy_clientCharacter Function OnOtherPlayerSpawned
+struct dummy_clientCharacter_eventOnOtherPlayerSpawned_Parms
+{
+	AActor* OtherPlayerActor;
+};
+static const FName NAME_Adummy_clientCharacter_OnOtherPlayerSpawned = FName(TEXT("OnOtherPlayerSpawned"));
+void Adummy_clientCharacter::OnOtherPlayerSpawned(AActor* OtherPlayerActor)
+{
+	dummy_clientCharacter_eventOnOtherPlayerSpawned_Parms Parms;
+	Parms.OtherPlayerActor=OtherPlayerActor;
+	UFunction* Func = FindFunctionChecked(NAME_Adummy_clientCharacter_OnOtherPlayerSpawned);
+	ProcessEvent(Func,&Parms);
+}
+struct Z_Construct_UFunction_Adummy_clientCharacter_OnOtherPlayerSpawned_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "Category", "Networking" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "/** \xef\xbf\xbd\xd9\xb8\xef\xbf\xbd \xef\xbf\xbd\xc3\xb7\xef\xbf\xbd\xef\xbf\xbd\xcc\xbe\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xcc\xba\xef\xbf\xbd\xc6\xae */" },
+#endif
+		{ "ModuleRelativePath", "dummy_clientCharacter.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "\xef\xbf\xbd\xd9\xb8\xef\xbf\xbd \xef\xbf\xbd\xc3\xb7\xef\xbf\xbd\xef\xbf\xbd\xcc\xbe\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xcc\xba\xef\xbf\xbd\xc6\xae" },
+#endif
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_OtherPlayerActor;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_Adummy_clientCharacter_OnOtherPlayerSpawned_Statics::NewProp_OtherPlayerActor = { "OtherPlayerActor", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(dummy_clientCharacter_eventOnOtherPlayerSpawned_Parms, OtherPlayerActor), Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_Adummy_clientCharacter_OnOtherPlayerSpawned_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_Adummy_clientCharacter_OnOtherPlayerSpawned_Statics::NewProp_OtherPlayerActor,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_Adummy_clientCharacter_OnOtherPlayerSpawned_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_Adummy_clientCharacter_OnOtherPlayerSpawned_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_Adummy_clientCharacter, nullptr, "OnOtherPlayerSpawned", nullptr, nullptr, Z_Construct_UFunction_Adummy_clientCharacter_OnOtherPlayerSpawned_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_Adummy_clientCharacter_OnOtherPlayerSpawned_Statics::PropPointers), sizeof(dummy_clientCharacter_eventOnOtherPlayerSpawned_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x08080800, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_Adummy_clientCharacter_OnOtherPlayerSpawned_Statics::Function_MetaDataParams), Z_Construct_UFunction_Adummy_clientCharacter_OnOtherPlayerSpawned_Statics::Function_MetaDataParams) };
+static_assert(sizeof(dummy_clientCharacter_eventOnOtherPlayerSpawned_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_Adummy_clientCharacter_OnOtherPlayerSpawned()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_Adummy_clientCharacter_OnOtherPlayerSpawned_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+// End Class Adummy_clientCharacter Function OnOtherPlayerSpawned
 
 // Begin Class Adummy_clientCharacter Function OnPositionUpdateReceived
 struct Z_Construct_UFunction_Adummy_clientCharacter_OnPositionUpdateReceived_Statics
@@ -30,11 +315,11 @@ struct Z_Construct_UFunction_Adummy_clientCharacter_OnPositionUpdateReceived_Sta
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
 #if !UE_BUILD_SHIPPING
-		{ "Comment", "/** \xef\xbf\xbd\xd9\xb8\xef\xbf\xbd \xef\xbf\xbd\xc3\xb7\xef\xbf\xbd\xef\xbf\xbd\xcc\xbe\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xc4\xa1 \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xc3\xb3\xef\xbf\xbd\xef\xbf\xbd */" },
+		{ "Comment", "/** \xef\xbf\xbd\xd9\xb8\xef\xbf\xbd \xef\xbf\xbd\xc3\xb7\xef\xbf\xbd\xef\xbf\xbd\xcc\xbe\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xc4\xa1 \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xc6\xae \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd */" },
 #endif
 		{ "ModuleRelativePath", "dummy_clientCharacter.h" },
 #if !UE_BUILD_SHIPPING
-		{ "ToolTip", "\xef\xbf\xbd\xd9\xb8\xef\xbf\xbd \xef\xbf\xbd\xc3\xb7\xef\xbf\xbd\xef\xbf\xbd\xcc\xbe\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xc4\xa1 \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xc3\xb3\xef\xbf\xbd\xef\xbf\xbd" },
+		{ "ToolTip", "\xef\xbf\xbd\xd9\xb8\xef\xbf\xbd \xef\xbf\xbd\xc3\xb7\xef\xbf\xbd\xef\xbf\xbd\xcc\xbe\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xc4\xa1 \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xc6\xae \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd" },
 #endif
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_NewPosition_MetaData[] = {
@@ -71,21 +356,64 @@ DEFINE_FUNCTION(Adummy_clientCharacter::execOnPositionUpdateReceived)
 }
 // End Class Adummy_clientCharacter Function OnPositionUpdateReceived
 
-// Begin Class Adummy_clientCharacter Function SpawnOtherPlayerCharacter
-struct dummy_clientCharacter_eventSpawnOtherPlayerCharacter_Parms
+// Begin Class Adummy_clientCharacter Function OnRotationUpdateReceived
+struct Z_Construct_UFunction_Adummy_clientCharacter_OnRotationUpdateReceived_Statics
 {
-	FVector Position;
+	struct dummy_clientCharacter_eventOnRotationUpdateReceived_Parms
+	{
+		FRotator NewRotation;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "/** \xef\xbf\xbd\xd9\xb8\xef\xbf\xbd \xef\xbf\xbd\xc3\xb7\xef\xbf\xbd\xef\xbf\xbd\xcc\xbe\xef\xbf\xbd \xc8\xb8\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xc6\xae \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd */" },
+#endif
+		{ "ModuleRelativePath", "dummy_clientCharacter.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "\xef\xbf\xbd\xd9\xb8\xef\xbf\xbd \xef\xbf\xbd\xc3\xb7\xef\xbf\xbd\xef\xbf\xbd\xcc\xbe\xef\xbf\xbd \xc8\xb8\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xc6\xae \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd" },
+#endif
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_NewRotation_MetaData[] = {
+		{ "NativeConst", "" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FStructPropertyParams NewProp_NewRotation;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-static const FName NAME_Adummy_clientCharacter_SpawnOtherPlayerCharacter = FName(TEXT("SpawnOtherPlayerCharacter"));
-void Adummy_clientCharacter::SpawnOtherPlayerCharacter(FVector const& Position)
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_Adummy_clientCharacter_OnRotationUpdateReceived_Statics::NewProp_NewRotation = { "NewRotation", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(dummy_clientCharacter_eventOnRotationUpdateReceived_Parms, NewRotation), Z_Construct_UScriptStruct_FRotator, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_NewRotation_MetaData), NewProp_NewRotation_MetaData) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_Adummy_clientCharacter_OnRotationUpdateReceived_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_Adummy_clientCharacter_OnRotationUpdateReceived_Statics::NewProp_NewRotation,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_Adummy_clientCharacter_OnRotationUpdateReceived_Statics::PropPointers) < 2048);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_Adummy_clientCharacter_OnRotationUpdateReceived_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_Adummy_clientCharacter, nullptr, "OnRotationUpdateReceived", nullptr, nullptr, Z_Construct_UFunction_Adummy_clientCharacter_OnRotationUpdateReceived_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_Adummy_clientCharacter_OnRotationUpdateReceived_Statics::PropPointers), sizeof(Z_Construct_UFunction_Adummy_clientCharacter_OnRotationUpdateReceived_Statics::dummy_clientCharacter_eventOnRotationUpdateReceived_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00C80401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_Adummy_clientCharacter_OnRotationUpdateReceived_Statics::Function_MetaDataParams), Z_Construct_UFunction_Adummy_clientCharacter_OnRotationUpdateReceived_Statics::Function_MetaDataParams) };
+static_assert(sizeof(Z_Construct_UFunction_Adummy_clientCharacter_OnRotationUpdateReceived_Statics::dummy_clientCharacter_eventOnRotationUpdateReceived_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_Adummy_clientCharacter_OnRotationUpdateReceived()
 {
-	dummy_clientCharacter_eventSpawnOtherPlayerCharacter_Parms Parms;
-	Parms.Position=Position;
-	UFunction* Func = FindFunctionChecked(NAME_Adummy_clientCharacter_SpawnOtherPlayerCharacter);
-	ProcessEvent(Func,&Parms);
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_Adummy_clientCharacter_OnRotationUpdateReceived_Statics::FuncParams);
+	}
+	return ReturnFunction;
 }
+DEFINE_FUNCTION(Adummy_clientCharacter::execOnRotationUpdateReceived)
+{
+	P_GET_STRUCT_REF(FRotator,Z_Param_Out_NewRotation);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->OnRotationUpdateReceived(Z_Param_Out_NewRotation);
+	P_NATIVE_END;
+}
+// End Class Adummy_clientCharacter Function OnRotationUpdateReceived
+
+// Begin Class Adummy_clientCharacter Function SpawnOtherPlayerCharacter
 struct Z_Construct_UFunction_Adummy_clientCharacter_SpawnOtherPlayerCharacter_Statics
 {
+	struct dummy_clientCharacter_eventSpawnOtherPlayerCharacter_Parms
+	{
+		FVector Position;
+	};
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
 		{ "Category", "Networking" },
@@ -110,8 +438,8 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_Adummy
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_Adummy_clientCharacter_SpawnOtherPlayerCharacter_Statics::NewProp_Position,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_Adummy_clientCharacter_SpawnOtherPlayerCharacter_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_Adummy_clientCharacter_SpawnOtherPlayerCharacter_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_Adummy_clientCharacter, nullptr, "SpawnOtherPlayerCharacter", nullptr, nullptr, Z_Construct_UFunction_Adummy_clientCharacter_SpawnOtherPlayerCharacter_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_Adummy_clientCharacter_SpawnOtherPlayerCharacter_Statics::PropPointers), sizeof(dummy_clientCharacter_eventSpawnOtherPlayerCharacter_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x08C20800, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_Adummy_clientCharacter_SpawnOtherPlayerCharacter_Statics::Function_MetaDataParams), Z_Construct_UFunction_Adummy_clientCharacter_SpawnOtherPlayerCharacter_Statics::Function_MetaDataParams) };
-static_assert(sizeof(dummy_clientCharacter_eventSpawnOtherPlayerCharacter_Parms) < MAX_uint16);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_Adummy_clientCharacter_SpawnOtherPlayerCharacter_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_Adummy_clientCharacter, nullptr, "SpawnOtherPlayerCharacter", nullptr, nullptr, Z_Construct_UFunction_Adummy_clientCharacter_SpawnOtherPlayerCharacter_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_Adummy_clientCharacter_SpawnOtherPlayerCharacter_Statics::PropPointers), sizeof(Z_Construct_UFunction_Adummy_clientCharacter_SpawnOtherPlayerCharacter_Statics::dummy_clientCharacter_eventSpawnOtherPlayerCharacter_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04C20401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_Adummy_clientCharacter_SpawnOtherPlayerCharacter_Statics::Function_MetaDataParams), Z_Construct_UFunction_Adummy_clientCharacter_SpawnOtherPlayerCharacter_Statics::Function_MetaDataParams) };
+static_assert(sizeof(Z_Construct_UFunction_Adummy_clientCharacter_SpawnOtherPlayerCharacter_Statics::dummy_clientCharacter_eventSpawnOtherPlayerCharacter_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_Adummy_clientCharacter_SpawnOtherPlayerCharacter()
 {
 	static UFunction* ReturnFunction = nullptr;
@@ -121,6 +449,14 @@ UFunction* Z_Construct_UFunction_Adummy_clientCharacter_SpawnOtherPlayerCharacte
 	}
 	return ReturnFunction;
 }
+DEFINE_FUNCTION(Adummy_clientCharacter::execSpawnOtherPlayerCharacter)
+{
+	P_GET_STRUCT_REF(FVector,Z_Param_Out_Position);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->SpawnOtherPlayerCharacter(Z_Param_Out_Position);
+	P_NATIVE_END;
+}
 // End Class Adummy_clientCharacter Function SpawnOtherPlayerCharacter
 
 // Begin Class Adummy_clientCharacter
@@ -128,7 +464,11 @@ void Adummy_clientCharacter::StaticRegisterNativesAdummy_clientCharacter()
 {
 	UClass* Class = Adummy_clientCharacter::StaticClass();
 	static const FNameNativePtrPair Funcs[] = {
+		{ "OnConnectionStatusChanged", &Adummy_clientCharacter::execOnConnectionStatusChanged },
+		{ "OnJumpStateUpdateReceived", &Adummy_clientCharacter::execOnJumpStateUpdateReceived },
 		{ "OnPositionUpdateReceived", &Adummy_clientCharacter::execOnPositionUpdateReceived },
+		{ "OnRotationUpdateReceived", &Adummy_clientCharacter::execOnRotationUpdateReceived },
+		{ "SpawnOtherPlayerCharacter", &Adummy_clientCharacter::execSpawnOtherPlayerCharacter },
 	};
 	FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
 }
@@ -196,6 +536,25 @@ struct Z_Construct_UClass_Adummy_clientCharacter_Statics
 		{ "ToolTip", "\xef\xbf\xbd\xef\xbf\xbd\xc4\xa1 \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd (\xef\xbf\xbd\xef\xbf\xbd)" },
 #endif
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_OtherPlayerCharacterClass_MetaData[] = {
+		{ "Category", "Networking" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "/** \xef\xbf\xbd\xd9\xb8\xef\xbf\xbd \xef\xbf\xbd\xc3\xb7\xef\xbf\xbd\xef\xbf\xbd\xcc\xbe\xef\xbf\xbd \xc4\xb3\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xc5\xac\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd */" },
+#endif
+		{ "ModuleRelativePath", "dummy_clientCharacter.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "\xef\xbf\xbd\xd9\xb8\xef\xbf\xbd \xef\xbf\xbd\xc3\xb7\xef\xbf\xbd\xef\xbf\xbd\xcc\xbe\xef\xbf\xbd \xc4\xb3\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xc5\xac\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd" },
+#endif
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_OtherPlayers_MetaData[] = {
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "/** \xef\xbf\xbd\xd9\xb8\xef\xbf\xbd \xef\xbf\xbd\xc3\xb7\xef\xbf\xbd\xef\xbf\xbd\xcc\xbe\xef\xbf\xbd \xc4\xb3\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd */" },
+#endif
+		{ "ModuleRelativePath", "dummy_clientCharacter.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "\xef\xbf\xbd\xd9\xb8\xef\xbf\xbd \xef\xbf\xbd\xc3\xb7\xef\xbf\xbd\xef\xbf\xbd\xcc\xbe\xef\xbf\xbd \xc4\xb3\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd" },
+#endif
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_BaseTurnRate_MetaData[] = {
 		{ "Category", "Camera" },
 #if !UE_BUILD_SHIPPING
@@ -223,13 +582,23 @@ struct Z_Construct_UClass_Adummy_clientCharacter_Statics
 	static void NewProp_bEnableNetworkUpdates_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_bEnableNetworkUpdates;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_PositionUpdateInterval;
+	static const UECodeGen_Private::FClassPropertyParams NewProp_OtherPlayerCharacterClass;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_OtherPlayers_ValueProp;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_OtherPlayers_Key_KeyProp;
+	static const UECodeGen_Private::FMapPropertyParams NewProp_OtherPlayers;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_BaseTurnRate;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_BaseLookUpRate;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
-		{ &Z_Construct_UFunction_Adummy_clientCharacter_OnPositionUpdateReceived, "OnPositionUpdateReceived" }, // 1820151712
-		{ &Z_Construct_UFunction_Adummy_clientCharacter_SpawnOtherPlayerCharacter, "SpawnOtherPlayerCharacter" }, // 2132919159
+		{ &Z_Construct_UFunction_Adummy_clientCharacter_OnConnectionStatusChanged, "OnConnectionStatusChanged" }, // 3026786390
+		{ &Z_Construct_UFunction_Adummy_clientCharacter_OnJumpStateUpdateReceived, "OnJumpStateUpdateReceived" }, // 3762863654
+		{ &Z_Construct_UFunction_Adummy_clientCharacter_OnNetworkConnected, "OnNetworkConnected" }, // 105777910
+		{ &Z_Construct_UFunction_Adummy_clientCharacter_OnNetworkDisconnected, "OnNetworkDisconnected" }, // 4029573599
+		{ &Z_Construct_UFunction_Adummy_clientCharacter_OnOtherPlayerSpawned, "OnOtherPlayerSpawned" }, // 3017915130
+		{ &Z_Construct_UFunction_Adummy_clientCharacter_OnPositionUpdateReceived, "OnPositionUpdateReceived" }, // 4089396885
+		{ &Z_Construct_UFunction_Adummy_clientCharacter_OnRotationUpdateReceived, "OnRotationUpdateReceived" }, // 3581037615
+		{ &Z_Construct_UFunction_Adummy_clientCharacter_SpawnOtherPlayerCharacter, "SpawnOtherPlayerCharacter" }, // 3018696418
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -246,6 +615,10 @@ void Z_Construct_UClass_Adummy_clientCharacter_Statics::NewProp_bEnableNetworkUp
 }
 const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_Adummy_clientCharacter_Statics::NewProp_bEnableNetworkUpdates = { "bEnableNetworkUpdates", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(Adummy_clientCharacter), &Z_Construct_UClass_Adummy_clientCharacter_Statics::NewProp_bEnableNetworkUpdates_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bEnableNetworkUpdates_MetaData), NewProp_bEnableNetworkUpdates_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_Adummy_clientCharacter_Statics::NewProp_PositionUpdateInterval = { "PositionUpdateInterval", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Adummy_clientCharacter, PositionUpdateInterval), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_PositionUpdateInterval_MetaData), NewProp_PositionUpdateInterval_MetaData) };
+const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_Adummy_clientCharacter_Statics::NewProp_OtherPlayerCharacterClass = { "OtherPlayerCharacterClass", nullptr, (EPropertyFlags)0x0024080000010015, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Adummy_clientCharacter, OtherPlayerCharacterClass), Z_Construct_UClass_UClass, Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OtherPlayerCharacterClass_MetaData), NewProp_OtherPlayerCharacterClass_MetaData) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_Adummy_clientCharacter_Statics::NewProp_OtherPlayers_ValueProp = { "OtherPlayers", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 1, Z_Construct_UScriptStruct_FOtherPlayerInfo, METADATA_PARAMS(0, nullptr) }; // 3505176033
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_Adummy_clientCharacter_Statics::NewProp_OtherPlayers_Key_KeyProp = { "OtherPlayers_Key", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FMapPropertyParams Z_Construct_UClass_Adummy_clientCharacter_Statics::NewProp_OtherPlayers = { "OtherPlayers", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Map, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Adummy_clientCharacter, OtherPlayers), EMapPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OtherPlayers_MetaData), NewProp_OtherPlayers_MetaData) }; // 3505176033
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_Adummy_clientCharacter_Statics::NewProp_BaseTurnRate = { "BaseTurnRate", nullptr, (EPropertyFlags)0x0010000000020015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Adummy_clientCharacter, BaseTurnRate), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_BaseTurnRate_MetaData), NewProp_BaseTurnRate_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_Adummy_clientCharacter_Statics::NewProp_BaseLookUpRate = { "BaseLookUpRate", nullptr, (EPropertyFlags)0x0010000000020015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Adummy_clientCharacter, BaseLookUpRate), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_BaseLookUpRate_MetaData), NewProp_BaseLookUpRate_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_Adummy_clientCharacter_Statics::PropPointers[] = {
@@ -254,6 +627,10 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_Adummy_cl
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_Adummy_clientCharacter_Statics::NewProp_NetworkManager,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_Adummy_clientCharacter_Statics::NewProp_bEnableNetworkUpdates,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_Adummy_clientCharacter_Statics::NewProp_PositionUpdateInterval,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_Adummy_clientCharacter_Statics::NewProp_OtherPlayerCharacterClass,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_Adummy_clientCharacter_Statics::NewProp_OtherPlayers_ValueProp,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_Adummy_clientCharacter_Statics::NewProp_OtherPlayers_Key_KeyProp,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_Adummy_clientCharacter_Statics::NewProp_OtherPlayers,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_Adummy_clientCharacter_Statics::NewProp_BaseTurnRate,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_Adummy_clientCharacter_Statics::NewProp_BaseLookUpRate,
 };
@@ -297,13 +674,16 @@ Adummy_clientCharacter::~Adummy_clientCharacter() {}
 // Begin Registration
 struct Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_dummy_clientCharacter_h_Statics
 {
+	static constexpr FStructRegisterCompiledInInfo ScriptStructInfo[] = {
+		{ FOtherPlayerInfo::StaticStruct, Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics::NewStructOps, TEXT("OtherPlayerInfo"), &Z_Registration_Info_UScriptStruct_OtherPlayerInfo, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FOtherPlayerInfo), 3505176033U) },
+	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_Adummy_clientCharacter, Adummy_clientCharacter::StaticClass, TEXT("Adummy_clientCharacter"), &Z_Registration_Info_UClass_Adummy_clientCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(Adummy_clientCharacter), 2181745723U) },
+		{ Z_Construct_UClass_Adummy_clientCharacter, Adummy_clientCharacter::StaticClass, TEXT("Adummy_clientCharacter"), &Z_Registration_Info_UClass_Adummy_clientCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(Adummy_clientCharacter), 1525065909U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_dummy_clientCharacter_h_1874983011(TEXT("/Script/dummy_client"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_dummy_clientCharacter_h_4276391097(TEXT("/Script/dummy_client"),
 	Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_dummy_clientCharacter_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_dummy_clientCharacter_h_Statics::ClassInfo),
-	nullptr, 0,
+	Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_dummy_clientCharacter_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_dummy_clientCharacter_h_Statics::ScriptStructInfo),
 	nullptr, 0);
 // End Registration
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

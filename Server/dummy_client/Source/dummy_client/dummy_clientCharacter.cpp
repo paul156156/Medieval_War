@@ -7,12 +7,15 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "dummy_clientGameMode.h"
 #include "NetworkManager.h"
+#include "Kismet/GameplayStatics.h"
+#include "Engine/World.h"
 
 Adummy_clientCharacter::Adummy_clientCharacter()
     : NetworkManager(nullptr)
     , bEnableNetworkUpdates(true)
     , LastPositionSentTime(0.0f)
     , PositionUpdateInterval(0.1f) // 10Hz 업데이트 간격
+    , OtherPlayerCharacterClass(nullptr)
 {
     // 캡슐 컴포넌트 설정
     GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
@@ -71,6 +74,9 @@ void Adummy_clientCharacter::Tick(float DeltaTime)
             LastPositionSentTime = CurrentTime;
         }
     }
+
+    // 다른 플레이어 캐릭터 위치 보간 처리
+    UpdateOtherPlayerCharacters(DeltaTime);
 }
 
 void Adummy_clientCharacter::InitializeNetworkManager()
@@ -80,10 +86,13 @@ void Adummy_clientCharacter::InitializeNetworkManager()
     {
         NetworkManager = GameMode->GetNetworkManager();
 
-        // 위치 업데이트 델리게이트 바인딩
         if (NetworkManager)
         {
+            // 델리게이트 바인딩
             NetworkManager->OnPositionUpdate.AddDynamic(this, &Adummy_clientCharacter::OnPositionUpdateReceived);
+            NetworkManager->OnRotationUpdate.AddDynamic(this, &Adummy_clientCharacter::OnRotationUpdateReceived);
+            NetworkManager->OnJumpStateUpdate.AddDynamic(this, &Adummy_clientCharacter::OnJumpStateUpdateReceived);
+            NetworkManager->OnConnectionStatusChanged.AddDynamic(this, &Adummy_clientCharacter::OnConnectionStatusChanged);
         }
     }
 }
@@ -109,9 +118,113 @@ void Adummy_clientCharacter::SendPositionToServer()
 
 void Adummy_clientCharacter::OnPositionUpdateReceived(const FVector& NewPosition)
 {
-    // 다른 플레이어의 위치 정보 수신
-    // 블루프린트에서 구현할 함수 호출
-    SpawnOtherPlayerCharacter(NewPosition);
+    // 다른 플레이어가 존재하는지 확인
+    bool bPlayerExists = false;
+    for (auto& OtherPlayer : OtherPlayers)
+    {
+        // 가장 가까운 플레이어를 찾아 위치 업데이트
+        // 실제 구현에서는 플레이어 ID 등을 사용해야 함
+        if (!bPlayerExists || (OtherPlayer.Key->GetActorLocation() - NewPosition).SizeSquared() < 100000.0f)
+        {
+            OtherPlayer.Value.TargetPosition = NewPosition;
+            OtherPlayer.Value.PositionInterpolationTime = 0.0f;
+            bPlayerExists = true;
+            break;
+        }
+    }
+
+    // 존재하지 않는 경우 새로 생성
+    if (!bPlayerExists)
+    {
+        SpawnOtherPlayerCharacterInternal(NewPosition);
+    }
+}
+
+void Adummy_clientCharacter::OnRotationUpdateReceived(const FRotator& NewRotation)
+{
+    // 가장 최근에 업데이트된 플레이어의 회전값 설정
+    for (auto& OtherPlayer : OtherPlayers)
+    {
+        OtherPlayer.Value.TargetRotation = NewRotation;
+        OtherPlayer.Value.RotationInterpolationTime = 0.0f;
+        break; // 현재는 단순히 첫 번째 플레이어에게만 적용
+    }
+}
+
+void Adummy_clientCharacter::OnJumpStateUpdateReceived(bool IsJumping)
+{
+    // 가장 최근에 업데이트된 플레이어의 점프 상태 설정
+    for (auto& OtherPlayer : OtherPlayers)
+    {
+        if (IsJumping)
+        {
+            // 캐릭터가 ACharacter 클래스의 인스턴스인지 확인
+            if (ACharacter* OtherCharacter = Cast<ACharacter>(OtherPlayer.Key))
+            {
+                OtherCharacter->Jump();
+            }
+        }
+        break; // 현재는 단순히 첫 번째 플레이어에게만 적용
+    }
+}
+
+void Adummy_clientCharacter::OnConnectionStatusChanged(bool IsConnected)
+{
+    if (!IsConnected)
+    {
+        // 연결 해제 시 다른 플레이어 캐릭터 제거
+        for (auto& OtherPlayer : OtherPlayers)
+        {
+            if (OtherPlayer.Key && IsValid(OtherPlayer.Key))
+            {
+                OtherPlayer.Key->Destroy();
+            }
+        }
+        OtherPlayers.Empty();
+
+        // UI에 연결 해제 표시 등 추가 기능 구현 가능
+        OnNetworkDisconnected();
+    }
+    else
+    {
+        // 연결 성공 시 처리
+        OnNetworkConnected();
+    }
+}
+
+void Adummy_clientCharacter::UpdateOtherPlayerCharacters(float DeltaTime)
+{
+    // 다른 플레이어 캐릭터 위치/회전 보간 처리
+    TArray<AActor*> InvalidActors;
+
+    for (auto& OtherPlayer : OtherPlayers)
+    {
+        if (OtherPlayer.Key && IsValid(OtherPlayer.Key))
+        {
+            // 위치 보간
+            OtherPlayer.Value.PositionInterpolationTime += DeltaTime;
+            float PosAlpha = FMath::Clamp(OtherPlayer.Value.PositionInterpolationTime / 0.1f, 0.0f, 1.0f);
+            FVector NewPos = FMath::Lerp(OtherPlayer.Key->GetActorLocation(), OtherPlayer.Value.TargetPosition, PosAlpha);
+            OtherPlayer.Key->SetActorLocation(NewPos);
+
+            // 회전 보간
+            OtherPlayer.Value.RotationInterpolationTime += DeltaTime;
+            float RotAlpha = FMath::Clamp(OtherPlayer.Value.RotationInterpolationTime / 0.1f, 0.0f, 1.0f);
+            FRotator NewRot = FMath::Lerp(OtherPlayer.Key->GetActorRotation(), OtherPlayer.Value.TargetRotation, RotAlpha);
+            OtherPlayer.Key->SetActorRotation(NewRot);
+        }
+        else
+        {
+            // 유효하지 않은 액터 표시
+            InvalidActors.Add(OtherPlayer.Key);
+        }
+    }
+
+    // 유효하지 않은 액터 제거
+    for (AActor* Actor : InvalidActors)
+    {
+        OtherPlayers.Remove(Actor);
+    }
 }
 
 void Adummy_clientCharacter::Jump()
@@ -134,6 +247,37 @@ void Adummy_clientCharacter::StopJumping()
     {
         NetworkManager->SendJumpPacket(false, GetActorLocation());
     }
+}
+
+AActor* Adummy_clientCharacter::SpawnOtherPlayerCharacterInternal(const FVector& Position)
+{
+    if (!GetWorld() || !OtherPlayerCharacterClass)
+    {
+        return nullptr;
+    }
+
+    // 다른 플레이어 캐릭터 스폰
+    FActorSpawnParameters SpawnParams;
+    SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+
+    AActor* NewPlayerActor = GetWorld()->SpawnActor<AActor>(OtherPlayerCharacterClass, Position, FRotator::ZeroRotator, SpawnParams);
+
+    if (NewPlayerActor)
+    {
+        // 캐릭터 정보 저장
+        FOtherPlayerInfo PlayerInfo;
+        PlayerInfo.TargetPosition = Position;
+        PlayerInfo.TargetRotation = FRotator::ZeroRotator;
+        PlayerInfo.PositionInterpolationTime = 0.0f;
+        PlayerInfo.RotationInterpolationTime = 0.0f;
+
+        OtherPlayers.Add(NewPlayerActor, PlayerInfo);
+
+        // 블루프린트 이벤트 호출
+        OnOtherPlayerSpawned(NewPlayerActor);
+    }
+
+    return NewPlayerActor;
 }
 
 // 기본 입력 함수들 구현

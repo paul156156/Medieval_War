@@ -10,8 +10,10 @@
 UNetworkManager::UNetworkManager()
     : Socket(nullptr)
     , bIsConnected(false)
+    , LastErrorCode(0)
 {
-    // 생성자
+    // 수신 버퍼 초기화
+    FMemory::Memzero(RecvBuffer, sizeof(RecvBuffer));
 }
 
 UNetworkManager::~UNetworkManager()
@@ -33,14 +35,16 @@ bool UNetworkManager::ConnectToServer(const FString& IPAddress, int32 Port)
     if (!SocketSubsystem)
     {
         UE_LOG(LogTemp, Error, TEXT("Socket Subsystem not found"));
+        LastErrorCode = 1;
         return false;
     }
 
     // 소켓 생성
-    Socket = SocketSubsystem->CreateSocket(NAME_Stream, TEXT("Default"), true);
+    Socket = SocketSubsystem->CreateSocket(NAME_Stream, TEXT("Default TCP Socket"), true);
     if (!Socket)
     {
         UE_LOG(LogTemp, Error, TEXT("Failed to create socket"));
+        LastErrorCode = 2;
         return false;
     }
 
@@ -52,13 +56,15 @@ bool UNetworkManager::ConnectToServer(const FString& IPAddress, int32 Port)
     // 서버 연결
     if (!Socket->Connect(*ServerEndpoint.ToInternetAddr()))
     {
-        UE_LOG(LogTemp, Error, TEXT("Failed to connect to server %s:%d"), *IPAddress, Port);
+        LastErrorCode = SocketSubsystem->GetLastErrorCode();
+        UE_LOG(LogTemp, Error, TEXT("Failed to connect to server %s:%d (Error: %d)"),
+            *IPAddress, Port, LastErrorCode);
         SocketSubsystem->DestroySocket(Socket);
         Socket = nullptr;
         return false;
     }
 
-    // 논블로킹 모드 설정
+    // 논블록킹 모드 설정
     Socket->SetNonBlocking(true);
 
     // 연결 성공
@@ -125,7 +131,13 @@ void UNetworkManager::SendMovePacket(float ForwardValue, float RightValue, const
 
     // 패킷 전송
     int32 BytesSent = 0;
-    Socket->Send(reinterpret_cast<uint8*>(&Packet), sizeof(FMovePacket), BytesSent);
+    bool bSuccess = Socket->Send(reinterpret_cast<uint8*>(&Packet), sizeof(FMovePacket), BytesSent);
+
+    // 전송 실패 시 연결 상태 체크
+    if (!bSuccess || BytesSent != sizeof(FMovePacket))
+    {
+        CheckConnectionStatus();
+    }
 }
 
 void UNetworkManager::SendJumpPacket(bool IsJumping, const FVector& Position)
@@ -146,7 +158,13 @@ void UNetworkManager::SendJumpPacket(bool IsJumping, const FVector& Position)
 
     // 패킷 전송
     int32 BytesSent = 0;
-    Socket->Send(reinterpret_cast<uint8*>(&Packet), sizeof(FJumpPacket), BytesSent);
+    bool bSuccess = Socket->Send(reinterpret_cast<uint8*>(&Packet), sizeof(FJumpPacket), BytesSent);
+
+    // 전송 실패 시 연결 상태 체크
+    if (!bSuccess || BytesSent != sizeof(FJumpPacket))
+    {
+        CheckConnectionStatus();
+    }
 }
 
 void UNetworkManager::ProcessIncomingPackets()
@@ -163,7 +181,13 @@ void UNetworkManager::ProcessIncomingPackets()
     {
         // 데이터 수신
         int32 BytesRead = 0;
-        Socket->Recv(RecvBuffer, FMath::Min(PendingDataSize, (uint32)sizeof(RecvBuffer)), BytesRead);
+        bool bSuccess = Socket->Recv(RecvBuffer, FMath::Min(PendingDataSize, (uint32)sizeof(RecvBuffer)), BytesRead);
+
+        if (!bSuccess)
+        {
+            CheckConnectionStatus();
+            return;
+        }
 
         if (BytesRead >= sizeof(FPacketHeader))
         {
@@ -196,16 +220,58 @@ void UNetworkManager::HandlePositionUpdatePacket(const FPositionUpdatePacket* Pa
 
     // 위치 정보 추출
     FVector NewPosition(Packet->Position.X, Packet->Position.Y, Packet->Position.Z);
+    FRotator NewRotation(Packet->Rotation.Pitch, Packet->Rotation.Yaw, Packet->Rotation.Roll);
+    bool bIsJumping = Packet->IsJumping;
 
     // 델리게이트 호출
     OnPositionUpdate.Broadcast(NewPosition);
+    OnRotationUpdate.Broadcast(NewRotation);
+    OnJumpStateUpdate.Broadcast(bIsJumping);
 
     // 디버그 로그
-    UE_LOG(LogTemp, Verbose, TEXT("Position Update: X=%.2f Y=%.2f Z=%.2f"),
-        Packet->Position.X, Packet->Position.Y, Packet->Position.Z);
+    UE_LOG(LogTemp, Verbose, TEXT("Position Update: X=%.2f Y=%.2f Z=%.2f, Jumping=%s"),
+        Packet->Position.X, Packet->Position.Y, Packet->Position.Z,
+        Packet->IsJumping ? TEXT("true") : TEXT("false"));
 }
 
 bool UNetworkManager::IsConnected() const
 {
     return Socket != nullptr && bIsConnected;
+}
+
+void UNetworkManager::CheckConnectionStatus()
+{
+    if (!Socket)
+    {
+        bIsConnected = false;
+        return;
+    }
+
+    // 소켓 연결 상태 확인
+    bool bConnectionLost = false;
+
+    // 간단한 연결 테스트 (0바이트 전송)
+    int32 BytesSent = 0;
+    if (!Socket->Send(nullptr, 0, BytesSent))
+    {
+        ISocketSubsystem* SocketSubsystem = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM);
+        if (SocketSubsystem)
+        {
+            LastErrorCode = SocketSubsystem->GetLastErrorCode();
+            if (LastErrorCode != 0)
+            {
+                bConnectionLost = true;
+            }
+        }
+    }
+
+    if (bConnectionLost)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Connection to server lost (Error: %d)"), LastErrorCode);
+        bIsConnected = false;
+        OnConnectionStatusChanged.Broadcast(false);
+
+        // 연결 해제 처리
+        DisconnectFromServer();
+    }
 }

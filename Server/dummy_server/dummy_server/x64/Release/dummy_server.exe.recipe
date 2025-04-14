@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\Blues\Documents\GitHub\Medieval_War\Server\MW_Server\dummy_server\x64\Release\dummy_server.exe</FullPath>
+      <FullPath>C:\Users\Blues\Documents\GitHub\Medieval_War\server\dummy_server\x64\Release\dummy_server.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />
