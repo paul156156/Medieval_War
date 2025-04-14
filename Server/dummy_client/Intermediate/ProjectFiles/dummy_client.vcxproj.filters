@@ -56,5 +56,11 @@
     <ClCompile Include="..\..\Source\dummy_client\dummy_clientGameMode.h">
       <Filter>Source\dummy_client</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\dummy_client\NetworkManager.cpp">
+      <Filter>Source\dummy_client</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\dummy_client\NetworkManager.h">
+      <Filter>Source\dummy_client</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

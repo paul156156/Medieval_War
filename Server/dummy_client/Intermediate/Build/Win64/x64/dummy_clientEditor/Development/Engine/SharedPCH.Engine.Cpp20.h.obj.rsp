@@ -1,4 +1,4 @@
-"C:\Users\Blues\Documents\GitHub\Medieval_War\Server\dummy_client\Intermediate\Build\Win64\x64\dummy_clientEditor\Development\Engine\SharedPCH.Engine.Cpp20.cpp"
+"C:\Users\Blues\Documents\GitHub\Medieval_War\server\dummy_client\Intermediate\Build\Win64\x64\dummy_clientEditor\Development\Engine\SharedPCH.Engine.Cpp20.cpp"
 /I "."
 /I "..\Intermediate\Build\Win64\UnrealEditor\Inc\Engine\UHT"
 /I "Runtime\Engine\Classes"
@@ -298,10 +298,10 @@
 /external:I "C:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\um"
 /external:I "C:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\winrt"
 /Yc"SharedPCH.Engine.Cpp20.h"
-/Fp"C:\Users\Blues\Documents\GitHub\Medieval_War\Server\dummy_client\Intermediate\Build\Win64\x64\dummy_clientEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.pch"
-/Fo"C:\Users\Blues\Documents\GitHub\Medieval_War\Server\dummy_client\Intermediate\Build\Win64\x64\dummy_clientEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.obj"
-/experimental:log "C:\Users\Blues\Documents\GitHub\Medieval_War\Server\dummy_client\Intermediate\Build\Win64\x64\dummy_clientEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.sarif"
-/sourceDependencies "C:\Users\Blues\Documents\GitHub\Medieval_War\Server\dummy_client\Intermediate\Build\Win64\x64\dummy_clientEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.dep.json"
+/Fp"C:\Users\Blues\Documents\GitHub\Medieval_War\server\dummy_client\Intermediate\Build\Win64\x64\dummy_clientEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.pch"
+/Fo"C:\Users\Blues\Documents\GitHub\Medieval_War\server\dummy_client\Intermediate\Build\Win64\x64\dummy_clientEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.obj"
+/experimental:log "C:\Users\Blues\Documents\GitHub\Medieval_War\server\dummy_client\Intermediate\Build\Win64\x64\dummy_clientEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.sarif"
+/sourceDependencies "C:\Users\Blues\Documents\GitHub\Medieval_War\server\dummy_client\Intermediate\Build\Win64\x64\dummy_clientEditor\Development\Engine\SharedPCH.Engine.Cpp20.h.dep.json"
 /d2ssa-cfg-question-
 /Zc:inline
 /nologo

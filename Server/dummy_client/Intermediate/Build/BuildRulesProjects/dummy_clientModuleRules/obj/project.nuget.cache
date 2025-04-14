@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "y7Z1vaB+zBs=",
+  "dgSpecHash": "6xhGyW5oaec=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Blues\\Documents\\GitHub\\Medieval_War\\Server\\dummy_client\\Intermediate\\Build\\BuildRulesProjects\\dummy_clientModuleRules\\dummy_clientModuleRules.csproj",
+  "projectFilePath": "C:\\Users\\Blues\\Documents\\GitHub\\Medieval_War\\server\\dummy_client\\Intermediate\\Build\\BuildRulesProjects\\dummy_clientModuleRules\\dummy_clientModuleRules.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Blues\\.nuget\\packages\\bitfaster.caching\\2.4.1\\bitfaster.caching.2.4.1.nupkg.sha512",
     "C:\\Users\\Blues\\.nuget\\packages\\blake3\\1.1.0\\blake3.1.1.0.nupkg.sha512",
