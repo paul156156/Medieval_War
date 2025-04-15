@@ -266,7 +266,7 @@ private:
             {
                 MovePacket* packet = reinterpret_cast<MovePacket*>(data);
 
-                std::cout << " input: Forward=" << packet->ForwardValue << ", Right=" << packet->RightValue << std::endl;
+                //std::cout << " input: Forward=" << packet->ForwardValue << ", Right=" << packet->RightValue << std::endl;
 
                 // 클라이언트 상태 업데이트
                 client->Position.X = packet->Position.X;

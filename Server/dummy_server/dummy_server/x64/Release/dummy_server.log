@@ -1,7 +1,7 @@
 ﻿  main.cpp
   코드를 생성하고 있습니다.
-  9 of 233 functions ( 3.9%) were compiled, the rest were copied from previous compilation.
+  4 of 233 functions ( 1.7%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    6 functions had inline decision re-evaluated but remain unchanged
+    8 functions had inline decision re-evaluated but remain unchanged
   코드를 생성했습니다.
   dummy_server.vcxproj -> C:\Users\Blues\Documents\GitHub\Medieval_War\server\dummy_server\x64\Release\dummy_server.exe
