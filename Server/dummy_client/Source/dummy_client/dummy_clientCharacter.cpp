@@ -15,6 +15,7 @@ Adummy_clientCharacter::Adummy_clientCharacter()
     , bEnableNetworkUpdates(true)
     , LastPositionSentTime(0.0f)
     , PositionUpdateInterval(0.1f) // 10Hz 업데이트 간격
+    , LocalClientId(-1)  // 초기 클라이언트 ID는 -1로 설정
     , OtherPlayerCharacterClass(nullptr)
 {
     // 캡슐 컴포넌트 설정
@@ -56,6 +57,10 @@ void Adummy_clientCharacter::BeginPlay()
 
     // 네트워크 매니저 초기화
     InitializeNetworkManager();
+
+    // 디버깅 로그 추가
+    UE_LOG(LogTemp, Warning, TEXT("Player Character BeginPlay - Other Player Class: %s"),
+        OtherPlayerCharacterClass ? *OtherPlayerCharacterClass->GetName() : TEXT("NULL"));
 }
 
 void Adummy_clientCharacter::Tick(float DeltaTime)
@@ -96,11 +101,24 @@ void Adummy_clientCharacter::InitializeNetworkManager()
 
         if (NetworkManager)
         {
-            // 델리게이트 바인딩
-            NetworkManager->OnPositionUpdate.AddDynamic(this, &Adummy_clientCharacter::OnPositionUpdateReceived);
-            NetworkManager->OnRotationUpdate.AddDynamic(this, &Adummy_clientCharacter::OnRotationUpdateReceived);
-            NetworkManager->OnJumpStateUpdate.AddDynamic(this, &Adummy_clientCharacter::OnJumpStateUpdateReceived);
+            // 이전 델리게이트 바인딩 제거 (안전을 위해)
+            NetworkManager->OnPositionUpdate.RemoveDynamic(this, &Adummy_clientCharacter::OnPositionUpdateReceived);
+            NetworkManager->OnRotationUpdate.RemoveDynamic(this, &Adummy_clientCharacter::OnRotationUpdateReceived);
+            NetworkManager->OnJumpStateUpdate.RemoveDynamic(this, &Adummy_clientCharacter::OnJumpStateUpdateReceived);
+            NetworkManager->OnPlayerUpdate.RemoveDynamic(this, &Adummy_clientCharacter::OnPlayerUpdateReceived);
+            NetworkManager->OnClientIdReceived.RemoveDynamic(this, &Adummy_clientCharacter::OnClientIdReceived);
+            NetworkManager->OnConnectionStatusChanged.RemoveDynamic(this, &Adummy_clientCharacter::OnConnectionStatusChanged);
+
+            // 새로운 델리게이트만 바인딩 (레거시는 제외)
+            NetworkManager->OnPlayerUpdate.AddDynamic(this, &Adummy_clientCharacter::OnPlayerUpdateReceived);
+            NetworkManager->OnClientIdReceived.AddDynamic(this, &Adummy_clientCharacter::OnClientIdReceived);
             NetworkManager->OnConnectionStatusChanged.AddDynamic(this, &Adummy_clientCharacter::OnConnectionStatusChanged);
+
+            UE_LOG(LogTemp, Display, TEXT("Network Manager initialized with new delegate system"));
+
+            // 이미 ID가 할당되어 있는 경우 적용
+            LocalClientId = NetworkManager->GetClientId();
+            UE_LOG(LogTemp, Display, TEXT("Local Client ID: %d"), LocalClientId);
         }
     }
 }
@@ -126,7 +144,7 @@ void Adummy_clientCharacter::SendPositionToServer()
         RightValue = GetInputAxisValue("MoveRight");
 
         // 디버그 출력 추가
-        UE_LOG(LogTemp, Display, TEXT("Input Values - Forward: %.2f, Right: %.2f"),
+        UE_LOG(LogTemp, Verbose, TEXT("Input Values - Forward: %.2f, Right: %.2f"),
             ForwardValue, RightValue);
     }
 
@@ -134,55 +152,129 @@ void Adummy_clientCharacter::SendPositionToServer()
     NetworkManager->SendMovePacket(ForwardValue, RightValue, CurrentLocation, CurrentRotation);
 }
 
-void Adummy_clientCharacter::OnPositionUpdateReceived(const FVector& NewPosition)
+void Adummy_clientCharacter::OnClientIdReceived(int32 ClientId)
 {
-    // 다른 플레이어가 존재하는지 확인
-    bool bPlayerExists = false;
-    for (auto& OtherPlayer : OtherPlayers)
+    // 로컬 클라이언트 ID 저장
+    LocalClientId = ClientId;
+
+    UE_LOG(LogTemp, Display, TEXT("Client ID received: %d"), LocalClientId);
+}
+
+void Adummy_clientCharacter::OnPlayerUpdateReceived(int32 ClientId, const FVector& NewPosition, const FRotator& NewRotation, bool IsJumping)
+{
+    // 자신의 업데이트는 무시
+    if (ClientId == LocalClientId)
     {
-        // 가장 가까운 플레이어를 찾아 위치 업데이트
-        // 실제 구현에서는 플레이어 ID 등을 사용해야 함
-        if (!bPlayerExists || (OtherPlayer.Key->GetActorLocation() - NewPosition).SizeSquared() < 100000.0f)
+        UE_LOG(LogTemp, Verbose, TEXT("Ignoring update for local player (ID: %d)"), ClientId);
+        return;
+    }
+
+    UE_LOG(LogTemp, Verbose, TEXT("Received update for player ID %d: Pos=(%.1f,%.1f,%.1f), Yaw=%.1f, Jumping=%s"),
+        ClientId, NewPosition.X, NewPosition.Y, NewPosition.Z, NewRotation.Yaw,
+        IsJumping ? TEXT("true") : TEXT("false"));
+
+    // 해당 ID의 플레이어가 이미 존재하는지 확인
+    AActor* ExistingPlayerActor = nullptr;
+
+    for (auto& Pair : OtherPlayers)
+    {
+        if (Pair.Value.ClientId == ClientId)
         {
-            OtherPlayer.Value.TargetPosition = NewPosition;
-            OtherPlayer.Value.PositionInterpolationTime = 0.0f;
-            bPlayerExists = true;
+            ExistingPlayerActor = Pair.Key;
+
+            // 위치, 회전, 점프 상태 업데이트
+            Pair.Value.TargetPosition = NewPosition;
+            Pair.Value.TargetRotation = NewRotation;
+            Pair.Value.PositionInterpolationTime = 0.0f;
+            Pair.Value.RotationInterpolationTime = 0.0f;
+            Pair.Value.IsJumping = IsJumping;
+
+            // 점프 상태 처리
+            if (IsJumping && !Pair.Value.IsJumping)
+            {
+                if (ACharacter* OtherCharacter = Cast<ACharacter>(ExistingPlayerActor))
+                {
+                    OtherCharacter->Jump();
+                }
+            }
+
             break;
         }
     }
 
     // 존재하지 않는 경우 새로 생성
-    if (!bPlayerExists)
+    if (!ExistingPlayerActor)
     {
-        SpawnOtherPlayerCharacterInternal(NewPosition);
+        UE_LOG(LogTemp, Display, TEXT("Spawning new player character for client ID: %d"), ClientId);
+        SpawnOtherPlayerCharacterInternal(NewPosition, ClientId);
+    }
+}
+
+void Adummy_clientCharacter::OnPositionUpdateReceived(const FVector& NewPosition)
+{
+    // 레거시 호환성 유지 - 새로운 OnPlayerUpdateReceived로 대체 예정
+    UE_LOG(LogTemp, Warning, TEXT("OnPositionUpdateReceived: Legacy function called. This should be handled by OnPlayerUpdateReceived."));
+
+    // ID 정보가 없으므로 가장 가까운 캐릭터에게 적용 (레거시 동작)
+    bool bPlayerExists = false;
+    float ClosestDistSq = MAX_FLT;
+    AActor* ClosestActor = nullptr;
+
+    for (auto& Pair : OtherPlayers)
+    {
+        float DistSq = (Pair.Key->GetActorLocation() - NewPosition).SizeSquared();
+        if (DistSq < ClosestDistSq)
+        {
+            ClosestDistSq = DistSq;
+            ClosestActor = Pair.Key;
+            bPlayerExists = true;
+        }
+    }
+
+    if (bPlayerExists && ClosestActor)
+    {
+        OtherPlayers[ClosestActor].TargetPosition = NewPosition;
+        OtherPlayers[ClosestActor].PositionInterpolationTime = 0.0f;
+    }
+    else
+    {
+        // ID 정보 없이 새 캐릭터 생성 (임시 ID -1 사용)
+        SpawnOtherPlayerCharacterInternal(NewPosition, -1);
     }
 }
 
 void Adummy_clientCharacter::OnRotationUpdateReceived(const FRotator& NewRotation)
 {
-    // 가장 최근에 업데이트된 플레이어의 회전값 설정
-    for (auto& OtherPlayer : OtherPlayers)
+    // 레거시 호환성 유지 - 새로운 OnPlayerUpdateReceived로 대체 예정
+    UE_LOG(LogTemp, Warning, TEXT("OnRotationUpdateReceived: Legacy function called. This should be handled by OnPlayerUpdateReceived."));
+
+    // ID 정보가 없으므로 첫 번째 캐릭터에게 적용 (레거시 동작)
+    if (OtherPlayers.Num() > 0)
     {
-        OtherPlayer.Value.TargetRotation = NewRotation;
-        OtherPlayer.Value.RotationInterpolationTime = 0.0f;
-        break; // 현재는 단순히 첫 번째 플레이어에게만 적용
+        auto FirstItem = OtherPlayers.CreateIterator();
+        FirstItem.Value().TargetRotation = NewRotation;
+        FirstItem.Value().RotationInterpolationTime = 0.0f;
     }
 }
 
 void Adummy_clientCharacter::OnJumpStateUpdateReceived(bool IsJumping)
 {
-    // 가장 최근에 업데이트된 플레이어의 점프 상태 설정
-    for (auto& OtherPlayer : OtherPlayers)
+    // 레거시 호환성 유지 - 새로운 OnPlayerUpdateReceived로 대체 예정
+    UE_LOG(LogTemp, Warning, TEXT("OnJumpStateUpdateReceived: Legacy function called. This should be handled by OnPlayerUpdateReceived."));
+
+    // ID 정보가 없으므로 첫 번째 캐릭터에게 적용 (레거시 동작)
+    if (OtherPlayers.Num() > 0)
     {
+        auto FirstItem = OtherPlayers.CreateIterator();
+        FirstItem.Value().IsJumping = IsJumping;
+
         if (IsJumping)
         {
-            // 캐릭터가 ACharacter 클래스의 인스턴스인지 확인
-            if (ACharacter* OtherCharacter = Cast<ACharacter>(OtherPlayer.Key))
+            if (ACharacter* OtherCharacter = Cast<ACharacter>(FirstItem.Key()))
             {
                 OtherCharacter->Jump();
             }
         }
-        break; // 현재는 단순히 첫 번째 플레이어에게만 적용
     }
 }
 
@@ -191,14 +283,10 @@ void Adummy_clientCharacter::OnConnectionStatusChanged(bool IsConnected)
     if (!IsConnected)
     {
         // 연결 해제 시 다른 플레이어 캐릭터 제거
-        for (auto& OtherPlayer : OtherPlayers)
-        {
-            if (OtherPlayer.Key && IsValid(OtherPlayer.Key))
-            {
-                OtherPlayer.Key->Destroy();
-            }
-        }
-        OtherPlayers.Empty();
+        RemoveAllOtherPlayers();
+
+        // 클라이언트 ID 초기화
+        LocalClientId = -1;
 
         // UI에 연결 해제 표시 등 추가 기능 구현 가능
         OnNetworkDisconnected();
@@ -207,6 +295,48 @@ void Adummy_clientCharacter::OnConnectionStatusChanged(bool IsConnected)
     {
         // 연결 성공 시 처리
         OnNetworkConnected();
+    }
+}
+
+void Adummy_clientCharacter::RemoveAllOtherPlayers()
+{
+    // 모든 다른 플레이어 캐릭터 제거
+    for (auto& OtherPlayer : OtherPlayers)
+    {
+        if (OtherPlayer.Key && IsValid(OtherPlayer.Key))
+        {
+            OtherPlayer.Key->Destroy();
+        }
+    }
+    OtherPlayers.Empty();
+
+    UE_LOG(LogTemp, Display, TEXT("All other player characters removed"));
+}
+
+void Adummy_clientCharacter::RemoveOtherPlayerCharacter(int32 ClientId)
+{
+    // 특정 ID의 플레이어만 제거
+    AActor* ActorToRemove = nullptr;
+
+    for (auto& Pair : OtherPlayers)
+    {
+        if (Pair.Value.ClientId == ClientId)
+        {
+            ActorToRemove = Pair.Key;
+
+            if (ActorToRemove && IsValid(ActorToRemove))
+            {
+                ActorToRemove->Destroy();
+                OtherPlayers.Remove(ActorToRemove);
+
+                // 블루프린트 이벤트 호출
+                OnOtherPlayerRemoved(ClientId);
+
+                UE_LOG(LogTemp, Display, TEXT("Removed player character for client ID: %d"), ClientId);
+            }
+
+            break;
+        }
     }
 }
 
@@ -276,7 +406,7 @@ void Adummy_clientCharacter::StopJumping()
     }
 }
 
-AActor* Adummy_clientCharacter::SpawnOtherPlayerCharacterInternal(const FVector& Position)
+AActor* Adummy_clientCharacter::SpawnOtherPlayerCharacterInternal(const FVector& Position, int32 InClientId)
 {
     if (!GetWorld() || !OtherPlayerCharacterClass)
     {
@@ -292,25 +422,31 @@ AActor* Adummy_clientCharacter::SpawnOtherPlayerCharacterInternal(const FVector&
 
     if (NewPlayerActor)
     {
-        UE_LOG(LogTemp, Display, TEXT("Spawned other player character at: X=%.2f Y=%.2f Z=%.2f"),
-            Position.X, Position.Y, Position.Z);
+        UE_LOG(LogTemp, Display, TEXT("Spawned other player character for client ID %d at: X=%.2f Y=%.2f Z=%.2f"),
+            InClientId, Position.X, Position.Y, Position.Z);
 
-        // 플레이어 입력 비활성화
+        // 플레이어 입력 비활성화 - 컨트롤러 생성 부분 수정
         if (ACharacter* OtherCharacter = Cast<ACharacter>(NewPlayerActor))
         {
-            // AI 컨트롤러 대신 기본 컨트롤러 사용
-            AController* NewController = GetWorld()->SpawnActor<AController>(AController::StaticClass());
+            // 컨트롤러 클래스를 구체 클래스로 변경 (AController 대신 APlayerController 사용)
+            APlayerController* NewController = GetWorld()->SpawnActor<APlayerController>(APlayerController::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
             if (NewController)
             {
-                OtherCharacter->AIControllerClass = nullptr;
                 OtherCharacter->bUseControllerRotationYaw = false;
                 NewController->Possess(OtherCharacter);
                 NewController->SetIgnoreMoveInput(true);
+                NewController->SetIgnoreLookInput(true);
+            }
+            else
+            {
+                // 컨트롤러 생성 실패 시 로그
+                UE_LOG(LogTemp, Warning, TEXT("Failed to create controller for other player character"));
             }
         }
 
         // 캐릭터 정보 저장
         FOtherPlayerInfo PlayerInfo;
+        PlayerInfo.ClientId = InClientId;
         PlayerInfo.TargetPosition = Position;
         PlayerInfo.TargetRotation = FRotator::ZeroRotator;
         PlayerInfo.PositionInterpolationTime = 0.0f;
@@ -319,7 +455,7 @@ AActor* Adummy_clientCharacter::SpawnOtherPlayerCharacterInternal(const FVector&
         OtherPlayers.Add(NewPlayerActor, PlayerInfo);
 
         // 블루프린트 이벤트 호출
-        OnOtherPlayerSpawned(NewPlayerActor);
+        OnOtherPlayerSpawned(NewPlayerActor, InClientId);
     }
     else
     {
@@ -328,7 +464,6 @@ AActor* Adummy_clientCharacter::SpawnOtherPlayerCharacterInternal(const FVector&
 
     return NewPlayerActor;
 }
-
 // 기본 입력 함수들 구현
 void Adummy_clientCharacter::MoveForward(float Value)
 {

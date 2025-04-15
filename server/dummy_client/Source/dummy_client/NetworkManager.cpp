@@ -11,6 +11,7 @@ UNetworkManager::UNetworkManager()
     : Socket(nullptr)
     , bIsConnected(false)
     , LastErrorCode(0)
+    , LocalClientId(-1)  // 초기 ID는 -1로 설정
 {
     // 수신 버퍼 초기화
     FMemory::Memzero(RecvBuffer, sizeof(RecvBuffer));
@@ -82,6 +83,9 @@ bool UNetworkManager::ConnectToServer(const FString& IPAddress, int32 Port)
         );
     }
 
+    // 연결 상태 변경 이벤트 발생
+    OnConnectionStatusChanged.Broadcast(true);
+
     return true;
 }
 
@@ -105,7 +109,12 @@ void UNetworkManager::DisconnectFromServer()
         }
 
         bIsConnected = false;
+        LocalClientId = -1;  // 클라이언트 ID 초기화
+
         UE_LOG(LogTemp, Display, TEXT("Disconnected from server"));
+
+        // 연결 상태 변경 이벤트 발생 (이미 호출되지 않았다면)
+        OnConnectionStatusChanged.Broadcast(false);
     }
 }
 
@@ -136,7 +145,15 @@ void UNetworkManager::SendMovePacket(float ForwardValue, float RightValue, const
     // 전송 실패 시 연결 상태 체크
     if (!bSuccess || BytesSent != sizeof(FMovePacket))
     {
+        UE_LOG(LogTemp, Warning, TEXT("Failed to send Move packet! Sent %d of %d bytes"),
+            BytesSent, sizeof(FMovePacket));
         CheckConnectionStatus();
+    }
+    else
+    {
+        // 디버그 로그 (Verbose 레벨)
+        UE_LOG(LogTemp, Verbose, TEXT("Sent Move Packet: Forward=%.2f, Right=%.2f, Pos=(%.2f,%.2f,%.2f)"),
+            ForwardValue, RightValue, Position.X, Position.Y, Position.Z);
     }
 }
 
@@ -163,7 +180,15 @@ void UNetworkManager::SendJumpPacket(bool IsJumping, const FVector& Position)
     // 전송 실패 시 연결 상태 체크
     if (!bSuccess || BytesSent != sizeof(FJumpPacket))
     {
+        UE_LOG(LogTemp, Warning, TEXT("Failed to send Jump packet! Sent %d of %d bytes"),
+            BytesSent, sizeof(FJumpPacket));
         CheckConnectionStatus();
+    }
+    else
+    {
+        // 디버그 로그 (Verbose 레벨)
+        UE_LOG(LogTemp, Verbose, TEXT("Sent Jump Packet: Jumping=%s, Pos=(%.2f,%.2f,%.2f)"),
+            IsJumping ? TEXT("true") : TEXT("false"), Position.X, Position.Y, Position.Z);
     }
 }
 
@@ -185,6 +210,7 @@ void UNetworkManager::ProcessIncomingPackets()
 
         if (!bSuccess)
         {
+            UE_LOG(LogTemp, Warning, TEXT("Failed to receive data from server"));
             CheckConnectionStatus();
             return;
         }
@@ -194,19 +220,46 @@ void UNetworkManager::ProcessIncomingPackets()
             // 패킷 헤더 추출
             FPacketHeader* Header = reinterpret_cast<FPacketHeader*>(RecvBuffer);
 
+            // 패킷 내용 디버깅 로그
+            UE_LOG(LogTemp, Display, TEXT("Received packet - Type: %d, Size: %d, BytesRead: %d"),
+                (int32)Header->PacketType, Header->PacketSize, BytesRead);
+
             // 패킷 타입에 따른 처리
             switch (Header->PacketType)
             {
             case EPacketType::POSITION_UPDATE:
                 if (BytesRead >= sizeof(FPositionUpdatePacket))
                 {
-                    HandlePositionUpdatePacket(reinterpret_cast<FPositionUpdatePacket*>(RecvBuffer));
+                    FPositionUpdatePacket* Packet = reinterpret_cast<FPositionUpdatePacket*>(RecvBuffer);
+                    UE_LOG(LogTemp, Display, TEXT("Position Update Packet - Client ID: %d, Pos: (%.1f, %.1f, %.1f)"),
+                        Packet->ClientId, Packet->Position.X, Packet->Position.Y, Packet->Position.Z);
+                    HandlePositionUpdatePacket(Packet);
+                }
+                else
+                {
+                    UE_LOG(LogTemp, Warning, TEXT("Incomplete position update packet received"));
+                }
+                break;
+            case EPacketType::CLIENT_ID:
+                if (BytesRead >= sizeof(FClientIdPacket))
+                {
+                    FClientIdPacket* Packet = reinterpret_cast<FClientIdPacket*>(RecvBuffer);
+                    UE_LOG(LogTemp, Display, TEXT("Client ID Packet - Client ID: %d"), Packet->ClientId);
+                    HandleClientIdPacket(Packet);
+                }
+                else
+                {
+                    UE_LOG(LogTemp, Warning, TEXT("Incomplete client ID packet received"));
                 }
                 break;
             default:
                 UE_LOG(LogTemp, Warning, TEXT("Unknown packet type received: %d"), (int32)Header->PacketType);
                 break;
             }
+        }
+        else
+        {
+            UE_LOG(LogTemp, Warning, TEXT("Received incomplete packet header, size: %d"), BytesRead);
         }
     }
 }
@@ -222,16 +275,43 @@ void UNetworkManager::HandlePositionUpdatePacket(const FPositionUpdatePacket* Pa
     FVector NewPosition(Packet->Position.X, Packet->Position.Y, Packet->Position.Z);
     FRotator NewRotation(Packet->Rotation.Pitch, Packet->Rotation.Yaw, Packet->Rotation.Roll);
     bool bIsJumping = Packet->IsJumping;
+    int32 ClientId = Packet->ClientId;
 
-    // 델리게이트 호출
+    // 로컬 플레이어의 업데이트는 무시 (서버에서 전송해도)
+    if (ClientId == LocalClientId)
+    {
+        UE_LOG(LogTemp, Verbose, TEXT("Ignored position update for local player (ID: %d)"), ClientId);
+        return;
+    }
+
+    // 기존 델리게이트 호출 (레거시 지원을 위해 유지)
     OnPositionUpdate.Broadcast(NewPosition);
     OnRotationUpdate.Broadcast(NewRotation);
     OnJumpStateUpdate.Broadcast(bIsJumping);
 
+    // 통합 플레이어 업데이트 델리게이트 호출 (새로운 방식)
+    OnPlayerUpdate.Broadcast(ClientId, NewPosition, NewRotation, bIsJumping);
+
     // 디버그 로그
-    UE_LOG(LogTemp, Verbose, TEXT("Position Update: X=%.2f Y=%.2f Z=%.2f, Jumping=%s"),
-        Packet->Position.X, Packet->Position.Y, Packet->Position.Z,
+    UE_LOG(LogTemp, Verbose, TEXT("Position Update from client %d: X=%.2f Y=%.2f Z=%.2f, Yaw=%.2f, Jumping=%s"),
+        ClientId, Packet->Position.X, Packet->Position.Y, Packet->Position.Z, Packet->Rotation.Yaw,
         Packet->IsJumping ? TEXT("true") : TEXT("false"));
+}
+
+void UNetworkManager::HandleClientIdPacket(const FClientIdPacket* Packet)
+{
+    if (!Packet)
+    {
+        return;
+    }
+
+    // 클라이언트 ID 저장
+    LocalClientId = Packet->ClientId;
+
+    // 클라이언트 ID 수신 이벤트 발생
+    OnClientIdReceived.Broadcast(LocalClientId);
+
+    UE_LOG(LogTemp, Display, TEXT("Received client ID: %d"), LocalClientId);
 }
 
 bool UNetworkManager::IsConnected() const

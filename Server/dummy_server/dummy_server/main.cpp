@@ -14,7 +14,8 @@ enum class EPacketType : uint8_t
 {
     MOVE = 0,
     JUMP = 1,
-    POSITION_UPDATE = 2
+    POSITION_UPDATE = 2,
+    CLIENT_ID = 3  // 클라이언트 ID 할당을 위한 패킷 타입 추가
 };
 
 // 패킷 구조체 정의
@@ -44,9 +45,16 @@ struct JumpPacket
 struct PositionUpdatePacket
 {
     PacketHeader Header;
+    int32_t ClientId;  // 클라이언트 ID 추가
     struct { float X, Y, Z; } Position;
     struct { float Pitch, Yaw, Roll; } Rotation;
     bool IsJumping;
+};
+
+struct ClientIdPacket
+{
+    PacketHeader Header;
+    int32_t ClientId;
 };
 #pragma pack(pop)
 
@@ -203,12 +211,148 @@ public:
             inet_ntop(AF_INET, &clientAddr.sin_addr, clientIP, sizeof(clientIP));
             std::cout << "Client connected: " << clientIP << ":" << ntohs(clientAddr.sin_port) << " (ID: " << client->id << ")" << std::endl;
 
+            // 클라이언트에게 ID 할당 패킷 전송
+            SendClientId(client);
+
+            // 새 플레이어 접속 정보를 다른 모든 클라이언트에게 전송
+            BroadcastNewPlayer(client);
+
+            // 이미 접속한 다른 플레이어 정보를 새 클라이언트에게 전송
+            SendExistingPlayers(client);
+
             // 비동기 수신 시작
             StartRecv(client);
         }
     }
 
 private:
+    // 클라이언트에게 ID 할당 패킷 전송
+    void SendClientId(ClientSession* client)
+    {
+        ClientIdPacket packet;
+        packet.Header.PacketType = EPacketType::CLIENT_ID;
+        packet.Header.PacketSize = sizeof(ClientIdPacket);
+        packet.ClientId = client->id;
+
+        WSABUF wsaBuf;
+        wsaBuf.buf = reinterpret_cast<char*>(&packet);
+        wsaBuf.len = sizeof(packet);
+
+        WSAOVERLAPPED* overlapped = new WSAOVERLAPPED();
+        ZeroMemory(overlapped, sizeof(WSAOVERLAPPED));
+
+        DWORD sendBytes = 0;
+
+        if (WSASend(client->socket, &wsaBuf, 1, &sendBytes, 0, overlapped, NULL) == SOCKET_ERROR)
+        {
+            if (WSAGetLastError() != WSA_IO_PENDING)
+            {
+                std::cerr << "Failed to send client ID packet: " << WSAGetLastError() << std::endl;
+                delete overlapped;
+            }
+        }
+
+        std::cout << "Sent client ID " << client->id << " to new client" << std::endl;
+    }
+
+    // 새 플레이어 정보를 다른 모든 클라이언트에게 전송
+    void BroadcastNewPlayer(ClientSession* newClient)
+    {
+        std::lock_guard<std::mutex> lock(clientsMutex);
+
+        for (const auto& pair : clients)
+        {
+            ClientSession* targetClient = pair.second;
+
+            // 자신에게는 전송하지 않음
+            if (targetClient->id == newClient->id)
+            {
+                continue;
+            }
+
+            // 새 플레이어 정보 패킷 생성
+            PositionUpdatePacket packet;
+            packet.Header.PacketType = EPacketType::POSITION_UPDATE;
+            packet.Header.PacketSize = sizeof(PositionUpdatePacket);
+            packet.ClientId = newClient->id;
+            packet.Position.X = newClient->Position.X;
+            packet.Position.Y = newClient->Position.Y;
+            packet.Position.Z = newClient->Position.Z;
+            packet.Rotation.Pitch = newClient->Rotation.Pitch;
+            packet.Rotation.Yaw = newClient->Rotation.Yaw;
+            packet.Rotation.Roll = newClient->Rotation.Roll;
+            packet.IsJumping = newClient->IsJumping;
+
+            // 비동기 전송
+            WSABUF wsaBuf;
+            wsaBuf.buf = reinterpret_cast<char*>(&packet);
+            wsaBuf.len = sizeof(packet);
+
+            WSAOVERLAPPED* overlapped = new WSAOVERLAPPED();
+            ZeroMemory(overlapped, sizeof(WSAOVERLAPPED));
+
+            DWORD sendBytes = 0;
+
+            if (WSASend(targetClient->socket, &wsaBuf, 1, &sendBytes, 0, overlapped, NULL) == SOCKET_ERROR)
+            {
+                if (WSAGetLastError() != WSA_IO_PENDING)
+                {
+                    std::cerr << "Failed to broadcast new player: " << WSAGetLastError() << std::endl;
+                    delete overlapped;
+                }
+            }
+        }
+    }
+
+    // 이미 접속한 다른 플레이어 정보를 새 클라이언트에게 전송
+    void SendExistingPlayers(ClientSession* newClient)
+    {
+        std::lock_guard<std::mutex> lock(clientsMutex);
+
+        for (const auto& pair : clients)
+        {
+            ClientSession* existingClient = pair.second;
+
+            // 자신은 제외
+            if (existingClient->id == newClient->id)
+            {
+                continue;
+            }
+
+            // 기존 플레이어 정보 패킷 생성
+            PositionUpdatePacket packet;
+            packet.Header.PacketType = EPacketType::POSITION_UPDATE;
+            packet.Header.PacketSize = sizeof(PositionUpdatePacket);
+            packet.ClientId = existingClient->id;
+            packet.Position.X = existingClient->Position.X;
+            packet.Position.Y = existingClient->Position.Y;
+            packet.Position.Z = existingClient->Position.Z;
+            packet.Rotation.Pitch = existingClient->Rotation.Pitch;
+            packet.Rotation.Yaw = existingClient->Rotation.Yaw;
+            packet.Rotation.Roll = existingClient->Rotation.Roll;
+            packet.IsJumping = existingClient->IsJumping;
+
+            // 비동기 전송
+            WSABUF wsaBuf;
+            wsaBuf.buf = reinterpret_cast<char*>(&packet);
+            wsaBuf.len = sizeof(packet);
+
+            WSAOVERLAPPED* overlapped = new WSAOVERLAPPED();
+            ZeroMemory(overlapped, sizeof(WSAOVERLAPPED));
+
+            DWORD sendBytes = 0;
+
+            if (WSASend(newClient->socket, &wsaBuf, 1, &sendBytes, 0, overlapped, NULL) == SOCKET_ERROR)
+            {
+                if (WSAGetLastError() != WSA_IO_PENDING)
+                {
+                    std::cerr << "Failed to send existing player: " << WSAGetLastError() << std::endl;
+                    delete overlapped;
+                }
+            }
+        }
+    }
+
     // 비동기 수신 시작
     bool StartRecv(ClientSession* client)
     {
@@ -243,8 +387,59 @@ private:
             closesocket(client->socket);
             std::cout << "Client disconnected (ID: " << client->id << ")" << std::endl;
 
+            // 다른 클라이언트들에게 연결 끊김 알림
+            NotifyClientDisconnect(clientId);
+
             clients.erase(it);
             delete client;
+        }
+    }
+
+    // 클라이언트 연결 끊김을 다른 클라이언트들에게 알림
+    void NotifyClientDisconnect(int disconnectedClientId)
+    {
+        // 여기서는 PositionUpdatePacket을 사용하여 위치를 무효한 값(-999999)으로 설정
+        // 실제로는 별도의 디스커넥트 패킷 타입을 만드는 것이 더 좋음
+        PositionUpdatePacket packet;
+        packet.Header.PacketType = EPacketType::POSITION_UPDATE;
+        packet.Header.PacketSize = sizeof(PositionUpdatePacket);
+        packet.ClientId = disconnectedClientId;
+        packet.Position.X = -999999.0f;  // 무효한 위치로 설정 - 클라이언트에서 이 값을 보고 제거
+        packet.Position.Y = -999999.0f;
+        packet.Position.Z = -999999.0f;
+        packet.Rotation.Pitch = 0.0f;
+        packet.Rotation.Yaw = 0.0f;
+        packet.Rotation.Roll = 0.0f;
+        packet.IsJumping = false;
+
+        for (const auto& pair : clients)
+        {
+            ClientSession* targetClient = pair.second;
+
+            // 연결이 끊긴 클라이언트는 제외
+            if (targetClient->id == disconnectedClientId)
+            {
+                continue;
+            }
+
+            // 비동기 전송
+            WSABUF wsaBuf;
+            wsaBuf.buf = reinterpret_cast<char*>(&packet);
+            wsaBuf.len = sizeof(packet);
+
+            WSAOVERLAPPED* overlapped = new WSAOVERLAPPED();
+            ZeroMemory(overlapped, sizeof(WSAOVERLAPPED));
+
+            DWORD sendBytes = 0;
+
+            if (WSASend(targetClient->socket, &wsaBuf, 1, &sendBytes, 0, overlapped, NULL) == SOCKET_ERROR)
+            {
+                if (WSAGetLastError() != WSA_IO_PENDING)
+                {
+                    std::cerr << "Failed to notify client disconnect: " << WSAGetLastError() << std::endl;
+                    delete overlapped;
+                }
+            }
         }
     }
 
@@ -265,8 +460,6 @@ private:
             if (length >= sizeof(MovePacket))
             {
                 MovePacket* packet = reinterpret_cast<MovePacket*>(data);
-
-                //std::cout << " input: Forward=" << packet->ForwardValue << ", Right=" << packet->RightValue << std::endl;
 
                 // 클라이언트 상태 업데이트
                 client->Position.X = packet->Position.X;
@@ -309,6 +502,7 @@ private:
         PositionUpdatePacket packet;
         packet.Header.PacketType = EPacketType::POSITION_UPDATE;
         packet.Header.PacketSize = sizeof(PositionUpdatePacket);
+        packet.ClientId = sourceClient->id;  // 클라이언트 ID 포함
         packet.Position.X = sourceClient->Position.X;
         packet.Position.Y = sourceClient->Position.Y;
         packet.Position.Z = sourceClient->Position.Z;
@@ -489,7 +683,7 @@ int main(int argc, char* argv[])
 
     // 서버 실행
     std::cout << "서버 실행. 포트 번호: " << port << std::endl;
-    //std::cout << "Press Ctrl+C to stop the server" << std::endl;
+    std::cout << "IOCP 멀티플레이어 서버 시작됨..." << std::endl;
 
     server.Run();
 

@@ -14,23 +14,32 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define DUMMY_CLIENT_NetworkManager_generated_h
 
-#define FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_NetworkManager_h_54_DELEGATE \
+#define FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_NetworkManager_h_61_DELEGATE \
 DUMMY_CLIENT_API void FOnPositionUpdate_DelegateWrapper(const FMulticastScriptDelegate& OnPositionUpdate, FVector const& NewPosition);
 
 
-#define FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_NetworkManager_h_55_DELEGATE \
+#define FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_NetworkManager_h_62_DELEGATE \
 DUMMY_CLIENT_API void FOnRotationUpdate_DelegateWrapper(const FMulticastScriptDelegate& OnRotationUpdate, FRotator const& NewRotation);
 
 
-#define FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_NetworkManager_h_56_DELEGATE \
+#define FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_NetworkManager_h_63_DELEGATE \
 DUMMY_CLIENT_API void FOnJumpStateUpdate_DelegateWrapper(const FMulticastScriptDelegate& OnJumpStateUpdate, bool IsJumping);
 
 
-#define FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_NetworkManager_h_57_DELEGATE \
+#define FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_NetworkManager_h_64_DELEGATE \
 DUMMY_CLIENT_API void FOnConnectionStatusChanged_DelegateWrapper(const FMulticastScriptDelegate& OnConnectionStatusChanged, bool IsConnected);
 
 
-#define FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_NetworkManager_h_62_RPC_WRAPPERS_NO_PURE_DECLS \
+#define FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_NetworkManager_h_65_DELEGATE \
+DUMMY_CLIENT_API void FOnPlayerUpdate_DelegateWrapper(const FMulticastScriptDelegate& OnPlayerUpdate, int32 ClientId, FVector const& Position, FRotator const& Rotation, bool IsJumping);
+
+
+#define FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_NetworkManager_h_66_DELEGATE \
+DUMMY_CLIENT_API void FOnClientIdReceived_DelegateWrapper(const FMulticastScriptDelegate& OnClientIdReceived, int32 ClientId);
+
+
+#define FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_NetworkManager_h_71_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execGetClientId); \
 	DECLARE_FUNCTION(execGetLastErrorCode); \
 	DECLARE_FUNCTION(execIsConnected); \
 	DECLARE_FUNCTION(execSendJumpPacket); \
@@ -39,7 +48,7 @@ DUMMY_CLIENT_API void FOnConnectionStatusChanged_DelegateWrapper(const FMulticas
 	DECLARE_FUNCTION(execConnectToServer);
 
 
-#define FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_NetworkManager_h_62_INCLASS_NO_PURE_DECLS \
+#define FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_NetworkManager_h_71_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUNetworkManager(); \
 	friend struct Z_Construct_UClass_UNetworkManager_Statics; \
@@ -48,7 +57,7 @@ public: \
 	DECLARE_SERIALIZER(UNetworkManager)
 
 
-#define FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_NetworkManager_h_62_ENHANCED_CONSTRUCTORS \
+#define FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_NetworkManager_h_71_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	UNetworkManager(UNetworkManager&&); \
@@ -59,13 +68,13 @@ public: \
 	DEFINE_DEFAULT_CONSTRUCTOR_CALL(UNetworkManager)
 
 
-#define FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_NetworkManager_h_59_PROLOG
-#define FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_NetworkManager_h_62_GENERATED_BODY \
+#define FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_NetworkManager_h_68_PROLOG
+#define FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_NetworkManager_h_71_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_NetworkManager_h_62_RPC_WRAPPERS_NO_PURE_DECLS \
-	FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_NetworkManager_h_62_INCLASS_NO_PURE_DECLS \
-	FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_NetworkManager_h_62_ENHANCED_CONSTRUCTORS \
+	FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_NetworkManager_h_71_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_NetworkManager_h_71_INCLASS_NO_PURE_DECLS \
+	FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_NetworkManager_h_71_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -79,7 +88,8 @@ template<> DUMMY_CLIENT_API UClass* StaticClass<class UNetworkManager>();
 #define FOREACH_ENUM_EPACKETTYPE(op) \
 	op(EPacketType::MOVE) \
 	op(EPacketType::JUMP) \
-	op(EPacketType::POSITION_UPDATE) 
+	op(EPacketType::POSITION_UPDATE) \
+	op(EPacketType::CLIENT_ID) 
 
 enum class EPacketType : uint8;
 template<> struct TIsUEnumClass<EPacketType> { enum { Value = true }; };

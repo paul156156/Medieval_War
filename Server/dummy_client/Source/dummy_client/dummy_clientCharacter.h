@@ -12,6 +12,7 @@ struct FOtherPlayerInfo
 {
     GENERATED_BODY()
 
+    int32 ClientId;  // 클라이언트 ID 추가
     FVector TargetPosition;
     FRotator TargetRotation;
     float PositionInterpolationTime;
@@ -19,7 +20,8 @@ struct FOtherPlayerInfo
     bool IsJumping;
 
     FOtherPlayerInfo()
-        : TargetPosition(FVector::ZeroVector)
+        : ClientId(-1)  // 초기값 -1로 설정
+        , TargetPosition(FVector::ZeroVector)
         , TargetRotation(FRotator::ZeroRotator)
         , PositionInterpolationTime(0.0f)
         , RotationInterpolationTime(0.0f)
@@ -60,6 +62,10 @@ protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Networking)
     float PositionUpdateInterval;
 
+    /** 로컬 플레이어 클라이언트 ID */
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Networking)
+    int32 LocalClientId;
+
     /** 다른 플레이어 캐릭터 클래스 */
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Networking)
     TSubclassOf<AActor> OtherPlayerCharacterClass;
@@ -68,15 +74,23 @@ protected:
     UPROPERTY()
     TMap<AActor*, FOtherPlayerInfo> OtherPlayers;
 
-    /** 다른 플레이어 위치 업데이트 수신 */
+    /** 클라이언트 ID 수신 */
+    UFUNCTION()
+    void OnClientIdReceived(int32 ClientId);
+
+    /** 플레이어 업데이트 수신 (통합 함수) */
+    UFUNCTION()
+    void OnPlayerUpdateReceived(int32 ClientId, const FVector& NewPosition, const FRotator& NewRotation, bool IsJumping);
+
+    /** 다른 플레이어 위치 업데이트 수신 (레거시) */
     UFUNCTION()
     void OnPositionUpdateReceived(const FVector& NewPosition);
 
-    /** 다른 플레이어 회전 업데이트 수신 */
+    /** 다른 플레이어 회전 업데이트 수신 (레거시) */
     UFUNCTION()
     void OnRotationUpdateReceived(const FRotator& NewRotation);
 
-    /** 다른 플레이어 점프 상태 업데이트 수신 */
+    /** 다른 플레이어 점프 상태 업데이트 수신 (레거시) */
     UFUNCTION()
     void OnJumpStateUpdateReceived(bool IsJumping);
 
@@ -88,7 +102,11 @@ protected:
     void UpdateOtherPlayerCharacters(float DeltaTime);
 
     /** 다른 플레이어 캐릭터 스폰 내부 구현 */
-    AActor* SpawnOtherPlayerCharacterInternal(const FVector& Position);
+    AActor* SpawnOtherPlayerCharacterInternal(const FVector& Position, int32 InClientId = -1);
+
+    /** 다른 플레이어 캐릭터 제거 */
+    UFUNCTION()
+    void RemoveOtherPlayerCharacter(int32 ClientId);
 
     /** 네트워크 연결됨 이벤트 */
     UFUNCTION(BlueprintImplementableEvent, Category = "Networking")
@@ -100,7 +118,11 @@ protected:
 
     /** 다른 플레이어 스폰됨 이벤트 */
     UFUNCTION(BlueprintImplementableEvent, Category = "Networking")
-    void OnOtherPlayerSpawned(AActor* OtherPlayerActor);
+    void OnOtherPlayerSpawned(AActor* OtherPlayerActor, int32 ClientId);
+
+    /** 다른 플레이어 제거됨 이벤트 */
+    UFUNCTION(BlueprintImplementableEvent, Category = "Networking")
+    void OnOtherPlayerRemoved(int32 ClientId);
 
     ///// 기본 입력 관련 함수 /////
     virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
@@ -119,6 +141,14 @@ public:
     /** 베이스룩업/다운레이트 */
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
     float BaseLookUpRate;
+
+    /** 현재 클라이언트 ID 반환 */
+    UFUNCTION(BlueprintPure, Category = "Networking")
+    int32 GetLocalClientId() const { return LocalClientId; }
+
+    /** 다른 플레이어 캐릭터 개수 반환 */
+    UFUNCTION(BlueprintPure, Category = "Networking")
+    int32 GetOtherPlayerCount() const { return OtherPlayers.Num(); }
 
 protected:
     // 캐릭터 초기화
@@ -140,8 +170,12 @@ public:
 
     // 다른 플레이어 캐릭터 스폰 (서버로부터 받은 위치 정보로)
     UFUNCTION(BlueprintCallable, Category = "Networking")
-    void SpawnOtherPlayerCharacter(const FVector& Position)
+    AActor* SpawnOtherPlayerCharacter(const FVector& Position, int32 InClientId = -1)
     {
-        SpawnOtherPlayerCharacterInternal(Position);
+        return SpawnOtherPlayerCharacterInternal(Position, InClientId);
     }
+
+    // 모든 다른 플레이어 캐릭터 제거
+    UFUNCTION(BlueprintCallable, Category = "Networking")
+    void RemoveAllOtherPlayers();
 };
