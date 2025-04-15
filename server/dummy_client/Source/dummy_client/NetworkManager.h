@@ -32,6 +32,7 @@ struct FMovePacket
     float RightValue;
     struct { float X, Y, Z; } Position;
     struct { float Pitch, Yaw, Roll; } Rotation;
+    struct { float X, Y, Z; } Velocity;  // 속도 정보 추가
 };
 
 struct FJumpPacket
@@ -39,6 +40,7 @@ struct FJumpPacket
     FPacketHeader Header;
     bool IsJumping;
     struct { float X, Y, Z; } Position;
+    struct { float X, Y, Z; } Velocity;  // 속도 정보 추가
 };
 
 struct FPositionUpdatePacket
@@ -47,6 +49,7 @@ struct FPositionUpdatePacket
     int32 ClientId;  // 클라이언트 ID 추가
     struct { float X, Y, Z; } Position;
     struct { float Pitch, Yaw, Roll; } Rotation;
+    struct { float X, Y, Z; } Velocity;  // 속도 정보 추가
     bool IsJumping;
 };
 
@@ -62,7 +65,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPositionUpdate, const FVector&, N
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnRotationUpdate, const FRotator&, NewRotation);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnJumpStateUpdate, bool, IsJumping);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnConnectionStatusChanged, bool, IsConnected);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FOnPlayerUpdate, int32, ClientId, const FVector&, Position, const FRotator&, Rotation, bool, IsJumping);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FiveParams(FOnPlayerUpdate, int32, ClientId, const FVector&, Position, const FRotator&, Rotation, const FVector&, Velocity, bool, IsJumping);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnClientIdReceived, int32, ClientId);
 
 UCLASS(BlueprintType, Blueprintable)
@@ -117,7 +120,7 @@ public:
     UPROPERTY(BlueprintAssignable, Category = "Networking")
     FOnConnectionStatusChanged OnConnectionStatusChanged;
 
-    // 통합 플레이어 업데이트 델리게이트 (위치, 회전, 점프 상태를 한 번에 처리)
+    // 통합 플레이어 업데이트 델리게이트 (위치, 회전, 속도, 점프 상태를 한 번에 처리)
     UPROPERTY(BlueprintAssignable, Category = "Networking")
     FOnPlayerUpdate OnPlayerUpdate;
 

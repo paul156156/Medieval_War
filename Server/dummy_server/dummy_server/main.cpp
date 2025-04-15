@@ -33,6 +33,7 @@ struct MovePacket
     float RightValue;
     struct { float X, Y, Z; } Position;
     struct { float Pitch, Yaw, Roll; } Rotation;
+    struct { float X, Y, Z; } Velocity;  // 속도 정보 추가
 };
 
 struct JumpPacket
@@ -40,6 +41,7 @@ struct JumpPacket
     PacketHeader Header;
     bool IsJumping;
     struct { float X, Y, Z; } Position;
+    struct { float X, Y, Z; } Velocity;  // 속도 정보 추가
 };
 
 struct PositionUpdatePacket
@@ -48,6 +50,7 @@ struct PositionUpdatePacket
     int32_t ClientId;  // 클라이언트 ID 추가
     struct { float X, Y, Z; } Position;
     struct { float Pitch, Yaw, Roll; } Rotation;
+    struct { float X, Y, Z; } Velocity;  // 속도 정보 추가
     bool IsJumping;
 };
 
@@ -79,7 +82,21 @@ struct ClientSession
         float Pitch, Yaw, Roll;
     } Rotation;
 
+    struct
+    {
+        float X, Y, Z;
+    } Velocity;  // 속도 정보 추가
+
     bool IsJumping;
+
+    // 마지막 위치 저장 (속도 계산용)
+    struct
+    {
+        float X, Y, Z;
+    } LastPosition;
+
+    // 마지막 업데이트 시간
+    float LastUpdateTime;
 };
 
 class IOCPServer
@@ -187,8 +204,11 @@ public:
             client->wsaBuf.buf = client->recvBuffer;
             client->wsaBuf.len = sizeof(client->recvBuffer);
             client->Position = { 0.0f, 0.0f, 0.0f };
+            client->LastPosition = { 0.0f, 0.0f, 0.0f };
             client->Rotation = { 0.0f, 0.0f, 0.0f };
+            client->Velocity = { 0.0f, 0.0f, 0.0f };
             client->IsJumping = false;
+            client->LastUpdateTime = GetTickCount() / 1000.0f;
             ZeroMemory(&client->overlapped, sizeof(WSAOVERLAPPED));
 
             // IOCP에 소켓 등록
@@ -281,6 +301,9 @@ private:
             packet.Rotation.Pitch = newClient->Rotation.Pitch;
             packet.Rotation.Yaw = newClient->Rotation.Yaw;
             packet.Rotation.Roll = newClient->Rotation.Roll;
+            packet.Velocity.X = newClient->Velocity.X;
+            packet.Velocity.Y = newClient->Velocity.Y;
+            packet.Velocity.Z = newClient->Velocity.Z;
             packet.IsJumping = newClient->IsJumping;
 
             // 비동기 전송
@@ -330,6 +353,9 @@ private:
             packet.Rotation.Pitch = existingClient->Rotation.Pitch;
             packet.Rotation.Yaw = existingClient->Rotation.Yaw;
             packet.Rotation.Roll = existingClient->Rotation.Roll;
+            packet.Velocity.X = existingClient->Velocity.X;
+            packet.Velocity.Y = existingClient->Velocity.Y;
+            packet.Velocity.Z = existingClient->Velocity.Z;
             packet.IsJumping = existingClient->IsJumping;
 
             // 비동기 전송
@@ -410,6 +436,9 @@ private:
         packet.Rotation.Pitch = 0.0f;
         packet.Rotation.Yaw = 0.0f;
         packet.Rotation.Roll = 0.0f;
+        packet.Velocity.X = 0.0f;
+        packet.Velocity.Y = 0.0f;
+        packet.Velocity.Z = 0.0f;
         packet.IsJumping = false;
 
         for (const auto& pair : clients)
@@ -461,6 +490,11 @@ private:
             {
                 MovePacket* packet = reinterpret_cast<MovePacket*>(data);
 
+                // 마지막 위치 저장 (속도 계산용)
+                client->LastPosition.X = client->Position.X;
+                client->LastPosition.Y = client->Position.Y;
+                client->LastPosition.Z = client->Position.Z;
+
                 // 클라이언트 상태 업데이트
                 client->Position.X = packet->Position.X;
                 client->Position.Y = packet->Position.Y;
@@ -469,8 +503,18 @@ private:
                 client->Rotation.Yaw = packet->Rotation.Yaw;
                 client->Rotation.Roll = packet->Rotation.Roll;
 
+                // 속도 정보 업데이트 (클라이언트에서 받은 속도 사용)
+                client->Velocity.X = packet->Velocity.X;
+                client->Velocity.Y = packet->Velocity.Y;
+                client->Velocity.Z = packet->Velocity.Z;
+
                 // 모든 클라이언트에게 위치 정보 전송
                 BroadcastPosition(client);
+
+                // 디버그 출력
+                std::cout << "Client " << client->id << " moved: pos=("
+                    << client->Position.X << "," << client->Position.Y << "," << client->Position.Z
+                    << "), vel=(" << client->Velocity.X << "," << client->Velocity.Y << "," << client->Velocity.Z << ")" << std::endl;
             }
             break;
         }
@@ -485,9 +529,16 @@ private:
                 client->Position.X = packet->Position.X;
                 client->Position.Y = packet->Position.Y;
                 client->Position.Z = packet->Position.Z;
+                client->Velocity.X = packet->Velocity.X;
+                client->Velocity.Y = packet->Velocity.Y;
+                client->Velocity.Z = packet->Velocity.Z;
 
                 // 모든 클라이언트에게 위치 정보 전송
                 BroadcastPosition(client);
+
+                // 디버그 출력
+                std::cout << "Client " << client->id << " jump state: "
+                    << (client->IsJumping ? "jumping" : "landed") << std::endl;
             }
             break;
         }
@@ -509,6 +560,9 @@ private:
         packet.Rotation.Pitch = sourceClient->Rotation.Pitch;
         packet.Rotation.Yaw = sourceClient->Rotation.Yaw;
         packet.Rotation.Roll = sourceClient->Rotation.Roll;
+        packet.Velocity.X = sourceClient->Velocity.X;
+        packet.Velocity.Y = sourceClient->Velocity.Y;
+        packet.Velocity.Z = sourceClient->Velocity.Z;
         packet.IsJumping = sourceClient->IsJumping;
 
         std::lock_guard<std::mutex> lock(clientsMutex);

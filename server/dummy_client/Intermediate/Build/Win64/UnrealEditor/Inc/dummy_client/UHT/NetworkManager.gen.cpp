@@ -293,6 +293,7 @@ struct Z_Construct_UDelegateFunction_dummy_client_OnPlayerUpdate__DelegateSignat
 		int32 ClientId;
 		FVector Position;
 		FRotator Rotation;
+		FVector Velocity;
 		bool IsJumping;
 	};
 #if WITH_METADATA
@@ -305,10 +306,14 @@ struct Z_Construct_UDelegateFunction_dummy_client_OnPlayerUpdate__DelegateSignat
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_Rotation_MetaData[] = {
 		{ "NativeConst", "" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_Velocity_MetaData[] = {
+		{ "NativeConst", "" },
+	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FIntPropertyParams NewProp_ClientId;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_Position;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_Rotation;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_Velocity;
 	static void NewProp_IsJumping_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_IsJumping;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
@@ -317,6 +322,7 @@ struct Z_Construct_UDelegateFunction_dummy_client_OnPlayerUpdate__DelegateSignat
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UDelegateFunction_dummy_client_OnPlayerUpdate__DelegateSignature_Statics::NewProp_ClientId = { "ClientId", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(_Script_dummy_client_eventOnPlayerUpdate_Parms, ClientId), METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UDelegateFunction_dummy_client_OnPlayerUpdate__DelegateSignature_Statics::NewProp_Position = { "Position", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(_Script_dummy_client_eventOnPlayerUpdate_Parms, Position), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Position_MetaData), NewProp_Position_MetaData) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UDelegateFunction_dummy_client_OnPlayerUpdate__DelegateSignature_Statics::NewProp_Rotation = { "Rotation", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(_Script_dummy_client_eventOnPlayerUpdate_Parms, Rotation), Z_Construct_UScriptStruct_FRotator, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Rotation_MetaData), NewProp_Rotation_MetaData) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UDelegateFunction_dummy_client_OnPlayerUpdate__DelegateSignature_Statics::NewProp_Velocity = { "Velocity", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(_Script_dummy_client_eventOnPlayerUpdate_Parms, Velocity), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Velocity_MetaData), NewProp_Velocity_MetaData) };
 void Z_Construct_UDelegateFunction_dummy_client_OnPlayerUpdate__DelegateSignature_Statics::NewProp_IsJumping_SetBit(void* Obj)
 {
 	((_Script_dummy_client_eventOnPlayerUpdate_Parms*)Obj)->IsJumping = 1;
@@ -326,6 +332,7 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UDelegateFunctio
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UDelegateFunction_dummy_client_OnPlayerUpdate__DelegateSignature_Statics::NewProp_ClientId,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UDelegateFunction_dummy_client_OnPlayerUpdate__DelegateSignature_Statics::NewProp_Position,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UDelegateFunction_dummy_client_OnPlayerUpdate__DelegateSignature_Statics::NewProp_Rotation,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UDelegateFunction_dummy_client_OnPlayerUpdate__DelegateSignature_Statics::NewProp_Velocity,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UDelegateFunction_dummy_client_OnPlayerUpdate__DelegateSignature_Statics::NewProp_IsJumping,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UDelegateFunction_dummy_client_OnPlayerUpdate__DelegateSignature_Statics::PropPointers) < 2048);
@@ -340,19 +347,21 @@ UFunction* Z_Construct_UDelegateFunction_dummy_client_OnPlayerUpdate__DelegateSi
 	}
 	return ReturnFunction;
 }
-void FOnPlayerUpdate_DelegateWrapper(const FMulticastScriptDelegate& OnPlayerUpdate, int32 ClientId, FVector const& Position, FRotator const& Rotation, bool IsJumping)
+void FOnPlayerUpdate_DelegateWrapper(const FMulticastScriptDelegate& OnPlayerUpdate, int32 ClientId, FVector const& Position, FRotator const& Rotation, FVector const& Velocity, bool IsJumping)
 {
 	struct _Script_dummy_client_eventOnPlayerUpdate_Parms
 	{
 		int32 ClientId;
 		FVector Position;
 		FRotator Rotation;
+		FVector Velocity;
 		bool IsJumping;
 	};
 	_Script_dummy_client_eventOnPlayerUpdate_Parms Parms;
 	Parms.ClientId=ClientId;
 	Parms.Position=Position;
 	Parms.Rotation=Rotation;
+	Parms.Velocity=Velocity;
 	Parms.IsJumping=IsJumping ? true : false;
 	OnPlayerUpdate.ProcessMulticastDelegate<UObject>(&Parms);
 }
@@ -839,11 +848,11 @@ struct Z_Construct_UClass_UNetworkManager_Statics
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_OnPlayerUpdate_MetaData[] = {
 		{ "Category", "Networking" },
 #if !UE_BUILD_SHIPPING
-		{ "Comment", "// \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xc3\xb7\xef\xbf\xbd\xef\xbf\xbd\xcc\xbe\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xc6\xae \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xc6\xae (\xef\xbf\xbd\xef\xbf\xbd\xc4\xa1, \xc8\xb8\xef\xbf\xbd\xef\xbf\xbd, \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xc2\xb8\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xc3\xb3\xef\xbf\xbd\xef\xbf\xbd)\n" },
+		{ "Comment", "// \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xc3\xb7\xef\xbf\xbd\xef\xbf\xbd\xcc\xbe\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xc6\xae \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xc6\xae (\xef\xbf\xbd\xef\xbf\xbd\xc4\xa1, \xc8\xb8\xef\xbf\xbd\xef\xbf\xbd, \xef\xbf\xbd\xd3\xb5\xef\xbf\xbd, \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xc2\xb8\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xc3\xb3\xef\xbf\xbd\xef\xbf\xbd)\n" },
 #endif
 		{ "ModuleRelativePath", "NetworkManager.h" },
 #if !UE_BUILD_SHIPPING
-		{ "ToolTip", "\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xc3\xb7\xef\xbf\xbd\xef\xbf\xbd\xcc\xbe\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xc6\xae \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xc6\xae (\xef\xbf\xbd\xef\xbf\xbd\xc4\xa1, \xc8\xb8\xef\xbf\xbd\xef\xbf\xbd, \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xc2\xb8\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xc3\xb3\xef\xbf\xbd\xef\xbf\xbd)" },
+		{ "ToolTip", "\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xc3\xb7\xef\xbf\xbd\xef\xbf\xbd\xcc\xbe\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xc6\xae \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xc6\xae (\xef\xbf\xbd\xef\xbf\xbd\xc4\xa1, \xc8\xb8\xef\xbf\xbd\xef\xbf\xbd, \xef\xbf\xbd\xd3\xb5\xef\xbf\xbd, \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xc2\xb8\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xc3\xb3\xef\xbf\xbd\xef\xbf\xbd)" },
 #endif
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_OnClientIdReceived_MetaData[] = {
@@ -884,7 +893,7 @@ const UECodeGen_Private::FMulticastDelegatePropertyParams Z_Construct_UClass_UNe
 const UECodeGen_Private::FMulticastDelegatePropertyParams Z_Construct_UClass_UNetworkManager_Statics::NewProp_OnRotationUpdate = { "OnRotationUpdate", nullptr, (EPropertyFlags)0x0010000010080000, UECodeGen_Private::EPropertyGenFlags::InlineMulticastDelegate, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UNetworkManager, OnRotationUpdate), Z_Construct_UDelegateFunction_dummy_client_OnRotationUpdate__DelegateSignature, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OnRotationUpdate_MetaData), NewProp_OnRotationUpdate_MetaData) }; // 2892019557
 const UECodeGen_Private::FMulticastDelegatePropertyParams Z_Construct_UClass_UNetworkManager_Statics::NewProp_OnJumpStateUpdate = { "OnJumpStateUpdate", nullptr, (EPropertyFlags)0x0010000010080000, UECodeGen_Private::EPropertyGenFlags::InlineMulticastDelegate, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UNetworkManager, OnJumpStateUpdate), Z_Construct_UDelegateFunction_dummy_client_OnJumpStateUpdate__DelegateSignature, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OnJumpStateUpdate_MetaData), NewProp_OnJumpStateUpdate_MetaData) }; // 3398574632
 const UECodeGen_Private::FMulticastDelegatePropertyParams Z_Construct_UClass_UNetworkManager_Statics::NewProp_OnConnectionStatusChanged = { "OnConnectionStatusChanged", nullptr, (EPropertyFlags)0x0010000010080000, UECodeGen_Private::EPropertyGenFlags::InlineMulticastDelegate, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UNetworkManager, OnConnectionStatusChanged), Z_Construct_UDelegateFunction_dummy_client_OnConnectionStatusChanged__DelegateSignature, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OnConnectionStatusChanged_MetaData), NewProp_OnConnectionStatusChanged_MetaData) }; // 3102736973
-const UECodeGen_Private::FMulticastDelegatePropertyParams Z_Construct_UClass_UNetworkManager_Statics::NewProp_OnPlayerUpdate = { "OnPlayerUpdate", nullptr, (EPropertyFlags)0x0010000010080000, UECodeGen_Private::EPropertyGenFlags::InlineMulticastDelegate, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UNetworkManager, OnPlayerUpdate), Z_Construct_UDelegateFunction_dummy_client_OnPlayerUpdate__DelegateSignature, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OnPlayerUpdate_MetaData), NewProp_OnPlayerUpdate_MetaData) }; // 2812544490
+const UECodeGen_Private::FMulticastDelegatePropertyParams Z_Construct_UClass_UNetworkManager_Statics::NewProp_OnPlayerUpdate = { "OnPlayerUpdate", nullptr, (EPropertyFlags)0x0010000010080000, UECodeGen_Private::EPropertyGenFlags::InlineMulticastDelegate, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UNetworkManager, OnPlayerUpdate), Z_Construct_UDelegateFunction_dummy_client_OnPlayerUpdate__DelegateSignature, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OnPlayerUpdate_MetaData), NewProp_OnPlayerUpdate_MetaData) }; // 395344525
 const UECodeGen_Private::FMulticastDelegatePropertyParams Z_Construct_UClass_UNetworkManager_Statics::NewProp_OnClientIdReceived = { "OnClientIdReceived", nullptr, (EPropertyFlags)0x0010000010080000, UECodeGen_Private::EPropertyGenFlags::InlineMulticastDelegate, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UNetworkManager, OnClientIdReceived), Z_Construct_UDelegateFunction_dummy_client_OnClientIdReceived__DelegateSignature, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OnClientIdReceived_MetaData), NewProp_OnClientIdReceived_MetaData) }; // 638560509
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UNetworkManager_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UNetworkManager_Statics::NewProp_OnPositionUpdate,
@@ -937,10 +946,10 @@ struct Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_serve
 		{ EPacketType_StaticEnum, TEXT("EPacketType"), &Z_Registration_Info_UEnum_EPacketType, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 1073111682U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UNetworkManager, UNetworkManager::StaticClass, TEXT("UNetworkManager"), &Z_Registration_Info_UClass_UNetworkManager, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UNetworkManager), 116685029U) },
+		{ Z_Construct_UClass_UNetworkManager, UNetworkManager::StaticClass, TEXT("UNetworkManager"), &Z_Registration_Info_UClass_UNetworkManager, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UNetworkManager), 3158301714U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_NetworkManager_h_2439623269(TEXT("/Script/dummy_client"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_NetworkManager_h_1512858735(TEXT("/Script/dummy_client"),
 	Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_NetworkManager_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_NetworkManager_h_Statics::ClassInfo),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_NetworkManager_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_NetworkManager_h_Statics::EnumInfo));

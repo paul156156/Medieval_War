@@ -80,8 +80,7 @@ protected:
 
     /** 플레이어 업데이트 수신 (통합 함수) */
     UFUNCTION()
-    void OnPlayerUpdateReceived(int32 ClientId, const FVector& NewPosition, const FRotator& NewRotation, bool IsJumping);
-
+    void OnPlayerUpdateReceived(int32 ClientId, const FVector& NewPosition, const FRotator& NewRotation, const FVector& NewVelocity, bool IsJumping);
     /** 다른 플레이어 위치 업데이트 수신 (레거시) */
     UFUNCTION()
     void OnPositionUpdateReceived(const FVector& NewPosition);

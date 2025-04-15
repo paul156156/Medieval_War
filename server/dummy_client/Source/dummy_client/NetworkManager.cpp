@@ -6,12 +6,14 @@
 #include "TimerManager.h"
 #include "Engine/Engine.h"
 #include "Engine/World.h"
+#include "GameFramework/Character.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 UNetworkManager::UNetworkManager()
     : Socket(nullptr)
     , bIsConnected(false)
     , LastErrorCode(0)
-    , LocalClientId(-1)  // 초기 ID는 -1로 설정
+    , LocalClientId(-1)
 {
     // 수신 버퍼 초기화
     FMemory::Memzero(RecvBuffer, sizeof(RecvBuffer));
@@ -138,6 +140,20 @@ void UNetworkManager::SendMovePacket(float ForwardValue, float RightValue, const
     Packet.Rotation.Yaw = Rotation.Yaw;
     Packet.Rotation.Roll = Rotation.Roll;
 
+    // 속도 정보 추가
+    FVector Velocity = FVector::ZeroVector;
+
+    // 캐릭터에서 속도 가져오기
+    ACharacter* Character = Cast<ACharacter>(GetOuter());
+    if (Character)
+    {
+        Velocity = Character->GetVelocity();
+    }
+
+    Packet.Velocity.X = Velocity.X;
+    Packet.Velocity.Y = Velocity.Y;
+    Packet.Velocity.Z = Velocity.Z;
+
     // 패킷 전송
     int32 BytesSent = 0;
     bool bSuccess = Socket->Send(reinterpret_cast<uint8*>(&Packet), sizeof(FMovePacket), BytesSent);
@@ -152,8 +168,8 @@ void UNetworkManager::SendMovePacket(float ForwardValue, float RightValue, const
     else
     {
         // 디버그 로그 (Verbose 레벨)
-        UE_LOG(LogTemp, Verbose, TEXT("Sent Move Packet: Forward=%.2f, Right=%.2f, Pos=(%.2f,%.2f,%.2f)"),
-            ForwardValue, RightValue, Position.X, Position.Y, Position.Z);
+        UE_LOG(LogTemp, Verbose, TEXT("Sent Move Packet: Forward=%.2f, Right=%.2f, Pos=(%.2f,%.2f,%.2f), Vel=(%.2f,%.2f,%.2f)"),
+            ForwardValue, RightValue, Position.X, Position.Y, Position.Z, Velocity.X, Velocity.Y, Velocity.Z);
     }
 }
 
@@ -173,6 +189,20 @@ void UNetworkManager::SendJumpPacket(bool IsJumping, const FVector& Position)
     Packet.Position.Y = Position.Y;
     Packet.Position.Z = Position.Z;
 
+    // 속도 정보 추가
+    FVector Velocity = FVector::ZeroVector;
+
+    // 캐릭터에서 속도 가져오기
+    ACharacter* Character = Cast<ACharacter>(GetOuter());
+    if (Character)
+    {
+        Velocity = Character->GetVelocity();
+    }
+
+    Packet.Velocity.X = Velocity.X;
+    Packet.Velocity.Y = Velocity.Y;
+    Packet.Velocity.Z = Velocity.Z;
+
     // 패킷 전송
     int32 BytesSent = 0;
     bool bSuccess = Socket->Send(reinterpret_cast<uint8*>(&Packet), sizeof(FJumpPacket), BytesSent);
@@ -187,8 +217,8 @@ void UNetworkManager::SendJumpPacket(bool IsJumping, const FVector& Position)
     else
     {
         // 디버그 로그 (Verbose 레벨)
-        UE_LOG(LogTemp, Verbose, TEXT("Sent Jump Packet: Jumping=%s, Pos=(%.2f,%.2f,%.2f)"),
-            IsJumping ? TEXT("true") : TEXT("false"), Position.X, Position.Y, Position.Z);
+        UE_LOG(LogTemp, Verbose, TEXT("Sent Jump Packet: Jumping=%s, Pos=(%.2f,%.2f,%.2f), Vel=(%.2f,%.2f,%.2f)"),
+            IsJumping ? TEXT("true") : TEXT("false"), Position.X, Position.Y, Position.Z, Velocity.X, Velocity.Y, Velocity.Z);
     }
 }
 
@@ -231,8 +261,9 @@ void UNetworkManager::ProcessIncomingPackets()
                 if (BytesRead >= sizeof(FPositionUpdatePacket))
                 {
                     FPositionUpdatePacket* Packet = reinterpret_cast<FPositionUpdatePacket*>(RecvBuffer);
-                    UE_LOG(LogTemp, Display, TEXT("Position Update Packet - Client ID: %d, Pos: (%.1f, %.1f, %.1f)"),
-                        Packet->ClientId, Packet->Position.X, Packet->Position.Y, Packet->Position.Z);
+                    UE_LOG(LogTemp, Display, TEXT("Position Update Packet - Client ID: %d, Pos: (%.1f, %.1f, %.1f), Vel: (%.1f, %.1f, %.1f)"),
+                        Packet->ClientId, Packet->Position.X, Packet->Position.Y, Packet->Position.Z,
+                        Packet->Velocity.X, Packet->Velocity.Y, Packet->Velocity.Z);
                     HandlePositionUpdatePacket(Packet);
                 }
                 else
@@ -274,6 +305,7 @@ void UNetworkManager::HandlePositionUpdatePacket(const FPositionUpdatePacket* Pa
     // 위치 정보 추출
     FVector NewPosition(Packet->Position.X, Packet->Position.Y, Packet->Position.Z);
     FRotator NewRotation(Packet->Rotation.Pitch, Packet->Rotation.Yaw, Packet->Rotation.Roll);
+    FVector NewVelocity(Packet->Velocity.X, Packet->Velocity.Y, Packet->Velocity.Z);  // 속도 정보 추출
     bool bIsJumping = Packet->IsJumping;
     int32 ClientId = Packet->ClientId;
 
@@ -289,13 +321,14 @@ void UNetworkManager::HandlePositionUpdatePacket(const FPositionUpdatePacket* Pa
     OnRotationUpdate.Broadcast(NewRotation);
     OnJumpStateUpdate.Broadcast(bIsJumping);
 
-    // 통합 플레이어 업데이트 델리게이트 호출 (새로운 방식)
-    OnPlayerUpdate.Broadcast(ClientId, NewPosition, NewRotation, bIsJumping);
+    // 통합 플레이어 업데이트 델리게이트 호출 (새로운 방식, 속도 정보 포함)
+    OnPlayerUpdate.Broadcast(ClientId, NewPosition, NewRotation, NewVelocity, bIsJumping);
 
     // 디버그 로그
-    UE_LOG(LogTemp, Verbose, TEXT("Position Update from client %d: X=%.2f Y=%.2f Z=%.2f, Yaw=%.2f, Jumping=%s"),
-        ClientId, Packet->Position.X, Packet->Position.Y, Packet->Position.Z, Packet->Rotation.Yaw,
-        Packet->IsJumping ? TEXT("true") : TEXT("false"));
+    UE_LOG(LogTemp, Verbose, TEXT("Position Update from client %d: Pos=(%.1f,%.1f,%.1f), Vel=(%.1f,%.1f,%.1f), Jumping=%s"),
+        ClientId, NewPosition.X, NewPosition.Y, NewPosition.Z,
+        NewVelocity.X, NewVelocity.Y, NewVelocity.Z,
+        bIsJumping ? TEXT("true") : TEXT("false"));
 }
 
 void UNetworkManager::HandleClientIdPacket(const FClientIdPacket* Packet)

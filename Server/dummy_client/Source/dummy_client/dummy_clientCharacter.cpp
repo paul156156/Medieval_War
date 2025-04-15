@@ -160,17 +160,18 @@ void Adummy_clientCharacter::OnClientIdReceived(int32 ClientId)
     UE_LOG(LogTemp, Display, TEXT("Client ID received: %d"), LocalClientId);
 }
 
-void Adummy_clientCharacter::OnPlayerUpdateReceived(int32 ClientId, const FVector& NewPosition, const FRotator& NewRotation, bool IsJumping)
+void Adummy_clientCharacter::OnPlayerUpdateReceived(int32 ClientId, const FVector& NewPosition, const FRotator& NewRotation, const FVector& NewVelocity, bool IsJumping)
 {
     // 자신의 업데이트는 무시
     if (ClientId == LocalClientId)
     {
-        UE_LOG(LogTemp, Verbose, TEXT("Ignoring update for local player (ID: %d)"), ClientId);
+        UE_LOG(LogTemp, Verbose, TEXT("Ignored update for local player (ID: %d)"), ClientId);
         return;
     }
 
-    UE_LOG(LogTemp, Verbose, TEXT("Received update for player ID %d: Pos=(%.1f,%.1f,%.1f), Yaw=%.1f, Jumping=%s"),
-        ClientId, NewPosition.X, NewPosition.Y, NewPosition.Z, NewRotation.Yaw,
+    UE_LOG(LogTemp, Verbose, TEXT("Received update for player ID %d: Pos=(%.1f,%.1f,%.1f), Vel=(%.1f,%.1f,%.1f), Jumping=%s"),
+        ClientId, NewPosition.X, NewPosition.Y, NewPosition.Z,
+        NewVelocity.X, NewVelocity.Y, NewVelocity.Z,
         IsJumping ? TEXT("true") : TEXT("false"));
 
     // 해당 ID의 플레이어가 이미 존재하는지 확인
@@ -189,8 +190,27 @@ void Adummy_clientCharacter::OnPlayerUpdateReceived(int32 ClientId, const FVecto
             Pair.Value.RotationInterpolationTime = 0.0f;
             Pair.Value.IsJumping = IsJumping;
 
+            // 애니메이션을 위한 속도 설정
+            if (ACharacter* OtherCharacter = Cast<ACharacter>(ExistingPlayerActor))
+            {
+                if (UCharacterMovementComponent* MovementComp = OtherCharacter->GetCharacterMovement())
+                {
+                    // 네트워크로 받은 속도 정보 적용
+                    MovementComp->Velocity = NewVelocity;
+
+                    // 속도가 있으면 걷기 모드로 설정
+                    if (NewVelocity.SizeSquared() > 25.0f && !IsJumping)
+                    {
+                        MovementComp->SetMovementMode(MOVE_Walking);
+                    }
+
+                    UE_LOG(LogTemp, Display, TEXT("Set velocity for player %d: (%.1f, %.1f, %.1f)"),
+                        ClientId, NewVelocity.X, NewVelocity.Y, NewVelocity.Z);
+                }
+            }
+
             // 점프 상태 처리
-            if (IsJumping && !Pair.Value.IsJumping)
+            if (IsJumping)
             {
                 if (ACharacter* OtherCharacter = Cast<ACharacter>(ExistingPlayerActor))
                 {

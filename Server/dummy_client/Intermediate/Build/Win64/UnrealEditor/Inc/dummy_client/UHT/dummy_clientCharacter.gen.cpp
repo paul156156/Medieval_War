@@ -511,6 +511,7 @@ struct Z_Construct_UFunction_Adummy_clientCharacter_OnPlayerUpdateReceived_Stati
 		int32 ClientId;
 		FVector NewPosition;
 		FRotator NewRotation;
+		FVector NewVelocity;
 		bool IsJumping;
 	};
 #if WITH_METADATA
@@ -529,10 +530,14 @@ struct Z_Construct_UFunction_Adummy_clientCharacter_OnPlayerUpdateReceived_Stati
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_NewRotation_MetaData[] = {
 		{ "NativeConst", "" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_NewVelocity_MetaData[] = {
+		{ "NativeConst", "" },
+	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FIntPropertyParams NewProp_ClientId;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_NewPosition;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_NewRotation;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_NewVelocity;
 	static void NewProp_IsJumping_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_IsJumping;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
@@ -541,6 +546,7 @@ struct Z_Construct_UFunction_Adummy_clientCharacter_OnPlayerUpdateReceived_Stati
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_Adummy_clientCharacter_OnPlayerUpdateReceived_Statics::NewProp_ClientId = { "ClientId", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(dummy_clientCharacter_eventOnPlayerUpdateReceived_Parms, ClientId), METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_Adummy_clientCharacter_OnPlayerUpdateReceived_Statics::NewProp_NewPosition = { "NewPosition", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(dummy_clientCharacter_eventOnPlayerUpdateReceived_Parms, NewPosition), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_NewPosition_MetaData), NewProp_NewPosition_MetaData) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_Adummy_clientCharacter_OnPlayerUpdateReceived_Statics::NewProp_NewRotation = { "NewRotation", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(dummy_clientCharacter_eventOnPlayerUpdateReceived_Parms, NewRotation), Z_Construct_UScriptStruct_FRotator, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_NewRotation_MetaData), NewProp_NewRotation_MetaData) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_Adummy_clientCharacter_OnPlayerUpdateReceived_Statics::NewProp_NewVelocity = { "NewVelocity", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(dummy_clientCharacter_eventOnPlayerUpdateReceived_Parms, NewVelocity), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_NewVelocity_MetaData), NewProp_NewVelocity_MetaData) };
 void Z_Construct_UFunction_Adummy_clientCharacter_OnPlayerUpdateReceived_Statics::NewProp_IsJumping_SetBit(void* Obj)
 {
 	((dummy_clientCharacter_eventOnPlayerUpdateReceived_Parms*)Obj)->IsJumping = 1;
@@ -550,6 +556,7 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_Adummy
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_Adummy_clientCharacter_OnPlayerUpdateReceived_Statics::NewProp_ClientId,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_Adummy_clientCharacter_OnPlayerUpdateReceived_Statics::NewProp_NewPosition,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_Adummy_clientCharacter_OnPlayerUpdateReceived_Statics::NewProp_NewRotation,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_Adummy_clientCharacter_OnPlayerUpdateReceived_Statics::NewProp_NewVelocity,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_Adummy_clientCharacter_OnPlayerUpdateReceived_Statics::NewProp_IsJumping,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_Adummy_clientCharacter_OnPlayerUpdateReceived_Statics::PropPointers) < 2048);
@@ -569,10 +576,11 @@ DEFINE_FUNCTION(Adummy_clientCharacter::execOnPlayerUpdateReceived)
 	P_GET_PROPERTY(FIntProperty,Z_Param_ClientId);
 	P_GET_STRUCT_REF(FVector,Z_Param_Out_NewPosition);
 	P_GET_STRUCT_REF(FRotator,Z_Param_Out_NewRotation);
+	P_GET_STRUCT_REF(FVector,Z_Param_Out_NewVelocity);
 	P_GET_UBOOL(Z_Param_IsJumping);
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	P_THIS->OnPlayerUpdateReceived(Z_Param_ClientId,Z_Param_Out_NewPosition,Z_Param_Out_NewRotation,Z_Param_IsJumping);
+	P_THIS->OnPlayerUpdateReceived(Z_Param_ClientId,Z_Param_Out_NewPosition,Z_Param_Out_NewRotation,Z_Param_Out_NewVelocity,Z_Param_IsJumping);
 	P_NATIVE_END;
 }
 // End Class Adummy_clientCharacter Function OnPlayerUpdateReceived
@@ -983,7 +991,7 @@ struct Z_Construct_UClass_Adummy_clientCharacter_Statics
 		{ &Z_Construct_UFunction_Adummy_clientCharacter_OnNetworkDisconnected, "OnNetworkDisconnected" }, // 4029573599
 		{ &Z_Construct_UFunction_Adummy_clientCharacter_OnOtherPlayerRemoved, "OnOtherPlayerRemoved" }, // 630105136
 		{ &Z_Construct_UFunction_Adummy_clientCharacter_OnOtherPlayerSpawned, "OnOtherPlayerSpawned" }, // 3718412012
-		{ &Z_Construct_UFunction_Adummy_clientCharacter_OnPlayerUpdateReceived, "OnPlayerUpdateReceived" }, // 3708269459
+		{ &Z_Construct_UFunction_Adummy_clientCharacter_OnPlayerUpdateReceived, "OnPlayerUpdateReceived" }, // 1634020628
 		{ &Z_Construct_UFunction_Adummy_clientCharacter_OnPositionUpdateReceived, "OnPositionUpdateReceived" }, // 586555525
 		{ &Z_Construct_UFunction_Adummy_clientCharacter_OnRotationUpdateReceived, "OnRotationUpdateReceived" }, // 3813054373
 		{ &Z_Construct_UFunction_Adummy_clientCharacter_RemoveAllOtherPlayers, "RemoveAllOtherPlayers" }, // 987574348
@@ -1070,10 +1078,10 @@ struct Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_serve
 		{ FOtherPlayerInfo::StaticStruct, Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics::NewStructOps, TEXT("OtherPlayerInfo"), &Z_Registration_Info_UScriptStruct_OtherPlayerInfo, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FOtherPlayerInfo), 3505176033U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_Adummy_clientCharacter, Adummy_clientCharacter::StaticClass, TEXT("Adummy_clientCharacter"), &Z_Registration_Info_UClass_Adummy_clientCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(Adummy_clientCharacter), 1107035437U) },
+		{ Z_Construct_UClass_Adummy_clientCharacter, Adummy_clientCharacter::StaticClass, TEXT("Adummy_clientCharacter"), &Z_Registration_Info_UClass_Adummy_clientCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(Adummy_clientCharacter), 4283178036U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_dummy_clientCharacter_h_2532973154(TEXT("/Script/dummy_client"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_dummy_clientCharacter_h_976281865(TEXT("/Script/dummy_client"),
 	Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_dummy_clientCharacter_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_dummy_clientCharacter_h_Statics::ClassInfo),
 	Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_dummy_clientCharacter_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_server_dummy_client_Source_dummy_client_dummy_clientCharacter_h_Statics::ScriptStructInfo),
 	nullptr, 0);
