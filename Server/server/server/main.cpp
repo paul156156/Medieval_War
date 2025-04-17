@@ -15,7 +15,7 @@ enum class EPacketType : uint8_t
     MOVE = 0,
     JUMP = 1,
     POSITION_UPDATE = 2,
-    CLIENT_ID = 3  // 클라이언트 ID 할당을 위한 패킷 타입 추가
+    CLIENT_ID = 3
 };
 
 // 패킷 구조체 정의
@@ -33,7 +33,7 @@ struct MovePacket
     float RightValue;
     struct { float X, Y, Z; } Position;
     struct { float Pitch, Yaw, Roll; } Rotation;
-    struct { float X, Y, Z; } Velocity;  // 속도 정보 추가
+    struct { float X, Y, Z; } Velocity;
 };
 
 struct JumpPacket
@@ -41,16 +41,16 @@ struct JumpPacket
     PacketHeader Header;
     bool IsJumping;
     struct { float X, Y, Z; } Position;
-    struct { float X, Y, Z; } Velocity;  // 속도 정보 추가
+    struct { float X, Y, Z; } Velocity;
 };
 
 struct PositionUpdatePacket
 {
     PacketHeader Header;
-    int32_t ClientId;  // 클라이언트 ID 추가
+    int32_t ClientId;
     struct { float X, Y, Z; } Position;
     struct { float Pitch, Yaw, Roll; } Rotation;
-    struct { float X, Y, Z; } Velocity;  // 속도 정보 추가
+    struct { float X, Y, Z; } Velocity;
     bool IsJumping;
 };
 
@@ -85,7 +85,7 @@ struct ClientSession
     struct
     {
         float X, Y, Z;
-    } Velocity;  // 속도 정보 추가
+    } Velocity; 
 
     bool IsJumping;
 
@@ -553,7 +553,7 @@ private:
         PositionUpdatePacket packet;
         packet.Header.PacketType = EPacketType::POSITION_UPDATE;
         packet.Header.PacketSize = sizeof(PositionUpdatePacket);
-        packet.ClientId = sourceClient->id;  // 클라이언트 ID 포함
+        packet.ClientId = sourceClient->id;
         packet.Position.X = sourceClient->Position.X;
         packet.Position.Y = sourceClient->Position.Y;
         packet.Position.Z = sourceClient->Position.Z;

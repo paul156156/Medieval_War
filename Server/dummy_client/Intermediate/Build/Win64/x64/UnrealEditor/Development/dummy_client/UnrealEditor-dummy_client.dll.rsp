@@ -83,5 +83,5 @@
 "dwmapi.lib"
 "imm32.lib"
 /OUT:"C:\Users\Blues\Documents\GitHub\Medieval_War\server\dummy_client\Binaries\Win64\UnrealEditor-dummy_client.dll"
-/PDB:"C:\Users\Blues\Documents\GitHub\Medieval_War\server\dummy_client\Binaries\Win64\UnrealEditor-dummy_client.pdb"
+/PDB:"C:\Users\Blues\Documents\GitHub\Medieval_War\Server\dummy_client\Binaries\Win64\UnrealEditor-dummy_client.pdb"
 /ignore:4078

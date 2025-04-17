@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Blues\\Documents\\GitHub\\Medieval_War\\server\\dummy_client\\Intermediate\\Build\\BuildRulesProjects\\dummy_clientModuleRules\\dummy_clientModuleRules.csproj": {}
+    "C:\\Users\\Blues\\Documents\\GitHub\\Medieval_War\\Server\\dummy_client\\Intermediate\\Build\\BuildRulesProjects\\dummy_clientModuleRules\\dummy_clientModuleRules.csproj": {}
   },
   "projects": {
     "C:\\Program Files\\Epic Games\\UE_5.5\\Engine\\Intermediate\\Build\\BuildRulesProjects\\UE5ProgramRules\\UE5ProgramRules.csproj": {
@@ -1170,14 +1170,14 @@
         }
       }
     },
-    "C:\\Users\\Blues\\Documents\\GitHub\\Medieval_War\\server\\dummy_client\\Intermediate\\Build\\BuildRulesProjects\\dummy_clientModuleRules\\dummy_clientModuleRules.csproj": {
+    "C:\\Users\\Blues\\Documents\\GitHub\\Medieval_War\\Server\\dummy_client\\Intermediate\\Build\\BuildRulesProjects\\dummy_clientModuleRules\\dummy_clientModuleRules.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Blues\\Documents\\GitHub\\Medieval_War\\server\\dummy_client\\Intermediate\\Build\\BuildRulesProjects\\dummy_clientModuleRules\\dummy_clientModuleRules.csproj",
+        "projectUniqueName": "C:\\Users\\Blues\\Documents\\GitHub\\Medieval_War\\Server\\dummy_client\\Intermediate\\Build\\BuildRulesProjects\\dummy_clientModuleRules\\dummy_clientModuleRules.csproj",
         "projectName": "dummy_clientModuleRules",
-        "projectPath": "C:\\Users\\Blues\\Documents\\GitHub\\Medieval_War\\server\\dummy_client\\Intermediate\\Build\\BuildRulesProjects\\dummy_clientModuleRules\\dummy_clientModuleRules.csproj",
+        "projectPath": "C:\\Users\\Blues\\Documents\\GitHub\\Medieval_War\\Server\\dummy_client\\Intermediate\\Build\\BuildRulesProjects\\dummy_clientModuleRules\\dummy_clientModuleRules.csproj",
         "packagesPath": "C:\\Users\\Blues\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Blues\\Documents\\GitHub\\Medieval_War\\server\\dummy_client\\Intermediate\\Build\\BuildRulesProjects\\dummy_clientModuleRules\\obj\\",
+        "outputPath": "C:\\Users\\Blues\\Documents\\GitHub\\Medieval_War\\Server\\dummy_client\\Intermediate\\Build\\BuildRulesProjects\\dummy_clientModuleRules\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
