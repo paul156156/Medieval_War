@@ -6,7 +6,7 @@
         "PCH": "c:\\users\\blues\\documents\\github\\medieval_war\\client\\myproject\\intermediate\\build\\win64\\x64\\myprojecteditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
         "Includes": [
             "c:\\users\\blues\\documents\\github\\medieval_war\\client\\myproject\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\myproject\\definitions.myproject.h",
-            "c:\\users\\blues\\documents\\github\\medieval_war\\client\\myproject\\source\\myproject\\private\\gameplay\\myplayercontroller.h",
+            "c:\\users\\blues\\documents\\github\\medieval_war\\client\\myproject\\source\\myproject\\public\\gameplay\\myplayercontroller.h",
             "c:\\users\\blues\\documents\\github\\medieval_war\\client\\myproject\\intermediate\\build\\win64\\unrealeditor\\inc\\myproject\\uht\\myplayercontroller.generated.h"
         ],
         "ImportedModules": [],

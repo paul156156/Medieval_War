@@ -29,6 +29,66 @@
     <None Include="..\..\Config\DefaultInput.ini">
       <Filter>Config</Filter>
     </None>
+    <Filter Include="Plugins">
+      <UniqueIdentifier>{BB38096A-B391-30DC-A0D4-4F3EA6B44507}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\SimpleNetworking">
+      <UniqueIdentifier>{21513597-D949-3A3B-A0A8-64215AE82EC6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\SimpleNetworking\Source">
+      <UniqueIdentifier>{64B2DACC-889A-3F88-9F31-E152F3C8BF74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\SimpleNetworking\Source\SimpleNetworking">
+      <UniqueIdentifier>{819D4DA3-E4BC-3EEC-B0C3-7E336754E9E1}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\SimpleNetworking.build.cs">
+      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking</Filter>
+    </None>
+    <Filter Include="Plugins\SimpleNetworking\Source\SimpleNetworking\Private">
+      <UniqueIdentifier>{6B3C7139-F0C2-3668-8B2C-54A4304DDADD}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\Private\NetworkPlayerComponent.cpp">
+      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\Private\SimpleNetworkCharacter.cpp">
+      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\Private\SimpleNetworkGameMode.cpp">
+      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\Private\SimpleNetworking.cpp">
+      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\Private\SimpleNetworkManager.cpp">
+      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\Private</Filter>
+    </ClCompile>
+    <Filter Include="Plugins\SimpleNetworking\Source\SimpleNetworking\Public">
+      <UniqueIdentifier>{4CB92460-5F3F-34C1-AA1A-4438F3EB08DA}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\Public\ISimpleNetworkInterface.h">
+      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\Public\NetworkPlayerComponent.h">
+      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\Public\NetworkTypes.h">
+      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\Public\SimpleNetworkCharacter.h">
+      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\Public\SimpleNetworkGameMode.h">
+      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\Public\SimpleNetworking.h">
+      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\Public\SimpleNetworkManager.h">
+      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\Public</Filter>
+    </ClCompile>
+    <None Include="..\..\Plugins\SimpleNetworking\SimpleNetworking.uplugin">
+      <Filter>Plugins\SimpleNetworking</Filter>
+    </None>
     <Filter Include="Source\MyProject">
       <UniqueIdentifier>{E24959B1-EBAF-399D-9D3A-65ADD2D94AF5}</UniqueIdentifier>
     </Filter>
@@ -56,6 +116,9 @@
     <Filter Include="Source\MyProject\Private">
       <UniqueIdentifier>{D2F4842B-BBDC-35B5-85B4-9B71BDE2BA6A}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\MyProject\Private\MyNetworkCharacter.cpp">
+      <Filter>Source\MyProject\Private</Filter>
+    </ClCompile>
     <Filter Include="Source\MyProject\Private\GamePlay">
       <UniqueIdentifier>{AD56F193-EE5F-3F96-8D69-66A49C59FF83}</UniqueIdentifier>
     </Filter>
@@ -76,6 +139,12 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\MyProject\Private\GamePlay\MyPlayerController.h">
       <Filter>Source\MyProject\Private\GamePlay</Filter>
+    </ClCompile>
+    <Filter Include="Source\MyProject\Public">
+      <UniqueIdentifier>{17AF90F8-BCFF-35EC-B42A-50C00E45B19B}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\MyProject\Public\MyNetworkCharacter.h">
+      <Filter>Source\MyProject\Public</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -288,9 +288,13 @@
 /I "Editor\AnimationEditMode\Public"
 /I "C:\Users\Blues\Documents\GitHub\Medieval_War\Client\MyProject\Intermediate\Build\Win64\UnrealEditor\Inc\MyProject\UHT"
 /I "C:\Users\Blues\Documents\GitHub\Medieval_War\Client\MyProject\Source"
+/I "C:\Users\Blues\Documents\GitHub\Medieval_War\Client\MyProject\Source\MyProject\Public"
 /I "..\Plugins\EnhancedInput\Intermediate\Build\Win64\UnrealEditor\Inc\EnhancedInput\UHT"
 /I "..\Plugins\EnhancedInput\Source"
 /I "..\Plugins\EnhancedInput\Source\EnhancedInput\Public"
+/I "C:\Users\Blues\Documents\GitHub\Medieval_War\Client\MyProject\Plugins\SimpleNetworking\Intermediate\Build\Win64\UnrealEditor\Inc\SimpleNetworking\UHT"
+/I "C:\Users\Blues\Documents\GitHub\Medieval_War\Client\MyProject\Plugins\SimpleNetworking\Source"
+/I "C:\Users\Blues\Documents\GitHub\Medieval_War\Client\MyProject\Plugins\SimpleNetworking\Source\SimpleNetworking\Public"
 /external:W0
 /external:I "ThirdParty\GuidelinesSupportLibrary\GSL-1144\include"
 /external:I "ThirdParty\RapidJSON\1.1.0"

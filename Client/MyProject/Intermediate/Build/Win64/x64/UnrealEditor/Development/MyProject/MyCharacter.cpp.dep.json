@@ -6,7 +6,7 @@
         "PCH": "c:\\users\\blues\\documents\\github\\medieval_war\\client\\myproject\\intermediate\\build\\win64\\x64\\myprojecteditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
         "Includes": [
             "c:\\users\\blues\\documents\\github\\medieval_war\\client\\myproject\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\myproject\\definitions.myproject.h",
-            "c:\\users\\blues\\documents\\github\\medieval_war\\client\\myproject\\source\\myproject\\private\\gameplay\\mycharacter.h",
+            "c:\\users\\blues\\documents\\github\\medieval_war\\client\\myproject\\source\\myproject\\public\\gameplay\\mycharacter.h",
             "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\engine\\classes\\gameframework\\character.h",
             "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\engine\\classes\\gameframework\\charactermovementreplication.h",
             "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\net\\core\\public\\net\\core\\nettoken\\nettokenexportcontext.h",
