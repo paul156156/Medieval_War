@@ -116,9 +116,6 @@
     <Filter Include="Source\MyProject\Private">
       <UniqueIdentifier>{D2F4842B-BBDC-35B5-85B4-9B71BDE2BA6A}</UniqueIdentifier>
     </Filter>
-    <ClCompile Include="..\..\Source\MyProject\Private\MyNetworkCharacter.cpp">
-      <Filter>Source\MyProject\Private</Filter>
-    </ClCompile>
     <Filter Include="Source\MyProject\Private\GamePlay">
       <UniqueIdentifier>{AD56F193-EE5F-3F96-8D69-66A49C59FF83}</UniqueIdentifier>
     </Filter>
@@ -134,17 +131,17 @@
     <ClCompile Include="..\..\Source\MyProject\Private\GamePlay\MyGameMode.h">
       <Filter>Source\MyProject\Private\GamePlay</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\MyProject\Private\GamePlay\MyNetworkCharacter.cpp">
+      <Filter>Source\MyProject\Private\GamePlay</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MyProject\Private\GamePlay\MyNetworkCharacter.h">
+      <Filter>Source\MyProject\Private\GamePlay</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\MyProject\Private\GamePlay\MyPlayerController.cpp">
       <Filter>Source\MyProject\Private\GamePlay</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\MyProject\Private\GamePlay\MyPlayerController.h">
       <Filter>Source\MyProject\Private\GamePlay</Filter>
-    </ClCompile>
-    <Filter Include="Source\MyProject\Public">
-      <UniqueIdentifier>{17AF90F8-BCFF-35EC-B42A-50C00E45B19B}</UniqueIdentifier>
-    </Filter>
-    <ClCompile Include="..\..\Source\MyProject\Public\MyNetworkCharacter.h">
-      <Filter>Source\MyProject\Public</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

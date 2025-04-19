@@ -1,4 +1,5 @@
 /I "."
+/I "C:\Users\Blues\Documents\GitHub\Medieval_War\Client\MyProject\Source\MyProject\Private"
 /I "..\Intermediate\Build\Win64\UnrealEditor\Inc\Engine\UHT"
 /I "Runtime\Engine\Classes"
 /I "Runtime\Engine\Public"
@@ -287,6 +288,7 @@
 /I "Editor\AnimationEditMode\Public"
 /I "C:\Users\Blues\Documents\GitHub\Medieval_War\Client\MyProject\Intermediate\Build\Win64\UnrealEditor\Inc\MyProject\UHT"
 /I "C:\Users\Blues\Documents\GitHub\Medieval_War\Client\MyProject\Source"
+/I "C:\Users\Blues\Documents\GitHub\Medieval_War\Client\MyProject\Source\MyProject\Public"
 /I "..\Plugins\EnhancedInput\Intermediate\Build\Win64\UnrealEditor\Inc\EnhancedInput\UHT"
 /I "..\Plugins\EnhancedInput\Source"
 /I "..\Plugins\EnhancedInput\Source\EnhancedInput\Public"
