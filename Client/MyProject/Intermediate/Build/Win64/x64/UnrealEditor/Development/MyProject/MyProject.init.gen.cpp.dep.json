@@ -1,11 +1,11 @@
 {
     "Version": "1.2",
     "Data": {
-        "Source": "c:\\users\\gusan\\source\\repos\\unreal\\myproject\\intermediate\\build\\win64\\unrealeditor\\inc\\myproject\\uht\\myproject.init.gen.cpp",
+        "Source": "c:\\users\\blues\\documents\\github\\medieval_war\\client\\myproject\\intermediate\\build\\win64\\unrealeditor\\inc\\myproject\\uht\\myproject.init.gen.cpp",
         "ProvidedModule": "",
-        "PCH": "c:\\users\\gusan\\source\\repos\\unreal\\myproject\\intermediate\\build\\win64\\x64\\myprojecteditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
+        "PCH": "c:\\users\\blues\\documents\\github\\medieval_war\\client\\myproject\\intermediate\\build\\win64\\x64\\myprojecteditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
         "Includes": [
-            "c:\\users\\gusan\\source\\repos\\unreal\\myproject\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\myproject\\definitions.myproject.h"
+            "c:\\users\\blues\\documents\\github\\medieval_war\\client\\myproject\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\myproject\\definitions.myproject.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

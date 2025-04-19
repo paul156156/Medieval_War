@@ -1,12 +1,12 @@
-"C:\Users\gusan\source\repos\unreal\MyProject\Intermediate\Build\Win64\UnrealEditor\Inc\MyProject\UHT\MyProjectGameMode.gen.cpp"
-/FI"C:\Users\gusan\source\repos\unreal\MyProject\Intermediate\Build\Win64\x64\MyProjectEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h"
-/FI"C:\Users\gusan\source\repos\unreal\MyProject\Intermediate\Build\Win64\x64\UnrealEditor\Development\MyProject\Definitions.MyProject.h"
-/Yu"C:\Users\gusan\source\repos\unreal\MyProject\Intermediate\Build\Win64\x64\MyProjectEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h"
-/Fp"C:\Users\gusan\source\repos\unreal\MyProject\Intermediate\Build\Win64\x64\MyProjectEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h.pch"
-/Fo"C:\Users\gusan\source\repos\unreal\MyProject\Intermediate\Build\Win64\x64\UnrealEditor\Development\MyProject\MyProjectGameMode.gen.cpp.obj"
-/experimental:log "C:\Users\gusan\source\repos\unreal\MyProject\Intermediate\Build\Win64\x64\UnrealEditor\Development\MyProject\MyProjectGameMode.gen.cpp.sarif"
-/sourceDependencies "C:\Users\gusan\source\repos\unreal\MyProject\Intermediate\Build\Win64\x64\UnrealEditor\Development\MyProject\MyProjectGameMode.gen.cpp.dep.json"
-@"C:\Users\gusan\source\repos\unreal\MyProject\Intermediate\Build\Win64\x64\UnrealEditor\Development\MyProject\MyProject.Shared.rsp"
+"C:\Users\Blues\Documents\GitHub\Medieval_War\Client\MyProject\Intermediate\Build\Win64\UnrealEditor\Inc\MyProject\UHT\MyProjectGameMode.gen.cpp"
+/FI"C:\Users\Blues\Documents\GitHub\Medieval_War\Client\MyProject\Intermediate\Build\Win64\x64\MyProjectEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h"
+/FI"C:\Users\Blues\Documents\GitHub\Medieval_War\Client\MyProject\Intermediate\Build\Win64\x64\UnrealEditor\Development\MyProject\Definitions.MyProject.h"
+/Yu"C:\Users\Blues\Documents\GitHub\Medieval_War\Client\MyProject\Intermediate\Build\Win64\x64\MyProjectEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h"
+/Fp"C:\Users\Blues\Documents\GitHub\Medieval_War\Client\MyProject\Intermediate\Build\Win64\x64\MyProjectEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h.pch"
+/Fo"C:\Users\Blues\Documents\GitHub\Medieval_War\Client\MyProject\Intermediate\Build\Win64\x64\UnrealEditor\Development\MyProject\MyProjectGameMode.gen.cpp.obj"
+/experimental:log "C:\Users\Blues\Documents\GitHub\Medieval_War\Client\MyProject\Intermediate\Build\Win64\x64\UnrealEditor\Development\MyProject\MyProjectGameMode.gen.cpp.sarif"
+/sourceDependencies "C:\Users\Blues\Documents\GitHub\Medieval_War\Client\MyProject\Intermediate\Build\Win64\x64\UnrealEditor\Development\MyProject\MyProjectGameMode.gen.cpp.dep.json"
+@"C:\Users\Blues\Documents\GitHub\Medieval_War\Client\MyProject\Intermediate\Build\Win64\x64\UnrealEditor\Development\MyProject\MyProject.Shared.rsp"
 /d2ssa-cfg-question-
 /Zc:inline
 /nologo
