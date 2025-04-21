@@ -32,9 +32,27 @@ void ASimpleNetworkCharacter::BeginPlay()
     {
         if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
         {
-            Subsystem->AddMappingContext(DefaultMappingContext, 0);
+            // DefaultMappingContext가 null인지 체크
+            if (DefaultMappingContext)
+            {
+                Subsystem->AddMappingContext(DefaultMappingContext, 0);
+                UE_LOG(LogTemp, Display, TEXT("Enhanced Input Mapping Context added successfully"));
+            }
+            else
+            {
+                UE_LOG(LogTemp, Error, TEXT("DefaultMappingContext is null! Make sure it's set in the Character Blueprint."));
+            }
         }
     }
+
+    // 위치 업데이트 타이머 설정
+    GetWorldTimerManager().SetTimer(
+        PositionUpdateTimerHandle,
+        this,
+        &ASimpleNetworkCharacter::SendPositionToServer,
+        PositionUpdateInterval, // 변수 사용
+        true
+    );
 }
 
 void ASimpleNetworkCharacter::EndPlay(const EEndPlayReason::Type EndPlayReason)
@@ -123,9 +141,9 @@ void ASimpleNetworkCharacter::SetupPlayerInputComponent(UInputComponent* PlayerI
     if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent))
     {
         // 이동 액션 바인딩
-        EnhancedInputComponent->BindAction(MoveForwardAction, ETriggerEvent::Triggered, this, &ASimpleNetworkCharacter::Move);
-        EnhancedInputComponent->BindAction(MoveRightAction, ETriggerEvent::Triggered, this, &ASimpleNetworkCharacter::Move);
-
+        EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ASimpleNetworkCharacter::Move);
+		// 시선 액션 바인딩
+        EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ASimpleNetworkCharacter::Look);
         // 점프 액션 바인딩
         EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ASimpleNetworkCharacter::Jump);
         EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ASimpleNetworkCharacter::StopJumping);

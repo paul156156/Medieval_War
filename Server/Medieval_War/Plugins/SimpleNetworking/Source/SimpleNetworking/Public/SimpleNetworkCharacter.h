@@ -4,6 +4,8 @@
 #include "GameFramework/Character.h"
 #include "NetworkTypes.h"
 #include "InputActionValue.h"
+#include "Camera/CameraComponent.h"
+#include "GameFramework/SpringArmComponent.h"
 #include "SimpleNetworkCharacter.generated.h"
 
 class USimpleNetworkManager;
@@ -22,15 +24,22 @@ public:
     virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
     virtual void Tick(float DeltaTime) override;
 
+    // 카메라 관련 컴포넌트
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+    class USpringArmComponent* CameraBoom;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+    class UCameraComponent* FollowCamera;
+
     // Enhanced Input 관련 속성 추가
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
     UInputMappingContext* DefaultMappingContext;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
-    UInputAction* MoveForwardAction;
+    UInputAction* MoveAction;
 
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
-    UInputAction* MoveRightAction;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
+	UInputAction* LookAction;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
     UInputAction* JumpAction;
@@ -98,16 +107,31 @@ public:
     int32 GetOtherPlayerCount() const { return OtherPlayers.Num(); }
 
     // 네트워크 이벤트 함수들
-    void OnNetworkConnected();
-    void OnNetworkDisconnected();
-    void OnPlayerUpdateReceived(int32 ClientId, const FVector& Position, const FRotator& Rotation, const FVector& Velocity, bool IsJumping);
-    void OnClientIdReceived(int32 ClientId);
+    UFUNCTION(BlueprintCallable, Category = "Networking")
+    virtual void OnNetworkConnected();
+
+    UFUNCTION(BlueprintCallable, Category = "Networking")
+    virtual void OnNetworkDisconnected();
+
+    // 네트워크 이벤트 핸들러
+    UFUNCTION()
+    virtual void OnConnectionStatusChanged(bool IsConnected);
+
+    UFUNCTION()
+    virtual void OnPlayerUpdateReceived(int32 ClientId, const FVector& Position, const FRotator& Rotation, const FVector& Velocity, bool IsJumping);
+
+    UFUNCTION()
+    virtual void OnClientIdReceived(int32 ClientId);
+
     void OnOtherPlayerSpawned(AActor* OtherPlayerActor, int32 ClientId);
     void OnOtherPlayerRemoved(int32 ClientId);
 
 private:
     // 마지막 위치 전송 시간
     float LastPositionSentTime;
+
+	// 위치 업데이트 타이머 핸들
+	FTimerHandle PositionUpdateTimerHandle;
 
     // 네트워크 매니저 초기화
     void InitializeNetworkManager();
@@ -120,10 +144,6 @@ private:
 
     // 다른 플레이어 캐릭터 업데이트
     void UpdateOtherPlayerCharacters(float DeltaTime);
-
-    // 네트워크 이벤트 핸들러 (내부)
-    UFUNCTION()
-    void OnConnectionStatusChanged(bool IsConnected);
 
     // 다른 플레이어 캐릭터 스폰 내부 구현
     AActor* SpawnOtherPlayerCharacterInternal(const FVector& Position, int32 InClientId = -1);

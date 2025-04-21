@@ -16,6 +16,7 @@ enum class EPacketType : uint8_t
     POSITION_UPDATE = 1,
     MOVE = 2,
     JUMP = 3,
+    ATTACK = 4
 };
 
 // 패킷 구조체 정의

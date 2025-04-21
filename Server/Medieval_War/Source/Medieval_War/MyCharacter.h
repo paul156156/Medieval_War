@@ -45,16 +45,22 @@ protected:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
     UCameraComponent* FollowCamera;
 
+	// 입력 값
+    UPROPERTY(BlueprintReadWrite, Category = "Input")
+    float CurrentForwardValue = 0.0f;
+	float CurrentRightValue = 0.0f;
+
+	// 애니메이션 몽타주
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+    UAnimMontage* AttackMontage;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+    bool bIsAttacking;
+
     // 입력 함수
     void Move(const FInputActionValue& Value);
     void Look(const FInputActionValue& Value);
     void Jump();
     void StopJumping();
     void Attack();
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
-    UAnimMontage* AttackMontage;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
-    bool bIsAttacking;
 };

@@ -104,6 +104,8 @@ void AMyCharacter::Move(const FInputActionValue& Value)
         // 움직임 적용
         if (MovementVector.Y != 0.0f)  // 전후 이동 (W/S)
         {
+            CurrentForwardValue = MovementVector.Y; // 입력값 저장
+
             AddMovementInput(ForwardDirection, MovementVector.Y);
             if (GEngine)
             {
@@ -111,15 +113,25 @@ void AMyCharacter::Move(const FInputActionValue& Value)
                     FString::Printf(TEXT("Forward Input Applied: %.2f"), MovementVector.Y));
             }
         }
+        else
+        {
+            CurrentForwardValue = 0.0f;
+        }
 
         if (MovementVector.X != 0.0f)  // 좌우 이동 (A/D)
         {
+            CurrentRightValue = MovementVector.X; // 입력값 저장
+
             AddMovementInput(RightDirection, MovementVector.X);
             if (GEngine)
             {
                 GEngine->AddOnScreenDebugMessage(-1, 0.5f, FColor::Yellow,
                     FString::Printf(TEXT("Right Input Applied: %.2f"), MovementVector.X));
             }
+        }
+        else
+        {
+			CurrentRightValue = 0.0f;
         }
     }
 }
@@ -192,9 +204,6 @@ void AMyCharacter::Attack()
                 {
                     bIsAttacking = false;
                 }, MontageLength, false);
-
-            // 몽타주에 이벤트를 설정한 경우 아래와 같이 바인딩할 수 있음
-            // AnimInstance->Montage_SetEndDelegate(EndDelegate, AttackMontage);
         }
     }
     else
@@ -202,8 +211,4 @@ void AMyCharacter::Attack()
         // 몽타주가 없으면 빠르게 상태 리셋
         bIsAttacking = false;
     }
-
-    // 여기에 실제 공격 로직 추가 (트레이스, 데미지 적용 등)
-    // 예: LineTrace, SphereTrace 등을 사용하여 공격 판정
-    // 또는 블루프린트에서 구현하기 위해 BlueprintImplementableEvent 사용
 }

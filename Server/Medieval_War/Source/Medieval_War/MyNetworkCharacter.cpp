@@ -1,131 +1,125 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-#include "MyNetworkCharacter.h"
+// MyNetworkCharacter.cpp
+#include "MyNetworkCharacter.h" // 반드시 첫 번째 include여야 함
 #include "SimpleNetworking/Public/NetworkPlayerComponent.h"
 #include "SimpleNetworking/Public/SimpleNetworkManager.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "Components/CapsuleComponent.h"
+#include "Camera/CameraComponent.h"
+#include "GameFramework/SpringArmComponent.h"
+#include "EnhancedInputComponent.h"
+#include "EnhancedInputSubsystems.h"
 
-// 생성자
 AMyNetworkCharacter::AMyNetworkCharacter()
 {
-	// Tick 함수 활성화
-	PrimaryActorTick.bCanEverTick = true;
+    // Tick 함수 활성화
+    PrimaryActorTick.bCanEverTick = true;
 
-	// 네트워크 컴포넌트 생성
-	NetworkComponent = CreateDefaultSubobject<UNetworkPlayerComponent>(TEXT("NetworkComponent"));
+    // 네트워크 컴포넌트 생성
+    NetworkComponent = CreateDefaultSubobject<UNetworkPlayerComponent>(TEXT("NetworkComponent"));
 
-	// 서버 설정
-	NetworkComponent->ServerIP = "127.0.0.1";
-	NetworkComponent->ServerPort = 9000;
-	NetworkComponent->bAutoConnectOnBeginPlay = true;
+    // 서버 설정
+    NetworkComponent->ServerIP = "127.0.0.1";
+    NetworkComponent->ServerPort = 9000;
+    NetworkComponent->bAutoConnectOnBeginPlay = true;
+
+	// 마지막 점프 상태 초기화
+	LastJumpState = false;
+
+    //캡슐 컴포넌트 설정
+    GetCapsuleComponent()->InitCapsuleSize(34.f, 88.0f);
+
+    //캐릭터 무브먼트 컴포넌트 설정
+    GetCharacterMovement()->bOrientRotationToMovement = true;
+    GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.0f, 0.0f);
+    GetCharacterMovement()->JumpZVelocity = 700.f;
+    GetCharacterMovement()->AirControl = 0.35f;
+    GetCharacterMovement()->MaxWalkSpeed = 500.f;
+
+    //컨트롤러가 캐릭터의 요(Yaw) 회전에만 영향을 주도록 설정
+    bUseControllerRotationPitch = false;
+    bUseControllerRotationYaw = false;
+    bUseControllerRotationRoll = false;
+
+    //스프링 암 생성 (캐릭터와 카메라 사이의 거리 조절)
+    CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
+    CameraBoom->SetupAttachment(RootComponent);
+    CameraBoom->TargetArmLength = 400.0f;
+    CameraBoom->bUsePawnControlRotation = true;
+
+    //팔로우 카메라 생성
+    FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
+    FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
+    FollowCamera->bUsePawnControlRotation = false;
+
 }
 
 void AMyNetworkCharacter::BeginPlay()
 {
-	Super::BeginPlay();
+    Super::BeginPlay();
 
-	// 다른 플레이어 캐릭터 클래스 설정
-	if (OtherPlayerCharacterClass && NetworkComponent)
-	{
-		NetworkComponent->OtherPlayerCharacterClass = OtherPlayerCharacterClass;
-	}
+    // 다른 플레이어 캐릭터 클래스 설정
+    if (OtherPlayerCharacterClass && NetworkComponent)
+    {
+        NetworkComponent->OtherPlayerCharacterClass = OtherPlayerCharacterClass;
+    }
 
-	// 네트워크 매니저 이벤트 바인딩 - 매니저에 직접 바인딩
-	if (NetworkComponent && NetworkComponent->NetworkManager)
-	{
-		// 올바른 형식으로 델리게이트 바인딩
-		USimpleNetworkManager* NetManager = NetworkComponent->NetworkManager;
-		if (NetManager)
-		{
-			// 연결 상태 변경 델리게이트
-			NetManager->OnConnectionStatusChanged.AddDynamic(this, &AMyNetworkCharacter::OnConnectionStatusChanged);
-
-			// 플레이어 업데이트 델리게이트
-			NetManager->OnPlayerUpdate.AddDynamic(this, &AMyNetworkCharacter::OnPlayerUpdateReceived);
-
-			// 클라이언트 ID 수신 델리게이트
-			NetManager->OnClientIdReceived.AddDynamic(this, &AMyNetworkCharacter::OnClientIdReceived);
-		}
-	}
 }
 
 void AMyNetworkCharacter::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
-	// 델리게이트 바인딩 해제
-	if (NetworkComponent && NetworkComponent->NetworkManager)
-	{
-		USimpleNetworkManager* NetManager = NetworkComponent->NetworkManager;
-		if (NetManager)
-		{
-			NetManager->OnConnectionStatusChanged.RemoveDynamic(this, &AMyNetworkCharacter::OnConnectionStatusChanged);
-
-			NetManager->OnPlayerUpdate.RemoveDynamic(this, &AMyNetworkCharacter::OnPlayerUpdateReceived);
-
-			NetManager->OnClientIdReceived.RemoveDynamic(this, &AMyNetworkCharacter::OnClientIdReceived);
-		}
-	}
-
-	Super::EndPlay(EndPlayReason);
+    Super::EndPlay(EndPlayReason);
 }
 
 void AMyNetworkCharacter::Tick(float DeltaTime)
 {
-	Super::Tick(DeltaTime);
-	// 기본 Tick 동작
+    Super::Tick(DeltaTime);
 }
 
 bool AMyNetworkCharacter::ConnectToServer()
 {
-	if (NetworkComponent)
-	{
-		return NetworkComponent->ConnectToServer();
-	}
-	return false;
+    if (NetworkComponent)
+    {
+        return NetworkComponent->ConnectToServer();
+    }
+    return false;
 }
 
 void AMyNetworkCharacter::DisconnectFromServer()
 {
-	if (NetworkComponent)
-	{
-		NetworkComponent->DisconnectFromServer();
-	}
-}
-
-// 이벤트 핸들러 구현
-void AMyNetworkCharacter::OnConnectionStatusChanged(bool IsConnected)
-{
-	if (IsConnected)
-	{
-		OnNetworkConnected();
-	}
-	else
-	{
-		OnNetworkDisconnected();
-	}
-}
-
-void AMyNetworkCharacter::OnPlayerUpdateReceived(int32 ClientId, const FVector& Position, const FRotator& Rotation, const FVector& Velocity, bool IsJumping)
-{
-	// 다른 플레이어 캐릭터 업데이트 처리
-	UE_LOG(LogTemp, Display, TEXT("Player Update: ClientId=%d Position=%s Rotation=%s Velocity=%s IsJumping=%s"),
-		ClientId,
-		*Position.ToString(),
-		*Rotation.ToString(),
-		*Velocity.ToString(),
-		IsJumping ? TEXT("true") : TEXT("false"));
-}
-
-void AMyNetworkCharacter::OnClientIdReceived(int32 ClientId)
-{
-	// 클라이언트 ID 수신 처리
-	UE_LOG(LogTemp, Display, TEXT("Client ID received: %d"), ClientId);
+    if (NetworkComponent)
+    {
+        NetworkComponent->DisconnectFromServer();
+    }
 }
 
 void AMyNetworkCharacter::OnNetworkConnected()
 {
-	UE_LOG(LogTemp, Display, TEXT("Network connected"));
+    UE_LOG(LogTemp, Display, TEXT("MyNetworkCharacter: Network connected"));
 }
 
 void AMyNetworkCharacter::OnNetworkDisconnected()
 {
-	UE_LOG(LogTemp, Display, TEXT("Network disconnected"));
+    UE_LOG(LogTemp, Display, TEXT("MyNetworkCharacter: Network disconnected"));
+}
+
+void AMyNetworkCharacter::SendPositionToServer()
+{
+    if (NetworkComponent && NetworkComponent->NetworkManager && NetworkComponent->NetworkManager->IsConnected())
+    {
+        // 현재 위치, 회전, 속도 가져오기
+        FVector CurrentLocation = GetActorLocation();
+        FRotator CurrentRotation = GetActorRotation();
+        FVector CurrentVelocity = GetVelocity();
+
+        // 네트워크 매니저를 통해 이동 패킷 전송
+        NetworkComponent->NetworkManager->SendMovePacket(CurrentForwardValue, CurrentRightValue, CurrentLocation, CurrentRotation);
+
+        // 점프 상태도 함께 전송
+        bool bIsCurrentlyJumping = GetCharacterMovement()->IsFalling();
+        if (bIsCurrentlyJumping != LastJumpState)
+        {
+            NetworkComponent->NetworkManager->SendJumpPacket(bIsCurrentlyJumping, CurrentLocation);
+            LastJumpState = bIsCurrentlyJumping;
+        }
+    }
 }
