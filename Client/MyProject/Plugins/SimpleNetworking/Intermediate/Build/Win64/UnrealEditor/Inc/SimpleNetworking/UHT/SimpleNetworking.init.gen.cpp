@@ -31,7 +31,7 @@ void EmptyLinkFunctionForGeneratedCodeSimpleNetworking_init() {}
 				SingletonFuncArray,
 				UE_ARRAY_COUNT(SingletonFuncArray),
 				PKG_CompiledIn | 0x00000000,
-				0x63A2B7AB,
+				0x4E556DE3,
 				0x8CB46C7E,
 				METADATA_PARAMS(0, nullptr)
 			};
@@ -39,5 +39,5 @@ void EmptyLinkFunctionForGeneratedCodeSimpleNetworking_init() {}
 		}
 		return Z_Registration_Info_UPackage__Script_SimpleNetworking.OuterSingleton;
 	}
-	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_SimpleNetworking(Z_Construct_UPackage__Script_SimpleNetworking, TEXT("/Script/SimpleNetworking"), Z_Registration_Info_UPackage__Script_SimpleNetworking, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x63A2B7AB, 0x8CB46C7E));
+	static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_SimpleNetworking(Z_Construct_UPackage__Script_SimpleNetworking, TEXT("/Script/SimpleNetworking"), Z_Registration_Info_UPackage__Script_SimpleNetworking, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x4E556DE3, 0x8CB46C7E));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

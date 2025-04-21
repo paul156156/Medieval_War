@@ -35,6 +35,7 @@ struct Z_Construct_UEnum_SimpleNetworking_EPacketType_Statics
 {
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[] = {
+		{ "ATTACK.Name", "EPacketType::ATTACK" },
 		{ "BlueprintType", "true" },
 		{ "CLIENT_ID.Name", "EPacketType::CLIENT_ID" },
 #if !UE_BUILD_SHIPPING
@@ -51,9 +52,10 @@ struct Z_Construct_UEnum_SimpleNetworking_EPacketType_Statics
 #endif // WITH_METADATA
 	static constexpr UECodeGen_Private::FEnumeratorParam Enumerators[] = {
 		{ "EPacketType::CLIENT_ID", (int64)EPacketType::CLIENT_ID },
+		{ "EPacketType::POSITION_UPDATE", (int64)EPacketType::POSITION_UPDATE },
 		{ "EPacketType::MOVE", (int64)EPacketType::MOVE },
 		{ "EPacketType::JUMP", (int64)EPacketType::JUMP },
-		{ "EPacketType::POSITION_UPDATE", (int64)EPacketType::POSITION_UPDATE },
+		{ "EPacketType::ATTACK", (int64)EPacketType::ATTACK },
 	};
 	static const UECodeGen_Private::FEnumParams EnumParams;
 };
@@ -191,13 +193,13 @@ UScriptStruct* Z_Construct_UScriptStruct_FOtherPlayerInfo()
 struct Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Client_MyProject_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_NetworkTypes_h_Statics
 {
 	static constexpr FEnumRegisterCompiledInInfo EnumInfo[] = {
-		{ EPacketType_StaticEnum, TEXT("EPacketType"), &Z_Registration_Info_UEnum_EPacketType, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 2359833436U) },
+		{ EPacketType_StaticEnum, TEXT("EPacketType"), &Z_Registration_Info_UEnum_EPacketType, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3068999727U) },
 	};
 	static constexpr FStructRegisterCompiledInInfo ScriptStructInfo[] = {
 		{ FOtherPlayerInfo::StaticStruct, Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics::NewStructOps, TEXT("OtherPlayerInfo"), &Z_Registration_Info_UScriptStruct_OtherPlayerInfo, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FOtherPlayerInfo), 4218889607U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Client_MyProject_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_NetworkTypes_h_1373325060(TEXT("/Script/SimpleNetworking"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Client_MyProject_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_NetworkTypes_h_2236230254(TEXT("/Script/SimpleNetworking"),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Client_MyProject_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_NetworkTypes_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Client_MyProject_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_NetworkTypes_h_Statics::ScriptStructInfo),
 	Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Client_MyProject_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_NetworkTypes_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Client_MyProject_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_NetworkTypes_h_Statics::EnumInfo));

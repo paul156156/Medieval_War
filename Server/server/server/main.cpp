@@ -12,10 +12,10 @@
 // 패킷 타입 정의
 enum class EPacketType : uint8_t
 {
-    MOVE = 0,
-    JUMP = 1,
-    POSITION_UPDATE = 2,
-    CLIENT_ID = 3
+    CLIENT_ID = 0,
+    POSITION_UPDATE = 1,
+    MOVE = 2,
+    JUMP = 3,
 };
 
 // 패킷 구조체 정의

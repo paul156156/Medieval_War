@@ -14,7 +14,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define SIMPLENETWORKING_NetworkTypes_generated_h
 
-#define FID_Users_Blues_Documents_GitHub_Medieval_War_Client_MyProject_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_NetworkTypes_h_74_GENERATED_BODY \
+#define FID_Users_Blues_Documents_GitHub_Medieval_War_Client_MyProject_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_NetworkTypes_h_75_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics; \
 	static class UScriptStruct* StaticStruct();
 
@@ -27,9 +27,10 @@ template<> SIMPLENETWORKING_API UScriptStruct* StaticStruct<struct FOtherPlayerI
 
 #define FOREACH_ENUM_EPACKETTYPE(op) \
 	op(EPacketType::CLIENT_ID) \
+	op(EPacketType::POSITION_UPDATE) \
 	op(EPacketType::MOVE) \
 	op(EPacketType::JUMP) \
-	op(EPacketType::POSITION_UPDATE) 
+	op(EPacketType::ATTACK) 
 
 enum class EPacketType : uint8;
 template<> struct TIsUEnumClass<EPacketType> { enum { Value = true }; };
