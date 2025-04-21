@@ -6,6 +6,8 @@
 #include "GameFramework/PlayerController.h"
 #include "Engine/World.h"
 #include "SimpleNetworkGameMode.h"
+#include "EnhancedInputComponent.h"
+#include "EnhancedInputSubsystems.h"
 
 ASimpleNetworkCharacter::ASimpleNetworkCharacter()
     : NetworkManager(nullptr)
@@ -24,6 +26,15 @@ void ASimpleNetworkCharacter::BeginPlay()
 
     // 네트워크 매니저 초기화
     InitializeNetworkManager();
+
+    // Enhanced Input 설정
+    if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
+    {
+        if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
+        {
+            Subsystem->AddMappingContext(DefaultMappingContext, 0);
+        }
+    }
 }
 
 void ASimpleNetworkCharacter::EndPlay(const EEndPlayReason::Type EndPlayReason)
@@ -104,6 +115,67 @@ void ASimpleNetworkCharacter::UnbindNetworkEvents()
     NetworkManager->OnClientIdReceived.RemoveDynamic(this, &ASimpleNetworkCharacter::OnClientIdReceived);
     NetworkManager->OnConnectionStatusChanged.RemoveDynamic(this, &ASimpleNetworkCharacter::OnConnectionStatusChanged);
 }
+void ASimpleNetworkCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+    Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+    // Enhanced Input 바인딩 설정
+    if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent))
+    {
+        // 이동 액션 바인딩
+        EnhancedInputComponent->BindAction(MoveForwardAction, ETriggerEvent::Triggered, this, &ASimpleNetworkCharacter::Move);
+        EnhancedInputComponent->BindAction(MoveRightAction, ETriggerEvent::Triggered, this, &ASimpleNetworkCharacter::Move);
+
+        // 점프 액션 바인딩
+        EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ASimpleNetworkCharacter::Jump);
+        EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ASimpleNetworkCharacter::StopJumping);
+    }
+    else
+    {
+        UE_LOG(LogTemp, Error, TEXT("Failed to setup Enhanced Input component"));
+    }
+}
+
+void ASimpleNetworkCharacter::Move(const FInputActionValue& Value)
+{
+    const FVector2D MovementVector = Value.Get<FVector2D>();
+
+    if (Controller != nullptr)
+    {
+        // 앞/뒤 이동
+        if (MovementVector.Y != 0.0f)
+        {
+            CurrentForwardValue = MovementVector.Y;
+            const FRotator Rotation = Controller->GetControlRotation();
+            const FRotator YawRotation(0, Rotation.Yaw, 0);
+
+            const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+            AddMovementInput(Direction, MovementVector.Y);
+        }
+
+        // 좌/우 이동
+        if (MovementVector.X != 0.0f)
+        {
+            CurrentRightValue = MovementVector.X;
+            const FRotator Rotation = Controller->GetControlRotation();
+            const FRotator YawRotation(0, Rotation.Yaw, 0);
+
+            const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+            AddMovementInput(Direction, MovementVector.X);
+        }
+    }
+}
+
+void ASimpleNetworkCharacter::Look(const FInputActionValue& Value)
+{
+    const FVector2D LookAxisVector = Value.Get<FVector2D>();
+
+    if (Controller != nullptr)
+    {
+        AddControllerYawInput(LookAxisVector.X);
+        AddControllerPitchInput(LookAxisVector.Y);
+    }
+}
 
 void ASimpleNetworkCharacter::SendPositionToServer()
 {
@@ -116,18 +188,8 @@ void ASimpleNetworkCharacter::SendPositionToServer()
     FVector CurrentLocation = GetActorLocation();
     FRotator CurrentRotation = GetActorRotation();
 
-    // 이동 중인지 확인 (속도 체크)
-    float ForwardValue = 0.0f;
-    float RightValue = 0.0f;
-
-    if (Controller && Controller->IsLocalPlayerController())
-    {
-        ForwardValue = GetInputAxisValue("MoveForward");
-        RightValue = GetInputAxisValue("MoveRight");
-    }
-
-    // 이동 패킷 전송
-    NetworkManager->SendMovePacket(ForwardValue, RightValue, CurrentLocation, CurrentRotation);
+    // 이동 패킷 전송 - 저장된 입력 값 사용
+    NetworkManager->SendMovePacket(CurrentForwardValue, CurrentRightValue, CurrentLocation, CurrentRotation);
 }
 
 void ASimpleNetworkCharacter::Jump()

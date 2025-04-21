@@ -1,6 +1,7 @@
 // NetworkPlayerComponent.cpp
 #include "NetworkPlayerComponent.h"
 #include "SimpleNetworkManager.h"
+#include "SimpleNetworkCharacter.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
@@ -162,9 +163,20 @@ void UNetworkPlayerComponent::SendPositionToServer()
         AController* Controller = Character->GetController();
         if (Controller && Controller->IsLocalPlayerController())
         {
-            // 입력 값 가져오기 (캐릭터가 사용하는 입력 축 이름과 일치해야 함)
-            ForwardValue = Character->GetInputAxisValue("MoveForward");
-            RightValue = Character->GetInputAxisValue("MoveRight");
+            // Enhanced Input을 사용하는 SimpleNetworkCharacter 확인
+            ASimpleNetworkCharacter* NetCharacter = Cast<ASimpleNetworkCharacter>(Character);
+            if (NetCharacter)
+            {
+                // Enhanced Input에서 저장된 값 사용
+                ForwardValue = NetCharacter->CurrentForwardValue;
+                RightValue = NetCharacter->CurrentRightValue;
+            }
+            else
+            {
+                // 기존 방식 유지 (하위 호환성)
+                ForwardValue = Character->GetInputAxisValue("MoveForward");
+                RightValue = Character->GetInputAxisValue("MoveRight");
+            }
         }
     }
 

@@ -3,12 +3,13 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "NetworkTypes.h"
-//#include "InputActionValue.h"
+#include "InputActionValue.h"
 #include "SimpleNetworkCharacter.generated.h"
 
 class USimpleNetworkManager;
 class UInputMappingContext;
 class UInputAction;
+
 UCLASS()
 class SIMPLENETWORKING_API ASimpleNetworkCharacter : public ACharacter
 {
@@ -20,6 +21,30 @@ public:
     virtual void BeginPlay() override;
     virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
     virtual void Tick(float DeltaTime) override;
+
+    // Enhanced Input 관련 속성 추가
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
+    UInputMappingContext* DefaultMappingContext;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
+    UInputAction* MoveForwardAction;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
+    UInputAction* MoveRightAction;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input", meta = (AllowPrivateAccess = "true"))
+    UInputAction* JumpAction;
+
+    // Enhanced Input 처리 함수
+    void Move(const FInputActionValue& Value);
+    void Look(const FInputActionValue& Value);
+
+    // 입력 값 저장 변수
+    float CurrentForwardValue;
+    float CurrentRightValue;
+
+    // 컨트롤러 설정
+    virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
     // 네트워크 매니저 참조
     UPROPERTY()

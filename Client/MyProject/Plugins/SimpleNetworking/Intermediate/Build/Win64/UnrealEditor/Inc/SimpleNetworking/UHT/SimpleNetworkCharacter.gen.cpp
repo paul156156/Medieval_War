@@ -15,6 +15,8 @@ COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
 COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector();
 ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_ACharacter();
+ENHANCEDINPUT_API UClass* Z_Construct_UClass_UInputAction_NoRegister();
+ENHANCEDINPUT_API UClass* Z_Construct_UClass_UInputMappingContext_NoRegister();
 SIMPLENETWORKING_API UClass* Z_Construct_UClass_ASimpleNetworkCharacter();
 SIMPLENETWORKING_API UClass* Z_Construct_UClass_ASimpleNetworkCharacter_NoRegister();
 SIMPLENETWORKING_API UClass* Z_Construct_UClass_USimpleNetworkManager_NoRegister();
@@ -345,6 +347,32 @@ struct Z_Construct_UClass_ASimpleNetworkCharacter_Statics
 		{ "IncludePath", "SimpleNetworkCharacter.h" },
 		{ "ModuleRelativePath", "Public/SimpleNetworkCharacter.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_DefaultMappingContext_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Input" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "// Enhanced Input \xea\xb4\x80\xeb\xa0\xa8 \xec\x86\x8d\xec\x84\xb1 \xec\xb6\x94\xea\xb0\x80\n" },
+#endif
+		{ "ModuleRelativePath", "Public/SimpleNetworkCharacter.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "Enhanced Input \xea\xb4\x80\xeb\xa0\xa8 \xec\x86\x8d\xec\x84\xb1 \xec\xb6\x94\xea\xb0\x80" },
+#endif
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_MoveForwardAction_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Input" },
+		{ "ModuleRelativePath", "Public/SimpleNetworkCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_MoveRightAction_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Input" },
+		{ "ModuleRelativePath", "Public/SimpleNetworkCharacter.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_JumpAction_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "Input" },
+		{ "ModuleRelativePath", "Public/SimpleNetworkCharacter.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_NetworkManager_MetaData[] = {
 #if !UE_BUILD_SHIPPING
 		{ "Comment", "// \xeb\x84\xa4\xed\x8a\xb8\xec\x9b\x8c\xed\x81\xac \xeb\xa7\xa4\xeb\x8b\x88\xec\xa0\x80 \xec\xb0\xb8\xec\xa1\xb0\n" },
@@ -404,6 +432,10 @@ struct Z_Construct_UClass_ASimpleNetworkCharacter_Statics
 #endif
 	};
 #endif // WITH_METADATA
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_DefaultMappingContext;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_MoveForwardAction;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_MoveRightAction;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_JumpAction;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_NetworkManager;
 	static void NewProp_bEnableNetworkUpdates_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_bEnableNetworkUpdates;
@@ -429,6 +461,10 @@ struct Z_Construct_UClass_ASimpleNetworkCharacter_Statics
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
 };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ASimpleNetworkCharacter_Statics::NewProp_DefaultMappingContext = { "DefaultMappingContext", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ASimpleNetworkCharacter, DefaultMappingContext), Z_Construct_UClass_UInputMappingContext_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_DefaultMappingContext_MetaData), NewProp_DefaultMappingContext_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ASimpleNetworkCharacter_Statics::NewProp_MoveForwardAction = { "MoveForwardAction", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ASimpleNetworkCharacter, MoveForwardAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MoveForwardAction_MetaData), NewProp_MoveForwardAction_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ASimpleNetworkCharacter_Statics::NewProp_MoveRightAction = { "MoveRightAction", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ASimpleNetworkCharacter, MoveRightAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MoveRightAction_MetaData), NewProp_MoveRightAction_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ASimpleNetworkCharacter_Statics::NewProp_JumpAction = { "JumpAction", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ASimpleNetworkCharacter, JumpAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_JumpAction_MetaData), NewProp_JumpAction_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ASimpleNetworkCharacter_Statics::NewProp_NetworkManager = { "NetworkManager", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ASimpleNetworkCharacter, NetworkManager), Z_Construct_UClass_USimpleNetworkManager_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_NetworkManager_MetaData), NewProp_NetworkManager_MetaData) };
 void Z_Construct_UClass_ASimpleNetworkCharacter_Statics::NewProp_bEnableNetworkUpdates_SetBit(void* Obj)
 {
@@ -442,6 +478,10 @@ const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_ASimpleNetwork
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ASimpleNetworkCharacter_Statics::NewProp_OtherPlayers_Key_KeyProp = { "OtherPlayers_Key", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_AActor_NoRegister, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FMapPropertyParams Z_Construct_UClass_ASimpleNetworkCharacter_Statics::NewProp_OtherPlayers = { "OtherPlayers", nullptr, (EPropertyFlags)0x0010000000000000, UECodeGen_Private::EPropertyGenFlags::Map, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ASimpleNetworkCharacter, OtherPlayers), EMapPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OtherPlayers_MetaData), NewProp_OtherPlayers_MetaData) }; // 4218889607
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ASimpleNetworkCharacter_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ASimpleNetworkCharacter_Statics::NewProp_DefaultMappingContext,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ASimpleNetworkCharacter_Statics::NewProp_MoveForwardAction,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ASimpleNetworkCharacter_Statics::NewProp_MoveRightAction,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ASimpleNetworkCharacter_Statics::NewProp_JumpAction,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ASimpleNetworkCharacter_Statics::NewProp_NetworkManager,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ASimpleNetworkCharacter_Statics::NewProp_bEnableNetworkUpdates,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ASimpleNetworkCharacter_Statics::NewProp_PositionUpdateInterval,
@@ -492,10 +532,10 @@ ASimpleNetworkCharacter::~ASimpleNetworkCharacter() {}
 struct Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Client_MyProject_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_SimpleNetworkCharacter_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ASimpleNetworkCharacter, ASimpleNetworkCharacter::StaticClass, TEXT("ASimpleNetworkCharacter"), &Z_Registration_Info_UClass_ASimpleNetworkCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ASimpleNetworkCharacter), 1894827373U) },
+		{ Z_Construct_UClass_ASimpleNetworkCharacter, ASimpleNetworkCharacter::StaticClass, TEXT("ASimpleNetworkCharacter"), &Z_Registration_Info_UClass_ASimpleNetworkCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ASimpleNetworkCharacter), 1182960469U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Client_MyProject_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_SimpleNetworkCharacter_h_2004180779(TEXT("/Script/SimpleNetworking"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Client_MyProject_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_SimpleNetworkCharacter_h_664727340(TEXT("/Script/SimpleNetworking"),
 	Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Client_MyProject_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_SimpleNetworkCharacter_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Client_MyProject_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_SimpleNetworkCharacter_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);
