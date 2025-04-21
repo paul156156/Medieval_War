@@ -44,6 +44,51 @@
     <None Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\SimpleNetworking.build.cs">
       <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking</Filter>
     </None>
+    <Filter Include="Plugins\SimpleNetworking\Source\SimpleNetworking\.vs">
+      <UniqueIdentifier>{667E9411-D06E-37DE-B924-16DFBA06CE18}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\.vs\ProjectSettings.json">
+      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\.vs</Filter>
+    </None>
+    <None Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\.vs\slnx.sqlite">
+      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\.vs</Filter>
+    </None>
+    <None Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\.vs\VSWorkspaceState.json">
+      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\.vs</Filter>
+    </None>
+    <Filter Include="Plugins\SimpleNetworking\Source\SimpleNetworking\.vs\SimpleNetworking">
+      <UniqueIdentifier>{73E449B6-14E0-3A2D-B78C-282C6D8F2AEA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\SimpleNetworking\Source\SimpleNetworking\.vs\SimpleNetworking\CopilotIndices">
+      <UniqueIdentifier>{A1844197-3AD1-37F3-8324-DAE4EB88B254}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\SimpleNetworking\Source\SimpleNetworking\.vs\SimpleNetworking\CopilotIndices\17.13.444.19527">
+      <UniqueIdentifier>{F691F13F-0946-3179-88AD-310372680AD3}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\.vs\SimpleNetworking\CopilotIndices\17.13.444.19527\CodeChunks.db">
+      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\.vs\SimpleNetworking\CopilotIndices\17.13.444.19527</Filter>
+    </None>
+    <None Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\.vs\SimpleNetworking\CopilotIndices\17.13.444.19527\SemanticSymbols.db">
+      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\.vs\SimpleNetworking\CopilotIndices\17.13.444.19527</Filter>
+    </None>
+    <Filter Include="Plugins\SimpleNetworking\Source\SimpleNetworking\.vs\SimpleNetworking\FileContentIndex">
+      <UniqueIdentifier>{0B6804E6-21EF-3076-A022-79209E339262}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\.vs\SimpleNetworking\FileContentIndex\cdea8a7f-e6f0-4a3b-877f-0d2731c810dc.vsidx">
+      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\.vs\SimpleNetworking\FileContentIndex</Filter>
+    </None>
+    <Filter Include="Plugins\SimpleNetworking\Source\SimpleNetworking\.vs\SimpleNetworking\v17">
+      <UniqueIdentifier>{101E73B3-503B-314A-A3A5-621330F250FB}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\.vs\SimpleNetworking\v17\.wsuo">
+      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\.vs\SimpleNetworking\v17</Filter>
+    </None>
+    <None Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\.vs\SimpleNetworking\v17\Browse.VC.db">
+      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\.vs\SimpleNetworking\v17</Filter>
+    </None>
+    <None Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\.vs\SimpleNetworking\v17\DocumentLayout.json">
+      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\.vs\SimpleNetworking\v17</Filter>
+    </None>
     <Filter Include="Plugins\SimpleNetworking\Source\SimpleNetworking\Private">
       <UniqueIdentifier>{6B3C7139-F0C2-3668-8B2C-54A4304DDADD}</UniqueIdentifier>
     </Filter>
@@ -65,9 +110,6 @@
     <Filter Include="Plugins\SimpleNetworking\Source\SimpleNetworking\Public">
       <UniqueIdentifier>{4CB92460-5F3F-34C1-AA1A-4438F3EB08DA}</UniqueIdentifier>
     </Filter>
-    <ClCompile Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\Public\ISimpleNetworkInterface.h">
-      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\Public</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\Public\NetworkPlayerComponent.h">
       <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\Public</Filter>
     </ClCompile>

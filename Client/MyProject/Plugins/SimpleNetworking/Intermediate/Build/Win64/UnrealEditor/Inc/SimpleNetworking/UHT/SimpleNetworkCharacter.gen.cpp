@@ -17,7 +17,6 @@ ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_ACharacter();
 SIMPLENETWORKING_API UClass* Z_Construct_UClass_ASimpleNetworkCharacter();
 SIMPLENETWORKING_API UClass* Z_Construct_UClass_ASimpleNetworkCharacter_NoRegister();
-SIMPLENETWORKING_API UClass* Z_Construct_UClass_USimpleNetworkInterface_NoRegister();
 SIMPLENETWORKING_API UClass* Z_Construct_UClass_USimpleNetworkManager_NoRegister();
 SIMPLENETWORKING_API UScriptStruct* Z_Construct_UScriptStruct_FOtherPlayerInfo();
 UPackage* Z_Construct_UPackage__Script_SimpleNetworking();
@@ -425,7 +424,6 @@ struct Z_Construct_UClass_ASimpleNetworkCharacter_Statics
 		{ &Z_Construct_UFunction_ASimpleNetworkCharacter_SpawnOtherPlayerCharacter, "SpawnOtherPlayerCharacter" }, // 3903858053
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
-	static const UECodeGen_Private::FImplementedInterfaceParams InterfaceParams[];
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<ASimpleNetworkCharacter>::IsAbstract,
 	};
@@ -459,9 +457,6 @@ UObject* (*const Z_Construct_UClass_ASimpleNetworkCharacter_Statics::DependentSi
 	(UObject* (*)())Z_Construct_UPackage__Script_SimpleNetworking,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ASimpleNetworkCharacter_Statics::DependentSingletons) < 16);
-const UECodeGen_Private::FImplementedInterfaceParams Z_Construct_UClass_ASimpleNetworkCharacter_Statics::InterfaceParams[] = {
-	{ Z_Construct_UClass_USimpleNetworkInterface_NoRegister, (int32)VTABLE_OFFSET(ASimpleNetworkCharacter, ISimpleNetworkInterface), false },  // 1888866136
-};
 const UECodeGen_Private::FClassParams Z_Construct_UClass_ASimpleNetworkCharacter_Statics::ClassParams = {
 	&ASimpleNetworkCharacter::StaticClass,
 	"Game",
@@ -469,11 +464,11 @@ const UECodeGen_Private::FClassParams Z_Construct_UClass_ASimpleNetworkCharacter
 	DependentSingletons,
 	FuncInfo,
 	Z_Construct_UClass_ASimpleNetworkCharacter_Statics::PropPointers,
-	InterfaceParams,
+	nullptr,
 	UE_ARRAY_COUNT(DependentSingletons),
 	UE_ARRAY_COUNT(FuncInfo),
 	UE_ARRAY_COUNT(Z_Construct_UClass_ASimpleNetworkCharacter_Statics::PropPointers),
-	UE_ARRAY_COUNT(InterfaceParams),
+	0,
 	0x009000A4u,
 	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ASimpleNetworkCharacter_Statics::Class_MetaDataParams), Z_Construct_UClass_ASimpleNetworkCharacter_Statics::Class_MetaDataParams)
 };
@@ -497,10 +492,10 @@ ASimpleNetworkCharacter::~ASimpleNetworkCharacter() {}
 struct Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Client_MyProject_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_SimpleNetworkCharacter_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ASimpleNetworkCharacter, ASimpleNetworkCharacter::StaticClass, TEXT("ASimpleNetworkCharacter"), &Z_Registration_Info_UClass_ASimpleNetworkCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ASimpleNetworkCharacter), 2993155897U) },
+		{ Z_Construct_UClass_ASimpleNetworkCharacter, ASimpleNetworkCharacter::StaticClass, TEXT("ASimpleNetworkCharacter"), &Z_Registration_Info_UClass_ASimpleNetworkCharacter, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ASimpleNetworkCharacter), 1894827373U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Client_MyProject_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_SimpleNetworkCharacter_h_2769520255(TEXT("/Script/SimpleNetworking"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Client_MyProject_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_SimpleNetworkCharacter_h_2004180779(TEXT("/Script/SimpleNetworking"),
 	Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Client_MyProject_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_SimpleNetworkCharacter_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Client_MyProject_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_SimpleNetworkCharacter_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

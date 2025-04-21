@@ -10,12 +10,10 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeSimpleNetworkGameMode() {}
 
 // Begin Cross Module References
-COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
 ENGINE_API UClass* Z_Construct_UClass_AGameModeBase();
 SIMPLENETWORKING_API UClass* Z_Construct_UClass_ASimpleNetworkGameMode();
 SIMPLENETWORKING_API UClass* Z_Construct_UClass_ASimpleNetworkGameMode_NoRegister();
 SIMPLENETWORKING_API UClass* Z_Construct_UClass_USimpleNetworkManager_NoRegister();
-UMG_API UClass* Z_Construct_UClass_UUserWidget_NoRegister();
 UPackage* Z_Construct_UPackage__Script_SimpleNetworking();
 // End Cross Module References
 
@@ -139,111 +137,6 @@ DEFINE_FUNCTION(ASimpleNetworkGameMode::execGetNetworkManager)
 }
 // End Class ASimpleNetworkGameMode Function GetNetworkManager
 
-// Begin Class ASimpleNetworkGameMode Function OnServerConnected
-static const FName NAME_ASimpleNetworkGameMode_OnServerConnected = FName(TEXT("OnServerConnected"));
-void ASimpleNetworkGameMode::OnServerConnected()
-{
-	UFunction* Func = FindFunctionChecked(NAME_ASimpleNetworkGameMode_OnServerConnected);
-	ProcessEvent(Func,NULL);
-}
-struct Z_Construct_UFunction_ASimpleNetworkGameMode_OnServerConnected_Statics
-{
-#if WITH_METADATA
-	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
-		{ "Category", "Networking" },
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "// \xec\x84\x9c\xeb\xb2\x84 \xec\x97\xb0\xea\xb2\xb0 \xec\x84\xb1\xea\xb3\xb5 \xec\x9d\xb4\xeb\xb2\xa4\xed\x8a\xb8\n" },
-#endif
-		{ "ModuleRelativePath", "Public/SimpleNetworkGameMode.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "\xec\x84\x9c\xeb\xb2\x84 \xec\x97\xb0\xea\xb2\xb0 \xec\x84\xb1\xea\xb3\xb5 \xec\x9d\xb4\xeb\xb2\xa4\xed\x8a\xb8" },
-#endif
-	};
-#endif // WITH_METADATA
-	static const UECodeGen_Private::FFunctionParams FuncParams;
-};
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ASimpleNetworkGameMode_OnServerConnected_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ASimpleNetworkGameMode, nullptr, "OnServerConnected", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x08020800, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ASimpleNetworkGameMode_OnServerConnected_Statics::Function_MetaDataParams), Z_Construct_UFunction_ASimpleNetworkGameMode_OnServerConnected_Statics::Function_MetaDataParams) };
-UFunction* Z_Construct_UFunction_ASimpleNetworkGameMode_OnServerConnected()
-{
-	static UFunction* ReturnFunction = nullptr;
-	if (!ReturnFunction)
-	{
-		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ASimpleNetworkGameMode_OnServerConnected_Statics::FuncParams);
-	}
-	return ReturnFunction;
-}
-// End Class ASimpleNetworkGameMode Function OnServerConnected
-
-// Begin Class ASimpleNetworkGameMode Function OnServerConnectionFailed
-static const FName NAME_ASimpleNetworkGameMode_OnServerConnectionFailed = FName(TEXT("OnServerConnectionFailed"));
-void ASimpleNetworkGameMode::OnServerConnectionFailed()
-{
-	UFunction* Func = FindFunctionChecked(NAME_ASimpleNetworkGameMode_OnServerConnectionFailed);
-	ProcessEvent(Func,NULL);
-}
-struct Z_Construct_UFunction_ASimpleNetworkGameMode_OnServerConnectionFailed_Statics
-{
-#if WITH_METADATA
-	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
-		{ "Category", "Networking" },
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "// \xec\x84\x9c\xeb\xb2\x84 \xec\x97\xb0\xea\xb2\xb0 \xec\x8b\xa4\xed\x8c\xa8 \xec\x9d\xb4\xeb\xb2\xa4\xed\x8a\xb8\n" },
-#endif
-		{ "ModuleRelativePath", "Public/SimpleNetworkGameMode.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "\xec\x84\x9c\xeb\xb2\x84 \xec\x97\xb0\xea\xb2\xb0 \xec\x8b\xa4\xed\x8c\xa8 \xec\x9d\xb4\xeb\xb2\xa4\xed\x8a\xb8" },
-#endif
-	};
-#endif // WITH_METADATA
-	static const UECodeGen_Private::FFunctionParams FuncParams;
-};
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ASimpleNetworkGameMode_OnServerConnectionFailed_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ASimpleNetworkGameMode, nullptr, "OnServerConnectionFailed", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x08020800, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ASimpleNetworkGameMode_OnServerConnectionFailed_Statics::Function_MetaDataParams), Z_Construct_UFunction_ASimpleNetworkGameMode_OnServerConnectionFailed_Statics::Function_MetaDataParams) };
-UFunction* Z_Construct_UFunction_ASimpleNetworkGameMode_OnServerConnectionFailed()
-{
-	static UFunction* ReturnFunction = nullptr;
-	if (!ReturnFunction)
-	{
-		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ASimpleNetworkGameMode_OnServerConnectionFailed_Statics::FuncParams);
-	}
-	return ReturnFunction;
-}
-// End Class ASimpleNetworkGameMode Function OnServerConnectionFailed
-
-// Begin Class ASimpleNetworkGameMode Function OnServerDisconnected
-static const FName NAME_ASimpleNetworkGameMode_OnServerDisconnected = FName(TEXT("OnServerDisconnected"));
-void ASimpleNetworkGameMode::OnServerDisconnected()
-{
-	UFunction* Func = FindFunctionChecked(NAME_ASimpleNetworkGameMode_OnServerDisconnected);
-	ProcessEvent(Func,NULL);
-}
-struct Z_Construct_UFunction_ASimpleNetworkGameMode_OnServerDisconnected_Statics
-{
-#if WITH_METADATA
-	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
-		{ "Category", "Networking" },
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "// \xec\x84\x9c\xeb\xb2\x84 \xec\x97\xb0\xea\xb2\xb0 \xed\x95\xb4\xec\xa0\x9c \xec\x9d\xb4\xeb\xb2\xa4\xed\x8a\xb8\n" },
-#endif
-		{ "ModuleRelativePath", "Public/SimpleNetworkGameMode.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "\xec\x84\x9c\xeb\xb2\x84 \xec\x97\xb0\xea\xb2\xb0 \xed\x95\xb4\xec\xa0\x9c \xec\x9d\xb4\xeb\xb2\xa4\xed\x8a\xb8" },
-#endif
-	};
-#endif // WITH_METADATA
-	static const UECodeGen_Private::FFunctionParams FuncParams;
-};
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ASimpleNetworkGameMode_OnServerDisconnected_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ASimpleNetworkGameMode, nullptr, "OnServerDisconnected", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x08020800, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ASimpleNetworkGameMode_OnServerDisconnected_Statics::Function_MetaDataParams), Z_Construct_UFunction_ASimpleNetworkGameMode_OnServerDisconnected_Statics::Function_MetaDataParams) };
-UFunction* Z_Construct_UFunction_ASimpleNetworkGameMode_OnServerDisconnected()
-{
-	static UFunction* ReturnFunction = nullptr;
-	if (!ReturnFunction)
-	{
-		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ASimpleNetworkGameMode_OnServerDisconnected_Statics::FuncParams);
-	}
-	return ReturnFunction;
-}
-// End Class ASimpleNetworkGameMode Function OnServerDisconnected
-
 // Begin Class ASimpleNetworkGameMode
 void ASimpleNetworkGameMode::StaticRegisterNativesASimpleNetworkGameMode()
 {
@@ -329,26 +222,6 @@ struct Z_Construct_UClass_ASimpleNetworkGameMode_Statics
 		{ "ToolTip", "\xec\x9e\xac\xec\x97\xb0\xea\xb2\xb0 \xea\xb0\x84\xea\xb2\xa9 (\xec\xb4\x88)" },
 #endif
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ConnectionStatusWidgetClass_MetaData[] = {
-		{ "Category", "UI" },
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "// \xec\x97\xb0\xea\xb2\xb0 \xec\x83\x81\xed\x83\x9c UI \xec\x9c\x84\xec\xa0\xaf \xed\x81\xb4\xeb\x9e\x98\xec\x8a\xa4\n" },
-#endif
-		{ "ModuleRelativePath", "Public/SimpleNetworkGameMode.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "\xec\x97\xb0\xea\xb2\xb0 \xec\x83\x81\xed\x83\x9c UI \xec\x9c\x84\xec\xa0\xaf \xed\x81\xb4\xeb\x9e\x98\xec\x8a\xa4" },
-#endif
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ConnectionStatusWidget_MetaData[] = {
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "// \xec\x97\xb0\xea\xb2\xb0 \xec\x83\x81\xed\x83\x9c UI \xec\x9c\x84\xec\xa0\xaf \xec\x9d\xb8\xec\x8a\xa4\xed\x84\xb4\xec\x8a\xa4\n" },
-#endif
-		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "Public/SimpleNetworkGameMode.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "\xec\x97\xb0\xea\xb2\xb0 \xec\x83\x81\xed\x83\x9c UI \xec\x9c\x84\xec\xa0\xaf \xec\x9d\xb8\xec\x8a\xa4\xed\x84\xb4\xec\x8a\xa4" },
-#endif
-	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_NetworkManager;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_ServerIP;
@@ -358,17 +231,12 @@ struct Z_Construct_UClass_ASimpleNetworkGameMode_Statics
 	static void NewProp_bAutoReconnect_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_bAutoReconnect;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_ReconnectInterval;
-	static const UECodeGen_Private::FClassPropertyParams NewProp_ConnectionStatusWidgetClass;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_ConnectionStatusWidget;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
 		{ &Z_Construct_UFunction_ASimpleNetworkGameMode_ConnectToServer, "ConnectToServer" }, // 1066472927
 		{ &Z_Construct_UFunction_ASimpleNetworkGameMode_DisconnectFromServer, "DisconnectFromServer" }, // 1504172088
 		{ &Z_Construct_UFunction_ASimpleNetworkGameMode_GetNetworkManager, "GetNetworkManager" }, // 1891921268
-		{ &Z_Construct_UFunction_ASimpleNetworkGameMode_OnServerConnected, "OnServerConnected" }, // 2342280408
-		{ &Z_Construct_UFunction_ASimpleNetworkGameMode_OnServerConnectionFailed, "OnServerConnectionFailed" }, // 4938284
-		{ &Z_Construct_UFunction_ASimpleNetworkGameMode_OnServerDisconnected, "OnServerDisconnected" }, // 2232789077
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -390,8 +258,6 @@ void Z_Construct_UClass_ASimpleNetworkGameMode_Statics::NewProp_bAutoReconnect_S
 }
 const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_ASimpleNetworkGameMode_Statics::NewProp_bAutoReconnect = { "bAutoReconnect", nullptr, (EPropertyFlags)0x0020080000010001, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(ASimpleNetworkGameMode), &Z_Construct_UClass_ASimpleNetworkGameMode_Statics::NewProp_bAutoReconnect_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bAutoReconnect_MetaData), NewProp_bAutoReconnect_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ASimpleNetworkGameMode_Statics::NewProp_ReconnectInterval = { "ReconnectInterval", nullptr, (EPropertyFlags)0x0020080000010001, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ASimpleNetworkGameMode, ReconnectInterval), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ReconnectInterval_MetaData), NewProp_ReconnectInterval_MetaData) };
-const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_ASimpleNetworkGameMode_Statics::NewProp_ConnectionStatusWidgetClass = { "ConnectionStatusWidgetClass", nullptr, (EPropertyFlags)0x0024080000010001, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ASimpleNetworkGameMode, ConnectionStatusWidgetClass), Z_Construct_UClass_UClass, Z_Construct_UClass_UUserWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ConnectionStatusWidgetClass_MetaData), NewProp_ConnectionStatusWidgetClass_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ASimpleNetworkGameMode_Statics::NewProp_ConnectionStatusWidget = { "ConnectionStatusWidget", nullptr, (EPropertyFlags)0x0020080000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ASimpleNetworkGameMode, ConnectionStatusWidget), Z_Construct_UClass_UUserWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ConnectionStatusWidget_MetaData), NewProp_ConnectionStatusWidget_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ASimpleNetworkGameMode_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ASimpleNetworkGameMode_Statics::NewProp_NetworkManager,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ASimpleNetworkGameMode_Statics::NewProp_ServerIP,
@@ -399,8 +265,6 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ASimpleNe
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ASimpleNetworkGameMode_Statics::NewProp_bAutoConnect,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ASimpleNetworkGameMode_Statics::NewProp_bAutoReconnect,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ASimpleNetworkGameMode_Statics::NewProp_ReconnectInterval,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ASimpleNetworkGameMode_Statics::NewProp_ConnectionStatusWidgetClass,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ASimpleNetworkGameMode_Statics::NewProp_ConnectionStatusWidget,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ASimpleNetworkGameMode_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_ASimpleNetworkGameMode_Statics::DependentSingletons[])() = {
@@ -443,10 +307,10 @@ ASimpleNetworkGameMode::~ASimpleNetworkGameMode() {}
 struct Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Client_MyProject_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_SimpleNetworkGameMode_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ASimpleNetworkGameMode, ASimpleNetworkGameMode::StaticClass, TEXT("ASimpleNetworkGameMode"), &Z_Registration_Info_UClass_ASimpleNetworkGameMode, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ASimpleNetworkGameMode), 595883421U) },
+		{ Z_Construct_UClass_ASimpleNetworkGameMode, ASimpleNetworkGameMode::StaticClass, TEXT("ASimpleNetworkGameMode"), &Z_Registration_Info_UClass_ASimpleNetworkGameMode, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ASimpleNetworkGameMode), 3742814551U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Client_MyProject_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_SimpleNetworkGameMode_h_2324642038(TEXT("/Script/SimpleNetworking"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Client_MyProject_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_SimpleNetworkGameMode_h_2930256684(TEXT("/Script/SimpleNetworking"),
 	Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Client_MyProject_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_SimpleNetworkGameMode_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Client_MyProject_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_SimpleNetworkGameMode_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

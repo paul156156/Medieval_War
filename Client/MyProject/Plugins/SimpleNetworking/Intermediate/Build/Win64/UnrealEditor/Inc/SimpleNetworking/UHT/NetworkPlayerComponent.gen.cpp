@@ -18,7 +18,6 @@ ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_UActorComponent();
 SIMPLENETWORKING_API UClass* Z_Construct_UClass_UNetworkPlayerComponent();
 SIMPLENETWORKING_API UClass* Z_Construct_UClass_UNetworkPlayerComponent_NoRegister();
-SIMPLENETWORKING_API UClass* Z_Construct_UClass_USimpleNetworkInterface_NoRegister();
 SIMPLENETWORKING_API UClass* Z_Construct_UClass_USimpleNetworkManager_NoRegister();
 SIMPLENETWORKING_API UScriptStruct* Z_Construct_UScriptStruct_FOtherPlayerInfo();
 UPackage* Z_Construct_UPackage__Script_SimpleNetworking();
@@ -210,27 +209,12 @@ DEFINE_FUNCTION(UNetworkPlayerComponent::execGetOtherPlayerCount)
 // End Class UNetworkPlayerComponent Function GetOtherPlayerCount
 
 // Begin Class UNetworkPlayerComponent Function OnClientIdReceived
-struct NetworkPlayerComponent_eventOnClientIdReceived_Parms
-{
-	int32 ClientId;
-};
-static const FName NAME_UNetworkPlayerComponent_OnClientIdReceived = FName(TEXT("OnClientIdReceived"));
-void UNetworkPlayerComponent::OnClientIdReceived(int32 ClientId)
-{
-	UFunction* Func = FindFunctionChecked(NAME_UNetworkPlayerComponent_OnClientIdReceived);
-	if (!Func->GetOwnerClass()->HasAnyClassFlags(CLASS_Native))
-	{
-		NetworkPlayerComponent_eventOnClientIdReceived_Parms Parms;
-		Parms.ClientId=ClientId;
-	ProcessEvent(Func,&Parms);
-	}
-	else
-	{
-		OnClientIdReceived_Implementation(ClientId);
-	}
-}
 struct Z_Construct_UFunction_UNetworkPlayerComponent_OnClientIdReceived_Statics
 {
+	struct NetworkPlayerComponent_eventOnClientIdReceived_Parms
+	{
+		int32 ClientId;
+	};
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
 		{ "Category", "Networking" },
@@ -246,8 +230,8 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UNetwo
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UNetworkPlayerComponent_OnClientIdReceived_Statics::NewProp_ClientId,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UNetworkPlayerComponent_OnClientIdReceived_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UNetworkPlayerComponent_OnClientIdReceived_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UNetworkPlayerComponent, nullptr, "OnClientIdReceived", nullptr, nullptr, Z_Construct_UFunction_UNetworkPlayerComponent_OnClientIdReceived_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UNetworkPlayerComponent_OnClientIdReceived_Statics::PropPointers), sizeof(NetworkPlayerComponent_eventOnClientIdReceived_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x08020C00, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UNetworkPlayerComponent_OnClientIdReceived_Statics::Function_MetaDataParams), Z_Construct_UFunction_UNetworkPlayerComponent_OnClientIdReceived_Statics::Function_MetaDataParams) };
-static_assert(sizeof(NetworkPlayerComponent_eventOnClientIdReceived_Parms) < MAX_uint16);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UNetworkPlayerComponent_OnClientIdReceived_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UNetworkPlayerComponent, nullptr, "OnClientIdReceived", nullptr, nullptr, Z_Construct_UFunction_UNetworkPlayerComponent_OnClientIdReceived_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UNetworkPlayerComponent_OnClientIdReceived_Statics::PropPointers), sizeof(Z_Construct_UFunction_UNetworkPlayerComponent_OnClientIdReceived_Statics::NetworkPlayerComponent_eventOnClientIdReceived_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UNetworkPlayerComponent_OnClientIdReceived_Statics::Function_MetaDataParams), Z_Construct_UFunction_UNetworkPlayerComponent_OnClientIdReceived_Statics::Function_MetaDataParams) };
+static_assert(sizeof(Z_Construct_UFunction_UNetworkPlayerComponent_OnClientIdReceived_Statics::NetworkPlayerComponent_eventOnClientIdReceived_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UNetworkPlayerComponent_OnClientIdReceived()
 {
 	static UFunction* ReturnFunction = nullptr;
@@ -262,7 +246,7 @@ DEFINE_FUNCTION(UNetworkPlayerComponent::execOnClientIdReceived)
 	P_GET_PROPERTY(FIntProperty,Z_Param_ClientId);
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	P_THIS->OnClientIdReceived_Implementation(Z_Param_ClientId);
+	P_THIS->OnClientIdReceived(Z_Param_ClientId);
 	P_NATIVE_END;
 }
 // End Class UNetworkPlayerComponent Function OnClientIdReceived
@@ -362,36 +346,17 @@ DEFINE_FUNCTION(UNetworkPlayerComponent::execOnJumpStateUpdateReceived)
 // End Class UNetworkPlayerComponent Function OnJumpStateUpdateReceived
 
 // Begin Class UNetworkPlayerComponent Function OnNetworkConnected
-static const FName NAME_UNetworkPlayerComponent_OnNetworkConnected = FName(TEXT("OnNetworkConnected"));
-void UNetworkPlayerComponent::OnNetworkConnected()
-{
-	UFunction* Func = FindFunctionChecked(NAME_UNetworkPlayerComponent_OnNetworkConnected);
-	if (!Func->GetOwnerClass()->HasAnyClassFlags(CLASS_Native))
-	{
-	ProcessEvent(Func,NULL);
-	}
-	else
-	{
-		OnNetworkConnected_Implementation();
-	}
-}
 struct Z_Construct_UFunction_UNetworkPlayerComponent_OnNetworkConnected_Statics
 {
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
 		{ "Category", "Networking" },
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "// ISimpleNetworkInterface \xea\xb5\xac\xed\x98\x84\n" },
-#endif
 		{ "ModuleRelativePath", "Public/NetworkPlayerComponent.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "ISimpleNetworkInterface \xea\xb5\xac\xed\x98\x84" },
-#endif
 	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UNetworkPlayerComponent_OnNetworkConnected_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UNetworkPlayerComponent, nullptr, "OnNetworkConnected", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x08020C00, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UNetworkPlayerComponent_OnNetworkConnected_Statics::Function_MetaDataParams), Z_Construct_UFunction_UNetworkPlayerComponent_OnNetworkConnected_Statics::Function_MetaDataParams) };
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UNetworkPlayerComponent_OnNetworkConnected_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UNetworkPlayerComponent, nullptr, "OnNetworkConnected", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UNetworkPlayerComponent_OnNetworkConnected_Statics::Function_MetaDataParams), Z_Construct_UFunction_UNetworkPlayerComponent_OnNetworkConnected_Statics::Function_MetaDataParams) };
 UFunction* Z_Construct_UFunction_UNetworkPlayerComponent_OnNetworkConnected()
 {
 	static UFunction* ReturnFunction = nullptr;
@@ -405,25 +370,12 @@ DEFINE_FUNCTION(UNetworkPlayerComponent::execOnNetworkConnected)
 {
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	P_THIS->OnNetworkConnected_Implementation();
+	P_THIS->OnNetworkConnected();
 	P_NATIVE_END;
 }
 // End Class UNetworkPlayerComponent Function OnNetworkConnected
 
 // Begin Class UNetworkPlayerComponent Function OnNetworkDisconnected
-static const FName NAME_UNetworkPlayerComponent_OnNetworkDisconnected = FName(TEXT("OnNetworkDisconnected"));
-void UNetworkPlayerComponent::OnNetworkDisconnected()
-{
-	UFunction* Func = FindFunctionChecked(NAME_UNetworkPlayerComponent_OnNetworkDisconnected);
-	if (!Func->GetOwnerClass()->HasAnyClassFlags(CLASS_Native))
-	{
-	ProcessEvent(Func,NULL);
-	}
-	else
-	{
-		OnNetworkDisconnected_Implementation();
-	}
-}
 struct Z_Construct_UFunction_UNetworkPlayerComponent_OnNetworkDisconnected_Statics
 {
 #if WITH_METADATA
@@ -434,7 +386,7 @@ struct Z_Construct_UFunction_UNetworkPlayerComponent_OnNetworkDisconnected_Stati
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FFunctionParams FuncParams;
 };
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UNetworkPlayerComponent_OnNetworkDisconnected_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UNetworkPlayerComponent, nullptr, "OnNetworkDisconnected", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x08020C00, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UNetworkPlayerComponent_OnNetworkDisconnected_Statics::Function_MetaDataParams), Z_Construct_UFunction_UNetworkPlayerComponent_OnNetworkDisconnected_Statics::Function_MetaDataParams) };
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UNetworkPlayerComponent_OnNetworkDisconnected_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UNetworkPlayerComponent, nullptr, "OnNetworkDisconnected", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UNetworkPlayerComponent_OnNetworkDisconnected_Statics::Function_MetaDataParams), Z_Construct_UFunction_UNetworkPlayerComponent_OnNetworkDisconnected_Statics::Function_MetaDataParams) };
 UFunction* Z_Construct_UFunction_UNetworkPlayerComponent_OnNetworkDisconnected()
 {
 	static UFunction* ReturnFunction = nullptr;
@@ -448,33 +400,18 @@ DEFINE_FUNCTION(UNetworkPlayerComponent::execOnNetworkDisconnected)
 {
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	P_THIS->OnNetworkDisconnected_Implementation();
+	P_THIS->OnNetworkDisconnected();
 	P_NATIVE_END;
 }
 // End Class UNetworkPlayerComponent Function OnNetworkDisconnected
 
 // Begin Class UNetworkPlayerComponent Function OnOtherPlayerRemoved
-struct NetworkPlayerComponent_eventOnOtherPlayerRemoved_Parms
-{
-	int32 ClientId;
-};
-static const FName NAME_UNetworkPlayerComponent_OnOtherPlayerRemoved = FName(TEXT("OnOtherPlayerRemoved"));
-void UNetworkPlayerComponent::OnOtherPlayerRemoved(int32 ClientId)
-{
-	UFunction* Func = FindFunctionChecked(NAME_UNetworkPlayerComponent_OnOtherPlayerRemoved);
-	if (!Func->GetOwnerClass()->HasAnyClassFlags(CLASS_Native))
-	{
-		NetworkPlayerComponent_eventOnOtherPlayerRemoved_Parms Parms;
-		Parms.ClientId=ClientId;
-	ProcessEvent(Func,&Parms);
-	}
-	else
-	{
-		OnOtherPlayerRemoved_Implementation(ClientId);
-	}
-}
 struct Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerRemoved_Statics
 {
+	struct NetworkPlayerComponent_eventOnOtherPlayerRemoved_Parms
+	{
+		int32 ClientId;
+	};
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
 		{ "Category", "Networking" },
@@ -490,8 +427,8 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UNetwo
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerRemoved_Statics::NewProp_ClientId,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerRemoved_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerRemoved_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UNetworkPlayerComponent, nullptr, "OnOtherPlayerRemoved", nullptr, nullptr, Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerRemoved_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerRemoved_Statics::PropPointers), sizeof(NetworkPlayerComponent_eventOnOtherPlayerRemoved_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x08020C00, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerRemoved_Statics::Function_MetaDataParams), Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerRemoved_Statics::Function_MetaDataParams) };
-static_assert(sizeof(NetworkPlayerComponent_eventOnOtherPlayerRemoved_Parms) < MAX_uint16);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerRemoved_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UNetworkPlayerComponent, nullptr, "OnOtherPlayerRemoved", nullptr, nullptr, Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerRemoved_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerRemoved_Statics::PropPointers), sizeof(Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerRemoved_Statics::NetworkPlayerComponent_eventOnOtherPlayerRemoved_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerRemoved_Statics::Function_MetaDataParams), Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerRemoved_Statics::Function_MetaDataParams) };
+static_assert(sizeof(Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerRemoved_Statics::NetworkPlayerComponent_eventOnOtherPlayerRemoved_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerRemoved()
 {
 	static UFunction* ReturnFunction = nullptr;
@@ -506,35 +443,19 @@ DEFINE_FUNCTION(UNetworkPlayerComponent::execOnOtherPlayerRemoved)
 	P_GET_PROPERTY(FIntProperty,Z_Param_ClientId);
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	P_THIS->OnOtherPlayerRemoved_Implementation(Z_Param_ClientId);
+	P_THIS->OnOtherPlayerRemoved(Z_Param_ClientId);
 	P_NATIVE_END;
 }
 // End Class UNetworkPlayerComponent Function OnOtherPlayerRemoved
 
 // Begin Class UNetworkPlayerComponent Function OnOtherPlayerSpawned
-struct NetworkPlayerComponent_eventOnOtherPlayerSpawned_Parms
-{
-	AActor* OtherPlayerActor;
-	int32 ClientId;
-};
-static const FName NAME_UNetworkPlayerComponent_OnOtherPlayerSpawned = FName(TEXT("OnOtherPlayerSpawned"));
-void UNetworkPlayerComponent::OnOtherPlayerSpawned(AActor* OtherPlayerActor, int32 ClientId)
-{
-	UFunction* Func = FindFunctionChecked(NAME_UNetworkPlayerComponent_OnOtherPlayerSpawned);
-	if (!Func->GetOwnerClass()->HasAnyClassFlags(CLASS_Native))
-	{
-		NetworkPlayerComponent_eventOnOtherPlayerSpawned_Parms Parms;
-		Parms.OtherPlayerActor=OtherPlayerActor;
-		Parms.ClientId=ClientId;
-	ProcessEvent(Func,&Parms);
-	}
-	else
-	{
-		OnOtherPlayerSpawned_Implementation(OtherPlayerActor, ClientId);
-	}
-}
 struct Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerSpawned_Statics
 {
+	struct NetworkPlayerComponent_eventOnOtherPlayerSpawned_Parms
+	{
+		AActor* OtherPlayerActor;
+		int32 ClientId;
+	};
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
 		{ "Category", "Networking" },
@@ -553,8 +474,8 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UNetwo
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerSpawned_Statics::NewProp_ClientId,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerSpawned_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerSpawned_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UNetworkPlayerComponent, nullptr, "OnOtherPlayerSpawned", nullptr, nullptr, Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerSpawned_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerSpawned_Statics::PropPointers), sizeof(NetworkPlayerComponent_eventOnOtherPlayerSpawned_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x08020C00, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerSpawned_Statics::Function_MetaDataParams), Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerSpawned_Statics::Function_MetaDataParams) };
-static_assert(sizeof(NetworkPlayerComponent_eventOnOtherPlayerSpawned_Parms) < MAX_uint16);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerSpawned_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UNetworkPlayerComponent, nullptr, "OnOtherPlayerSpawned", nullptr, nullptr, Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerSpawned_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerSpawned_Statics::PropPointers), sizeof(Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerSpawned_Statics::NetworkPlayerComponent_eventOnOtherPlayerSpawned_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerSpawned_Statics::Function_MetaDataParams), Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerSpawned_Statics::Function_MetaDataParams) };
+static_assert(sizeof(Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerSpawned_Statics::NetworkPlayerComponent_eventOnOtherPlayerSpawned_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerSpawned()
 {
 	static UFunction* ReturnFunction = nullptr;
@@ -570,41 +491,22 @@ DEFINE_FUNCTION(UNetworkPlayerComponent::execOnOtherPlayerSpawned)
 	P_GET_PROPERTY(FIntProperty,Z_Param_ClientId);
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	P_THIS->OnOtherPlayerSpawned_Implementation(Z_Param_OtherPlayerActor,Z_Param_ClientId);
+	P_THIS->OnOtherPlayerSpawned(Z_Param_OtherPlayerActor,Z_Param_ClientId);
 	P_NATIVE_END;
 }
 // End Class UNetworkPlayerComponent Function OnOtherPlayerSpawned
 
 // Begin Class UNetworkPlayerComponent Function OnPlayerUpdateReceived
-struct NetworkPlayerComponent_eventOnPlayerUpdateReceived_Parms
-{
-	int32 ClientId;
-	FVector Position;
-	FRotator Rotation;
-	FVector Velocity;
-	bool IsJumping;
-};
-static const FName NAME_UNetworkPlayerComponent_OnPlayerUpdateReceived = FName(TEXT("OnPlayerUpdateReceived"));
-void UNetworkPlayerComponent::OnPlayerUpdateReceived(int32 ClientId, FVector const& Position, FRotator const& Rotation, FVector const& Velocity, bool IsJumping)
-{
-	UFunction* Func = FindFunctionChecked(NAME_UNetworkPlayerComponent_OnPlayerUpdateReceived);
-	if (!Func->GetOwnerClass()->HasAnyClassFlags(CLASS_Native))
-	{
-		NetworkPlayerComponent_eventOnPlayerUpdateReceived_Parms Parms;
-		Parms.ClientId=ClientId;
-		Parms.Position=Position;
-		Parms.Rotation=Rotation;
-		Parms.Velocity=Velocity;
-		Parms.IsJumping=IsJumping ? true : false;
-	ProcessEvent(Func,&Parms);
-	}
-	else
-	{
-		OnPlayerUpdateReceived_Implementation(ClientId, Position, Rotation, Velocity, IsJumping);
-	}
-}
 struct Z_Construct_UFunction_UNetworkPlayerComponent_OnPlayerUpdateReceived_Statics
 {
+	struct NetworkPlayerComponent_eventOnPlayerUpdateReceived_Parms
+	{
+		int32 ClientId;
+		FVector Position;
+		FRotator Rotation;
+		FVector Velocity;
+		bool IsJumping;
+	};
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
 		{ "Category", "Networking" },
@@ -646,8 +548,8 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UNetwo
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UNetworkPlayerComponent_OnPlayerUpdateReceived_Statics::NewProp_IsJumping,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UNetworkPlayerComponent_OnPlayerUpdateReceived_Statics::PropPointers) < 2048);
-const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UNetworkPlayerComponent_OnPlayerUpdateReceived_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UNetworkPlayerComponent, nullptr, "OnPlayerUpdateReceived", nullptr, nullptr, Z_Construct_UFunction_UNetworkPlayerComponent_OnPlayerUpdateReceived_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UNetworkPlayerComponent_OnPlayerUpdateReceived_Statics::PropPointers), sizeof(NetworkPlayerComponent_eventOnPlayerUpdateReceived_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x08C20C00, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UNetworkPlayerComponent_OnPlayerUpdateReceived_Statics::Function_MetaDataParams), Z_Construct_UFunction_UNetworkPlayerComponent_OnPlayerUpdateReceived_Statics::Function_MetaDataParams) };
-static_assert(sizeof(NetworkPlayerComponent_eventOnPlayerUpdateReceived_Parms) < MAX_uint16);
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UNetworkPlayerComponent_OnPlayerUpdateReceived_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UNetworkPlayerComponent, nullptr, "OnPlayerUpdateReceived", nullptr, nullptr, Z_Construct_UFunction_UNetworkPlayerComponent_OnPlayerUpdateReceived_Statics::PropPointers, UE_ARRAY_COUNT(Z_Construct_UFunction_UNetworkPlayerComponent_OnPlayerUpdateReceived_Statics::PropPointers), sizeof(Z_Construct_UFunction_UNetworkPlayerComponent_OnPlayerUpdateReceived_Statics::NetworkPlayerComponent_eventOnPlayerUpdateReceived_Parms), RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04C20401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UNetworkPlayerComponent_OnPlayerUpdateReceived_Statics::Function_MetaDataParams), Z_Construct_UFunction_UNetworkPlayerComponent_OnPlayerUpdateReceived_Statics::Function_MetaDataParams) };
+static_assert(sizeof(Z_Construct_UFunction_UNetworkPlayerComponent_OnPlayerUpdateReceived_Statics::NetworkPlayerComponent_eventOnPlayerUpdateReceived_Parms) < MAX_uint16);
 UFunction* Z_Construct_UFunction_UNetworkPlayerComponent_OnPlayerUpdateReceived()
 {
 	static UFunction* ReturnFunction = nullptr;
@@ -666,7 +568,7 @@ DEFINE_FUNCTION(UNetworkPlayerComponent::execOnPlayerUpdateReceived)
 	P_GET_UBOOL(Z_Param_IsJumping);
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	P_THIS->OnPlayerUpdateReceived_Implementation(Z_Param_ClientId,Z_Param_Out_Position,Z_Param_Out_Rotation,Z_Param_Out_Velocity,Z_Param_IsJumping);
+	P_THIS->OnPlayerUpdateReceived(Z_Param_ClientId,Z_Param_Out_Position,Z_Param_Out_Rotation,Z_Param_Out_Velocity,Z_Param_IsJumping);
 	P_NATIVE_END;
 }
 // End Class UNetworkPlayerComponent Function OnPlayerUpdateReceived
@@ -1162,14 +1064,14 @@ struct Z_Construct_UClass_UNetworkPlayerComponent_Statics
 		{ &Z_Construct_UFunction_UNetworkPlayerComponent_DisconnectFromServer, "DisconnectFromServer" }, // 843942467
 		{ &Z_Construct_UFunction_UNetworkPlayerComponent_GetLocalClientId, "GetLocalClientId" }, // 3535499080
 		{ &Z_Construct_UFunction_UNetworkPlayerComponent_GetOtherPlayerCount, "GetOtherPlayerCount" }, // 2572663509
-		{ &Z_Construct_UFunction_UNetworkPlayerComponent_OnClientIdReceived, "OnClientIdReceived" }, // 3364662654
+		{ &Z_Construct_UFunction_UNetworkPlayerComponent_OnClientIdReceived, "OnClientIdReceived" }, // 2836123123
 		{ &Z_Construct_UFunction_UNetworkPlayerComponent_OnConnectionStatusChanged, "OnConnectionStatusChanged" }, // 3059034240
 		{ &Z_Construct_UFunction_UNetworkPlayerComponent_OnJumpStateUpdateReceived, "OnJumpStateUpdateReceived" }, // 3823580789
-		{ &Z_Construct_UFunction_UNetworkPlayerComponent_OnNetworkConnected, "OnNetworkConnected" }, // 821486121
-		{ &Z_Construct_UFunction_UNetworkPlayerComponent_OnNetworkDisconnected, "OnNetworkDisconnected" }, // 3983246557
-		{ &Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerRemoved, "OnOtherPlayerRemoved" }, // 3976872754
-		{ &Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerSpawned, "OnOtherPlayerSpawned" }, // 1300155790
-		{ &Z_Construct_UFunction_UNetworkPlayerComponent_OnPlayerUpdateReceived, "OnPlayerUpdateReceived" }, // 2077210679
+		{ &Z_Construct_UFunction_UNetworkPlayerComponent_OnNetworkConnected, "OnNetworkConnected" }, // 1347600707
+		{ &Z_Construct_UFunction_UNetworkPlayerComponent_OnNetworkDisconnected, "OnNetworkDisconnected" }, // 2692256238
+		{ &Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerRemoved, "OnOtherPlayerRemoved" }, // 743720046
+		{ &Z_Construct_UFunction_UNetworkPlayerComponent_OnOtherPlayerSpawned, "OnOtherPlayerSpawned" }, // 1736179218
+		{ &Z_Construct_UFunction_UNetworkPlayerComponent_OnPlayerUpdateReceived, "OnPlayerUpdateReceived" }, // 4175998319
 		{ &Z_Construct_UFunction_UNetworkPlayerComponent_OnPositionUpdateReceived, "OnPositionUpdateReceived" }, // 4255994805
 		{ &Z_Construct_UFunction_UNetworkPlayerComponent_OnRotationUpdateReceived, "OnRotationUpdateReceived" }, // 950059930
 		{ &Z_Construct_UFunction_UNetworkPlayerComponent_RemoveAllOtherPlayers, "RemoveAllOtherPlayers" }, // 3289109988
@@ -1179,7 +1081,6 @@ struct Z_Construct_UClass_UNetworkPlayerComponent_Statics
 		{ &Z_Construct_UFunction_UNetworkPlayerComponent_SpawnOtherPlayerCharacter, "SpawnOtherPlayerCharacter" }, // 2806769219
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
-	static const UECodeGen_Private::FImplementedInterfaceParams InterfaceParams[];
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<UNetworkPlayerComponent>::IsAbstract,
 	};
@@ -1223,9 +1124,6 @@ UObject* (*const Z_Construct_UClass_UNetworkPlayerComponent_Statics::DependentSi
 	(UObject* (*)())Z_Construct_UPackage__Script_SimpleNetworking,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UNetworkPlayerComponent_Statics::DependentSingletons) < 16);
-const UECodeGen_Private::FImplementedInterfaceParams Z_Construct_UClass_UNetworkPlayerComponent_Statics::InterfaceParams[] = {
-	{ Z_Construct_UClass_USimpleNetworkInterface_NoRegister, (int32)VTABLE_OFFSET(UNetworkPlayerComponent, ISimpleNetworkInterface), false },  // 1888866136
-};
 const UECodeGen_Private::FClassParams Z_Construct_UClass_UNetworkPlayerComponent_Statics::ClassParams = {
 	&UNetworkPlayerComponent::StaticClass,
 	"Engine",
@@ -1233,11 +1131,11 @@ const UECodeGen_Private::FClassParams Z_Construct_UClass_UNetworkPlayerComponent
 	DependentSingletons,
 	FuncInfo,
 	Z_Construct_UClass_UNetworkPlayerComponent_Statics::PropPointers,
-	InterfaceParams,
+	nullptr,
 	UE_ARRAY_COUNT(DependentSingletons),
 	UE_ARRAY_COUNT(FuncInfo),
 	UE_ARRAY_COUNT(Z_Construct_UClass_UNetworkPlayerComponent_Statics::PropPointers),
-	UE_ARRAY_COUNT(InterfaceParams),
+	0,
 	0x00B000A4u,
 	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UNetworkPlayerComponent_Statics::Class_MetaDataParams), Z_Construct_UClass_UNetworkPlayerComponent_Statics::Class_MetaDataParams)
 };
@@ -1261,10 +1159,10 @@ UNetworkPlayerComponent::~UNetworkPlayerComponent() {}
 struct Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Client_MyProject_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_NetworkPlayerComponent_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UNetworkPlayerComponent, UNetworkPlayerComponent::StaticClass, TEXT("UNetworkPlayerComponent"), &Z_Registration_Info_UClass_UNetworkPlayerComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UNetworkPlayerComponent), 1757957798U) },
+		{ Z_Construct_UClass_UNetworkPlayerComponent, UNetworkPlayerComponent::StaticClass, TEXT("UNetworkPlayerComponent"), &Z_Registration_Info_UClass_UNetworkPlayerComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UNetworkPlayerComponent), 2683507274U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Client_MyProject_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_NetworkPlayerComponent_h_1941006896(TEXT("/Script/SimpleNetworking"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Client_MyProject_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_NetworkPlayerComponent_h_3602084514(TEXT("/Script/SimpleNetworking"),
 	Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Client_MyProject_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_NetworkPlayerComponent_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Client_MyProject_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_NetworkPlayerComponent_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

@@ -31,18 +31,6 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Networking")
     void DisconnectFromServer();
     
-    // 서버 연결 성공 이벤트
-    UFUNCTION(BlueprintImplementableEvent, Category = "Networking")
-    void OnServerConnected();
-    
-    // 서버 연결 실패 이벤트
-    UFUNCTION(BlueprintImplementableEvent, Category = "Networking")
-    void OnServerConnectionFailed();
-    
-    // 서버 연결 해제 이벤트
-    UFUNCTION(BlueprintImplementableEvent, Category = "Networking")
-    void OnServerDisconnected();
-    
 protected:
     // 네트워크 매니저 인스턴스
     UPROPERTY()
@@ -67,12 +55,4 @@ protected:
     // 재연결 간격 (초)
     UPROPERTY(EditDefaultsOnly, Category = "Networking", meta = (EditCondition = "bAutoReconnect"))
     float ReconnectInterval;
-    
-    // 연결 상태 UI 위젯 클래스
-    UPROPERTY(EditDefaultsOnly, Category = "UI")
-    TSubclassOf<UUserWidget> ConnectionStatusWidgetClass;
-    
-    // 연결 상태 UI 위젯 인스턴스
-    UPROPERTY()
-    UUserWidget* ConnectionStatusWidget;
 };

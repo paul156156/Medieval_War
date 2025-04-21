@@ -8,10 +8,10 @@
 UENUM(BlueprintType)
 enum class EPacketType : uint8
 {
+	CLIENT_ID = 3,
     MOVE = 0,
     JUMP = 1,
     POSITION_UPDATE = 2,
-    CLIENT_ID = 3
 };
 
 // 패킷 구조체 정의 (서버와 동일하게 맞춰야 함)

@@ -13,7 +13,6 @@ ASimpleNetworkGameMode::ASimpleNetworkGameMode()
     , bAutoConnect(false)
     , bAutoReconnect(false)
     , ReconnectInterval(5.0f)
-    , ConnectionStatusWidget(nullptr)
 {
     // 기본 설정
 }
@@ -45,30 +44,13 @@ void ASimpleNetworkGameMode::BeginPlay()
             false
         );
     }
-    
-    // 연결 상태 위젯 생성
-    if (ConnectionStatusWidgetClass)
-    {
-        ConnectionStatusWidget = CreateWidget<UUserWidget>(GetWorld(), ConnectionStatusWidgetClass);
-        if (ConnectionStatusWidget)
-        {
-            ConnectionStatusWidget->AddToViewport();
-        }
-    }
 }
 
 void ASimpleNetworkGameMode::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
     // 서버 연결 해제
     DisconnectFromServer();
-    
-    // 위젯 제거
-    if (ConnectionStatusWidget)
-    {
-        ConnectionStatusWidget->RemoveFromParent();
-        ConnectionStatusWidget = nullptr;
-    }
-    
+        
     Super::EndPlay(EndPlayReason);
 }
 
@@ -83,7 +65,7 @@ void ASimpleNetworkGameMode::ConnectToServer()
     {
         UE_LOG(LogTemp, Error, TEXT("SimpleNetworkGameMode: NetworkManager is null"));
         // 연결 실패 이벤트 호출
-        OnServerConnectionFailed();
+        //OnServerConnectionFailed();
         return;
     }
     
@@ -93,14 +75,10 @@ void ASimpleNetworkGameMode::ConnectToServer()
     if (bConnected)
     {
         UE_LOG(LogTemp, Display, TEXT("Successfully connected to server %s:%d"), *ServerIP, ServerPort);
-        // 연결 성공 이벤트 호출
-        OnServerConnected();
     }
     else
     {
         UE_LOG(LogTemp, Warning, TEXT("Failed to connect to server %s:%d"), *ServerIP, ServerPort);
-        // 연결 실패 이벤트 호출
-        OnServerConnectionFailed();
         
         // 자동 재연결 설정 확인
         if (bAutoReconnect)
@@ -129,6 +107,6 @@ void ASimpleNetworkGameMode::DisconnectFromServer()
     {
         NetworkManager->DisconnectFromServer();
         // 연결 해제 이벤트 호출
-        OnServerDisconnected();
+        //OnServerDisconnected();
     }
 }

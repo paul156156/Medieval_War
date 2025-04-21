@@ -26,10 +26,10 @@ template<> SIMPLENETWORKING_API UScriptStruct* StaticStruct<struct FOtherPlayerI
 
 
 #define FOREACH_ENUM_EPACKETTYPE(op) \
+	op(EPacketType::CLIENT_ID) \
 	op(EPacketType::MOVE) \
 	op(EPacketType::JUMP) \
-	op(EPacketType::POSITION_UPDATE) \
-	op(EPacketType::CLIENT_ID) 
+	op(EPacketType::POSITION_UPDATE) 
 
 enum class EPacketType : uint8;
 template<> struct TIsUEnumClass<EPacketType> { enum { Value = true }; };

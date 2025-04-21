@@ -30,8 +30,7 @@ private: \
 	friend struct Z_Construct_UClass_ASimpleNetworkCharacter_Statics; \
 public: \
 	DECLARE_CLASS(ASimpleNetworkCharacter, ACharacter, COMPILED_IN_FLAGS(0 | CLASS_Config), CASTCLASS_None, TEXT("/Script/SimpleNetworking"), NO_API) \
-	DECLARE_SERIALIZER(ASimpleNetworkCharacter) \
-	virtual UObject* _getUObject() const override { return const_cast<ASimpleNetworkCharacter*>(this); }
+	DECLARE_SERIALIZER(ASimpleNetworkCharacter)
 
 
 #define FID_Users_Blues_Documents_GitHub_Medieval_War_Client_MyProject_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_SimpleNetworkCharacter_h_15_ENHANCED_CONSTRUCTORS \

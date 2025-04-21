@@ -1,4 +1,5 @@
 using UnrealBuildTool;
+using UnrealBuildTool.Rules;
 
 public class SimpleNetworking : ModuleRules
 {
@@ -17,7 +18,7 @@ public class SimpleNetworking : ModuleRules
                 // ... 필요한 경로 추가
             }
         );
-        
+
         PublicDependencyModuleNames.AddRange(
             new string[]
             {
@@ -25,9 +26,9 @@ public class SimpleNetworking : ModuleRules
                 "CoreUObject",
                 "Engine",
                 "InputCore",
+                "EnhancedInput",
                 "Sockets",
-                "Networking",
-                "UMG"
+                "Networking"
             }
         );
         

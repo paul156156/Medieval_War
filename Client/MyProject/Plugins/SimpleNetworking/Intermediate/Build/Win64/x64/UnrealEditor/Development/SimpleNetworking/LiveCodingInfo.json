@@ -2,7 +2,6 @@
 	"RemapUnityFiles": 
 	{
 		"Module.SimpleNetworking.cpp.obj": [
-			"ISimpleNetworkInterface.gen.cpp.obj",
 			"NetworkPlayerComponent.gen.cpp.obj",
 			"NetworkTypes.gen.cpp.obj",
 			"SimpleNetworkCharacter.gen.cpp.obj",

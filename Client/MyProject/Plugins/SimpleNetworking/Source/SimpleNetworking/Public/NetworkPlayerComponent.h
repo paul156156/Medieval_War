@@ -4,13 +4,12 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "NetworkTypes.h"
-#include "ISimpleNetworkInterface.h"
 #include "NetworkPlayerComponent.generated.h"
 
 class USimpleNetworkManager;
 
 UCLASS(ClassGroup=(Networking), meta=(BlueprintSpawnableComponent))
-class SIMPLENETWORKING_API UNetworkPlayerComponent : public UActorComponent, public ISimpleNetworkInterface
+class SIMPLENETWORKING_API UNetworkPlayerComponent : public UActorComponent//, public ISimpleNetworkInterface
 {
     GENERATED_BODY()
 
@@ -95,30 +94,23 @@ public:
     UFUNCTION(BlueprintPure, Category = "Networking")
     int32 GetOtherPlayerCount() const { return OtherPlayers.Num(); }
 
-    // ISimpleNetworkInterface 구현
-    UFUNCTION(BlueprintNativeEvent, Category = "Networking")
+    UFUNCTION(BlueprintCallable, Category = "Networking")
     void OnNetworkConnected();
-    virtual void OnNetworkConnected_Implementation();
-    
-    UFUNCTION(BlueprintNativeEvent, Category = "Networking")
+
+    UFUNCTION(BlueprintCallable, Category = "Networking")
     void OnNetworkDisconnected();
-    virtual void OnNetworkDisconnected_Implementation();
-    
-    UFUNCTION(BlueprintNativeEvent, Category = "Networking")
+
+    UFUNCTION(BlueprintCallable, Category = "Networking")
     void OnPlayerUpdateReceived(int32 ClientId, const FVector& Position, const FRotator& Rotation, const FVector& Velocity, bool IsJumping);
-    virtual void OnPlayerUpdateReceived_Implementation(int32 ClientId, const FVector& Position, const FRotator& Rotation, const FVector& Velocity, bool IsJumping);
-    
-    UFUNCTION(BlueprintNativeEvent, Category = "Networking")
+
+    UFUNCTION(BlueprintCallable, Category = "Networking")
     void OnClientIdReceived(int32 ClientId);
-    virtual void OnClientIdReceived_Implementation(int32 ClientId);
-    
-    UFUNCTION(BlueprintNativeEvent, Category = "Networking")
+
+    UFUNCTION(BlueprintCallable, Category = "Networking")
     void OnOtherPlayerSpawned(AActor* OtherPlayerActor, int32 ClientId);
-    virtual void OnOtherPlayerSpawned_Implementation(AActor* OtherPlayerActor, int32 ClientId);
-    
-    UFUNCTION(BlueprintNativeEvent, Category = "Networking")
+
+    UFUNCTION(BlueprintCallable, Category = "Networking")
     void OnOtherPlayerRemoved(int32 ClientId);
-    virtual void OnOtherPlayerRemoved_Implementation(int32 ClientId);
 
 private:
     // 마지막 위치 전송 시간
