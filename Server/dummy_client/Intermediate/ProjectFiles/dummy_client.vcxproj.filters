@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\dummy_client.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{F31BBDD1-B3E8-3BCC-9652-680E16935819}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\dummy_client.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\dummy_clientEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\.editorconfig" />
+    <None Include="..\..\.vsconfig" />
+    <None Include="..\..\shadertoolsconfig.json" />
+    <Filter Include="Config">
+      <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEditorPerProjectUserSettings.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\dummy_client">
+      <UniqueIdentifier>{7F5287A7-9DE8-3DC6-8B86-03E8A3466884}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\dummy_client\dummy_client.Build.cs">
+      <Filter>Source\dummy_client</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\dummy_client\dummy_client.cpp">
+      <Filter>Source\dummy_client</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\dummy_client\dummy_client.h">
+      <Filter>Source\dummy_client</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\dummy_client\dummy_clientCharacter.cpp">
+      <Filter>Source\dummy_client</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\dummy_client\dummy_clientCharacter.h">
+      <Filter>Source\dummy_client</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\dummy_client\dummy_clientGameMode.cpp">
+      <Filter>Source\dummy_client</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\dummy_client\dummy_clientGameMode.h">
+      <Filter>Source\dummy_client</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\dummy_client\NetworkManager.cpp">
+      <Filter>Source\dummy_client</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\dummy_client\NetworkManager.h">
+      <Filter>Source\dummy_client</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
