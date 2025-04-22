@@ -10,11 +10,13 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodeMyNetworkGameMode() {}
 
 // Begin Cross Module References
+COREUOBJECT_API UClass* Z_Construct_UClass_UClass();
 COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FRotator();
 COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector();
 ENGINE_API UClass* Z_Construct_UClass_AGameModeBase();
 MEDIEVAL_WAR_API UClass* Z_Construct_UClass_AMyNetworkGameMode();
 MEDIEVAL_WAR_API UClass* Z_Construct_UClass_AMyNetworkGameMode_NoRegister();
+MEDIEVAL_WAR_API UClass* Z_Construct_UClass_AOtherCharacter_NoRegister();
 SIMPLENETWORKING_API UClass* Z_Construct_UClass_USimpleNetworkManager_NoRegister();
 SIMPLENETWORKING_API UEnum* Z_Construct_UEnum_SimpleNetworking_EPlayerState();
 UPackage* Z_Construct_UPackage__Script_Medieval_War();
@@ -474,12 +476,23 @@ struct Z_Construct_UClass_AMyNetworkGameMode_Statics
 		{ "ToolTip", "\xef\xbf\xbd\xda\xb5\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd" },
 #endif
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_OtherPlayerCharacterClass_MetaData[] = {
+		{ "Category", "Networking" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "// \xef\xbf\xbd\xd9\xb8\xef\xbf\xbd \xef\xbf\xbd\xc3\xb7\xef\xbf\xbd\xef\xbf\xbd\xcc\xbe\xef\xbf\xbd \xc4\xb3\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xc5\xac\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\n" },
+#endif
+		{ "ModuleRelativePath", "MyNetworkGameMode.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "\xef\xbf\xbd\xd9\xb8\xef\xbf\xbd \xef\xbf\xbd\xc3\xb7\xef\xbf\xbd\xef\xbf\xbd\xcc\xbe\xef\xbf\xbd \xc4\xb3\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xc5\xac\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd" },
+#endif
+	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_NetworkManager;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_ServerIP;
 	static const UECodeGen_Private::FIntPropertyParams NewProp_ServerPort;
 	static void NewProp_bAutoConnect_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp_bAutoConnect;
+	static const UECodeGen_Private::FClassPropertyParams NewProp_OtherPlayerCharacterClass;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
@@ -507,11 +520,13 @@ void Z_Construct_UClass_AMyNetworkGameMode_Statics::NewProp_bAutoConnect_SetBit(
 	((AMyNetworkGameMode*)Obj)->bAutoConnect = 1;
 }
 const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AMyNetworkGameMode_Statics::NewProp_bAutoConnect = { "bAutoConnect", nullptr, (EPropertyFlags)0x0020080000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AMyNetworkGameMode), &Z_Construct_UClass_AMyNetworkGameMode_Statics::NewProp_bAutoConnect_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bAutoConnect_MetaData), NewProp_bAutoConnect_MetaData) };
+const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_AMyNetworkGameMode_Statics::NewProp_OtherPlayerCharacterClass = { "OtherPlayerCharacterClass", nullptr, (EPropertyFlags)0x0024080000000005, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyNetworkGameMode, OtherPlayerCharacterClass), Z_Construct_UClass_UClass, Z_Construct_UClass_AOtherCharacter_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_OtherPlayerCharacterClass_MetaData), NewProp_OtherPlayerCharacterClass_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AMyNetworkGameMode_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyNetworkGameMode_Statics::NewProp_NetworkManager,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyNetworkGameMode_Statics::NewProp_ServerIP,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyNetworkGameMode_Statics::NewProp_ServerPort,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyNetworkGameMode_Statics::NewProp_bAutoConnect,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyNetworkGameMode_Statics::NewProp_OtherPlayerCharacterClass,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AMyNetworkGameMode_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_AMyNetworkGameMode_Statics::DependentSingletons[])() = {
@@ -554,10 +569,10 @@ AMyNetworkGameMode::~AMyNetworkGameMode() {}
 struct Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Server_Medieval_War_Source_Medieval_War_MyNetworkGameMode_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AMyNetworkGameMode, AMyNetworkGameMode::StaticClass, TEXT("AMyNetworkGameMode"), &Z_Registration_Info_UClass_AMyNetworkGameMode, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMyNetworkGameMode), 2588843814U) },
+		{ Z_Construct_UClass_AMyNetworkGameMode, AMyNetworkGameMode::StaticClass, TEXT("AMyNetworkGameMode"), &Z_Registration_Info_UClass_AMyNetworkGameMode, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMyNetworkGameMode), 1193228668U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Server_Medieval_War_Source_Medieval_War_MyNetworkGameMode_h_101969199(TEXT("/Script/Medieval_War"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Server_Medieval_War_Source_Medieval_War_MyNetworkGameMode_h_2905507332(TEXT("/Script/Medieval_War"),
 	Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Server_Medieval_War_Source_Medieval_War_MyNetworkGameMode_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Server_Medieval_War_Source_Medieval_War_MyNetworkGameMode_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

@@ -9,7 +9,7 @@
 
 #pragma comment(lib, "ws2_32.lib")
 
-// 패킷 타입 정의
+// 패킷 타입 정의 (클라이언트와 동일하게)
 enum class EPacketType : uint8_t
 {
     CLIENT_ID = 0,
@@ -19,16 +19,16 @@ enum class EPacketType : uint8_t
     ATTACK = 4
 };
 
-// 상태 정보
+// 상태 정보 (클라이언트와 동일하게)
 enum class EPlayerState : uint8_t
 {
     IDLE = 0,
     WALKING = 1,
     JUMPING = 2,
-    ATTACK = 3
+    ATTACKING = 3
 };
 
-// 패킷 구조체 정의
+// 패킷 구조체 정의 (클라이언트와 동일하게)
 #pragma pack(push, 1)
 struct PacketHeader
 {
@@ -36,36 +36,48 @@ struct PacketHeader
     EPacketType PacketType;
 };
 
+struct Vec3
+{
+    float X, Y, Z;
+};
+
+struct Rot3
+{
+    float Pitch, Yaw, Roll;
+};
+
 struct PositionUpdatePacket
 {
     PacketHeader Header;
     int32_t ClientId;
+    Vec3 Position;
+    Rot3 Rotation;
     EPlayerState State;
-    struct { float X, Y, Z; } Position;
-    struct { float Pitch, Yaw, Roll; } Rotation;
-    //struct { float X, Y, Z; } Velocity;
-    //bool IsJumping;
 };
 
 struct MovePacket
 {
     PacketHeader Header;
-	EPlayerState State;
     float ForwardValue;
     float RightValue;
-    struct { float X, Y, Z; } Position;
-    struct { float Pitch, Yaw, Roll; } Rotation;
-    //struct { float X, Y, Z; } Velocity;
+    Vec3 Position;
+    Rot3 Rotation;
+    EPlayerState State;
 };
 
 struct JumpPacket
 {
     PacketHeader Header;
-    bool IsJumping;
-    struct { float X, Y, Z; } Position;
-    //struct { float X, Y, Z; } Velocity;
+    Vec3 Position;
+    EPlayerState State;
 };
 
+struct AttackPacket
+{
+    PacketHeader Header;
+    Vec3 Position;
+    EPlayerState State;
+};
 
 struct ClientIdPacket
 {
@@ -85,28 +97,12 @@ struct ClientSession
     int id;
 
     // 플레이어 상태
-    struct
-    {
-        float X, Y, Z;
-    } Position;
-
-    struct
-    {
-        float Pitch, Yaw, Roll;
-    } Rotation;
-
-    //struct
-    //{
-    //    float X, Y, Z;
-    //} Velocity; 
-
-    bool IsJumping;
+    EPlayerState State;
+    Vec3 Position;
+    Rot3 Rotation;
 
     // 마지막 위치 저장 (속도 계산용)
-    struct
-    {
-        float X, Y, Z;
-    } LastPosition;
+    Vec3 LastPosition;
 
     // 마지막 업데이트 시간
     float LastUpdateTime;
@@ -219,8 +215,7 @@ public:
             client->Position = { 0.0f, 0.0f, 0.0f };
             client->LastPosition = { 0.0f, 0.0f, 0.0f };
             client->Rotation = { 0.0f, 0.0f, 0.0f };
-            //client->Velocity = { 0.0f, 0.0f, 0.0f };
-            client->IsJumping = false;
+            client->State = EPlayerState::IDLE;
             client->LastUpdateTime = GetTickCount() / 1000.0f;
             ZeroMemory(&client->overlapped, sizeof(WSAOVERLAPPED));
 
@@ -308,16 +303,9 @@ private:
             packet.Header.PacketType = EPacketType::POSITION_UPDATE;
             packet.Header.PacketSize = sizeof(PositionUpdatePacket);
             packet.ClientId = newClient->id;
-            packet.Position.X = newClient->Position.X;
-            packet.Position.Y = newClient->Position.Y;
-            packet.Position.Z = newClient->Position.Z;
-            packet.Rotation.Pitch = newClient->Rotation.Pitch;
-            packet.Rotation.Yaw = newClient->Rotation.Yaw;
-            packet.Rotation.Roll = newClient->Rotation.Roll;
-            //packet.Velocity.X = newClient->Velocity.X;
-            //packet.Velocity.Y = newClient->Velocity.Y;
-            //packet.Velocity.Z = newClient->Velocity.Z;
-            //packet.IsJumping = newClient->IsJumping;
+            packet.Position = newClient->Position;
+            packet.Rotation = newClient->Rotation;
+            packet.State = newClient->State;
 
             // 비동기 전송
             WSABUF wsaBuf;
@@ -360,16 +348,9 @@ private:
             packet.Header.PacketType = EPacketType::POSITION_UPDATE;
             packet.Header.PacketSize = sizeof(PositionUpdatePacket);
             packet.ClientId = existingClient->id;
-            packet.Position.X = existingClient->Position.X;
-            packet.Position.Y = existingClient->Position.Y;
-            packet.Position.Z = existingClient->Position.Z;
-            packet.Rotation.Pitch = existingClient->Rotation.Pitch;
-            packet.Rotation.Yaw = existingClient->Rotation.Yaw;
-            packet.Rotation.Roll = existingClient->Rotation.Roll;
-            //packet.Velocity.X = existingClient->Velocity.X;
-            //packet.Velocity.Y = existingClient->Velocity.Y;
-            //packet.Velocity.Z = existingClient->Velocity.Z;
-            //packet.IsJumping = existingClient->IsJumping;
+            packet.Position = existingClient->Position;
+            packet.Rotation = existingClient->Rotation;
+            packet.State = existingClient->State;
 
             // 비동기 전송
             WSABUF wsaBuf;
@@ -449,10 +430,7 @@ private:
         packet.Rotation.Pitch = 0.0f;
         packet.Rotation.Yaw = 0.0f;
         packet.Rotation.Roll = 0.0f;
-        //packet.Velocity.X = 0.0f;
-        //packet.Velocity.Y = 0.0f;
-        //packet.Velocity.Z = 0.0f;
-        //packet.IsJumping = false;
+        packet.State = EPlayerState::IDLE;
 
         for (const auto& pair : clients)
         {
@@ -504,22 +482,12 @@ private:
                 MovePacket* packet = reinterpret_cast<MovePacket*>(data);
 
                 // 마지막 위치 저장 (속도 계산용)
-                client->LastPosition.X = client->Position.X;
-                client->LastPosition.Y = client->Position.Y;
-                client->LastPosition.Z = client->Position.Z;
+                client->LastPosition = client->Position;
 
                 // 클라이언트 상태 업데이트
-                client->Position.X = packet->Position.X;
-                client->Position.Y = packet->Position.Y;
-                client->Position.Z = packet->Position.Z;
-                client->Rotation.Pitch = packet->Rotation.Pitch;
-                client->Rotation.Yaw = packet->Rotation.Yaw;
-                client->Rotation.Roll = packet->Rotation.Roll;
-
-                // 속도 정보 업데이트 (클라이언트에서 받은 속도 사용)
-                //client->Velocity.X = packet->Velocity.X;
-                //client->Velocity.Y = packet->Velocity.Y;
-                //client->Velocity.Z = packet->Velocity.Z;
+                client->Position = packet->Position;
+                client->Rotation = packet->Rotation;
+                client->State = packet->State;
 
                 // 모든 클라이언트에게 위치 정보 전송
                 BroadcastPosition(client);
@@ -527,7 +495,7 @@ private:
                 // 디버그 출력
                 std::cout << "Client " << client->id << " moved: pos=("
                     << client->Position.X << "," << client->Position.Y << "," << client->Position.Z
-                    << ")" << std::endl;// vel = (" << client->Velocity.X << ", " << client->Velocity.Y << ", " << client->Velocity.Z << ")" << std::endl;
+                    << ") state=" << static_cast<int>(client->State) << std::endl;
             }
             break;
         }
@@ -538,20 +506,34 @@ private:
                 JumpPacket* packet = reinterpret_cast<JumpPacket*>(data);
 
                 // 클라이언트 점프 상태 업데이트
-                client->IsJumping = packet->IsJumping;
-                client->Position.X = packet->Position.X;
-                client->Position.Y = packet->Position.Y;
-                client->Position.Z = packet->Position.Z;
-                //client->Velocity.X = packet->Velocity.X;
-                //client->Velocity.Y = packet->Velocity.Y;
-                //client->Velocity.Z = packet->Velocity.Z;
+                client->Position = packet->Position;
+                client->State = packet->State;
 
                 // 모든 클라이언트에게 위치 정보 전송
                 BroadcastPosition(client);
 
                 // 디버그 출력
                 std::cout << "Client " << client->id << " jump state: "
-                    << (client->IsJumping ? "jumping" : "landed") << std::endl;
+                    << static_cast<int>(client->State) << std::endl;
+            }
+            break;
+        }
+        case EPacketType::ATTACK:
+        {
+            if (length >= sizeof(AttackPacket))
+            {
+                AttackPacket* packet = reinterpret_cast<AttackPacket*>(data);
+
+                // 클라이언트 공격 상태 업데이트
+                client->Position = packet->Position;
+                client->State = packet->State;
+
+                // 모든 클라이언트에게 위치 정보 전송
+                BroadcastPosition(client);
+
+                // 디버그 출력
+                std::cout << "Client " << client->id << " attack state: "
+                    << static_cast<int>(client->State) << std::endl;
             }
             break;
         }
@@ -567,16 +549,9 @@ private:
         packet.Header.PacketType = EPacketType::POSITION_UPDATE;
         packet.Header.PacketSize = sizeof(PositionUpdatePacket);
         packet.ClientId = sourceClient->id;
-        packet.Position.X = sourceClient->Position.X;
-        packet.Position.Y = sourceClient->Position.Y;
-        packet.Position.Z = sourceClient->Position.Z;
-        packet.Rotation.Pitch = sourceClient->Rotation.Pitch;
-        packet.Rotation.Yaw = sourceClient->Rotation.Yaw;
-        packet.Rotation.Roll = sourceClient->Rotation.Roll;
-        //packet.Velocity.X = sourceClient->Velocity.X;
-        //packet.Velocity.Y = sourceClient->Velocity.Y;
-        //packet.Velocity.Z = sourceClient->Velocity.Z;
-        //packet.IsJumping = sourceClient->IsJumping;
+        packet.Position = sourceClient->Position;
+        packet.Rotation = sourceClient->Rotation;
+        packet.State = sourceClient->State;
 
         std::lock_guard<std::mutex> lock(clientsMutex);
 

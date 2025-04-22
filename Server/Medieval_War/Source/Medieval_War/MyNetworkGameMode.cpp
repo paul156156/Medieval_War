@@ -2,7 +2,7 @@
 #include "MyNetworkGameMode.h"
 #include "SimpleNetworking/Public/SimpleNetworkManager.h"
 #include "MyCharacter.h"
-//#include "OtherCharacter.h"
+#include "OtherCharacter.h"
 #include "Kismet/GameplayStatics.h"
 
 AMyNetworkGameMode::AMyNetworkGameMode()
@@ -118,24 +118,24 @@ void AMyNetworkGameMode::OnPlayerUpdateReceived(int32 ClientId, const FVector& P
     if (ClientId == LocalClientId)
         return;
 
-    //// 해당 ID의 플레이어가 이미 존재하는지 확인
-    //AOtherCharacter* ExistingCharacter = nullptr;
-    //if (OtherPlayers.Contains(ClientId))
-    //{
-    //    ExistingCharacter = OtherPlayers[ClientId];
-    //}
+    // 해당 ID의 플레이어가 이미 존재하는지 확인
+    AOtherCharacter* ExistingCharacter = nullptr;
+    if (OtherPlayers.Contains(ClientId))
+    {
+        ExistingCharacter = OtherPlayers[ClientId];
+    }
 
-    //// 존재하지 않으면 새로 생성
-    //if (!ExistingCharacter || !IsValid(ExistingCharacter))
-    //{
-    //    ExistingCharacter = SpawnOtherPlayerCharacter(ClientId, Position);
-    //    if (!ExistingCharacter)
-    //        return;
-    //}
+    // 존재하지 않으면 새로 생성
+    if (!ExistingCharacter || !IsValid(ExistingCharacter))
+    {
+        ExistingCharacter = SpawnOtherPlayerCharacter(ClientId, Position);
+        if (!ExistingCharacter)
+            return;
+    }
 
-    //// 위치 및 상태 업데이트
-    //ExistingCharacter->UpdateTransform(Position, Rotation);
-    //ExistingCharacter->UpdateAnimationState(State);
+    // 위치 및 상태 업데이트
+    ExistingCharacter->UpdateTransform(Position, Rotation);
+    ExistingCharacter->UpdateAnimationState(State);
 }
 
 void AMyNetworkGameMode::OnClientIdReceived(int32 ClientId)
@@ -154,80 +154,80 @@ void AMyNetworkGameMode::OnConnectionStatusChanged(bool IsConnected)
     else
     {
         UE_LOG(LogTemp, Display, TEXT("Disconnected from server"));
-        //RemoveAllOtherPlayers();
+        RemoveAllOtherPlayers();
     }
 }
 
-//AOtherCharacter* AMyNetworkGameMode::SpawnOtherPlayerCharacter(int32 ClientId, const FVector& Position)
-//{
-//    if (!GetWorld() || !OtherPlayerCharacterClass)
-//    {
-//        UE_LOG(LogTemp, Error, TEXT("Failed to spawn other player: Invalid World or Character Class"));
-//        return nullptr;
-//    }
-//
-//    // 다른 플레이어 캐릭터 스폰
-//    FActorSpawnParameters SpawnParams;
-//    SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
-//
-//    AOtherCharacter* NewPlayerCharacter = GetWorld()->SpawnActor<AOtherCharacter>(
-//        OtherPlayerCharacterClass,
-//        Position,
-//        FRotator::ZeroRotator,
-//        SpawnParams
-//    );
-//
-//    if (NewPlayerCharacter)
-//    {
-//        UE_LOG(LogTemp, Display, TEXT("Spawned other player character for client ID %d at: X=%.2f Y=%.2f Z=%.2f"),
-//            ClientId, Position.X, Position.Y, Position.Z);
-//
-//        // 플레이어 입력 비활성화
-//        if (APlayerController* NewController = GetWorld()->SpawnActor<APlayerController>())
-//        {
-//            NewPlayerCharacter->bUseControllerRotationYaw = false;
-//            NewController->Possess(NewPlayerCharacter);
-//            NewController->SetIgnoreMoveInput(true);
-//            NewController->SetIgnoreLookInput(true);
-//        }
-//
-//        // 캐릭터 정보 저장
-//        OtherPlayers.Add(ClientId, NewPlayerCharacter);
-//    }
-//    else
-//    {
-//        UE_LOG(LogTemp, Error, TEXT("Failed to spawn other player character!"));
-//    }
-//
-//    return NewPlayerCharacter;
-//}
-//
-//void AMyNetworkGameMode::RemoveOtherPlayerCharacter(int32 ClientId)
-//{
-//    // 특정 ID의 플레이어만 제거
-//    if (OtherPlayers.Contains(ClientId))
-//    {
-//        AOtherCharacter* CharacterToRemove = OtherPlayers[ClientId];
-//        if (CharacterToRemove && IsValid(CharacterToRemove))
-//        {
-//            CharacterToRemove->Destroy();
-//            OtherPlayers.Remove(ClientId);
-//            UE_LOG(LogTemp, Display, TEXT("Removed player character for client ID: %d"), ClientId);
-//        }
-//    }
-//}
-//
-//void AMyNetworkGameMode::RemoveAllOtherPlayers()
-//{
-//    // 모든 다른 플레이어 캐릭터 제거
-//    for (auto& Pair : OtherPlayers)
-//    {
-//        if (Pair.Value && IsValid(Pair.Value))
-//        {
-//            Pair.Value->Destroy();
-//        }
-//    }
-//
-//    OtherPlayers.Empty();
-//    UE_LOG(LogTemp, Display, TEXT("All other player characters removed"));
-//}
+AOtherCharacter* AMyNetworkGameMode::SpawnOtherPlayerCharacter(int32 ClientId, const FVector& Position)
+{
+    if (!GetWorld() || !OtherPlayerCharacterClass)
+    {
+        UE_LOG(LogTemp, Error, TEXT("Failed to spawn other player: Invalid World or Character Class"));
+        return nullptr;
+    }
+
+    // 다른 플레이어 캐릭터 스폰
+    FActorSpawnParameters SpawnParams;
+    SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+
+    AOtherCharacter* NewPlayerCharacter = GetWorld()->SpawnActor<AOtherCharacter>(
+        OtherPlayerCharacterClass,
+        Position,
+        FRotator::ZeroRotator,
+        SpawnParams
+    );
+
+    if (NewPlayerCharacter)
+    {
+        UE_LOG(LogTemp, Display, TEXT("Spawned other player character for client ID %d at: X=%.2f Y=%.2f Z=%.2f"),
+            ClientId, Position.X, Position.Y, Position.Z);
+
+        // 플레이어 입력 비활성화
+        if (APlayerController* NewController = GetWorld()->SpawnActor<APlayerController>())
+        {
+            NewPlayerCharacter->bUseControllerRotationYaw = false;
+            NewController->Possess(NewPlayerCharacter);
+            NewController->SetIgnoreMoveInput(true);
+            NewController->SetIgnoreLookInput(true);
+        }
+
+        // 캐릭터 정보 저장
+        OtherPlayers.Add(ClientId, NewPlayerCharacter);
+    }
+    else
+    {
+        UE_LOG(LogTemp, Error, TEXT("Failed to spawn other player character!"));
+    }
+
+    return NewPlayerCharacter;
+}
+
+void AMyNetworkGameMode::RemoveOtherPlayerCharacter(int32 ClientId)
+{
+    // 특정 ID의 플레이어만 제거
+    if (OtherPlayers.Contains(ClientId))
+    {
+        AOtherCharacter* CharacterToRemove = OtherPlayers[ClientId];
+        if (CharacterToRemove && IsValid(CharacterToRemove))
+        {
+            CharacterToRemove->Destroy();
+            OtherPlayers.Remove(ClientId);
+            UE_LOG(LogTemp, Display, TEXT("Removed player character for client ID: %d"), ClientId);
+        }
+    }
+}
+
+void AMyNetworkGameMode::RemoveAllOtherPlayers()
+{
+    // 모든 다른 플레이어 캐릭터 제거
+    for (auto& Pair : OtherPlayers)
+    {
+        if (Pair.Value && IsValid(Pair.Value))
+        {
+            Pair.Value->Destroy();
+        }
+    }
+
+    OtherPlayers.Empty();
+    UE_LOG(LogTemp, Display, TEXT("All other player characters removed"));
+}

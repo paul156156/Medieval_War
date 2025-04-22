@@ -108,14 +108,14 @@ struct SIMPLENETWORKING_API FOtherPlayerInfo
     float RotationInterpolationTime = 0.0f;
 };
 
-//FString PlayerStateToString(EPlayerState State)
-//{
-//    switch (State)
-//    {
-//    case EPlayerState::IDLE: return TEXT("Idle");
-//    case EPlayerState::WALKING: return TEXT("Walking");
-//    case EPlayerState::JUMPING: return TEXT("Jumping");
-//    case EPlayerState::ATTACKING: return TEXT("Attacking");
-//    default: return TEXT("Unknown");
-//    }
-//}
+inline FString PlayerStateToString(EPlayerState State)
+{
+    switch (State)
+    {
+    case EPlayerState::IDLE: return TEXT("Idle");
+    case EPlayerState::WALKING: return TEXT("Walking");
+    case EPlayerState::JUMPING: return TEXT("Jumping");
+    case EPlayerState::ATTACKING: return TEXT("Attacking");
+    default: return TEXT("Unknown");
+    }
+}

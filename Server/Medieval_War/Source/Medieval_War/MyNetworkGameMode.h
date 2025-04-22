@@ -60,14 +60,14 @@ protected:
     bool bAutoConnect;
 
     // 다른 플레이어 캐릭터 클래스
-    //UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Networking")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Networking")
     TSubclassOf<AOtherCharacter> OtherPlayerCharacterClass;
 
     // 로컬 클라이언트 ID
     int32 LocalClientId;
 
     // 다른 플레이어 캐릭터 맵
-    //TMap<int32, AOtherCharacter*> OtherPlayers;
+    TMap<int32, AOtherCharacter*> OtherPlayers;
 
     // 네트워크 이벤트 핸들러
     UFUNCTION()
@@ -80,7 +80,7 @@ protected:
     void OnConnectionStatusChanged(bool IsConnected);
 
     // 다른 플레이어 생성/제거 함수
-    //AOtherCharacter* SpawnOtherPlayerCharacter(int32 ClientId, const FVector& Position);
-    //void RemoveOtherPlayerCharacter(int32 ClientId);
-    //void RemoveAllOtherPlayers();
+    AOtherCharacter* SpawnOtherPlayerCharacter(int32 ClientId, const FVector& Position);
+    void RemoveOtherPlayerCharacter(int32 ClientId);
+    void RemoveAllOtherPlayers();
 };
