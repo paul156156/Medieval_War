@@ -122,7 +122,7 @@ void USimpleNetworkManager::DisconnectFromServer()
     }
 }
 
-void USimpleNetworkManager::SendMovePacket(float ForwardValue, float RightValue, const FVector& Position, const FRotator& Rotation)
+void USimpleNetworkManager::SendMovePacket(float ForwardValue, float RightValue, const FVector& Position, const FRotator& Rotation, EPlayerState State)
 {
     if (!IsConnected())
     {
@@ -141,20 +141,7 @@ void USimpleNetworkManager::SendMovePacket(float ForwardValue, float RightValue,
     Packet.Rotation.Pitch = Rotation.Pitch;
     Packet.Rotation.Yaw = Rotation.Yaw;
     Packet.Rotation.Roll = Rotation.Roll;
-
-    // 속도 정보 추가
-    FVector Velocity = FVector::ZeroVector;
-
-    // 캐릭터에서 속도 가져오기
-    ACharacter* Character = Cast<ACharacter>(GetOuter());
-    if (Character)
-    {
-        Velocity = Character->GetVelocity();
-    }
-
-    Packet.Velocity.X = Velocity.X;
-    Packet.Velocity.Y = Velocity.Y;
-    Packet.Velocity.Z = Velocity.Z;
+    Packet.State = State;
 
     // 패킷 전송
     int32 BytesSent = 0;
@@ -163,19 +150,18 @@ void USimpleNetworkManager::SendMovePacket(float ForwardValue, float RightValue,
     // 전송 실패 시 연결 상태 체크
     if (!bSuccess || BytesSent != sizeof(FMovePacket))
     {
-        UE_LOG(LogTemp, Warning, TEXT("Failed to send Move packet! Sent %d of %d bytes"),
-               BytesSent, sizeof(FMovePacket));
+        UE_LOG(LogTemp, Warning, TEXT("Failed to send Move packet! Sent %d of %d bytes"),BytesSent, sizeof(FMovePacket));
         CheckConnectionStatus();
     }
     else
     {
         // 디버그 로그 (Verbose 레벨)
-        UE_LOG(LogTemp, Verbose, TEXT("Sent Move Packet: Forward=%.2f, Right=%.2f, Pos=(%.2f,%.2f,%.2f), Vel=(%.2f,%.2f,%.2f)"),
-               ForwardValue, RightValue, Position.X, Position.Y, Position.Z, Velocity.X, Velocity.Y, Velocity.Z);
+        UE_LOG(LogTemp, Verbose, TEXT("Sent Move Packet: Forward=%.2f, Right=%.2f, Pos=(%.2f,%.2f,%.2f)"),
+            ForwardValue, RightValue, Position.X, Position.Y, Position.Z);
     }
 }
 
-void USimpleNetworkManager::SendJumpPacket(bool IsJumping, const FVector& Position)
+void USimpleNetworkManager::SendJumpPacket(bool IsJumping, const FVector& Position, EPlayerState State)
 {
     if (!IsConnected())
     {
@@ -186,24 +172,10 @@ void USimpleNetworkManager::SendJumpPacket(bool IsJumping, const FVector& Positi
     FJumpPacket Packet;
     Packet.Header.PacketType = EPacketType::JUMP;
     Packet.Header.PacketSize = sizeof(FJumpPacket);
-    Packet.IsJumping = IsJumping;
     Packet.Position.X = Position.X;
     Packet.Position.Y = Position.Y;
     Packet.Position.Z = Position.Z;
-
-    // 속도 정보 추가
-    FVector Velocity = FVector::ZeroVector;
-
-    // 캐릭터에서 속도 가져오기
-    ACharacter* Character = Cast<ACharacter>(GetOuter());
-    if (Character)
-    {
-        Velocity = Character->GetVelocity();
-    }
-
-    Packet.Velocity.X = Velocity.X;
-    Packet.Velocity.Y = Velocity.Y;
-    Packet.Velocity.Z = Velocity.Z;
+	Packet.State = State;
 
     // 패킷 전송
     int32 BytesSent = 0;
@@ -212,15 +184,46 @@ void USimpleNetworkManager::SendJumpPacket(bool IsJumping, const FVector& Positi
     // 전송 실패 시 연결 상태 체크
     if (!bSuccess || BytesSent != sizeof(FJumpPacket))
     {
-        UE_LOG(LogTemp, Warning, TEXT("Failed to send Jump packet! Sent %d of %d bytes"),
-               BytesSent, sizeof(FJumpPacket));
+        UE_LOG(LogTemp, Warning, TEXT("Failed to send Jump packet! Sent %d of %d bytes"),BytesSent, sizeof(FJumpPacket));
         CheckConnectionStatus();
     }
     else
     {
         // 디버그 로그 (Verbose 레벨)
-        UE_LOG(LogTemp, Verbose, TEXT("Sent Jump Packet: Jumping=%s, Pos=(%.2f,%.2f,%.2f), Vel=(%.2f,%.2f,%.2f)"),
-               IsJumping ? TEXT("true") : TEXT("false"), Position.X, Position.Y, Position.Z, Velocity.X, Velocity.Y, Velocity.Z);
+        UE_LOG(LogTemp, Verbose, TEXT("Sent Jump Packet, Pos=(%.2f,%.2f,%.2f)"), Position.X, Position.Y, Position.Z);
+    }
+}
+
+void USimpleNetworkManager::SendAttackPacket(const FVector& Position, EPlayerState State)
+{
+    if (!IsConnected())
+    {
+        return;
+    }
+    // 공격 패킷 생성
+    FAttackPacket Packet;
+    Packet.Header.PacketType = EPacketType::ATTACK;
+    Packet.Header.PacketSize = sizeof(FAttackPacket);
+    Packet.Position.X = Position.X;
+    Packet.Position.Y = Position.Y;
+    Packet.Position.Z = Position.Z;
+    Packet.State = State;
+
+    // 패킷 전송
+    int32 BytesSent = 0;
+    bool bSuccess = Socket->Send(reinterpret_cast<uint8*>(&Packet), sizeof(FAttackPacket), BytesSent);
+
+    // 전송 실패 시 연결 상태 체크
+    if (!bSuccess || BytesSent != sizeof(FAttackPacket))
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Failed to send Attack packet! Sent %d of %d bytes"),
+            BytesSent, sizeof(FAttackPacket));
+        CheckConnectionStatus();
+    }
+    else
+    {
+        // 디버그 로그 (Verbose 레벨)
+        UE_LOG(LogTemp, Verbose, TEXT("Sent Attack Packet: Pos=(%.2f,%.2f,%.2f)"),Position.X, Position.Y, Position.Z);
     }
 }
 
@@ -263,9 +266,8 @@ void USimpleNetworkManager::ProcessIncomingPackets()
                 if (BytesRead >= sizeof(FPositionUpdatePacket))
                 {
                     FPositionUpdatePacket* Packet = reinterpret_cast<FPositionUpdatePacket*>(RecvBuffer);
-                    UE_LOG(LogTemp, Display, TEXT("Position Update Packet - Client ID: %d, Pos: (%.1f, %.1f, %.1f), Vel: (%.1f, %.1f, %.1f)"),
-                           Packet->ClientId, Packet->Position.X, Packet->Position.Y, Packet->Position.Z,
-                           Packet->Velocity.X, Packet->Velocity.Y, Packet->Velocity.Z);
+                    UE_LOG(LogTemp, Display, TEXT("Position Update Packet - Client ID: %d, Pos: (%.1f, %.1f, %.1f)"),
+                        Packet->ClientId, Packet->Position.X, Packet->Position.Y, Packet->Position.Z);
                     HandlePositionUpdatePacket(Packet);
                 }
                 else
@@ -307,9 +309,10 @@ void USimpleNetworkManager::HandlePositionUpdatePacket(const FPositionUpdatePack
     // 위치 정보 추출
     FVector NewPosition(Packet->Position.X, Packet->Position.Y, Packet->Position.Z);
     FRotator NewRotation(Packet->Rotation.Pitch, Packet->Rotation.Yaw, Packet->Rotation.Roll);
-    FVector NewVelocity(Packet->Velocity.X, Packet->Velocity.Y, Packet->Velocity.Z);
-    bool bIsJumping = Packet->IsJumping;
+	// 클라이언트 ID 추출
     int32 ClientId = Packet->ClientId;
+    // 상태 추출
+	EPlayerState NewState = Packet->State;
 
     // 로컬 플레이어의 업데이트는 무시 (서버에서 전송해도)
     if (ClientId == LocalClientId)
@@ -321,16 +324,12 @@ void USimpleNetworkManager::HandlePositionUpdatePacket(const FPositionUpdatePack
     // 기존 델리게이트 호출 (레거시 지원을 위해 유지)
     OnPositionUpdate.Broadcast(NewPosition);
     OnRotationUpdate.Broadcast(NewRotation);
-    OnJumpStateUpdate.Broadcast(bIsJumping);
-
-    // 통합 플레이어 업데이트 델리게이트 호출 (새로운 방식, 속도 정보 포함)
-    OnPlayerUpdate.Broadcast(ClientId, NewPosition, NewRotation, NewVelocity, bIsJumping);
+    // 통합 플레이어 업데이트 델리게이트 호출
+    OnPlayerUpdate.Broadcast(ClientId, NewPosition, NewRotation, NewState);
 
     // 디버그 로그
-    UE_LOG(LogTemp, Verbose, TEXT("Position Update from client %d: Pos=(%.1f,%.1f,%.1f), Vel=(%.1f,%.1f,%.1f), Jumping=%s"),
-           ClientId, NewPosition.X, NewPosition.Y, NewPosition.Z,
-           NewVelocity.X, NewVelocity.Y, NewVelocity.Z,
-           bIsJumping ? TEXT("true") : TEXT("false"));
+    UE_LOG(LogTemp, Verbose, TEXT("Player Update from client %d: Pos=(%.1f,%.1f,%.1f)"),
+        ClientId, NewPosition.X, NewPosition.Y, NewPosition.Z);
 }
 
 void USimpleNetworkManager::HandleClientIdPacket(const FClientIdPacket* Packet)

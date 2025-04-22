@@ -14,7 +14,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define SIMPLENETWORKING_NetworkTypes_generated_h
 
-#define FID_Users_Blues_Documents_GitHub_Medieval_War_Server_Medieval_War_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_NetworkTypes_h_75_GENERATED_BODY \
+#define FID_Users_Blues_Documents_GitHub_Medieval_War_Server_Medieval_War_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_NetworkTypes_h_90_GENERATED_BODY \
 	friend struct Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics; \
 	static class UScriptStruct* StaticStruct();
 
@@ -35,5 +35,15 @@ template<> SIMPLENETWORKING_API UScriptStruct* StaticStruct<struct FOtherPlayerI
 enum class EPacketType : uint8;
 template<> struct TIsUEnumClass<EPacketType> { enum { Value = true }; };
 template<> SIMPLENETWORKING_API UEnum* StaticEnum<EPacketType>();
+
+#define FOREACH_ENUM_EPLAYERSTATE(op) \
+	op(EPlayerState::IDLE) \
+	op(EPlayerState::WALKING) \
+	op(EPlayerState::JUMPING) \
+	op(EPlayerState::ATTACKING) 
+
+enum class EPlayerState : uint8;
+template<> struct TIsUEnumClass<EPlayerState> { enum { Value = true }; };
+template<> SIMPLENETWORKING_API UEnum* StaticEnum<EPlayerState>();
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

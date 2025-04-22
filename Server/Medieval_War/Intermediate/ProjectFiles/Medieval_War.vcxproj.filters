@@ -95,15 +95,6 @@
     <Filter Include="Plugins\SimpleNetworking\Source\SimpleNetworking\Private">
       <UniqueIdentifier>{6B3C7139-F0C2-3668-8B2C-54A4304DDADD}</UniqueIdentifier>
     </Filter>
-    <ClCompile Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\Private\NetworkPlayerComponent.cpp">
-      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\Private</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\Private\SimpleNetworkCharacter.cpp">
-      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\Private</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\Private\SimpleNetworkGameMode.cpp">
-      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\Private</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\Private\SimpleNetworking.cpp">
       <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\Private</Filter>
     </ClCompile>
@@ -113,16 +104,7 @@
     <Filter Include="Plugins\SimpleNetworking\Source\SimpleNetworking\Public">
       <UniqueIdentifier>{4CB92460-5F3F-34C1-AA1A-4438F3EB08DA}</UniqueIdentifier>
     </Filter>
-    <ClCompile Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\Public\NetworkPlayerComponent.h">
-      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\Public</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\Public\NetworkTypes.h">
-      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\Public</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\Public\SimpleNetworkCharacter.h">
-      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\Public</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\Public\SimpleNetworkGameMode.h">
       <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\Public</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\Public\SimpleNetworking.h">
@@ -158,10 +140,16 @@
     <ClCompile Include="..\..\Source\Medieval_War\MyGameMode.h">
       <Filter>Source\Medieval_War</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Medieval_War\MyNetworkCharacter.cpp">
+    <ClCompile Include="..\..\Source\Medieval_War\MyNetworkGameMode.cpp">
       <Filter>Source\Medieval_War</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\Medieval_War\MyNetworkCharacter.h">
+    <ClCompile Include="..\..\Source\Medieval_War\MyNetworkGameMode.h">
+      <Filter>Source\Medieval_War</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Medieval_War\OtherCharacter.cpp">
+      <Filter>Source\Medieval_War</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Medieval_War\OtherCharacter.h">
       <Filter>Source\Medieval_War</Filter>
     </ClCompile>
   </ItemGroup>

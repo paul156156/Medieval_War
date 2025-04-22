@@ -13,6 +13,7 @@ void EmptyLinkFunctionForGeneratedCodeNetworkTypes() {}
 COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FRotator();
 COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FVector();
 SIMPLENETWORKING_API UEnum* Z_Construct_UEnum_SimpleNetworking_EPacketType();
+SIMPLENETWORKING_API UEnum* Z_Construct_UEnum_SimpleNetworking_EPlayerState();
 SIMPLENETWORKING_API UScriptStruct* Z_Construct_UScriptStruct_FOtherPlayerInfo();
 UPackage* Z_Construct_UPackage__Script_SimpleNetworking();
 // End Cross Module References
@@ -81,6 +82,68 @@ UEnum* Z_Construct_UEnum_SimpleNetworking_EPacketType()
 }
 // End Enum EPacketType
 
+// Begin Enum EPlayerState
+static FEnumRegistrationInfo Z_Registration_Info_UEnum_EPlayerState;
+static UEnum* EPlayerState_StaticEnum()
+{
+	if (!Z_Registration_Info_UEnum_EPlayerState.OuterSingleton)
+	{
+		Z_Registration_Info_UEnum_EPlayerState.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_SimpleNetworking_EPlayerState, (UObject*)Z_Construct_UPackage__Script_SimpleNetworking(), TEXT("EPlayerState"));
+	}
+	return Z_Registration_Info_UEnum_EPlayerState.OuterSingleton;
+}
+template<> SIMPLENETWORKING_API UEnum* StaticEnum<EPlayerState>()
+{
+	return EPlayerState_StaticEnum();
+}
+struct Z_Construct_UEnum_SimpleNetworking_EPlayerState_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[] = {
+		{ "ATTACKING.Name", "EPlayerState::ATTACKING" },
+		{ "BlueprintType", "true" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "// \xec\x83\x81\xed\x83\x9c \xec\xa0\x95\xec\x9d\x98 (\xec\x84\x9c\xeb\xb2\x84\xec\x99\x80 \xeb\x8f\x99\xec\x9d\xbc\xed\x95\x98\xea\xb2\x8c \xeb\xa7\x9e\xec\xb6\xb0\xec\x95\xbc \xed\x95\xa8)\n" },
+#endif
+		{ "IDLE.Name", "EPlayerState::IDLE" },
+		{ "JUMPING.Name", "EPlayerState::JUMPING" },
+		{ "ModuleRelativePath", "Public/NetworkTypes.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "\xec\x83\x81\xed\x83\x9c \xec\xa0\x95\xec\x9d\x98 (\xec\x84\x9c\xeb\xb2\x84\xec\x99\x80 \xeb\x8f\x99\xec\x9d\xbc\xed\x95\x98\xea\xb2\x8c \xeb\xa7\x9e\xec\xb6\xb0\xec\x95\xbc \xed\x95\xa8)" },
+#endif
+		{ "WALKING.Name", "EPlayerState::WALKING" },
+	};
+#endif // WITH_METADATA
+	static constexpr UECodeGen_Private::FEnumeratorParam Enumerators[] = {
+		{ "EPlayerState::IDLE", (int64)EPlayerState::IDLE },
+		{ "EPlayerState::WALKING", (int64)EPlayerState::WALKING },
+		{ "EPlayerState::JUMPING", (int64)EPlayerState::JUMPING },
+		{ "EPlayerState::ATTACKING", (int64)EPlayerState::ATTACKING },
+	};
+	static const UECodeGen_Private::FEnumParams EnumParams;
+};
+const UECodeGen_Private::FEnumParams Z_Construct_UEnum_SimpleNetworking_EPlayerState_Statics::EnumParams = {
+	(UObject*(*)())Z_Construct_UPackage__Script_SimpleNetworking,
+	nullptr,
+	"EPlayerState",
+	"EPlayerState",
+	Z_Construct_UEnum_SimpleNetworking_EPlayerState_Statics::Enumerators,
+	RF_Public|RF_Transient|RF_MarkAsNative,
+	UE_ARRAY_COUNT(Z_Construct_UEnum_SimpleNetworking_EPlayerState_Statics::Enumerators),
+	EEnumFlags::None,
+	(uint8)UEnum::ECppForm::EnumClass,
+	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UEnum_SimpleNetworking_EPlayerState_Statics::Enum_MetaDataParams), Z_Construct_UEnum_SimpleNetworking_EPlayerState_Statics::Enum_MetaDataParams)
+};
+UEnum* Z_Construct_UEnum_SimpleNetworking_EPlayerState()
+{
+	if (!Z_Registration_Info_UEnum_EPlayerState.InnerSingleton)
+	{
+		UECodeGen_Private::ConstructUEnum(Z_Registration_Info_UEnum_EPlayerState.InnerSingleton, Z_Construct_UEnum_SimpleNetworking_EPlayerState_Statics::EnumParams);
+	}
+	return Z_Registration_Info_UEnum_EPlayerState.InnerSingleton;
+}
+// End Enum EPlayerState
+
 // Begin ScriptStruct FOtherPlayerInfo
 static FStructRegistrationInfo Z_Registration_Info_UScriptStruct_OtherPlayerInfo;
 class UScriptStruct* FOtherPlayerInfo::StaticStruct()
@@ -112,6 +175,10 @@ struct Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics
 		{ "Category", "Networking" },
 		{ "ModuleRelativePath", "Public/NetworkTypes.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_State_MetaData[] = {
+		{ "Category", "Networking" },
+		{ "ModuleRelativePath", "Public/NetworkTypes.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_TargetPosition_MetaData[] = {
 		{ "Category", "Networking" },
 		{ "ModuleRelativePath", "Public/NetworkTypes.h" },
@@ -128,18 +195,14 @@ struct Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics
 		{ "Category", "Networking" },
 		{ "ModuleRelativePath", "Public/NetworkTypes.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_IsJumping_MetaData[] = {
-		{ "Category", "Networking" },
-		{ "ModuleRelativePath", "Public/NetworkTypes.h" },
-	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FIntPropertyParams NewProp_ClientId;
+	static const UECodeGen_Private::FBytePropertyParams NewProp_State_Underlying;
+	static const UECodeGen_Private::FEnumPropertyParams NewProp_State;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_TargetPosition;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_TargetRotation;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_PositionInterpolationTime;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_RotationInterpolationTime;
-	static void NewProp_IsJumping_SetBit(void* Obj);
-	static const UECodeGen_Private::FBoolPropertyParams NewProp_IsJumping;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static void* NewStructOps()
 	{
@@ -148,22 +211,20 @@ struct Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics
 	static const UECodeGen_Private::FStructParams StructParams;
 };
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics::NewProp_ClientId = { "ClientId", nullptr, (EPropertyFlags)0x0010000000000004, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FOtherPlayerInfo, ClientId), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ClientId_MetaData), NewProp_ClientId_MetaData) };
+const UECodeGen_Private::FBytePropertyParams Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics::NewProp_State_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FEnumPropertyParams Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics::NewProp_State = { "State", nullptr, (EPropertyFlags)0x0010000000000004, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FOtherPlayerInfo, State), Z_Construct_UEnum_SimpleNetworking_EPlayerState, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_State_MetaData), NewProp_State_MetaData) }; // 3288260524
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics::NewProp_TargetPosition = { "TargetPosition", nullptr, (EPropertyFlags)0x0010000000000004, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FOtherPlayerInfo, TargetPosition), Z_Construct_UScriptStruct_FVector, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_TargetPosition_MetaData), NewProp_TargetPosition_MetaData) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics::NewProp_TargetRotation = { "TargetRotation", nullptr, (EPropertyFlags)0x0010000000000004, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FOtherPlayerInfo, TargetRotation), Z_Construct_UScriptStruct_FRotator, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_TargetRotation_MetaData), NewProp_TargetRotation_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics::NewProp_PositionInterpolationTime = { "PositionInterpolationTime", nullptr, (EPropertyFlags)0x0010000000000004, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FOtherPlayerInfo, PositionInterpolationTime), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_PositionInterpolationTime_MetaData), NewProp_PositionInterpolationTime_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics::NewProp_RotationInterpolationTime = { "RotationInterpolationTime", nullptr, (EPropertyFlags)0x0010000000000004, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FOtherPlayerInfo, RotationInterpolationTime), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_RotationInterpolationTime_MetaData), NewProp_RotationInterpolationTime_MetaData) };
-void Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics::NewProp_IsJumping_SetBit(void* Obj)
-{
-	((FOtherPlayerInfo*)Obj)->IsJumping = 1;
-}
-const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics::NewProp_IsJumping = { "IsJumping", nullptr, (EPropertyFlags)0x0010000000000004, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(FOtherPlayerInfo), &Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics::NewProp_IsJumping_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_IsJumping_MetaData), NewProp_IsJumping_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics::NewProp_ClientId,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics::NewProp_State_Underlying,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics::NewProp_State,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics::NewProp_TargetPosition,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics::NewProp_TargetRotation,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics::NewProp_PositionInterpolationTime,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics::NewProp_RotationInterpolationTime,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics::NewProp_IsJumping,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics::PropPointers) < 2048);
 const UECodeGen_Private::FStructParams Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics::StructParams = {
@@ -194,12 +255,13 @@ struct Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Serve
 {
 	static constexpr FEnumRegisterCompiledInInfo EnumInfo[] = {
 		{ EPacketType_StaticEnum, TEXT("EPacketType"), &Z_Registration_Info_UEnum_EPacketType, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3068999727U) },
+		{ EPlayerState_StaticEnum, TEXT("EPlayerState"), &Z_Registration_Info_UEnum_EPlayerState, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3288260524U) },
 	};
 	static constexpr FStructRegisterCompiledInInfo ScriptStructInfo[] = {
-		{ FOtherPlayerInfo::StaticStruct, Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics::NewStructOps, TEXT("OtherPlayerInfo"), &Z_Registration_Info_UScriptStruct_OtherPlayerInfo, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FOtherPlayerInfo), 4218889607U) },
+		{ FOtherPlayerInfo::StaticStruct, Z_Construct_UScriptStruct_FOtherPlayerInfo_Statics::NewStructOps, TEXT("OtherPlayerInfo"), &Z_Registration_Info_UScriptStruct_OtherPlayerInfo, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FOtherPlayerInfo), 3596352040U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Server_Medieval_War_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_NetworkTypes_h_2236230254(TEXT("/Script/SimpleNetworking"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Server_Medieval_War_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_NetworkTypes_h_1162865502(TEXT("/Script/SimpleNetworking"),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Server_Medieval_War_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_NetworkTypes_h_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Server_Medieval_War_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_NetworkTypes_h_Statics::ScriptStructInfo),
 	Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Server_Medieval_War_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_NetworkTypes_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Blues_Documents_GitHub_Medieval_War_Server_Medieval_War_Plugins_SimpleNetworking_Source_SimpleNetworking_Public_NetworkTypes_h_Statics::EnumInfo));

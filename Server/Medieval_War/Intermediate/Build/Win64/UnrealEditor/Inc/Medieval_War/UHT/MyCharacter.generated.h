@@ -9,12 +9,17 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+enum class EPlayerState : uint8;
 #ifdef MEDIEVAL_WAR_MyCharacter_generated_h
 #error "MyCharacter.generated.h already included, missing '#pragma once' in MyCharacter.h"
 #endif
 #define MEDIEVAL_WAR_MyCharacter_generated_h
 
-#define FID_Users_Blues_Documents_GitHub_Medieval_War_Server_Medieval_War_Source_Medieval_War_MyCharacter_h_16_INCLASS_NO_PURE_DECLS \
+#define FID_Users_Blues_Documents_GitHub_Medieval_War_Server_Medieval_War_Source_Medieval_War_MyCharacter_h_16_DELEGATE \
+MEDIEVAL_WAR_API void FOnCharacterStateChanged_DelegateWrapper(const FMulticastScriptDelegate& OnCharacterStateChanged, EPlayerState NewState, FVector const& Position, FRotator const& Rotation);
+
+
+#define FID_Users_Blues_Documents_GitHub_Medieval_War_Server_Medieval_War_Source_Medieval_War_MyCharacter_h_21_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAMyCharacter(); \
 	friend struct Z_Construct_UClass_AMyCharacter_Statics; \
@@ -23,7 +28,7 @@ public: \
 	DECLARE_SERIALIZER(AMyCharacter)
 
 
-#define FID_Users_Blues_Documents_GitHub_Medieval_War_Server_Medieval_War_Source_Medieval_War_MyCharacter_h_16_ENHANCED_CONSTRUCTORS \
+#define FID_Users_Blues_Documents_GitHub_Medieval_War_Server_Medieval_War_Source_Medieval_War_MyCharacter_h_21_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	AMyCharacter(AMyCharacter&&); \
@@ -35,12 +40,12 @@ public: \
 	NO_API virtual ~AMyCharacter();
 
 
-#define FID_Users_Blues_Documents_GitHub_Medieval_War_Server_Medieval_War_Source_Medieval_War_MyCharacter_h_13_PROLOG
-#define FID_Users_Blues_Documents_GitHub_Medieval_War_Server_Medieval_War_Source_Medieval_War_MyCharacter_h_16_GENERATED_BODY \
+#define FID_Users_Blues_Documents_GitHub_Medieval_War_Server_Medieval_War_Source_Medieval_War_MyCharacter_h_18_PROLOG
+#define FID_Users_Blues_Documents_GitHub_Medieval_War_Server_Medieval_War_Source_Medieval_War_MyCharacter_h_21_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_Blues_Documents_GitHub_Medieval_War_Server_Medieval_War_Source_Medieval_War_MyCharacter_h_16_INCLASS_NO_PURE_DECLS \
-	FID_Users_Blues_Documents_GitHub_Medieval_War_Server_Medieval_War_Source_Medieval_War_MyCharacter_h_16_ENHANCED_CONSTRUCTORS \
+	FID_Users_Blues_Documents_GitHub_Medieval_War_Server_Medieval_War_Source_Medieval_War_MyCharacter_h_21_INCLASS_NO_PURE_DECLS \
+	FID_Users_Blues_Documents_GitHub_Medieval_War_Server_Medieval_War_Source_Medieval_War_MyCharacter_h_21_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

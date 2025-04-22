@@ -11,9 +11,8 @@
 // 델리게이트 정의
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPositionUpdate, const FVector&, NewPosition);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnRotationUpdate, const FRotator&, NewRotation);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnJumpStateUpdate, bool, IsJumping);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnConnectionStatusChanged, bool, IsConnected);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_FiveParams(FOnPlayerUpdate, int32, ClientId, const FVector&, Position, const FRotator&, Rotation, const FVector&, Velocity, bool, IsJumping);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FOnPlayerUpdate, int32, ClientId, const FVector&, Position, const FRotator&, Rotation, EPlayerState, State);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnClientIdReceived, int32, ClientId);
 
 UCLASS(BlueprintType, Blueprintable)
@@ -35,12 +34,16 @@ public:
     
     // 이동 패킷 전송
     UFUNCTION(BlueprintCallable, Category = "Networking")
-    void SendMovePacket(float ForwardValue, float RightValue, const FVector& Position, const FRotator& Rotation);
+    void SendMovePacket(float ForwardValue, float RightValue, const FVector& Position, const FRotator& Rotation, EPlayerState State);
     
     // 점프 패킷 전송
     UFUNCTION(BlueprintCallable, Category = "Networking")
-    void SendJumpPacket(bool IsJumping, const FVector& Position);
+    void SendJumpPacket(bool IsJumping, const FVector& Position, EPlayerState State);
     
+	// 공격 패킷 전송
+    UFUNCTION(BlueprintCallable, Category = "Networking")
+	void SendAttackPacket(const FVector& Position, EPlayerState State);
+
     // 패킷 수신 처리
     void ProcessIncomingPackets();
     
@@ -62,10 +65,7 @@ public:
     
     UPROPERTY(BlueprintAssignable, Category = "Networking")
     FOnRotationUpdate OnRotationUpdate;
-    
-    UPROPERTY(BlueprintAssignable, Category = "Networking")
-    FOnJumpStateUpdate OnJumpStateUpdate;
-    
+        
     UPROPERTY(BlueprintAssignable, Category = "Networking")
     FOnConnectionStatusChanged OnConnectionStatusChanged;
     
