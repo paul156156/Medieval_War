@@ -132,3 +132,4 @@ Plugins/**/Intermediate/*
 # End of https://www.toptal.com/developers/gitignore/api/unrealengine
 
 *.uasset
+/Server/Medieval_War/Binaries
