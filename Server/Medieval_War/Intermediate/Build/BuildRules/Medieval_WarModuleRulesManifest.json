@@ -1,9 +1,0 @@
-{
-	"SourceFiles": [
-		"C:\\Users\\Blues\\Documents\\GitHub\\Medieval_War\\Server\\Medieval_War\\Source\\Medieval_War\\Medieval_War.Build.cs",
-		"C:\\Users\\Blues\\Documents\\GitHub\\Medieval_War\\Server\\Medieval_War\\Plugins\\SimpleNetworking\\Source\\SimpleNetworking\\SimpleNetworking.build.cs",
-		"C:\\Users\\Blues\\Documents\\GitHub\\Medieval_War\\Server\\Medieval_War\\Source\\Medieval_War.Target.cs",
-		"C:\\Users\\Blues\\Documents\\GitHub\\Medieval_War\\Server\\Medieval_War\\Source\\Medieval_WarEditor.Target.cs"
-	],
-	"EngineVersion": "5.5.4"
-}
