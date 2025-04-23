@@ -130,5 +130,10 @@ Plugins/**/Binaries/*
 Plugins/**/Intermediate/*
 
 # End of https://www.toptal.com/developers/gitignore/api/unrealengine
-
-/Server/Medieval_War/Binaries
+/Server/Medieval_War/Content/KiteDemo
+/Server/Medieval_War/Content/Lighting
+/Server/Medieval_War/Content/ParagonGreystone
+/Server/Medieval_War/Content/ParagonProps
+/Server/Medieval_War/Content/SampleMap
+/Server/Medieval_War/Intermediate
+/Server/Medieval_War/Intermediate

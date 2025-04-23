@@ -2,6 +2,6 @@
 	"BuildId": "37670630",
 	"Modules": 
 	{
-		"SimpleNetworking": "UnrealEditor-SimpleNetworking-0008-Win64-DebugGame.dll"
+		"SimpleNetworking": "UnrealEditor-SimpleNetworking-Win64-DebugGame.dll"
 	}
 }

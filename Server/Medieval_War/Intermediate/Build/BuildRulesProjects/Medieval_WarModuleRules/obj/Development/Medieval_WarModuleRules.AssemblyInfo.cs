@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Medieval_WarModuleRules")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Development")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+579279053e65cbecd3f9ec6f4598f624a1189414")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dc89879cc14d6030d4dc2d1c040b251f25368a01")]
 [assembly: System.Reflection.AssemblyProductAttribute("Medieval_WarModuleRules")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Medieval_WarModuleRules")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
