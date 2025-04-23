@@ -216,7 +216,7 @@ public:
             client->LastPosition = { 0.0f, 0.0f, 0.0f };
             client->Rotation = { 0.0f, 0.0f, 0.0f };
             client->State = EPlayerState::IDLE;
-            client->LastUpdateTime = GetTickCount() / 1000.0f;
+            client->LastUpdateTime = GetTickCount64() / 1000.0f;
             ZeroMemory(&client->overlapped, sizeof(WSAOVERLAPPED));
 
             // IOCP에 소켓 등록

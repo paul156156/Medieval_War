@@ -1,0 +1,6 @@
+[CookSettings]
+Version=21F52B9EDD4D456AB1AF381CA172BD28
+CookMode=CookByTheBook
+DLCName=
+CookInProgress=true
+
