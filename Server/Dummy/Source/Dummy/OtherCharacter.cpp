@@ -38,8 +38,8 @@ void AOtherCharacter::Tick(float DeltaTime)
     PositionInterpolationTime += DeltaTime;
     RotationInterpolationTime += DeltaTime;
 
-    float PosAlpha = FMath::Clamp(PositionInterpolationTime / 0.1f, 0.0f, 1.0f);
-    float RotAlpha = FMath::Clamp(RotationInterpolationTime / 0.1f, 0.0f, 1.0f);
+    float PosAlpha = FMath::Clamp(PositionInterpolationTime / 0.2f, 0.0f, 1.0f);
+    float RotAlpha = FMath::Clamp(RotationInterpolationTime / 0.2f, 0.0f, 1.0f);
 
     // 현재 위치와 목표 위치 간의 거리 계산
     float Distance = FVector::Dist(GetActorLocation(), TargetPosition);
@@ -145,122 +145,122 @@ void AOtherCharacter::UpdateAnimationState(EPlayerState NewState)
     //    }
     //}
 
-    // 상태 변경 시에만 애니메이션 업데이트
-    //if (CurrentState != NewState)
+     //상태 변경 시에만 애니메이션 업데이트
+    if (CurrentState != NewState)
+    {
+        CurrentState = NewState;
+
+        // 블루프린트 이벤트 호출
+        //OnAnimationStateChanged(NewState);
+
+        // 로그
+        UE_LOG(LogTemp, Display, TEXT("AnimationState Changed to: %s"), *PlayerStateToString(CurrentState));
+
+        // 애니메이션 상태에 따른 추가 처리
+        if (NewState == EPlayerState::JUMPING)
+        {
+            // 점프
+            Jump();
+        }
+        else if (NewState == EPlayerState::ATTACKING)
+        {
+            // 공격 애니메이션 재생
+            if (AttackMontage)
+            {
+                UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+                if (AnimInstance)
+                {
+                    AnimInstance->Montage_Play(AttackMontage, 1.0f);
+                }
+            }
+        }
+        else if (NewState == EPlayerState::WALKING)
+        {
+            // 걷기 상태에서는 캐릭터 무브먼트에 속도 적용
+            if (GetCharacterMovement())
+            {
+                // 이동 방향 설정
+                FVector Direction = (TargetPosition - GetActorLocation()).GetSafeNormal();
+                GetCharacterMovement()->Velocity = Direction * 500.0f;
+            }
+        }
+        else if (NewState == EPlayerState::IDLE)
+        {
+            // 정지 상태
+            if (GetCharacterMovement())
+            {
+                GetCharacterMovement()->Velocity = FVector::ZeroVector;
+            }
+        }
+    }
+
+    // 이전 상태 저장
+    //EPlayerState PreviousState = CurrentState;
+
+    //// 항상 현재 상태 업데이트
+    //CurrentState = NewState;
+
+    //// 디버그 로그
+    //UE_LOG(LogTemp, Display, TEXT("AnimationState Changed to: %s"), *PlayerStateToString(CurrentState));
+
+    //// 상태별 처리 (switch 문 사용으로 중복 상태도 가능)
+    //switch (NewState)
     //{
-    //    CurrentState = NewState;
-
-    //    // 블루프린트 이벤트 호출
-    //    //OnAnimationStateChanged(NewState);
-
-    //    // 로그
-    //    UE_LOG(LogTemp, Display, TEXT("AnimationState Changed to: %s"), *PlayerStateToString(CurrentState));
-
-    //    // 애니메이션 상태에 따른 추가 처리
-    //    if (NewState == EPlayerState::JUMPING)
+    //case EPlayerState::IDLE:
+    //    // 정지 상태 - velocity를 0으로 설정
+    //    if (GetCharacterMovement())
     //    {
-    //        // 점프
-    //        Jump();
+    //        GetCharacterMovement()->Velocity = FVector::ZeroVector;
     //    }
-    //    else if (NewState == EPlayerState::ATTACKING)
+    //    break;
+
+    //case EPlayerState::WALKING:
+    //    // 걷기 상태 - 적절한 velocity 설정
+    //    if (GetCharacterMovement())
     //    {
-    //        // 공격 애니메이션 재생
-    //        if (AttackMontage)
+    //        FVector Direction = (TargetPosition - GetActorLocation()).GetSafeNormal();
+    //        if (!Direction.IsNearlyZero())
     //        {
-    //            UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
-    //            if (AnimInstance)
-    //            {
-    //                AnimInstance->Montage_Play(AttackMontage, 1.0f);
-    //            }
+    //            GetCharacterMovement()->Velocity = Direction * 500.0f;
+    //            GetCharacterMovement()->MaxWalkSpeed = 500.0f;
+
+    //            // 방향에 맞춰 캐릭터 회전 (부드럽게)
+    //            FRotator NewRotation = Direction.Rotation();
+    //            NewRotation.Pitch = 0.0f; // 피치는 유지
+    //            TargetRotation = NewRotation; // 부드러운 회전을 위해 타겟 회전 설정
     //        }
     //    }
-    //    else if (NewState == EPlayerState::WALKING)
+    //    break;
+
+    //case EPlayerState::JUMPING:
+    //    // 점프 상태 - 점프 함수 호출하되 velocity 유지
+    //    // 주의: 캐릭터가 점프 중이면 velocity가 변경될 수 있음을 고려
+    //    Jump();
+    //    break;
+
+    //case EPlayerState::ATTACKING:
+    //    // 공격 상태 - 애니메이션 몽타주 재생
+    //    if (AttackMontage)
     //    {
-    //        // 걷기 상태에서는 캐릭터 무브먼트에 속도 적용
-    //        if (GetCharacterMovement())
+    //        UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+    //        if (AnimInstance)
     //        {
-    //            // 이동 방향 설정
-    //            FVector Direction = (TargetPosition - GetActorLocation()).GetSafeNormal();
+    //            AnimInstance->Montage_Play(AttackMontage, 1.0f);
+    //        }
+    //    }
+
+    //    // 중요: 공격 중에도 이전 상태의 velocity를 유지 (공격하면서 이동 가능)
+    //    if (PreviousState == EPlayerState::WALKING && GetCharacterMovement())
+    //    {
+    //        // 이전에 이동 중이었다면 이동 velocity 유지
+    //        FVector Direction = (TargetPosition - GetActorLocation()).GetSafeNormal();
+    //        if (!Direction.IsNearlyZero())
+    //        {
     //            GetCharacterMovement()->Velocity = Direction * 500.0f;
     //        }
     //    }
-    //    else if (NewState == EPlayerState::IDLE)
-    //    {
-    //        // 정지 상태
-    //        if (GetCharacterMovement())
-    //        {
-    //            GetCharacterMovement()->Velocity = FVector::ZeroVector;
-    //        }
-    //    }
+    //    break;
     //}
-
-    // 이전 상태 저장
-    EPlayerState PreviousState = CurrentState;
-
-    // 항상 현재 상태 업데이트
-    CurrentState = NewState;
-
-    // 디버그 로그
-    UE_LOG(LogTemp, Display, TEXT("AnimationState Changed to: %s"), *PlayerStateToString(CurrentState));
-
-    // 상태별 처리 (switch 문 사용으로 중복 상태도 가능)
-    switch (NewState)
-    {
-    case EPlayerState::IDLE:
-        // 정지 상태 - velocity를 0으로 설정
-        if (GetCharacterMovement())
-        {
-            GetCharacterMovement()->Velocity = FVector::ZeroVector;
-        }
-        break;
-
-    case EPlayerState::WALKING:
-        // 걷기 상태 - 적절한 velocity 설정
-        if (GetCharacterMovement())
-        {
-            FVector Direction = (TargetPosition - GetActorLocation()).GetSafeNormal();
-            if (!Direction.IsNearlyZero())
-            {
-                GetCharacterMovement()->Velocity = Direction * 500.0f;
-                GetCharacterMovement()->MaxWalkSpeed = 500.0f;
-
-                // 방향에 맞춰 캐릭터 회전 (부드럽게)
-                FRotator NewRotation = Direction.Rotation();
-                NewRotation.Pitch = 0.0f; // 피치는 유지
-                TargetRotation = NewRotation; // 부드러운 회전을 위해 타겟 회전 설정
-            }
-        }
-        break;
-
-    case EPlayerState::JUMPING:
-        // 점프 상태 - 점프 함수 호출하되 velocity 유지
-        // 주의: 캐릭터가 점프 중이면 velocity가 변경될 수 있음을 고려
-        Jump();
-        break;
-
-    case EPlayerState::ATTACKING:
-        // 공격 상태 - 애니메이션 몽타주 재생
-        if (AttackMontage)
-        {
-            UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
-            if (AnimInstance)
-            {
-                AnimInstance->Montage_Play(AttackMontage, 1.0f);
-            }
-        }
-
-        // 중요: 공격 중에도 이전 상태의 velocity를 유지 (공격하면서 이동 가능)
-        if (PreviousState == EPlayerState::WALKING && GetCharacterMovement())
-        {
-            // 이전에 이동 중이었다면 이동 velocity 유지
-            FVector Direction = (TargetPosition - GetActorLocation()).GetSafeNormal();
-            if (!Direction.IsNearlyZero())
-            {
-                GetCharacterMovement()->Velocity = Direction * 500.0f;
-            }
-        }
-        break;
-    }
 }
 
 void AOtherCharacter::UpdateTransform(const FVector& NewPosition, const FRotator& NewRotation)
