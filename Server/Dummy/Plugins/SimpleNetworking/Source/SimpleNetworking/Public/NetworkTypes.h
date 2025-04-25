@@ -50,6 +50,7 @@ struct FMovePacket
     float RightValue;
     FVec3 Position;
     FRot3 Rotation;
+    FVec3 Velocity;
     EPlayerState State;
 };
 
@@ -73,6 +74,7 @@ struct FPositionUpdatePacket
     int32 ClientId;
     FVec3 Position;
     FRot3 Rotation;
+    FVec3 Velocity;
     EPlayerState State;
 };
 

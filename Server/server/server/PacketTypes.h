@@ -29,6 +29,7 @@ struct PositionUpdatePacket {
 	int32_t ClientId;
 	Vec3 Position;
 	Rot3 Rotation;
+	Vec3 Velocity;
 	EPlayerState State;
 };
 
@@ -38,6 +39,7 @@ struct MovePacket {
 	float RightValue;
 	Vec3 Position;
 	Rot3 Rotation;
+	Vec3 Velocity;
 	EPlayerState State;
 };
 

@@ -112,7 +112,7 @@ void AMyCharacter::UpdateCharacterState()
     // 상태가 변경되었으면 이벤트 발생
     if (PreviousState != CurrentState)
     {
-        OnCharacterStateChanged.Broadcast(CurrentState, GetActorLocation(), GetActorRotation());
+        OnCharacterStateChanged.Broadcast(CurrentState, GetActorLocation(), GetActorRotation(), GetVelocity());
     }
 }
 

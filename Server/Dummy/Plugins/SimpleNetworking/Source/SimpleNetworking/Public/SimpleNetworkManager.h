@@ -12,7 +12,7 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPositionUpdate, const FVector&, NewPosition);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnRotationUpdate, const FRotator&, NewRotation);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnConnectionStatusChanged, bool, IsConnected);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FOnPlayerUpdate, int32, ClientId, const FVector&, Position, const FRotator&, Rotation, EPlayerState, State);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FiveParams(FOnPlayerUpdate, int32, ClientId, const FVector&, Position, const FRotator&, Rotation, const FVector&, Velocity, EPlayerState, State);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnClientIdReceived, int32, ClientId);
 
 UCLASS(BlueprintType, Blueprintable)
@@ -34,7 +34,7 @@ public:
     
     // 이동 패킷 전송
     UFUNCTION(BlueprintCallable, Category = "Networking")
-    void SendMovePacket(float ForwardValue, float RightValue, const FVector& Position, const FRotator& Rotation, EPlayerState State);
+    void SendMovePacket(float ForwardValue, float RightValue, const FVector& Position, const FRotator& Rotation, const FVector& Velocity, EPlayerState State);
     
     // 점프 패킷 전송
     UFUNCTION(BlueprintCallable, Category = "Networking")

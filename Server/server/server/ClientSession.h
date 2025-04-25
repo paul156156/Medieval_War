@@ -14,5 +14,6 @@ struct ClientSession {
     EPlayerState State;
     Vec3 Position, LastPosition;
     Rot3 Rotation;
+	Vec3 Velocity;
     float LastUpdateTime;
 };

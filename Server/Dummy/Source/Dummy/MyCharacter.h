@@ -13,7 +13,7 @@ class USpringArmComponent;
 class UCameraComponent;
 
 // 상태 변경 델리게이트 선언
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnCharacterStateChanged, EPlayerState, NewState, const FVector&, Position, const FRotator&, Rotation);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(FOnCharacterStateChanged, EPlayerState, NewState, const FVector&, Position, const FRotator&, Rotation, const FVector&, Velocity);
 
 UCLASS()
 class DUMMY_API AMyCharacter : public ACharacter

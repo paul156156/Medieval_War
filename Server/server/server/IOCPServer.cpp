@@ -214,6 +214,7 @@ void IOCPServer::BroadcastNewPlayer(ClientSession* newClient)
 		packet.ClientId = newClient->id;
 		packet.Position = newClient->Position;
 		packet.Rotation = newClient->Rotation;
+		packet.Velocity = newClient->Velocity;
 		packet.State = newClient->State;
 
 		// 비동기 전송
@@ -243,6 +244,7 @@ void IOCPServer::SendExistingPlayers(ClientSession* newClient)
 		packet.ClientId = existingClient->id;
 		packet.Position = existingClient->Position;
 		packet.Rotation = existingClient->Rotation;
+		packet.Velocity = existingClient->Velocity;
 		packet.State = existingClient->State;
 
 		// 비동기 전송
@@ -348,14 +350,18 @@ void IOCPServer::ProcessPacket(ClientSession* client, char* data, int length)
 			// 클라이언트 상태 업데이트
 			client->Position = packet->Position;
 			client->Rotation = packet->Rotation;
+			client->Velocity = packet->Velocity;
 			client->State = packet->State;
 
 			// 모든 클라이언트에게 위치 정보 전송
 			BroadcastPosition(client);
 
+			std::lock_guard<std::mutex> lock(logMutex);
 			// 디버그 출력
 			std::cout << "Client " << client->id << " moved: pos=("
 				<< client->Position.X << "," << client->Position.Y << "," << client->Position.Z
+				<< ") vel=("
+				<< client->Velocity.X << "," << client->Velocity.Y << "," << client->Velocity.Z
 				<< ") state=" << static_cast<int>(client->State) << std::endl;
 		}
 		break;
@@ -412,6 +418,7 @@ void IOCPServer::BroadcastPosition(ClientSession* sourceClient)
 	packet.ClientId = sourceClient->id;
 	packet.Position = sourceClient->Position;
 	packet.Rotation = sourceClient->Rotation;
+	packet.Velocity = sourceClient->Velocity;
 	packet.State = sourceClient->State;
 
 	std::lock_guard<std::mutex> lock(clientsMutex);

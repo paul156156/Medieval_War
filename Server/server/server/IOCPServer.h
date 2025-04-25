@@ -31,5 +31,5 @@ private:
     bool isRunning;
 
     std::unordered_map<int, ClientSession*> clients;
-    std::mutex clientsMutex;
+    std::mutex clientsMutex, logMutex;
 };

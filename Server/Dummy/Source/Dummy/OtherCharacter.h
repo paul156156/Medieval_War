@@ -23,7 +23,7 @@ public:
 
     // 위치 및 회전 업데이트
     UFUNCTION(BlueprintCallable, Category = "Networking")
-    void UpdateTransform(const FVector& NewPosition, const FRotator& NewRotation);
+    void UpdateTransform(const FVector& NewPosition, const FRotator& NewRotation, const FVector& NewVelocity);
 
     // 현재 상태
     UPROPERTY(BlueprintReadOnly, Category = "Animation")

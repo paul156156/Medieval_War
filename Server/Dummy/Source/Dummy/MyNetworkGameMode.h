@@ -23,7 +23,7 @@ public:
 
     // 플레이어 상태 변경 처리
     UFUNCTION()
-    void OnCharacterStateChanged(EPlayerState NewState, const FVector& Position, const FRotator& Rotation);
+    void OnCharacterStateChanged(EPlayerState NewState, const FVector& Position, const FRotator& Rotation, const FVector& Velocity);
 
     // 서버 연결 함수
     UFUNCTION(BlueprintCallable, Category = "Networking")
@@ -71,7 +71,7 @@ protected:
 
     // 네트워크 이벤트 핸들러
     UFUNCTION()
-    void OnPlayerUpdateReceived(int32 ClientId, const FVector& Position, const FRotator& Rotation, EPlayerState State);
+    void OnPlayerUpdateReceived(int32 ClientId, const FVector& Position, const FRotator& Rotation, const FVector& Velocity, EPlayerState State);
 
     UFUNCTION()
     void OnClientIdReceived(int32 ClientId);

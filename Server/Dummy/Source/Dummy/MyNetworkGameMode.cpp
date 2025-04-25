@@ -109,40 +109,13 @@ void AMyNetworkGameMode::SendPeriodicUpdate()
         PlayerCharacter->CurrentRightValue,
         PlayerCharacter->GetActorLocation(),
         PlayerCharacter->GetActorRotation(),
+		PlayerCharacter->GetVelocity(),
         PlayerCharacter->CurrentState
     );
 }
 
-void AMyNetworkGameMode::OnCharacterStateChanged(EPlayerState NewState, const FVector& Position, const FRotator& Rotation)
+void AMyNetworkGameMode::OnCharacterStateChanged(EPlayerState NewState, const FVector& Position, const FRotator& Rotation, const FVector& Velocity)
 {
- //   // 플레이어 상태 변경 시 서버로 전송
- //   if (!NetworkManager || !NetworkManager->IsConnected())
- //       return;
-
- //   AMyCharacter* PlayerCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(this, 0));
- //   if (!PlayerCharacter)
- //       return;
-
- //   float ForwardValue = PlayerCharacter->CurrentForwardValue;
- //   float RightValue = PlayerCharacter->CurrentRightValue;
-
- //   // 상태에 따라 다른 패킷 전송
- //   switch (NewState)
- //   {
-	//case EPlayerState::IDLE:
-	//	NetworkManager->SendMovePacket(ForwardValue, RightValue, Position, Rotation, NewState);
-	//	break;
-	//case EPlayerState::WALKING:
-	//	NetworkManager->SendMovePacket(ForwardValue, RightValue, Position, Rotation, NewState);
-	//	break;
- //   case EPlayerState::JUMPING:
- //       NetworkManager->SendJumpPacket(true, Position, NewState);
- //       break;
- //   case EPlayerState::ATTACKING:
- //       NetworkManager->SendAttackPacket(Position, NewState);
- //       break;
- //   }
-
     // 항상 이동 패킷 사용 (모든 정보 포함)
     if (!NetworkManager || !NetworkManager->IsConnected())
         return;
@@ -155,10 +128,10 @@ void AMyNetworkGameMode::OnCharacterStateChanged(EPlayerState NewState, const FV
     float RightValue = PlayerCharacter->CurrentRightValue;
 
     // 모든 상태에 대해 동일한 패킷 사용
-    NetworkManager->SendMovePacket(ForwardValue, RightValue, Position, Rotation, NewState);
+    NetworkManager->SendMovePacket(ForwardValue, RightValue, Position, Rotation, Velocity, NewState);
 }
 
-void AMyNetworkGameMode::OnPlayerUpdateReceived(int32 ClientId, const FVector& Position, const FRotator& Rotation, EPlayerState State)
+void AMyNetworkGameMode::OnPlayerUpdateReceived(int32 ClientId, const FVector& Position, const FRotator& Rotation, const FVector& Velocity, EPlayerState State)
 {
     // 자신의 업데이트는 무시
     if (ClientId == LocalClientId)
@@ -180,7 +153,7 @@ void AMyNetworkGameMode::OnPlayerUpdateReceived(int32 ClientId, const FVector& P
     }
 
     // 위치 및 상태 업데이트
-    ExistingCharacter->UpdateTransform(Position, Rotation);
+    ExistingCharacter->UpdateTransform(Position, Rotation, Velocity);
     ExistingCharacter->UpdateAnimationState(State);
 }
 

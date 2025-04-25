@@ -122,7 +122,7 @@ void USimpleNetworkManager::DisconnectFromServer()
     }
 }
 
-void USimpleNetworkManager::SendMovePacket(float ForwardValue, float RightValue, const FVector& Position, const FRotator& Rotation, EPlayerState State)
+void USimpleNetworkManager::SendMovePacket(float ForwardValue, float RightValue, const FVector& Position, const FRotator& Rotation, const FVector& Velocity, EPlayerState State)
 {
     if (!IsConnected())
     {
@@ -141,6 +141,9 @@ void USimpleNetworkManager::SendMovePacket(float ForwardValue, float RightValue,
     Packet.Rotation.Pitch = Rotation.Pitch;
     Packet.Rotation.Yaw = Rotation.Yaw;
     Packet.Rotation.Roll = Rotation.Roll;
+	Packet.Velocity.X = Velocity.X;
+    Packet.Velocity.Y = Velocity.Y;
+    Packet.Velocity.Z = Velocity.Z;
     Packet.State = State;
 
     // 패킷 전송
@@ -309,6 +312,8 @@ void USimpleNetworkManager::HandlePositionUpdatePacket(const FPositionUpdatePack
     // 위치 정보 추출
     FVector NewPosition(Packet->Position.X, Packet->Position.Y, Packet->Position.Z);
     FRotator NewRotation(Packet->Rotation.Pitch, Packet->Rotation.Yaw, Packet->Rotation.Roll);
+    // 속도 정보 추출
+    FVector NewVelocity(Packet->Velocity.X, Packet->Velocity.Y, Packet->Velocity.Z);
 	// 클라이언트 ID 추출
     int32 ClientId = Packet->ClientId;
     // 상태 추출
@@ -325,7 +330,7 @@ void USimpleNetworkManager::HandlePositionUpdatePacket(const FPositionUpdatePack
     OnPositionUpdate.Broadcast(NewPosition);
     OnRotationUpdate.Broadcast(NewRotation);
     // 통합 플레이어 업데이트 델리게이트 호출
-    OnPlayerUpdate.Broadcast(ClientId, NewPosition, NewRotation, NewState);
+    OnPlayerUpdate.Broadcast(ClientId, NewPosition, NewRotation, NewVelocity, NewState);
 
     // 디버그 로그
     UE_LOG(LogTemp, Verbose, TEXT("Player Update from client %d: Pos=(%.1f,%.1f,%.1f)"),
