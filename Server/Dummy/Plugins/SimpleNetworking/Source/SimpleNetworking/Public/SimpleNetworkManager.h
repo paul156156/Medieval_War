@@ -32,17 +32,21 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Networking")
     void DisconnectFromServer();
     
-    // 이동 패킷 전송
-    UFUNCTION(BlueprintCallable, Category = "Networking")
-    void SendMovePacket(float ForwardValue, float RightValue, const FVector& Position, const FRotator& Rotation, const FVector& Velocity, EPlayerState State);
-    
-    // 점프 패킷 전송
-    UFUNCTION(BlueprintCallable, Category = "Networking")
-    void SendJumpPacket(bool IsJumping, const FVector& Position, EPlayerState State);
-    
-	// 공격 패킷 전송
-    UFUNCTION(BlueprintCallable, Category = "Networking")
-	void SendAttackPacket(const FVector& Position, EPlayerState State);
+    // 입력 패킷 전송
+	UFUNCTION(BlueprintCallable, Category = "Networking")
+    void SendInputPacket(float ForwardValue, float RightValue, bool bJumpPressed, bool bAttackPressed);
+
+ //   // 이동 패킷 전송
+ //   UFUNCTION(BlueprintCallable, Category = "Networking")
+ //   void SendMovePacket(float ForwardValue, float RightValue, const FVector& Position, const FRotator& Rotation, const FVector& Velocity, EPlayerState State);
+ //   
+ //   // 점프 패킷 전송
+ //   UFUNCTION(BlueprintCallable, Category = "Networking")
+ //   void SendJumpPacket(bool IsJumping, const FVector& Position, EPlayerState State);
+ //   
+	//// 공격 패킷 전송
+ //   UFUNCTION(BlueprintCallable, Category = "Networking")
+	//void SendAttackPacket(const FVector& Position, EPlayerState State);
 
     // 패킷 수신 처리
     void ProcessIncomingPackets();

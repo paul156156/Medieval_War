@@ -21,10 +21,6 @@ public:
     virtual void BeginPlay() override;
     virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
-    // 플레이어 상태 변경 처리
-    UFUNCTION()
-    void OnCharacterStateChanged(EPlayerState NewState, const FVector& Position, const FRotator& Rotation, const FVector& Velocity);
-
     // 서버 연결 함수
     UFUNCTION(BlueprintCallable, Category = "Networking")
     void ConnectToServer();
@@ -32,6 +28,9 @@ public:
     // 서버 연결 해제 함수
     UFUNCTION(BlueprintCallable, Category = "Networking")
     void DisconnectFromServer();
+
+    UFUNCTION(BlueprintCallable)
+    USimpleNetworkManager* GetNetworkManager() const { return NetworkManager; }
 
     // 네트워크 이벤트 (블루프린트에서 오버라이드 가능)
     UFUNCTION(BlueprintImplementableEvent, Category = "Networking")
@@ -83,9 +82,4 @@ protected:
     AOtherCharacter* SpawnOtherPlayerCharacter(int32 ClientId, const FVector& Position);
     void RemoveOtherPlayerCharacter(int32 ClientId);
     void RemoveAllOtherPlayers();
-
-    FTimerHandle PositionUpdateTimerHandle;
-
-    UFUNCTION()
-    void SendPeriodicUpdate();
 };

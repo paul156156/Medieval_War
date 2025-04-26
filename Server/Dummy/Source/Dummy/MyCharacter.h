@@ -42,7 +42,17 @@ public:
     UPROPERTY(BlueprintReadOnly, Category = "Input")
     float CurrentRightValue;
 
+    UPROPERTY(BlueprintReadOnly, Category = "Input")
+    bool bJumpPressed;
+
+    UPROPERTY(BlueprintReadOnly, Category = "Input")
+    bool bAttackPressed;
+
+
 protected:
+    UPROPERTY()
+    class USimpleNetworkManager* NetworkManager;
+
     // Enhanced Input 관련 컴포넌트
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
     UInputMappingContext* DefaultMappingContext;
@@ -80,7 +90,14 @@ protected:
     virtual void Jump() override;
     virtual void StopJumping() override;
     void Attack();
+    
+	void MoveForward(float Value);
+	void MoveRight(float Value);
+    void StartJump();
+    void StartAttack();
 
     // 상태 업데이트 함수
-    void UpdateCharacterState();
+    //void UpdateCharacterState();
+
+    bool bIsNetworkReady = false;
 };

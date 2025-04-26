@@ -1,5 +1,8 @@
 // MyCharacter.cpp
 #include "MyCharacter.h"
+#include "MyNetworkGameMode.h"
+#include "SimpleNetworkManager.h"
+#include "Kismet/GameplayStatics.h"   // UGameplayStatics용
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -47,6 +50,13 @@ void AMyCharacter::BeginPlay()
 {
     Super::BeginPlay();
 
+    // 게임 모드에서 네트워크 매니저 가져오기
+    AMyNetworkGameMode* GameMode = Cast<AMyNetworkGameMode>(UGameplayStatics::GetGameMode(this));
+    if (GameMode)
+    {
+        NetworkManager = GameMode->GetNetworkManager();
+    }
+
     // Enhanced Input 설정
     if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
     {
@@ -65,7 +75,20 @@ void AMyCharacter::Tick(float DeltaTime)
     Super::Tick(DeltaTime);
 
     // 매 프레임마다 상태 업데이트
-    UpdateCharacterState();
+
+    if (NetworkManager && NetworkManager->IsConnected())
+    {
+        NetworkManager->SendInputPacket(
+            CurrentForwardValue,
+            CurrentRightValue,
+            bJumpPressed,
+            bAttackPressed
+        );
+    }
+
+    // 입력 후 Reset (매 프레임 보내는 걸 막기 위해)
+    bJumpPressed = false;
+    bAttackPressed = false;
 }
 
 void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -86,35 +109,81 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
     }
 }
 
-void AMyCharacter::UpdateCharacterState()
-{
-    // 이전 상태 저장
-    EPlayerState PreviousState = CurrentState;
+//void AMyCharacter::UpdateCharacterState()
+//{
+//    // 이전 상태 저장
+//    EPlayerState PreviousState = CurrentState;
+//
+//    // 새 상태 계산
+//    if (bIsAttacking)
+//    {
+//        CurrentState = EPlayerState::ATTACKING;
+//    }
+//    else if (GetCharacterMovement()->IsFalling())
+//    {
+//        CurrentState = EPlayerState::JUMPING;
+//    }
+//    else if (GetVelocity().Size() > 10.0f)
+//    {
+//        CurrentState = EPlayerState::WALKING;
+//    }
+//    else
+//    {
+//        CurrentState = EPlayerState::IDLE;
+//    }
+//
+//    // 상태가 변경되었으면 이벤트 발생
+//    if (PreviousState != CurrentState)
+//    {
+//        OnCharacterStateChanged.Broadcast(CurrentState, GetActorLocation(), GetActorRotation(), GetVelocity());
+//    }
+//}
 
-    // 새 상태 계산
-    if (bIsAttacking)
+void AMyCharacter::MoveForward(float Value)
+{
+    CurrentForwardValue = Value;
+}
+
+void AMyCharacter::MoveRight(float Value)
+{
+    CurrentRightValue = Value;
+}
+
+void AMyCharacter::StartJump()
+{
+    bJumpPressed = true;
+    Jump();
+}
+
+void AMyCharacter::StartAttack()
+{
+    bAttackPressed = true;
+    
+    // 애니메이션 재생
+    if (AttackMontage)
     {
-        CurrentState = EPlayerState::ATTACKING;
-    }
-    else if (GetCharacterMovement()->IsFalling())
-    {
-        CurrentState = EPlayerState::JUMPING;
-    }
-    else if (GetVelocity().Size() > 10.0f)
-    {
-        CurrentState = EPlayerState::WALKING;
+        UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+        if (AnimInstance)
+        {
+            float MontageLength = AnimInstance->Montage_Play(AttackMontage, 1.0f);
+
+            // 몽타주 재생이 끝나면 bIsAttacking을 false로 설정
+            FTimerHandle TimerHandle;
+            GetWorld()->GetTimerManager().SetTimer(TimerHandle, [this]()
+                {
+                    bIsAttacking = false;
+                    //UpdateCharacterState(); // 공격 종료 시 상태 업데이트
+                }, MontageLength, false);
+        }
     }
     else
     {
-        CurrentState = EPlayerState::IDLE;
-    }
-
-    // 상태가 변경되었으면 이벤트 발생
-    if (PreviousState != CurrentState)
-    {
-        OnCharacterStateChanged.Broadcast(CurrentState, GetActorLocation(), GetActorRotation(), GetVelocity());
+        // 몽타주가 없으면 빠르게 상태 리셋
+        bIsAttacking = false;
+        //UpdateCharacterState();
     }
 }
+
 
 void AMyCharacter::Move(const FInputActionValue& Value)
 {
@@ -161,7 +230,7 @@ void AMyCharacter::StopMoving(const FInputActionValue& Value)
 	CurrentRightValue = 0.0f;
 
     // 상태 업데이트
-	UpdateCharacterState();
+	//UpdateCharacterState();
 }
 
 void AMyCharacter::Look(const FInputActionValue& Value)
@@ -180,7 +249,9 @@ void AMyCharacter::Jump()
     Super::Jump();
 
     // 점프 시 즉시 상태 업데이트
-    UpdateCharacterState();
+    //UpdateCharacterState();
+
+    bJumpPressed = true; // 입력 발생하면 true로
 }
 
 void AMyCharacter::StopJumping()
@@ -188,18 +259,19 @@ void AMyCharacter::StopJumping()
     Super::StopJumping();
 
     // 점프 중단 시 즉시 상태 업데이트
-    UpdateCharacterState();
+    //UpdateCharacterState();
+
+    bJumpPressed = false; // 입력 끝나면 false로
 }
 
 void AMyCharacter::Attack()
 {
-    if (bIsAttacking)
-        return; // 이미 공격 중이면 무시
+	if (bIsAttacking)
+	{
+		return;
+	}
 
-    bIsAttacking = true;
-
-    // 즉시 상태 업데이트
-    UpdateCharacterState();
+    bAttackPressed = true;
 
     // 애니메이션 재생
     if (AttackMontage)
@@ -214,14 +286,15 @@ void AMyCharacter::Attack()
             GetWorld()->GetTimerManager().SetTimer(TimerHandle, [this]()
                 {
                     bIsAttacking = false;
-                    UpdateCharacterState(); // 공격 종료 시 상태 업데이트
+                    //UpdateCharacterState(); // 공격 종료 시 상태 업데이트
                 }, MontageLength, false);
         }
     }
     else
     {
         // 몽타주가 없으면 빠르게 상태 리셋
+        bAttackPressed = false;
         bIsAttacking = false;
-        UpdateCharacterState();
+        //UpdateCharacterState();
     }
 }

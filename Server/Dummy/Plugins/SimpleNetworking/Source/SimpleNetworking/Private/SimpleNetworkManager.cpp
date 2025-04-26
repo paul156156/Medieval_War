@@ -122,113 +122,148 @@ void USimpleNetworkManager::DisconnectFromServer()
     }
 }
 
-void USimpleNetworkManager::SendMovePacket(float ForwardValue, float RightValue, const FVector& Position, const FRotator& Rotation, const FVector& Velocity, EPlayerState State)
+void USimpleNetworkManager::SendInputPacket(float ForwardValue, float RightValue, bool bJumpPressed, bool bAttackPressed)
 {
+    //UE_LOG(LogTemp, Display, TEXT("Client sizeof(FInputPacket): %d bytes"), sizeof(FInputPacket));
+
     if (!IsConnected())
     {
         return;
     }
 
-    // 이동 패킷 생성
-    FMovePacket Packet;
-    Packet.Header.PacketType = EPacketType::MOVE;
-    Packet.Header.PacketSize = sizeof(FMovePacket);
+    // InputPacket 생성
+    FInputPacket Packet;
+    Packet.Header.PacketType = EPacketType::INPUT;
+    Packet.Header.PacketSize = sizeof(FInputPacket);
+    Packet.ClientId = LocalClientId;
     Packet.ForwardValue = ForwardValue;
     Packet.RightValue = RightValue;
-    Packet.Position.X = Position.X;
-    Packet.Position.Y = Position.Y;
-    Packet.Position.Z = Position.Z;
-    Packet.Rotation.Pitch = Rotation.Pitch;
-    Packet.Rotation.Yaw = Rotation.Yaw;
-    Packet.Rotation.Roll = Rotation.Roll;
-	Packet.Velocity.X = Velocity.X;
-    Packet.Velocity.Y = Velocity.Y;
-    Packet.Velocity.Z = Velocity.Z;
-    Packet.State = State;
+    Packet.bJumpPressed = bJumpPressed;
+    Packet.bAttackPressed = bAttackPressed;
 
     // 패킷 전송
     int32 BytesSent = 0;
-    bool bSuccess = Socket->Send(reinterpret_cast<uint8*>(&Packet), sizeof(FMovePacket), BytesSent);
+    bool bSuccess = Socket->Send(reinterpret_cast<uint8*>(&Packet), sizeof(FInputPacket), BytesSent);
 
-    // 전송 실패 시 연결 상태 체크
-    if (!bSuccess || BytesSent != sizeof(FMovePacket))
+    if (!bSuccess || BytesSent != sizeof(FInputPacket))
     {
-        UE_LOG(LogTemp, Warning, TEXT("Failed to send Move packet! Sent %d of %d bytes"),BytesSent, sizeof(FMovePacket));
+        UE_LOG(LogTemp, Warning, TEXT("Failed to send Input packet! Sent %d of %d bytes"), BytesSent, sizeof(FInputPacket));
         CheckConnectionStatus();
     }
     else
     {
-        // 디버그 로그 (Verbose 레벨)
-        UE_LOG(LogTemp, Verbose, TEXT("Sent Move Packet: Forward=%.2f, Right=%.2f, Pos=(%.2f,%.2f,%.2f)"),
-            ForwardValue, RightValue, Position.X, Position.Y, Position.Z);
+        UE_LOG(LogTemp, Verbose, TEXT("Sent Input Packet: Forward=%.2f, Right=%.2f, Jump=%d, Attack=%d"),
+            ForwardValue, RightValue, bJumpPressed, bAttackPressed);
     }
 }
 
-void USimpleNetworkManager::SendJumpPacket(bool IsJumping, const FVector& Position, EPlayerState State)
-{
-    if (!IsConnected())
-    {
-        return;
-    }
+//void USimpleNetworkManager::SendMovePacket(float ForwardValue, float RightValue, const FVector& Position, const FRotator& Rotation, const FVector& Velocity, EPlayerState State)
+//{
+//    if (!IsConnected())
+//    {
+//        return;
+//    }
+//
+//    // 이동 패킷 생성
+//    FMovePacket Packet;
+//    Packet.Header.PacketType = EPacketType::MOVE;
+//    Packet.Header.PacketSize = sizeof(FMovePacket);
+//    Packet.ForwardValue = ForwardValue;
+//    Packet.RightValue = RightValue;
+//    Packet.Position.X = Position.X;
+//    Packet.Position.Y = Position.Y;
+//    Packet.Position.Z = Position.Z;
+//    Packet.Rotation.Pitch = Rotation.Pitch;
+//    Packet.Rotation.Yaw = Rotation.Yaw;
+//    Packet.Rotation.Roll = Rotation.Roll;
+//	Packet.Velocity.X = Velocity.X;
+//    Packet.Velocity.Y = Velocity.Y;
+//    Packet.Velocity.Z = Velocity.Z;
+//    Packet.State = State;
+//
+//    // 패킷 전송
+//    int32 BytesSent = 0;
+//    bool bSuccess = Socket->Send(reinterpret_cast<uint8*>(&Packet), sizeof(FMovePacket), BytesSent);
+//
+//    // 전송 실패 시 연결 상태 체크
+//    if (!bSuccess || BytesSent != sizeof(FMovePacket))
+//    {
+//        UE_LOG(LogTemp, Warning, TEXT("Failed to send Move packet! Sent %d of %d bytes"),BytesSent, sizeof(FMovePacket));
+//        CheckConnectionStatus();
+//    }
+//    else
+//    {
+//        // 디버그 로그 (Verbose 레벨)
+//        UE_LOG(LogTemp, Verbose, TEXT("Sent Move Packet: Forward=%.2f, Right=%.2f, Pos=(%.2f,%.2f,%.2f)"),
+//            ForwardValue, RightValue, Position.X, Position.Y, Position.Z);
+//    }
+//}
 
-    // 점프 패킷 생성
-    FJumpPacket Packet;
-    Packet.Header.PacketType = EPacketType::JUMP;
-    Packet.Header.PacketSize = sizeof(FJumpPacket);
-    Packet.Position.X = Position.X;
-    Packet.Position.Y = Position.Y;
-    Packet.Position.Z = Position.Z;
-	Packet.State = State;
+//void USimpleNetworkManager::SendJumpPacket(bool IsJumping, const FVector& Position, EPlayerState State)
+//{
+//    if (!IsConnected())
+//    {
+//        return;
+//    }
+//
+//    // 점프 패킷 생성
+//    FJumpPacket Packet;
+//    Packet.Header.PacketType = EPacketType::JUMP;
+//    Packet.Header.PacketSize = sizeof(FJumpPacket);
+//    Packet.Position.X = Position.X;
+//    Packet.Position.Y = Position.Y;
+//    Packet.Position.Z = Position.Z;
+//	Packet.State = State;
+//
+//    // 패킷 전송
+//    int32 BytesSent = 0;
+//    bool bSuccess = Socket->Send(reinterpret_cast<uint8*>(&Packet), sizeof(FJumpPacket), BytesSent);
+//
+//    // 전송 실패 시 연결 상태 체크
+//    if (!bSuccess || BytesSent != sizeof(FJumpPacket))
+//    {
+//        UE_LOG(LogTemp, Warning, TEXT("Failed to send Jump packet! Sent %d of %d bytes"),BytesSent, sizeof(FJumpPacket));
+//        CheckConnectionStatus();
+//    }
+//    else
+//    {
+//        // 디버그 로그 (Verbose 레벨)
+//        UE_LOG(LogTemp, Verbose, TEXT("Sent Jump Packet, Pos=(%.2f,%.2f,%.2f)"), Position.X, Position.Y, Position.Z);
+//    }
+//}
 
-    // 패킷 전송
-    int32 BytesSent = 0;
-    bool bSuccess = Socket->Send(reinterpret_cast<uint8*>(&Packet), sizeof(FJumpPacket), BytesSent);
-
-    // 전송 실패 시 연결 상태 체크
-    if (!bSuccess || BytesSent != sizeof(FJumpPacket))
-    {
-        UE_LOG(LogTemp, Warning, TEXT("Failed to send Jump packet! Sent %d of %d bytes"),BytesSent, sizeof(FJumpPacket));
-        CheckConnectionStatus();
-    }
-    else
-    {
-        // 디버그 로그 (Verbose 레벨)
-        UE_LOG(LogTemp, Verbose, TEXT("Sent Jump Packet, Pos=(%.2f,%.2f,%.2f)"), Position.X, Position.Y, Position.Z);
-    }
-}
-
-void USimpleNetworkManager::SendAttackPacket(const FVector& Position, EPlayerState State)
-{
-    if (!IsConnected())
-    {
-        return;
-    }
-    // 공격 패킷 생성
-    FAttackPacket Packet;
-    Packet.Header.PacketType = EPacketType::ATTACK;
-    Packet.Header.PacketSize = sizeof(FAttackPacket);
-    Packet.Position.X = Position.X;
-    Packet.Position.Y = Position.Y;
-    Packet.Position.Z = Position.Z;
-    Packet.State = State;
-
-    // 패킷 전송
-    int32 BytesSent = 0;
-    bool bSuccess = Socket->Send(reinterpret_cast<uint8*>(&Packet), sizeof(FAttackPacket), BytesSent);
-
-    // 전송 실패 시 연결 상태 체크
-    if (!bSuccess || BytesSent != sizeof(FAttackPacket))
-    {
-        UE_LOG(LogTemp, Warning, TEXT("Failed to send Attack packet! Sent %d of %d bytes"),
-            BytesSent, sizeof(FAttackPacket));
-        CheckConnectionStatus();
-    }
-    else
-    {
-        // 디버그 로그 (Verbose 레벨)
-        UE_LOG(LogTemp, Verbose, TEXT("Sent Attack Packet: Pos=(%.2f,%.2f,%.2f)"),Position.X, Position.Y, Position.Z);
-    }
-}
+//void USimpleNetworkManager::SendAttackPacket(const FVector& Position, EPlayerState State)
+//{
+//    if (!IsConnected())
+//    {
+//        return;
+//    }
+//    // 공격 패킷 생성
+//    FAttackPacket Packet;
+//    Packet.Header.PacketType = EPacketType::ATTACK;
+//    Packet.Header.PacketSize = sizeof(FAttackPacket);
+//    Packet.Position.X = Position.X;
+//    Packet.Position.Y = Position.Y;
+//    Packet.Position.Z = Position.Z;
+//    Packet.State = State;
+//
+//    // 패킷 전송
+//    int32 BytesSent = 0;
+//    bool bSuccess = Socket->Send(reinterpret_cast<uint8*>(&Packet), sizeof(FAttackPacket), BytesSent);
+//
+//    // 전송 실패 시 연결 상태 체크
+//    if (!bSuccess || BytesSent != sizeof(FAttackPacket))
+//    {
+//        UE_LOG(LogTemp, Warning, TEXT("Failed to send Attack packet! Sent %d of %d bytes"),
+//            BytesSent, sizeof(FAttackPacket));
+//        CheckConnectionStatus();
+//    }
+//    else
+//    {
+//        // 디버그 로그 (Verbose 레벨)
+//        UE_LOG(LogTemp, Verbose, TEXT("Sent Attack Packet: Pos=(%.2f,%.2f,%.2f)"),Position.X, Position.Y, Position.Z);
+//    }
+//}
 
 void USimpleNetworkManager::ProcessIncomingPackets()
 {

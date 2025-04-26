@@ -35,21 +35,6 @@ void AMyNetworkGameMode::BeginPlay()
         FTimerHandle ConnectTimerHandle;
         GetWorld()->GetTimerManager().SetTimer(ConnectTimerHandle, this, &AMyNetworkGameMode::ConnectToServer, 1.0f, false);
     }
-
-    // 플레이어 캐릭터의 상태 변경 이벤트에 바인딩
-    if (AMyCharacter* PlayerCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(this, 0)))
-    {
-        PlayerCharacter->OnCharacterStateChanged.AddDynamic(this, &AMyNetworkGameMode::OnCharacterStateChanged);
-    }
-
-    // 주기적인 위치 업데이트를 위한 타이머 설정 (20Hz)
-    GetWorld()->GetTimerManager().SetTimer(
-        PositionUpdateTimerHandle,
-        this,
-        &AMyNetworkGameMode::SendPeriodicUpdate,
-        0.05f,  // 50ms 간격으로 업데이트 (20Hz)
-        true    // 반복 실행
-    );
 }
 
 void AMyNetworkGameMode::EndPlay(const EEndPlayReason::Type EndPlayReason)
@@ -91,44 +76,6 @@ void AMyNetworkGameMode::DisconnectFromServer()
         NetworkManager->DisconnectFromServer();
         OnServerDisconnected();
     }
-}
-
-// 주기적 상태 업데이트 함수 구현
-void AMyNetworkGameMode::SendPeriodicUpdate()
-{
-    if (!NetworkManager || !NetworkManager->IsConnected())
-        return;
-
-    AMyCharacter* PlayerCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(this, 0));
-    if (!PlayerCharacter)
-        return;
-
-    // 항상 이동 패킷 전송 (모든 상태 정보를 하나의 패킷에 포함)
-    NetworkManager->SendMovePacket(
-        PlayerCharacter->CurrentForwardValue,
-        PlayerCharacter->CurrentRightValue,
-        PlayerCharacter->GetActorLocation(),
-        PlayerCharacter->GetActorRotation(),
-		PlayerCharacter->GetVelocity(),
-        PlayerCharacter->CurrentState
-    );
-}
-
-void AMyNetworkGameMode::OnCharacterStateChanged(EPlayerState NewState, const FVector& Position, const FRotator& Rotation, const FVector& Velocity)
-{
-    // 항상 이동 패킷 사용 (모든 정보 포함)
-    if (!NetworkManager || !NetworkManager->IsConnected())
-        return;
-
-    AMyCharacter* PlayerCharacter = Cast<AMyCharacter>(UGameplayStatics::GetPlayerCharacter(this, 0));
-    if (!PlayerCharacter)
-        return;
-
-    float ForwardValue = PlayerCharacter->CurrentForwardValue;
-    float RightValue = PlayerCharacter->CurrentRightValue;
-
-    // 모든 상태에 대해 동일한 패킷 사용
-    NetworkManager->SendMovePacket(ForwardValue, RightValue, Position, Rotation, Velocity, NewState);
 }
 
 void AMyNetworkGameMode::OnPlayerUpdateReceived(int32 ClientId, const FVector& Position, const FRotator& Rotation, const FVector& Velocity, EPlayerState State)
@@ -200,15 +147,6 @@ AOtherCharacter* AMyNetworkGameMode::SpawnOtherPlayerCharacter(int32 ClientId, c
     {
         UE_LOG(LogTemp, Display, TEXT("Spawned other player character for client ID %d at: X=%.2f Y=%.2f Z=%.2f"),
             ClientId, Position.X, Position.Y, Position.Z);
-
-        // 플레이어 입력 비활성화
-        if (APlayerController* NewController = GetWorld()->SpawnActor<APlayerController>())
-        {
-            NewPlayerCharacter->bUseControllerRotationYaw = false;
-            NewController->Possess(NewPlayerCharacter);
-            NewController->SetIgnoreMoveInput(true);
-            NewController->SetIgnoreLookInput(true);
-        }
 
         // 캐릭터 정보 저장
         OtherPlayers.Add(ClientId, NewPlayerCharacter);

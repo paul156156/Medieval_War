@@ -8,11 +8,9 @@
 UENUM(BlueprintType)
 enum class EPacketType : uint8
 {
-	CLIENT_ID = 0,
+    CLIENT_ID = 0,
     POSITION_UPDATE = 1,
-    MOVE = 2,
-    JUMP = 3,
-	ATTACK = 4,
+    INPUT = 2
 };
 
 // 상태 정의 (서버와 동일하게 맞춰야 함)
@@ -43,29 +41,14 @@ struct FRot3
     float Pitch, Yaw, Roll;
 };
 
-struct FMovePacket
+struct FInputPacket
 {
     FPacketHeader Header;
-    float ForwardValue;
-    float RightValue;
-    FVec3 Position;
-    FRot3 Rotation;
-    FVec3 Velocity;
-    EPlayerState State;
-};
-
-struct FJumpPacket
-{
-    FPacketHeader Header;
-    FVec3 Position;
-    EPlayerState State;
-};
-
-struct FAttackPacket
-{
-	FPacketHeader Header;
-	FVec3 Position;
-	EPlayerState State;
+    int32_t ClientId;
+    float ForwardValue; // W/S
+    float RightValue;   // A/D
+    bool bJumpPressed;  // 스페이스바
+    bool bAttackPressed; // 공격(왼쪽 마우스 클릭)
 };
 
 struct FPositionUpdatePacket
@@ -83,6 +66,7 @@ struct FClientIdPacket
     FPacketHeader Header;
     int32 ClientId;
 };
+
 #pragma pack(pop)
 
 // 다른 플레이어 정보 저장 구조체
