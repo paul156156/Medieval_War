@@ -23,15 +23,11 @@ public:
 
     // 위치 및 회전 업데이트
     UFUNCTION(BlueprintCallable, Category = "Networking")
-    void UpdateTransform(const FVector& NewPosition, const FRotator& NewRotation, const FVector& NewVelocity);
+    void UpdateTransform(const FVector& NewPosition, const FVector& NewVelocity);
 
     // 현재 상태
     UPROPERTY(BlueprintReadOnly, Category = "Animation")
     EPlayerState CurrentState;
-
-    // 애니메이션 상태 변경 이벤트 (블루프린트에서 처리)
-    //UFUNCTION(BlueprintImplementableEvent, Category = "Animation")
-    //void OnAnimationStateChanged(EPlayerState NewState);
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
     UAnimMontage* AttackMontage;
@@ -39,7 +35,6 @@ public:
 private:
     // 보간을 위한 변수
     FVector TargetPosition;
-    FRotator TargetRotation;
+    bool bInterpEnabled = false;
     float PositionInterpolationTime;
-    float RotationInterpolationTime;
 };

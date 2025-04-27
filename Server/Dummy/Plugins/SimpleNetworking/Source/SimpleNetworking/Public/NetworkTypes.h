@@ -9,8 +9,11 @@ UENUM(BlueprintType)
 enum class EPacketType : uint8
 {
     CLIENT_ID = 0,
-    POSITION_UPDATE = 1,
-    INPUT = 2
+    CONNECT = 1,
+    DISCONNECT = 2,
+    PING = 3,
+    POSITION_UPDATE = 4,
+    INPUT = 5
 };
 
 // 상태 정의 (서버와 동일하게 맞춰야 함)
@@ -41,12 +44,38 @@ struct FRot3
     float Pitch, Yaw, Roll;
 };
 
+struct FClientIdPacket
+{
+    FPacketHeader Header;
+    int32 ClientId;
+};
+
+struct FConnectPacekt
+{
+    FPacketHeader Header;
+    int32 ClientId;
+};
+
+struct FDisconnectPacket
+{
+	FPacketHeader Header;
+	int32 ClientId;
+};
+
+struct FPingPacket
+{
+	FPacketHeader Header;
+	int32 ClientId;
+	float PingTime;
+};
+
 struct FInputPacket
 {
     FPacketHeader Header;
     int32_t ClientId;
     float ForwardValue; // W/S
     float RightValue;   // A/D
+    float ControlRotationYaw;   // 좌우 회전
     bool bJumpPressed;  // 스페이스바
     bool bAttackPressed; // 공격(왼쪽 마우스 클릭)
 };
@@ -56,15 +85,8 @@ struct FPositionUpdatePacket
     FPacketHeader Header;
     int32 ClientId;
     FVec3 Position;
-    FRot3 Rotation;
     FVec3 Velocity;
     EPlayerState State;
-};
-
-struct FClientIdPacket
-{
-    FPacketHeader Header;
-    int32 ClientId;
 };
 
 #pragma pack(pop)
@@ -85,13 +107,7 @@ struct SIMPLENETWORKING_API FOtherPlayerInfo
     FVector TargetPosition = FVector::ZeroVector;
 
     UPROPERTY(BlueprintReadWrite, Category = "Networking")
-    FRotator TargetRotation = FRotator::ZeroRotator;
-
-    UPROPERTY(BlueprintReadWrite, Category = "Networking")
     float PositionInterpolationTime = 0.0f;
-
-    UPROPERTY(BlueprintReadWrite, Category = "Networking")
-    float RotationInterpolationTime = 0.0f;
 };
 
 inline FString PlayerStateToString(EPlayerState State)

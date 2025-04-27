@@ -215,6 +215,7 @@ void IOCPServer::AcceptNewClients(SOCKET clientSocket, SOCKADDR_IN clientAddr)
     client->State = EPlayerState::IDLE;
     client->PreviousState = EPlayerState::IDLE;
     client->LastUpdateTime = GetTickCount64() / 1000.0f;
+    client->LastPingTime = GetTickCount64() / 1000.0f;
     ZeroMemory(&client->overlapped, sizeof(WSAOVERLAPPED));
 
     if (CreateIoCompletionPort((HANDLE)client->socket, completionPort, (ULONG_PTR)client, 0) == NULL)
@@ -309,7 +310,7 @@ void IOCPServer::BroadcastNewPlayer(ClientSession* newClient)
         packet.Header.PacketSize = sizeof(PositionUpdatePacket);
         packet.ClientId = newClient->id;
         packet.Position = newClient->Position;
-        packet.Rotation = newClient->Rotation;
+        //packet.Rotation = newClient->Rotation;
         packet.Velocity = newClient->Velocity;
         packet.State = newClient->State;
 
@@ -343,7 +344,7 @@ void IOCPServer::SendExistingPlayers(ClientSession* newClient)
         packet.Header.PacketSize = sizeof(PositionUpdatePacket);
         packet.ClientId = existingClient->id;
         packet.Position = existingClient->Position;
-        packet.Rotation = existingClient->Rotation;
+        //packet.Rotation = existingClient->Rotation;
         packet.Velocity = existingClient->Velocity;
         packet.State = existingClient->State;
 
@@ -404,34 +405,22 @@ void IOCPServer::RemoveClient(int clientId)
 
 void IOCPServer::NotifyClientDisconnect(int disconnectedClientId)
 {
-    // 여기서는 PositionUpdatePacket을 사용하여 위치를 무효한 값(-999999)으로 설정
-    // 실제로는 별도의 디스커넥트 패킷 타입을 만드는 것이 더 좋음
     PositionUpdatePacket packet;
-    packet.Header.PacketType = EPacketType::POSITION_UPDATE;
-    packet.Header.PacketSize = sizeof(PositionUpdatePacket);
+    packet.Header.PacketType = EPacketType::DISCONNECT;
+    packet.Header.PacketSize = sizeof(DisconnectPacket);
     packet.ClientId = disconnectedClientId;
-    packet.Position.X = -999999.0f;  // 무효한 위치로 설정 - 클라이언트에서 이 값을 보고 제거
-    packet.Position.Y = -999999.0f;
-    packet.Position.Z = -999999.0f;
-    packet.Rotation.Pitch = 0.0f;
-    packet.Rotation.Yaw = 0.0f;
-    packet.Rotation.Roll = 0.0f;
-    packet.State = EPlayerState::IDLE;
 
     int notifyCount = 0;
     for (const auto& pair : clients)
     {
         ClientSession* targetClient = pair.second;
-
         // 연결이 끊긴 클라이언트는 제외
-        if (targetClient->id == disconnectedClientId)
+        if (targetClient->id != disconnectedClientId)
         {
-            continue;
+            // 비동기 전송
+            SendPacket(targetClient, &packet, sizeof(packet), "NotifyClientDisconnect");
+            notifyCount++;
         }
-
-        // 비동기 전송
-        SendPacket(targetClient, &packet, sizeof(packet), "NotifyClientDisconnect");
-        notifyCount++;
     }
 
     LOG_INFO("클라이언트 연결 끊김 알림(ID: " + std::to_string(disconnectedClientId) +
@@ -452,7 +441,7 @@ void IOCPServer::ProcessPacket(ClientSession* client, char* data, int length)
 
     // 패킷 타입 유효성 검사
     if (static_cast<int>(header->PacketType) < 0 ||
-        static_cast<int>(header->PacketType) > 2) { // 가정: 패킷 타입은 0-2
+        static_cast<int>(header->PacketType) > 6) {
         LOG_WARNING("잘못된 패킷 타입: " + std::to_string(static_cast<int>(header->PacketType)) +
             ", 클라이언트 ID: " + std::to_string(client->id));
         return;
@@ -460,6 +449,37 @@ void IOCPServer::ProcessPacket(ClientSession* client, char* data, int length)
 
     switch (header->PacketType)
     {
+    case EPacketType::CLIENT_ID:
+        break;
+    case EPacketType::CONNECT:
+        break;
+    case EPacketType::DISCONNECT:
+        break;
+    case EPacketType::PING:
+    {
+        if (length >= sizeof(PingPacket))
+        {
+            PingPacket* pingPacket = reinterpret_cast<PingPacket*>(data);
+            client->LastPingTime = GetTickCount64() / 1000.0f;  // 서버시간으로 갱신
+
+            PongPacket pongPacket;
+            pongPacket.Header.PacketType = EPacketType::PONG;
+            pongPacket.Header.PacketSize = sizeof(PongPacket);
+            pongPacket.ClientId = pingPacket->ClientId;
+            pongPacket.PingTime = pingPacket->PingTime;  // 클라가 보낸 시간 그대로
+
+            SendPacket(client, &pongPacket, sizeof(pongPacket), "SendPong");
+
+            LOG_INFO("[서버] PingPacket 수신 - ClientId: " + std::to_string(client->id));
+        }
+        else
+        {
+            LOG_WARNING("[ProcessPacket] 잘못된 PING 패킷 크기 수신");
+        }
+        break;
+    }
+    case EPacketType::PONG:
+        break;
     case EPacketType::INPUT:
     {
         if (length >= sizeof(InputPacket))
@@ -475,6 +495,8 @@ void IOCPServer::ProcessPacket(ClientSession* client, char* data, int length)
         }
         break;
     }
+    case EPacketType::POSITION_UPDATE:
+        break;
     default:
         LOG_WARNING("처리되지 않은 패킷 타입: " +
             std::to_string(static_cast<int>(header->PacketType)) +
@@ -488,11 +510,11 @@ void IOCPServer::HandleInputPacket(ClientSession* client, const InputPacket* pac
     if (!client || !packet)
         return;
 
-    LOG_INFO("입력 패킷 수신 - 클라이언트 ID: " + std::to_string(client->id) +
-        ", Forward: " + std::to_string(packet->ForwardValue) +
-        ", Right: " + std::to_string(packet->RightValue) +
-        ", Jump: " + (packet->bJumpPressed ? "true" : "false") +
-        ", Attack: " + (packet->bAttackPressed ? "true" : "false"));
+    //LOG_DEBUG("입력 패킷 수신 - 클라이언트 ID: " + std::to_string(client->id) +
+    //    ", Forward: " + std::to_string(packet->ForwardValue) +
+    //    ", Right: " + std::to_string(packet->RightValue) +
+    //    ", Jump: " + (packet->bJumpPressed ? "true" : "false") +
+    //    ", Attack: " + (packet->bAttackPressed ? "true" : "false"));
 
     // 이동 입력 저장
     client->InputForward = packet->ForwardValue;
@@ -522,8 +544,26 @@ void IOCPServer::Update(float DeltaTime)
     {
         ClientSession* client = pair.second;
 
-        // 이동 방향 계산
-        Vec3 MoveDir = { client->InputForward, client->InputRight, 0.0f };
+        const float now = GetTickCount64() / 1000.0f;
+        if (now - client->LastPingTime > 5.0f) {
+            LOG_WARNING("클라이언트 Ping 타임아웃 발생 - ID: " + std::to_string(client->id));
+            RemoveClient(client->id);
+            continue; // 이미 지운 클라이언트는 Skip
+        }
+
+        // --- 이동 방향 계산 (시야 기준) 수정 ---
+        float Forward = client->InputForward;
+        float Right = client->InputRight;
+
+        float YawRad = client->ControlRotationYaw * (3.14159265f / 180.0f);
+        float CosYaw = cos(YawRad);
+        float SinYaw = sin(YawRad);
+
+        Vec3 MoveDir;
+        MoveDir.X = Forward * CosYaw + Right * SinYaw;
+        MoveDir.Y = Forward * SinYaw - Right * CosYaw;
+        MoveDir.Z = 0.0f;
+
         float Magnitude = sqrt(MoveDir.X * MoveDir.X + MoveDir.Y * MoveDir.Y);
         if (Magnitude > 0.0f)
         {
@@ -602,6 +642,13 @@ void IOCPServer::Update(float DeltaTime)
             client->State != client->PreviousState ||
             currentTime - client->LastUpdateTime > UpdateInterval)
         {
+
+            LOG_INFO("[서버] BroadcastPosition 준비 완료 - ClientId: " + std::to_string(client->id) +
+                ", distMoved: " + std::to_string(distMoved) +
+                ", State: " + std::to_string((int)client->State) +
+                ", TimeSinceLastUpdate: " + std::to_string(currentTime - client->LastUpdateTime));
+
+
             client->LastUpdateTime = currentTime;
             client->PreviousState = client->State;
 
@@ -614,6 +661,7 @@ void IOCPServer::Update(float DeltaTime)
     }
 }
 
+// 주의: 이 함수 호출 전에 반드시 clientsMutex가 Lock되어야 함
 void IOCPServer::BroadcastPosition(ClientSession* sourceClient)
 {
     PositionUpdatePacket packet;
@@ -621,9 +669,14 @@ void IOCPServer::BroadcastPosition(ClientSession* sourceClient)
     packet.Header.PacketSize = sizeof(PositionUpdatePacket);
     packet.ClientId = sourceClient->id;
     packet.Position = sourceClient->Position;
-    packet.Rotation = sourceClient->Rotation;
     packet.Velocity = sourceClient->Velocity;
     packet.State = sourceClient->State;
+
+    LOG_INFO("[서버] BroadcastPosition 호출 - ClientId: " + std::to_string(sourceClient->id) +
+        ", Position: (" + std::to_string(sourceClient->Position.X) + ", " +
+        std::to_string(sourceClient->Position.Y) + ", " +
+        std::to_string(sourceClient->Position.Z) + ")");
+
 
     // 전송 성공 카운트 (디버깅용)
     int successCount = 0;
@@ -637,6 +690,9 @@ void IOCPServer::BroadcastPosition(ClientSession* sourceClient)
         {
             continue;
         }
+
+        LOG_INFO("[서버] PositionUpdatePacket 전송 - From ClientId: " + std::to_string(sourceClient->id) +
+            " To ClientId: " + std::to_string(targetClient->id));
 
         // 비동기 전송
         if (SendPacket(targetClient, &packet, sizeof(packet), "BroadcastPosition")) {

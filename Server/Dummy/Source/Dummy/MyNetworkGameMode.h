@@ -4,9 +4,11 @@
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "SimpleNetworking/Public/NetworkTypes.h"
+#include "SimpleNetworking/Public/SimpleNetworkReplicator.h"
 #include "MyNetworkGameMode.generated.h"
 
 class USimpleNetworkManager;
+class UsimpleNetworkReplicator;
 class AMyCharacter;
 class AOtherCharacter;
 
@@ -19,67 +21,51 @@ public:
     AMyNetworkGameMode();
 
     virtual void BeginPlay() override;
-    virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+    virtual void Tick(float DeltaTime) override;
 
-    // 서버 연결 함수
-    UFUNCTION(BlueprintCallable, Category = "Networking")
-    void ConnectToServer();
-
-    // 서버 연결 해제 함수
-    UFUNCTION(BlueprintCallable, Category = "Networking")
-    void DisconnectFromServer();
-
-    UFUNCTION(BlueprintCallable)
-    USimpleNetworkManager* GetNetworkManager() const { return NetworkManager; }
-
-    // 네트워크 이벤트 (블루프린트에서 오버라이드 가능)
-    UFUNCTION(BlueprintImplementableEvent, Category = "Networking")
-    void OnServerConnected();
-
-    UFUNCTION(BlueprintImplementableEvent, Category = "Networking")
-    void OnServerDisconnected();
-
-    UFUNCTION(BlueprintImplementableEvent, Category = "Networking")
-    void OnServerConnectionFailed();
-
-protected:
-    // 네트워크 매니저
     UPROPERTY()
     USimpleNetworkManager* NetworkManager;
 
-    // 서버 설정
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Networking")
-    FString ServerIP;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Networking")
-    int32 ServerPort;
-
-    // 자동 연결 설정
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Networking")
-    bool bAutoConnect;
-
-    // 다른 플레이어 캐릭터 클래스
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Networking")
+    UPROPERTY()
+    class USimpleNetworkReplicator* NetworkReplicator;
+    
+    UPROPERTY(EditDefaultsOnly, Category = "Networking")
     TSubclassOf<AOtherCharacter> OtherPlayerCharacterClass;
 
-    // 로컬 클라이언트 ID
-    int32 LocalClientId;
-
-    // 다른 플레이어 캐릭터 맵
+    UPROPERTY()
     TMap<int32, AOtherCharacter*> OtherPlayers;
 
-    // 네트워크 이벤트 핸들러
+    int32 LocalClientId;
+
+    UPROPERTY(EditAnywhere, Category = "Networking")
+    FString ServerIP = TEXT("127.0.0.1");
+
+    UPROPERTY(EditAnywhere, Category = "Networking")
+    int32 ServerPort = 9000;
+
+    UPROPERTY(EditAnywhere, Category = "Networking")
+    bool bAutoConnect = true;
+
+    FTimerHandle TickReceiveHandle;
+
+    USimpleNetworkManager* GetNetworkManager() const { return NetworkManager; }
+
+protected:
     UFUNCTION()
-    void OnPlayerUpdateReceived(int32 ClientId, const FVector& Position, const FRotator& Rotation, const FVector& Velocity, EPlayerState State);
+    void ConnectToServer();
 
     UFUNCTION()
-    void OnClientIdReceived(int32 ClientId);
+    void DisconnectFromServer();
+
 
     UFUNCTION()
-    void OnConnectionStatusChanged(bool IsConnected);
+    void HandleClientIdAssigned(int32 ClientId);
 
-    // 다른 플레이어 생성/제거 함수
-    AOtherCharacter* SpawnOtherPlayerCharacter(int32 ClientId, const FVector& Position);
-    void RemoveOtherPlayerCharacter(int32 ClientId);
-    void RemoveAllOtherPlayers();
+    UFUNCTION()
+	void HandlePlayerDisconnected(int32 ClientId);
+
+    UFUNCTION()
+    void HandlePlayerPositionUpdated(int32 ClientId, FVector Position, FVector Velocity, EPlayerState State, float Timestamp);
+
+    AOtherCharacter* SpawnOtherPlayerCharacter(int32 ClientId, const FVector& SpawnPosition);
 };
