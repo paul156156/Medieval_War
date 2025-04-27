@@ -12,8 +12,9 @@ enum class EPacketType : uint8
     CONNECT = 1,
     DISCONNECT = 2,
     PING = 3,
-    POSITION_UPDATE = 4,
-    INPUT = 5
+    PONG = 4,
+    POSITION_UPDATE = 5,
+    INPUT = 6
 };
 
 // 상태 정의 (서버와 동일하게 맞춰야 함)
