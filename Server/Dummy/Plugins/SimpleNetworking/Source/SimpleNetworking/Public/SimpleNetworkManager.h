@@ -24,12 +24,16 @@ public:
 
     void SetReplicator(USimpleNetworkReplicator* InReplicator);
 
+    int32 GetLocalClientId() const { return LocalClientId; }
+
 private:
     FSocket* Socket;
     ISocketSubsystem* SocketSubsystem;
     USimpleNetworkReplicator* Replicator;
     bool bConnected;
 	int32 LocalClientId = -1;
+
+    float PingElapsedTime = 0.0f;
 
     void HandleIncomingPacket(const uint8* Data, int32 Size);
     bool SendRaw(const uint8* Data, int32 Size);

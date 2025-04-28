@@ -8,8 +8,9 @@ enum class EPacketType : uint8_t {
 	DISCONNECT = 2,     // 연결 해제 요청
 	PING = 3,           // 핑 테스트
 	PONG = 4,           // 핑 응답
-    POSITION_UPDATE = 5,// 위치 업데이트
-    INPUT = 6           // 입력 정보
+	PLAYER_INIT_INFO = 5,    // 플레이어 정보
+    PLAYER_POSITION_INFO = 6,// 위치 업데이트
+    PLAYER_INPUT_INFO = 7           // 입력 정보
 };
 
 // 플레이어 상태 정의
@@ -45,7 +46,7 @@ struct ClientIdPacket {
     int32_t ClientId;     // 할당된 클라이언트 ID
 };
 
-struct ConnectPacekt {
+struct ConnectPacket {
 	PacketHeader Header;  // 패킷 헤더
 	int32_t ClientId;     // 클라이언트 ID
 };
@@ -79,7 +80,7 @@ struct InputPacket {
 };
 
 // 위치 업데이트 패킷 (서버 -> 클라이언트)
-struct PositionUpdatePacket {
+struct PositionPacket {
     PacketHeader Header;    // 패킷 헤더
     int32_t ClientId;       // 클라이언트 ID
     Vec3 Position;          // 현재 위치

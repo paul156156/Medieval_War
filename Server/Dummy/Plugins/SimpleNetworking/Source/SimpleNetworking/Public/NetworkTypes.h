@@ -13,8 +13,9 @@ enum class EPacketType : uint8
     DISCONNECT = 2,
     PING = 3,
     PONG = 4,
-    POSITION_UPDATE = 5,
-    INPUT = 6
+	PLAYER_INIT_INFO = 5,
+    PLAYER_POSITION_INFO = 6,
+    PLAYER_INPUT_INFO = 7
 };
 
 // 상태 정의 (서버와 동일하게 맞춰야 함)
@@ -70,6 +71,13 @@ struct FPingPacket
 	float PingTime;
 };
 
+struct FPongPacket
+{
+	FPacketHeader Header;
+	int32 ClientId;
+	float PingTime;
+};
+
 struct FInputPacket
 {
     FPacketHeader Header;
@@ -81,7 +89,7 @@ struct FInputPacket
     bool bAttackPressed; // 공격(왼쪽 마우스 클릭)
 };
 
-struct FPositionUpdatePacket
+struct FPositionPacket
 {
     FPacketHeader Header;
     int32 ClientId;

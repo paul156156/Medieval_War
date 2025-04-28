@@ -1,0 +1,327 @@
+[13:28:57.418] [INFO] 로깅 시스템 초기화됨
+[13:28:57.418] [INFO] 서버 인스턴스 생성됨
+[13:28:57.419] [INFO] 서버 초기화 시작 (포트: 9000)
+[13:28:57.419] [INFO] 윈속 초기화 성공
+[13:28:57.420] [INFO] 리스닝 소켓 생성 성공
+[13:28:57.420] [INFO] 소켓 바인딩 성공 (포트: 9000)
+[13:28:57.421] [INFO] 리스닝 시작됨
+[13:28:57.421] [INFO] IOCP 생성 성공
+[13:28:57.421] [INFO] CPU 코어 수: 16, 생성할 작업자 스레드: 32
+[13:28:57.421] [INFO] 작업자 스레드 #1 생성됨
+[13:28:57.421] [INFO] 작업자 스레드 시작 (ThreadID: 21344)
+[13:28:57.422] [INFO] 작업자 스레드 #2 생성됨
+[13:28:57.422] [INFO] 작업자 스레드 시작 (ThreadID: 27560)
+[13:28:57.422] [INFO] 작업자 스레드 #3 생성됨
+[13:28:57.423] [INFO] 작업자 스레드 시작 (ThreadID: 21856)
+[13:28:57.423] [INFO] 작업자 스레드 #4 생성됨
+[13:28:57.423] [INFO] 작업자 스레드 시작 (ThreadID: 25036)
+[13:28:57.423] [INFO] 작업자 스레드 #5 생성됨
+[13:28:57.423] [INFO] 작업자 스레드 시작 (ThreadID: 25620)
+[13:28:57.424] [INFO] 작업자 스레드 #6 생성됨
+[13:28:57.424] [INFO] 작업자 스레드 시작 (ThreadID: 2904)
+[13:28:57.424] [INFO] 작업자 스레드 #7 생성됨
+[13:28:57.424] [INFO] 작업자 스레드 시작 (ThreadID: 26028)
+[13:28:57.424] [INFO] 작업자 스레드 #8 생성됨
+[13:28:57.425] [INFO] 작업자 스레드 시작 (ThreadID: 25580)
+[13:28:57.425] [INFO] 작업자 스레드 #9 생성됨
+[13:28:57.425] [INFO] 작업자 스레드 시작 (ThreadID: 25844)
+[13:28:57.425] [INFO] 작업자 스레드 #10 생성됨
+[13:28:57.426] [INFO] 작업자 스레드 시작 (ThreadID: 17664)
+[13:28:57.426] [INFO] 작업자 스레드 #11 생성됨
+[13:28:57.426] [INFO] 작업자 스레드 시작 (ThreadID: 27772)
+[13:28:57.426] [INFO] 작업자 스레드 #12 생성됨
+[13:28:57.426] [INFO] 작업자 스레드 시작 (ThreadID: 23676)
+[13:28:57.426] [INFO] 작업자 스레드 #13 생성됨
+[13:28:57.427] [INFO] 작업자 스레드 시작 (ThreadID: 424)
+[13:28:57.427] [INFO] 작업자 스레드 #14 생성됨
+[13:28:57.427] [INFO] 작업자 스레드 시작 (ThreadID: 23184)
+[13:28:57.427] [INFO] 작업자 스레드 #15 생성됨
+[13:28:57.428] [INFO] 작업자 스레드 시작 (ThreadID: 22216)
+[13:28:57.428] [INFO] 작업자 스레드 #16 생성됨
+[13:28:57.428] [INFO] 작업자 스레드 시작 (ThreadID: 5708)
+[13:28:57.428] [INFO] 작업자 스레드 #17 생성됨
+[13:28:57.429] [INFO] 작업자 스레드 시작 (ThreadID: 12344)
+[13:28:57.429] [INFO] 작업자 스레드 #18 생성됨
+[13:28:57.429] [INFO] 작업자 스레드 시작 (ThreadID: 1712)
+[13:28:57.429] [INFO] 작업자 스레드 #19 생성됨
+[13:28:57.430] [INFO] 작업자 스레드 시작 (ThreadID: 15676)
+[13:28:57.430] [INFO] 작업자 스레드 #20 생성됨
+[13:28:57.430] [INFO] 작업자 스레드 시작 (ThreadID: 14204)
+[13:28:57.430] [INFO] 작업자 스레드 #21 생성됨
+[13:28:57.431] [INFO] 작업자 스레드 시작 (ThreadID: 23908)
+[13:28:57.431] [INFO] 작업자 스레드 #22 생성됨
+[13:28:57.431] [INFO] 작업자 스레드 시작 (ThreadID: 15908)
+[13:28:57.431] [INFO] 작업자 스레드 #23 생성됨
+[13:28:57.431] [INFO] 작업자 스레드 시작 (ThreadID: 23016)
+[13:28:57.432] [INFO] 작업자 스레드 #24 생성됨
+[13:28:57.432] [INFO] 작업자 스레드 시작 (ThreadID: 25708)
+[13:28:57.432] [INFO] 작업자 스레드 #25 생성됨
+[13:28:57.432] [INFO] 작업자 스레드 시작 (ThreadID: 15584)
+[13:28:57.433] [INFO] 작업자 스레드 #26 생성됨
+[13:28:57.433] [INFO] 작업자 스레드 시작 (ThreadID: 16364)
+[13:28:57.433] [INFO] 작업자 스레드 #27 생성됨
+[13:28:57.433] [INFO] 작업자 스레드 시작 (ThreadID: 21564)
+[13:28:57.434] [INFO] 작업자 스레드 #28 생성됨
+[13:28:57.434] [INFO] 작업자 스레드 시작 (ThreadID: 25480)
+[13:28:57.434] [INFO] 작업자 스레드 #29 생성됨
+[13:28:57.434] [INFO] 작업자 스레드 시작 (ThreadID: 9140)
+[13:28:57.434] [INFO] 작업자 스레드 #30 생성됨
+[13:28:57.435] [INFO] 작업자 스레드 시작 (ThreadID: 20936)
+[13:28:57.435] [INFO] 작업자 스레드 #31 생성됨
+[13:28:57.435] [INFO] 작업자 스레드 시작 (ThreadID: 13800)
+[13:28:57.435] [INFO] 작업자 스레드 #32 생성됨
+[13:28:57.435] [INFO] 작업자 스레드 시작 (ThreadID: 24132)
+[13:28:57.436] [INFO] 서버 초기화 완료
+[13:28:57.436] [INFO] 서버 실행. 포트 번호: 9000
+[13:28:57.436] [INFO] IOCP 멀티플레이어 서버 시작됨...
+[13:28:57.436] [INFO] 서버 실행 시작
+[13:29:00.804] [INFO] 클라이언트 연결됨: 127.0.0.1:7229 (ID: 1)
+[13:29:00.804] [INFO] 새 클라이언트에게 ID 1 전송됨
+[13:29:00.804] [INFO] 새 플레이어 정보(ID: 1) 브로드캐스트 - 수신자 수: 0
+[13:29:00.804] [INFO] 기존 플레이어 정보 0개가 새 클라이언트(ID: 1)에게 전송됨
+[13:29:00.904] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.109375
+[13:29:00.905] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:01.013] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.109863
+[13:29:01.014] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:01.123] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:01.123] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:01.233] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:01.233] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:01.342] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.110352
+[13:29:01.342] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:01.452] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:01.452] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:01.561] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:01.561] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:01.670] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.109863
+[13:29:01.671] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:01.779] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.109375
+[13:29:01.779] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:01.811] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[13:29:01.888] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.109863
+[13:29:01.889] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:01.998] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:01.998] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:02.108] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:02.108] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:02.217] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.110352
+[13:29:02.217] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:02.326] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:02.326] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:02.435] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:02.436] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:02.545] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.109863
+[13:29:02.546] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:02.654] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.109375
+[13:29:02.655] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:02.764] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.109863
+[13:29:02.764] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:02.815] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[13:29:02.874] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:02.874] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:02.982] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:02.983] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:03.091] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.110352
+[13:29:03.092] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:03.201] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:03.202] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:03.310] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:03.311] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:03.420] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.109863
+[13:29:03.420] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:03.529] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.109375
+[13:29:03.529] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:03.638] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.109863
+[13:29:03.639] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:03.748] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:03.748] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:03.817] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[13:29:03.858] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:03.858] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:03.967] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.110352
+[13:29:03.968] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:04.076] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:04.076] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:04.186] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:04.186] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:04.295] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.109863
+[13:29:04.296] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:04.405] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.109375
+[13:29:04.405] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:04.513] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.109863
+[13:29:04.514] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:04.623] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:04.623] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:04.732] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:04.733] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:04.822] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[13:29:04.841] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.110352
+[13:29:04.842] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:04.951] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:04.952] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:05.061] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:05.061] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:05.170] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.109863
+[13:29:05.171] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:05.279] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.109375
+[13:29:05.280] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:05.388] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.109863
+[13:29:05.389] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:05.498] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:05.498] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:05.607] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:05.608] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:05.717] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.110352
+[13:29:05.717] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:05.826] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:05.826] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:05.832] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[13:29:05.902] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 3, TimeSinceLastUpdate: 0.062988
+[13:29:05.902] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:05.902] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.000000
+[13:29:05.903] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:05.917] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 3, TimeSinceLastUpdate: 0.015137
+[13:29:05.918] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:05.918] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.000000
+[13:29:05.918] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:05.950] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 3, TimeSinceLastUpdate: 0.030762
+[13:29:05.951] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:05.951] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.000000
+[13:29:05.951] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:05.960] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 3, TimeSinceLastUpdate: 0.016113
+[13:29:05.961] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:05.961] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.000000
+[13:29:05.961] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:05.971] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 3, TimeSinceLastUpdate: 0.016113
+[13:29:05.972] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:05.972] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.000000
+[13:29:05.972] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:06.077] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:06.077] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:06.186] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:06.186] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:06.220] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 1, TimeSinceLastUpdate: 0.032227
+[13:29:06.221] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:06.326] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 1, TimeSinceLastUpdate: 0.108887
+[13:29:06.326] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:06.436] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 1, TimeSinceLastUpdate: 0.108887
+[13:29:06.436] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:06.530] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 3, TimeSinceLastUpdate: 0.094238
+[13:29:06.531] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:06.531] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 1, TimeSinceLastUpdate: 0.000000
+[13:29:06.531] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:06.570] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 3, TimeSinceLastUpdate: 0.030762
+[13:29:06.570] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:06.570] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 1, TimeSinceLastUpdate: 0.000000
+[13:29:06.571] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:06.670] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 1, TimeSinceLastUpdate: 0.109863
+[13:29:06.670] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:06.780] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 1, TimeSinceLastUpdate: 0.109375
+[13:29:06.780] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:06.837] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[13:29:06.889] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 1, TimeSinceLastUpdate: 0.109863
+[13:29:06.889] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:06.998] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 1, TimeSinceLastUpdate: 0.108887
+[13:29:06.998] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:07.107] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 1, TimeSinceLastUpdate: 0.108887
+[13:29:07.108] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:07.119] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.000000
+[13:29:07.120] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:07.217] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.110352
+[13:29:07.217] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:07.326] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:07.326] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:07.436] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:07.436] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:07.545] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.109863
+[13:29:07.546] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:07.654] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.109375
+[13:29:07.655] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:07.764] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.109863
+[13:29:07.764] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:07.873] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:07.873] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:07.983] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:07.983] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:08.092] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.110352
+[13:29:08.092] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:08.201] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:08.201] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:08.310] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:08.310] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:08.420] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.109863
+[13:29:08.421] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:08.529] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.109375
+[13:29:08.530] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:08.639] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.109863
+[13:29:08.639] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:08.748] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:08.748] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:08.857] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:08.857] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:08.967] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.110352
+[13:29:08.968] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:09.077] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:09.077] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:09.186] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:09.186] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:09.295] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.109863
+[13:29:09.295] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:09.404] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.109375
+[13:29:09.405] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:09.514] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.109863
+[13:29:09.514] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:09.623] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:09.623] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:09.732] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:09.733] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:09.843] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.110352
+[13:29:09.843] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:09.951] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:09.952] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:10.061] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:10.062] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:10.170] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.109863
+[13:29:10.170] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:10.279] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.109375
+[13:29:10.279] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:10.389] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.109863
+[13:29:10.389] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:10.498] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:10.499] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:10.607] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:10.607] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:10.716] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.110352
+[13:29:10.717] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:10.826] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:10.826] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:10.935] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:10.936] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:11.045] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.109863
+[13:29:11.045] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:11.154] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.109375
+[13:29:11.155] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:11.264] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.109863
+[13:29:11.264] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:11.373] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:11.373] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:11.482] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:11.483] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:11.592] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.110352
+[13:29:11.593] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:11.701] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:11.701] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:11.811] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 0.108887
+[13:29:11.811] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[13:29:11.842] [WARNING] 클라이언트 Ping 타임아웃 발생 - ID: 1
+[13:29:11.843] [INFO] 클라이언트 연결 끊김 (ID: 1)
+[13:29:11.843] [INFO] 클라이언트 연결 중단 - ID: 1, 오류: 알 수 없는 오류: 1236
+[13:29:11.843] [INFO] 클라이언트 연결 끊김 알림(ID: 1) - 수신자 수: 0
+[13:29:11.843] [INFO] 클라이언트 연결 끊김 (ID: 1)
+[13:29:11.843] [INFO] 서버 FPS: 0.138821, 평균 프레임 시간: 1440.700073ms, 클라이언트 수: 0
+[13:29:11.843] [INFO] 클라이언트 연결 끊김 알림(ID: 1) - 수신자 수: 0
+[13:29:11.844] [INFO] 클라이언트 연결됨: 127.0.0.1:7230 (ID: 2)
+[13:29:22.522] [INFO] 새 클라이언트에게 ID 2 전송됨
+[13:29:24.991] [INFO] 새 플레이어 정보(ID: 2) 브로드캐스트 - 수신자 수: 18446744073709551615
+[13:29:27.556] [INFO] 기존 플레이어 정보 0개가 새 클라이언트(ID: 2)에게 전송됨
+[13:29:40.323] [WARNING] 비정상적으로 긴 델타 타임: 14.407000초

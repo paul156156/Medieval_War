@@ -16,7 +16,7 @@ struct ClientSession {
 
     // 게임 상태 데이터
     EPlayerState State;           // 현재 플레이어 상태
-    EPlayerState PreviousState = EPlayerState::IDLE; // 이전 플레이어 상태
+    EPlayerState PreviousState;   // 이전 플레이어 상태
     Vec3 Position;                // 현재 위치
     Vec3 LastPosition;            // 이전 위치
     Rot3 Rotation;                // 현재 회전값

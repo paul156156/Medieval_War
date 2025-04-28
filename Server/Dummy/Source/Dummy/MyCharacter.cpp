@@ -68,12 +68,23 @@ void AMyCharacter::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
 
+    static float LogTimer = 0.0f;
+    LogTimer += DeltaTime;
+
+    if (LogTimer >= 1.0f)  // 1초마다 로그
+    {
+        LogTimer = 0.0f;
+        UE_LOG(LogTemp, Display, TEXT("[My Character] ClientId %d, Position: X=%.2f, Y=%.2f, Z=%.2f, Input: Forward=%.2f, Right=%.2f"),
+            NetworkManager->GetLocalClientId(), GetActorLocation().X, GetActorLocation().Y, GetActorLocation().Z,
+            CurrentForwardValue, CurrentRightValue);
+    }
+
     if (NetworkManager && NetworkManager->IsConnected())
     {
         FInputPacket Packet;
         Packet.Header.PacketSize = sizeof(FInputPacket);
-        Packet.Header.PacketType = EPacketType::INPUT;
-        Packet.ClientId = 0; // 서버가 무시하거나 자동 처리
+        Packet.Header.PacketType = EPacketType::PLAYER_INPUT_INFO;
+        Packet.ClientId = NetworkManager->GetLocalClientId();
         Packet.ForwardValue = CurrentForwardValue;
         Packet.RightValue = CurrentRightValue;
         Packet.ControlRotationYaw = CurrentControlRotationYaw;
@@ -81,6 +92,10 @@ void AMyCharacter::Tick(float DeltaTime)
         Packet.bAttackPressed = bAttackPressed;
 
         NetworkManager->SendInputPacket(Packet);
+
+        //UE_LOG(LogTemp, Display, TEXT("Packet Input Value - Forward: % .2f, Right: % .2f, Yaw: % .2f, Jump: %d, Attack: %d"),
+        //    CurrentForwardValue, CurrentRightValue, CurrentControlRotationYaw,
+        //    bJumpPressed ? 1 : 0, bAttackPressed ? 1 : 0);
     }
 
     // 매 프레임 전송 후 점프/공격 플래그 초기화

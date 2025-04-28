@@ -29,6 +29,9 @@ public:
     UPROPERTY()
     class USimpleNetworkReplicator* NetworkReplicator;
     
+    UPROPERTY()
+    AMyCharacter* DeferredCharacter;
+
     UPROPERTY(EditDefaultsOnly, Category = "Networking")
     TSubclassOf<AOtherCharacter> OtherPlayerCharacterClass;
 
@@ -66,6 +69,9 @@ protected:
 
     UFUNCTION()
     void HandlePlayerPositionUpdated(int32 ClientId, FVector Position, FVector Velocity, EPlayerState State, float Timestamp);
+
+    UFUNCTION()
+	void HandleInitialPositionReceived(int32 ClientId, FVector Position, FVector Velocity, EPlayerState State);
 
     AOtherCharacter* SpawnOtherPlayerCharacter(int32 ClientId, const FVector& SpawnPosition);
 };

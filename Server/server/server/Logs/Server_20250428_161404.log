@@ -1,0 +1,251 @@
+[16:14:04.425] [INFO] 로깅 시스템 초기화됨
+[16:14:04.425] [INFO] 서버 인스턴스 생성됨
+[16:14:04.425] [INFO] 서버 초기화 시작 (포트: 9000)
+[16:14:04.426] [INFO] 윈속 초기화 성공
+[16:14:04.427] [INFO] 리스닝 소켓 생성 성공
+[16:14:04.428] [INFO] 소켓 바인딩 성공 (포트: 9000)
+[16:14:04.428] [INFO] 리스닝 시작됨
+[16:14:04.428] [INFO] IOCP 생성 성공
+[16:14:04.428] [INFO] CPU 코어 수: 16, 생성할 작업자 스레드: 16
+[16:14:04.428] [INFO] 작업자 스레드 #1 생성됨
+[16:14:04.429] [INFO] 작업자 스레드 시작 (ThreadID: 27448)
+[16:14:04.429] [INFO] 작업자 스레드 #2 생성됨
+[16:14:04.429] [INFO] 작업자 스레드 시작 (ThreadID: 30396)
+[16:14:04.430] [INFO] 작업자 스레드 #3 생성됨
+[16:14:04.430] [INFO] 작업자 스레드 시작 (ThreadID: 31164)
+[16:14:04.430] [INFO] 작업자 스레드 #4 생성됨
+[16:14:04.431] [INFO] 작업자 스레드 시작 (ThreadID: 428)
+[16:14:04.431] [INFO] 작업자 스레드 #5 생성됨
+[16:14:04.431] [INFO] 작업자 스레드 시작 (ThreadID: 29328)
+[16:14:04.432] [INFO] 작업자 스레드 #6 생성됨
+[16:14:04.432] [INFO] 작업자 스레드 시작 (ThreadID: 29952)
+[16:14:04.433] [INFO] 작업자 스레드 #7 생성됨
+[16:14:04.433] [INFO] 작업자 스레드 시작 (ThreadID: 2896)
+[16:14:04.433] [INFO] 작업자 스레드 #8 생성됨
+[16:14:04.433] [INFO] 작업자 스레드 시작 (ThreadID: 17424)
+[16:14:04.434] [INFO] 작업자 스레드 #9 생성됨
+[16:14:04.434] [INFO] 작업자 스레드 시작 (ThreadID: 10224)
+[16:14:04.434] [INFO] 작업자 스레드 #10 생성됨
+[16:14:04.435] [INFO] 작업자 스레드 시작 (ThreadID: 32352)
+[16:14:04.435] [INFO] 작업자 스레드 #11 생성됨
+[16:14:04.435] [INFO] 작업자 스레드 시작 (ThreadID: 27636)
+[16:14:04.436] [INFO] 작업자 스레드 #12 생성됨
+[16:14:04.436] [INFO] 작업자 스레드 시작 (ThreadID: 31852)
+[16:14:04.436] [INFO] 작업자 스레드 #13 생성됨
+[16:14:04.436] [INFO] 작업자 스레드 시작 (ThreadID: 732)
+[16:14:04.437] [INFO] 작업자 스레드 #14 생성됨
+[16:14:04.437] [INFO] 작업자 스레드 시작 (ThreadID: 30424)
+[16:14:04.437] [INFO] 작업자 스레드 #15 생성됨
+[16:14:04.437] [INFO] 작업자 스레드 시작 (ThreadID: 30900)
+[16:14:04.438] [INFO] 작업자 스레드 #16 생성됨
+[16:14:04.438] [INFO] 작업자 스레드 시작 (ThreadID: 26184)
+[16:14:04.438] [INFO] 서버 초기화 완료
+[16:14:04.438] [INFO] 서버 실행. 포트 번호: 9000
+[16:14:04.438] [INFO] IOCP 멀티플레이어 서버 시작됨...
+[16:14:04.438] [INFO] 서버 실행 시작
+[16:14:08.628] [INFO] 클라이언트 연결됨: 127.0.0.1:8894 (ID: 1)
+[16:14:08.628] [INFO] 새 클라이언트에게 ID 1 전송됨
+[16:14:08.628] [INFO] 새 플레이어 정보(ID: 1) 브로드캐스트 - 수신자 수: 0
+[16:14:08.628] [INFO] 기존 플레이어 정보 0개가 새 클라이언트(ID: 1)에게 전송됨
+[16:14:08.629] [INFO] 서버 FPS: 0.477555, 평균 프레임 시간: 418.800018ms, 클라이언트 수: 1
+[16:14:08.629] [INFO] 클라이언트 연결됨: 127.0.0.1:8895 (ID: 2)
+[16:14:08.629] [INFO] 새 클라이언트에게 ID 2 전송됨
+[16:14:08.629] [INFO] 새 플레이어 정보(ID: 2) 브로드캐스트 - 수신자 수: 1
+[16:14:08.630] [INFO] 기존 플레이어 정보 1개가 새 클라이언트(ID: 2)에게 전송됨
+[16:14:08.630] [WARNING] 비정상적으로 긴 델타 타임: 4.188000초
+[16:14:09.629] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[16:14:09.630] [INFO] [서버] PingPacket 수신 - ClientId: 2
+[16:14:11.051] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[16:14:11.052] [INFO] [서버] PingPacket 수신 - ClientId: 2
+[16:14:12.058] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[16:14:12.059] [INFO] [서버] PingPacket 수신 - ClientId: 2
+[16:14:13.062] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[16:14:13.062] [INFO] [서버] PingPacket 수신 - ClientId: 2
+[16:14:14.065] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[16:14:14.066] [INFO] [서버] PingPacket 수신 - ClientId: 2
+[16:14:15.065] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[16:14:15.066] [INFO] [서버] PingPacket 수신 - ClientId: 2
+[16:14:16.072] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[16:14:16.073] [INFO] [서버] PingPacket 수신 - ClientId: 2
+[16:14:17.080] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[16:14:17.080] [INFO] [서버] PingPacket 수신 - ClientId: 2
+[16:14:18.083] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[16:14:18.083] [INFO] [서버] PingPacket 수신 - ClientId: 2
+[16:14:19.088] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[16:14:19.089] [INFO] [서버] PingPacket 수신 - ClientId: 2
+[16:14:20.096] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[16:14:20.096] [INFO] [서버] PingPacket 수신 - ClientId: 2
+[16:14:21.419] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[16:14:21.420] [INFO] [서버] PingPacket 수신 - ClientId: 2
+[16:14:22.421] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[16:14:22.421] [INFO] [서버] PingPacket 수신 - ClientId: 2
+[16:14:23.426] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[16:14:23.426] [INFO] [서버] PingPacket 수신 - ClientId: 2
+[16:14:24.428] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[16:14:24.429] [INFO] [서버] PingPacket 수신 - ClientId: 2
+[16:14:25.435] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[16:14:25.436] [INFO] [서버] PingPacket 수신 - ClientId: 2
+[16:14:26.442] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[16:14:26.443] [INFO] [서버] PingPacket 수신 - ClientId: 2
+[16:14:27.453] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[16:14:27.453] [INFO] [서버] PingPacket 수신 - ClientId: 2
+[16:14:28.457] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[16:14:28.458] [INFO] [서버] PingPacket 수신 - ClientId: 2
+[16:14:29.464] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[16:14:29.465] [INFO] [서버] PingPacket 수신 - ClientId: 2
+[16:14:30.470] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[16:14:30.470] [INFO] [서버] PingPacket 수신 - ClientId: 2
+[16:14:31.478] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[16:14:31.479] [INFO] [서버] PingPacket 수신 - ClientId: 2
+[16:14:32.488] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[16:14:32.489] [INFO] [서버] PingPacket 수신 - ClientId: 2
+[16:14:33.498] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[16:14:33.499] [INFO] [서버] PingPacket 수신 - ClientId: 2
+[16:14:34.507] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[16:14:34.508] [INFO] [서버] PingPacket 수신 - ClientId: 2
+[16:14:35.509] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[16:14:35.510] [INFO] [서버] PingPacket 수신 - ClientId: 2
+[16:14:36.510] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[16:14:36.511] [INFO] [서버] PingPacket 수신 - ClientId: 2
+[16:14:37.523] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[16:14:37.524] [INFO] [서버] PingPacket 수신 - ClientId: 2
+[16:14:38.525] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[16:14:38.525] [INFO] [서버] PingPacket 수신 - ClientId: 2
+[16:14:39.531] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[16:14:39.532] [INFO] [서버] PingPacket 수신 - ClientId: 2
+[16:14:40.537] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[16:14:40.537] [INFO] [서버] PingPacket 수신 - ClientId: 2
+[16:14:41.544] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[16:14:41.544] [INFO] [서버] PingPacket 수신 - ClientId: 2
+[16:14:42.554] [INFO] [서버] PingPacket 수신 - ClientId: 1
+[16:14:42.555] [INFO] [서버] PingPacket 수신 - ClientId: 2
+[16:14:56.804] [INFO] 클라이언트 연결됨: 127.0.0.1:8907 (ID: 3)
+[16:14:56.805] [INFO] 새 클라이언트에게 ID 3 전송됨
+[16:14:56.805] [INFO] 새 플레이어 정보(ID: 3) 브로드캐스트 - 수신자 수: 2
+[16:14:56.805] [INFO] 기존 플레이어 정보 2개가 새 클라이언트(ID: 3)에게 전송됨
+[16:14:56.806] [WARNING] 클라이언트 Ping 타임아웃 발생 - ID: 1
+[16:14:56.806] [WARNING] 클라이언트 Ping 타임아웃 발생 - ID: 2
+[16:14:56.806] [INFO] 클라이언트 연결 끊김 (ID: 1)
+[16:14:56.806] [INFO] 클라이언트 연결 중단 - ID: 1, 오류: 알 수 없는 오류: 1236
+[16:14:56.806] [INFO] 클라이언트 연결 끊김 알림(ID: 1) - 수신자 수: 2
+[16:14:56.807] [INFO] 클라이언트 연결 끊김 (ID: 2)
+[16:14:56.807] [INFO] 클라이언트 연결 중단 - ID: 2, 오류: 알 수 없는 오류: 1236
+[16:14:56.807] [INFO] 클라이언트 연결 끊김 알림(ID: 2) - 수신자 수: 1
+[16:14:56.807] [WARNING] 존재하지 않는 클라이언트 ID를 제거하려고 시도: 1
+[16:14:56.808] [WARNING] 존재하지 않는 클라이언트 ID를 제거하려고 시도: 2
+[16:14:56.808] [INFO] 서버 FPS: 0.041518, 평균 프레임 시간: 5154.828125ms, 클라이언트 수: 1
+[16:14:56.808] [INFO] 클라이언트 연결됨: 127.0.0.1:8908 (ID: 4)
+[16:14:56.809] [INFO] 새 클라이언트에게 ID 4 전송됨
+[16:14:56.809] [INFO] 새 플레이어 정보(ID: 4) 브로드캐스트 - 수신자 수: 1
+[16:14:56.809] [INFO] 기존 플레이어 정보 1개가 새 클라이언트(ID: 4)에게 전송됨
+[16:14:56.809] [WARNING] 비정상적으로 긴 델타 타임: 48.155998초
+[16:14:57.809] [INFO] [서버] PingPacket 수신 - ClientId: 3
+[16:14:57.811] [INFO] [서버] PingPacket 수신 - ClientId: 4
+[16:14:58.810] [INFO] [서버] PingPacket 수신 - ClientId: 3
+[16:14:58.811] [INFO] [서버] PingPacket 수신 - ClientId: 4
+[16:14:59.887] [INFO] [서버] PingPacket 수신 - ClientId: 3
+[16:14:59.888] [INFO] [서버] PingPacket 수신 - ClientId: 4
+[16:15:00.887] [INFO] [서버] PingPacket 수신 - ClientId: 3
+[16:15:00.888] [INFO] [서버] PingPacket 수신 - ClientId: 4
+[16:15:01.887] [INFO] [서버] PingPacket 수신 - ClientId: 3
+[16:15:01.888] [INFO] [서버] PingPacket 수신 - ClientId: 4
+[16:15:02.887] [INFO] [서버] PingPacket 수신 - ClientId: 3
+[16:15:02.887] [INFO] [서버] PingPacket 수신 - ClientId: 4
+[16:15:03.887] [INFO] [서버] PingPacket 수신 - ClientId: 3
+[16:15:03.887] [INFO] [서버] PingPacket 수신 - ClientId: 4
+[16:15:04.887] [INFO] [서버] PingPacket 수신 - ClientId: 3
+[16:15:04.888] [INFO] [서버] PingPacket 수신 - ClientId: 4
+[16:15:05.887] [INFO] [서버] PingPacket 수신 - ClientId: 3
+[16:15:05.888] [INFO] [서버] PingPacket 수신 - ClientId: 4
+[16:15:06.887] [INFO] [서버] PingPacket 수신 - ClientId: 3
+[16:15:06.888] [INFO] [서버] PingPacket 수신 - ClientId: 4
+[16:15:07.887] [INFO] [서버] PingPacket 수신 - ClientId: 3
+[16:15:07.888] [INFO] [서버] PingPacket 수신 - ClientId: 4
+[16:15:08.887] [INFO] [서버] PingPacket 수신 - ClientId: 3
+[16:15:08.888] [INFO] [서버] PingPacket 수신 - ClientId: 4
+[16:15:09.887] [INFO] [서버] PingPacket 수신 - ClientId: 3
+[16:15:09.888] [INFO] [서버] PingPacket 수신 - ClientId: 4
+[16:15:10.887] [INFO] [서버] PingPacket 수신 - ClientId: 3
+[16:15:10.888] [INFO] [서버] PingPacket 수신 - ClientId: 4
+[16:15:11.887] [INFO] [서버] PingPacket 수신 - ClientId: 3
+[16:15:11.888] [INFO] [서버] PingPacket 수신 - ClientId: 4
+[16:15:12.887] [INFO] [서버] PingPacket 수신 - ClientId: 3
+[16:15:12.888] [INFO] [서버] PingPacket 수신 - ClientId: 4
+[16:15:13.888] [INFO] [서버] PingPacket 수신 - ClientId: 3
+[16:15:13.888] [INFO] [서버] PingPacket 수신 - ClientId: 4
+[16:15:14.887] [INFO] [서버] PingPacket 수신 - ClientId: 3
+[16:15:14.888] [INFO] [서버] PingPacket 수신 - ClientId: 4
+[16:15:15.887] [INFO] [서버] PingPacket 수신 - ClientId: 3
+[16:15:15.888] [INFO] [서버] PingPacket 수신 - ClientId: 4
+[16:15:16.887] [INFO] [서버] PingPacket 수신 - ClientId: 3
+[16:15:16.888] [INFO] [서버] PingPacket 수신 - ClientId: 4
+[16:15:17.887] [INFO] [서버] PingPacket 수신 - ClientId: 3
+[16:15:17.888] [INFO] [서버] PingPacket 수신 - ClientId: 4
+[16:15:18.888] [INFO] [서버] PingPacket 수신 - ClientId: 3
+[16:15:18.888] [INFO] [서버] PingPacket 수신 - ClientId: 4
+[16:15:19.888] [INFO] [서버] PingPacket 수신 - ClientId: 3
+[16:15:19.888] [INFO] [서버] PingPacket 수신 - ClientId: 4
+[16:15:20.888] [INFO] [서버] PingPacket 수신 - ClientId: 3
+[16:15:20.888] [INFO] [서버] PingPacket 수신 - ClientId: 4
+[16:15:21.895] [INFO] [서버] PingPacket 수신 - ClientId: 3
+[16:15:21.895] [INFO] [서버] PingPacket 수신 - ClientId: 4
+[16:15:22.899] [INFO] [서버] PingPacket 수신 - ClientId: 3
+[16:15:22.899] [INFO] [서버] PingPacket 수신 - ClientId: 4
+[16:15:28.160] [INFO] 클라이언트 연결됨: 127.0.0.1:8920 (ID: 5)
+[16:15:28.160] [INFO] 새 클라이언트에게 ID 5 전송됨
+[16:15:28.160] [INFO] 새 플레이어 정보(ID: 5) 브로드캐스트 - 수신자 수: 2
+[16:15:28.161] [INFO] 기존 플레이어 정보 2개가 새 클라이언트(ID: 5)에게 전송됨
+[16:15:28.161] [WARNING] 클라이언트 Ping 타임아웃 발생 - ID: 3
+[16:15:28.161] [WARNING] 클라이언트 Ping 타임아웃 발생 - ID: 4
+[16:15:28.161] [INFO] 클라이언트 연결 끊김 (ID: 3)
+[16:15:28.161] [INFO] 클라이언트 연결 중단 - ID: 3, 오류: 알 수 없는 오류: 1236
+[16:15:28.161] [INFO] 클라이언트 연결 끊김 알림(ID: 3) - 수신자 수: 2
+[16:15:28.162] [INFO] 클라이언트 연결 끊김 (ID: 4)
+[16:15:28.162] [INFO] 클라이언트 연결 중단 - ID: 4, 오류: 알 수 없는 오류: 1236
+[16:15:28.162] [INFO] 클라이언트 연결 끊김 알림(ID: 4) - 수신자 수: 1
+[16:15:28.162] [WARNING] 존재하지 않는 클라이언트 ID를 제거하려고 시도: 3
+[16:15:28.162] [WARNING] 존재하지 않는 클라이언트 ID를 제거하려고 시도: 4
+[16:15:28.163] [INFO] 서버 FPS: 0.063778, 평균 프레임 시간: 7308.210938ms, 클라이언트 수: 1
+[16:15:28.163] [INFO] 클라이언트 연결됨: 127.0.0.1:8921 (ID: 6)
+[16:15:28.163] [INFO] 새 클라이언트에게 ID 6 전송됨
+[16:15:28.164] [INFO] 새 플레이어 정보(ID: 6) 브로드캐스트 - 수신자 수: 1
+[16:15:28.164] [INFO] 기존 플레이어 정보 1개가 새 클라이언트(ID: 6)에게 전송됨
+[16:15:28.164] [WARNING] 비정상적으로 긴 델타 타임: 31.327999초
+[16:15:29.159] [INFO] [서버] PingPacket 수신 - ClientId: 5
+[16:15:29.159] [INFO] [서버] PingPacket 수신 - ClientId: 6
+[16:15:30.160] [INFO] [서버] PingPacket 수신 - ClientId: 5
+[16:15:30.162] [INFO] [서버] PingPacket 수신 - ClientId: 6
+[16:15:31.165] [INFO] [서버] PingPacket 수신 - ClientId: 5
+[16:15:31.165] [INFO] [서버] PingPacket 수신 - ClientId: 6
+[16:15:32.168] [INFO] [서버] PingPacket 수신 - ClientId: 5
+[16:15:32.170] [INFO] [서버] PingPacket 수신 - ClientId: 6
+[16:15:35.721] [INFO] 클라이언트 연결됨: 127.0.0.1:8923 (ID: 7)
+[16:15:35.722] [INFO] 새 클라이언트에게 ID 7 전송됨
+[16:15:35.722] [INFO] 새 플레이어 정보(ID: 7) 브로드캐스트 - 수신자 수: 2
+[16:15:35.722] [INFO] 기존 플레이어 정보 2개가 새 클라이언트(ID: 7)에게 전송됨
+[16:15:35.723] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 5, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 7.563477
+[16:15:35.723] [INFO] [서버] BroadcastPosition 호출 - ClientId: 5, Position: (0.000000, -300.000000, 90.000000)
+[16:15:35.723] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 5 To ClientId: 6
+[16:15:35.723] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 5 To ClientId: 7
+[16:15:35.723] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 6, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 7.563477
+[16:15:35.724] [INFO] [서버] BroadcastPosition 호출 - ClientId: 6, Position: (0.000000, 0.000000, 90.000000)
+[16:15:35.724] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 6 To ClientId: 5
+[16:15:35.725] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 6 To ClientId: 7
+[16:15:35.725] [INFO] 서버 FPS: 0.264445, 평균 프레임 시간: 6672.850586ms, 클라이언트 수: 3
+[16:15:35.725] [INFO] 클라이언트 연결됨: 127.0.0.1:8924 (ID: 8)
+[16:15:35.726] [INFO] 새 클라이언트에게 ID 8 전송됨
+[16:15:35.726] [INFO] 새 플레이어 정보(ID: 8) 브로드캐스트 - 수신자 수: 3
+[16:15:35.726] [INFO] 기존 플레이어 정보 3개가 새 클라이언트(ID: 8)에게 전송됨
+[16:15:35.727] [WARNING] 비정상적으로 긴 델타 타임: 7.532000초
+[16:15:36.726] [INFO] [서버] PingPacket 수신 - ClientId: 7
+[16:15:36.727] [INFO] [서버] PingPacket 수신 - ClientId: 8
+[16:15:37.732] [INFO] [서버] PingPacket 수신 - ClientId: 7
+[16:15:37.733] [INFO] [서버] PingPacket 수신 - ClientId: 8
+[16:15:38.868] [INFO] [서버] PingPacket 수신 - ClientId: 7
+[16:15:38.868] [INFO] [서버] PingPacket 수신 - ClientId: 8
+[16:15:39.869] [INFO] [서버] PingPacket 수신 - ClientId: 7
+[16:15:39.870] [INFO] [서버] PingPacket 수신 - ClientId: 8
+[16:15:40.875] [INFO] [서버] PingPacket 수신 - ClientId: 7
+[16:15:40.876] [INFO] [서버] PingPacket 수신 - ClientId: 8
+[16:15:41.885] [INFO] [서버] PingPacket 수신 - ClientId: 7
+[16:15:41.886] [INFO] [서버] PingPacket 수신 - ClientId: 8

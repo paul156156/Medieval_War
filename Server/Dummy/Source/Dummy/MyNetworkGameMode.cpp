@@ -2,6 +2,7 @@
 #include "MyNetworkGameMode.h"
 #include "SimpleNetworking/Public/SimpleNetworkManager.h"
 #include "SimpleNetworking/Public/SimpleNetworkReplicator.h"
+#include "MyCharacter.h"
 #include "OtherCharacter.h"
 #include "TimerManager.h"
 #include "Engine/World.h"
@@ -27,6 +28,7 @@ void AMyNetworkGameMode::BeginPlay()
 
         NetworkReplicator->OnClientIdAssigned.AddDynamic(this, &AMyNetworkGameMode::HandleClientIdAssigned);
         NetworkReplicator->OnPlayerDisconnected.AddDynamic(this, &AMyNetworkGameMode::HandlePlayerDisconnected);
+        NetworkReplicator->OnMyInitialPositionReceived.AddDynamic(this, &AMyNetworkGameMode::HandleInitialPositionReceived);
         NetworkReplicator->OnPlayerPositionUpdated.AddDynamic(this, &AMyNetworkGameMode::HandlePlayerPositionUpdated);
 
     }
@@ -112,6 +114,41 @@ void AMyNetworkGameMode::HandlePlayerPositionUpdated(int32 ClientId, FVector Pos
         OtherPlayer->UpdateAnimationState(State);
     }
 }
+
+void AMyNetworkGameMode::HandleInitialPositionReceived(int32 ClientId, FVector Position, FVector Velocity, EPlayerState State)
+{
+    if (!DeferredCharacter)
+    {
+        FTransform SpawnTransform;
+        SpawnTransform.SetLocation(Position); // 서버에서 받은 초기 위치 적용
+
+        DeferredCharacter = Cast<AMyCharacter>(
+            UGameplayStatics::BeginDeferredActorSpawnFromClass(this, AMyCharacter::StaticClass(), SpawnTransform)
+        );
+
+        if (!DeferredCharacter)
+        {
+            UE_LOG(LogTemp, Error, TEXT("[NetworkGameMode] Character Deferred Spawn Fail"));
+            return;
+        }
+
+        UE_LOG(LogTemp, Warning, TEXT("[NetworkGameMode] Character Deferred Spawn Done, Initial Position Setting"));
+
+        // (선택) 추가 초기화 - Velocity, State 설정하고 싶으면 여기서
+        // DeferredCharacter->SetInitialVelocity(Velocity);
+        // DeferredCharacter->SetInitialState(State);
+
+        UGameplayStatics::FinishSpawningActor(DeferredCharacter, SpawnTransform);
+
+        UE_LOG(LogTemp, Warning, TEXT("[NetworkGameMode] Character Finish Spawning Done"));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Warning, TEXT("[NetworkGameMode] Already Character Exist. Position Update"));
+        DeferredCharacter->SetActorLocation(Position);
+    }
+}
+
 
 AOtherCharacter* AMyNetworkGameMode::SpawnOtherPlayerCharacter(int32 ClientId, const FVector& SpawnPosition)
 {

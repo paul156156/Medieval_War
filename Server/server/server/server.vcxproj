@@ -135,6 +135,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="IOCPServer.cpp" />
+    <ClCompile Include="IOCPServer_Network.cpp" />
+    <ClCompile Include="IOCPServer_Packet.cpp" />
+    <ClCompile Include="IOCPServer_Session.cpp" />
+    <ClCompile Include="IOCPServer_Update.cpp" />
+    <ClCompile Include="IOCPServer_Worker.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
