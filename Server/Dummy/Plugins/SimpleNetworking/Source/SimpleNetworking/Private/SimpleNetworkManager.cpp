@@ -70,20 +70,20 @@ void USimpleNetworkManager::TickReceive(float DeltaTime)
         return;
 
     PingElapsedTime += DeltaTime;
-    if (PingElapsedTime >= 1.0f)  // 1초마다 Ping 보냄
+    if (PingElapsedTime >= 1.0f)
     {
         FPingPacket PingPacket;
         PingPacket.Header.PacketType = EPacketType::PING;
         PingPacket.Header.PacketSize = sizeof(FPingPacket);
         PingPacket.ClientId = LocalClientId;
-        PingPacket.PingTime = FPlatformTime::Seconds();  // 현재 시간 기록
+        PingPacket.PingTime = FPlatformTime::Seconds();
 
-        SendPingPacket(PingPacket);
+		SendPingPacket(PingPacket);
 
-        PingElapsedTime = 0.0f; // 타이머 리셋
+        UE_LOG(LogSimpleNetwork, Display, TEXT("[SimpleNetworkManager] Ping sent - ClientId: %d"), LocalClientId);
+
+        PingElapsedTime = 0.0f;
     }
-
-
     uint32 PendingDataSize = 0;
     if (Socket->HasPendingData(PendingDataSize))
     {
@@ -97,8 +97,8 @@ void USimpleNetworkManager::TickReceive(float DeltaTime)
             //UE_LOG(LogTemp, Warning, TEXT("[NetworkManager] Recv Success - Bytes Read: %d"), BytesRead);
             HandleIncomingPacket(RecvBuffer, BytesRead);
         }
-        //else
-        //    UE_LOG(LogTemp, Error, TEXT("[NetworkManager] Recv Failed"));
+        else
+            UE_LOG(LogTemp, Error, TEXT("[NetworkManager] Recv Failed"));
     }
 }
 
@@ -149,9 +149,12 @@ void USimpleNetworkManager::HandleIncomingPacket(const uint8* Data, int32 Size)
         break;
         case EPacketType::PONG:
         {
-            const FPongPacket* PongPacket = reinterpret_cast<const FPongPacket*>(Data + Offset);
-            float RoundTripTime = FPlatformTime::Seconds() - PongPacket->PingTime;
-            UE_LOG(LogSimpleNetwork, Display, TEXT("[SimpleNetworkManager] Pong received, RTT: %f seconds - Client ID: %d"), RoundTripTime, PongPacket->ClientId);
+			const FPongPacket* PongPacket = reinterpret_cast<const FPongPacket*>(Data + Offset);
+
+            double Now = FPlatformTime::Seconds();
+            double RTT = Now - PongPacket->PingTime;
+
+            UE_LOG(LogSimpleNetwork, Display, TEXT("[SimpleNetworkManager] Pong Received - RTT: %f sec (ClientId: %d)"), RTT, PongPacket->ClientId);
         }
         break;
         case EPacketType::PLAYER_INIT_INFO:

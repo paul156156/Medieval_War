@@ -118,6 +118,17 @@ void IOCPServer::Run()
     uint64_t lastFpsTime = GetTickCount64();
     float averageFrameTime = 0;
 
+    u_long mode = 1;
+    if (ioctlsocket(listenSocket, FIONBIO, &mode) != NO_ERROR)
+    {
+        LOG_ERROR("listenSocket 논블로킹 설정 실패 - 에러: " + std::to_string(WSAGetLastError()));
+        return;
+    }
+    else
+    {
+        LOG_INFO("listenSocket 논블로킹 설정 성공");
+    }
+
     while (isRunning)
     {
         uint64_t frameStartTime = GetTickCount64();

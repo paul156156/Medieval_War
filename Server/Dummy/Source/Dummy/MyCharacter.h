@@ -92,4 +92,6 @@ protected:
     virtual void Jump() override;
     virtual void StopJumping() override;
     void Attack();
+
+    float LogTimer;
 };

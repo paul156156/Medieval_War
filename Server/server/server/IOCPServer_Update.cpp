@@ -9,8 +9,9 @@ void IOCPServer::Update(float DeltaTime)
         // 너무 긴 델타 타임을 제한하여 물리 계산 오차 방지
         DeltaTime = 0.5f;
     }
+    const float CurrentTime = GetTickCount64() / 1000.0f; // 초 단위
 
-    std::vector<int> clientsToRemove;
+    std::vector<int> ClientsToRemove;
 
     {
         std::lock_guard<std::mutex> lock(clientsMutex);
@@ -18,12 +19,19 @@ void IOCPServer::Update(float DeltaTime)
         for (auto& pair : clients)
         {
             ClientSession* client = pair.second;
-
-            const float now = GetTickCount64() / 1000.0f;
-            if (now - client->LastPingTime > 5.0f) {
-                LOG_WARNING("클라이언트 Ping 타임아웃 발생 - ID: " + std::to_string(client->id));
-                clientsToRemove.push_back(client->id);
+            if (!client)
+            {
+                LOG_WARNING("[Update] null ClientSession 발견");
                 continue;
+            }
+            float TimeSinceLastPing = CurrentTime - client->LastPingTime;
+
+            // (2) 5초 넘으면 제거 대상
+            if (TimeSinceLastPing > 5.0f)
+            {
+                LOG_WARNING("클라이언트 Ping 타임아웃 발생 - ID: " + std::to_string(client->id) +
+                    ", 마지막 Ping 후 경과 시간: " + std::to_string(TimeSinceLastPing) + "초");
+                ClientsToRemove.push_back(client->id);
             }
 
             // --- 이동 방향 계산 (시야 기준) 수정 ---
@@ -55,12 +63,14 @@ void IOCPServer::Update(float DeltaTime)
             {
                 client->Velocity.Z = 600.0f;
                 client->State = EPlayerState::JUMPING;
+                client->bJumpRequested = true;
             }
 
             // 공격 처리
             if (client->bAttackRequested)
             {
                 client->State = EPlayerState::ATTACKING;
+				client->bAttackRequested = true;
             }
             else if (Magnitude > 0.0f)
             {
@@ -104,7 +114,7 @@ void IOCPServer::Update(float DeltaTime)
             }
 
             // 월드 경계 충돌 처리 (예시: -5000~5000)
-            const float WorldBoundary = 5000.0f;
+            const float WorldBoundary = 1000.0f;
             if (client->Position.X < -WorldBoundary) client->Position.X = -WorldBoundary;
             if (client->Position.X > WorldBoundary) client->Position.X = WorldBoundary;
             if (client->Position.Y < -WorldBoundary) client->Position.Y = -WorldBoundary;
@@ -143,8 +153,7 @@ void IOCPServer::Update(float DeltaTime)
             client->bAttackRequested = false;
         }
     }
-
-    for (int clientId : clientsToRemove) {
+    for (int clientId : ClientsToRemove) {
         RemoveClient(clientId);
     }
 }

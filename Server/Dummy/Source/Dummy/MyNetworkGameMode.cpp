@@ -94,8 +94,13 @@ void AMyNetworkGameMode::HandlePlayerDisconnected(int32 ClientId)
 
 void AMyNetworkGameMode::HandlePlayerPositionUpdated(int32 ClientId, FVector Position, FVector Velocity, EPlayerState State, float Timestamp)
 {
-    if (ClientId == LocalClientId)
-        return;
+    //if (ClientId == LocalClientId)
+    //    return;
+    
+    if (DeferredCharacter && ClientId == LocalClientId) // 내 캐릭터라면
+    {
+        DeferredCharacter->SetActorLocation(Position);
+    }
 
     AOtherCharacter* OtherPlayer = nullptr;
 
@@ -134,10 +139,6 @@ void AMyNetworkGameMode::HandleInitialPositionReceived(int32 ClientId, FVector P
 
         UE_LOG(LogTemp, Warning, TEXT("[NetworkGameMode] Character Deferred Spawn Done, Initial Position Setting"));
 
-        // (선택) 추가 초기화 - Velocity, State 설정하고 싶으면 여기서
-        // DeferredCharacter->SetInitialVelocity(Velocity);
-        // DeferredCharacter->SetInitialState(State);
-
         UGameplayStatics::FinishSpawningActor(DeferredCharacter, SpawnTransform);
 
         UE_LOG(LogTemp, Warning, TEXT("[NetworkGameMode] Character Finish Spawning Done"));
@@ -148,7 +149,6 @@ void AMyNetworkGameMode::HandleInitialPositionReceived(int32 ClientId, FVector P
         DeferredCharacter->SetActorLocation(Position);
     }
 }
-
 
 AOtherCharacter* AMyNetworkGameMode::SpawnOtherPlayerCharacter(int32 ClientId, const FVector& SpawnPosition)
 {

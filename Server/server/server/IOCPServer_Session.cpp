@@ -13,7 +13,10 @@ ClientSession* IOCPServer::CreateSession(SOCKET socket, SOCKADDR_IN addr)
     client->PreviousState = client->State;
     client->Rotation = { 0.0f, 0.0f, 0.0f };
     client->LastUpdateTime = GetTickCount64() / 1000.0f;
-    client->LastPingTime = GetTickCount64() / 1000.0f;
+    float now = GetTickCount64() / 1000.0f;
+    client->LastPingTime = now;
+    client->LastPongTime = now;
+
     ZeroMemory(&client->overlapped, sizeof(WSAOVERLAPPED));
 
     if (SpawnPositions.empty())
@@ -42,9 +45,12 @@ void IOCPServer::RemoveClient(int clientId)
     if (it != clients.end())
     {
         ClientSession* client = it->second;
+
+        shutdown(client->socket, SD_BOTH);
+
         closesocket(client->socket);
         LOG_INFO("클라이언트 연결 끊김 (ID: " + std::to_string(client->id) + ")");
-
+        
         // 다른 클라이언트들에게 연결 끊김 알림
         NotifyClientDisconnect(clientId);
 

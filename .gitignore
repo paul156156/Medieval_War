@@ -132,7 +132,12 @@ Plugins/**/Intermediate/*
 # End of https://www.toptal.com/developers/gitignore/api/unrealengine
 /Server/Dummy/Binaries
 /Server/Dummy/Intermediate
+/Server/Dummy/Plugins/SimpleNetworking/Binaries
 /Server/Dummy/Plugins/SimpleNetworking/Intermediate
 /Server/Dummy/Content/ParagonGreystone
+/Server/Dummy/Saved/Logs
 /Server/Dummy/Saved/Cooked/Windows/Dummy/Content/ParagonGreystone
 /Server/Dummy/Content/StarterContent
+/Server/server/server/x64
+/Server/Dummy/Saved/Config/CrashReportClient
+

@@ -1,0 +1,118 @@
+[11:53:58.956] [INFO] 로깅 시스템 초기화됨
+[11:53:58.957] [INFO] 서버 인스턴스 생성됨
+[11:53:58.957] [INFO] 서버 초기화 시작 (포트: 9000)
+[11:53:58.958] [INFO] 윈속 초기화 성공
+[11:53:58.959] [INFO] 리스닝 소켓 생성 성공
+[11:53:58.959] [INFO] 소켓 바인딩 성공 (포트: 9000)
+[11:53:58.959] [INFO] 리스닝 시작됨
+[11:53:58.960] [INFO] IOCP 생성 성공
+[11:53:58.960] [INFO] CPU 코어 수: 16, 생성할 작업자 스레드: 16
+[11:53:58.960] [INFO] 작업자 스레드 #1 생성됨
+[11:53:58.960] [INFO] 작업자 스레드 시작 (ThreadID: 26244)
+[11:53:58.960] [INFO] 작업자 스레드 #2 생성됨
+[11:53:58.961] [INFO] 작업자 스레드 시작 (ThreadID: 2504)
+[11:53:58.961] [INFO] 작업자 스레드 #3 생성됨
+[11:53:58.961] [INFO] 작업자 스레드 시작 (ThreadID: 30272)
+[11:53:58.961] [INFO] 작업자 스레드 #4 생성됨
+[11:53:58.961] [INFO] 작업자 스레드 시작 (ThreadID: 35452)
+[11:53:58.962] [INFO] 작업자 스레드 #5 생성됨
+[11:53:58.962] [INFO] 작업자 스레드 시작 (ThreadID: 35412)
+[11:53:58.962] [INFO] 작업자 스레드 #6 생성됨
+[11:53:58.962] [INFO] 작업자 스레드 시작 (ThreadID: 33964)
+[11:53:58.962] [INFO] 작업자 스레드 #7 생성됨
+[11:53:58.963] [INFO] 작업자 스레드 시작 (ThreadID: 29440)
+[11:53:58.963] [INFO] 작업자 스레드 #8 생성됨
+[11:53:58.963] [INFO] 작업자 스레드 시작 (ThreadID: 5656)
+[11:53:58.963] [INFO] 작업자 스레드 #9 생성됨
+[11:53:58.963] [INFO] 작업자 스레드 시작 (ThreadID: 30104)
+[11:53:58.963] [INFO] 작업자 스레드 #10 생성됨
+[11:53:58.964] [INFO] 작업자 스레드 시작 (ThreadID: 35544)
+[11:53:58.964] [INFO] 작업자 스레드 #11 생성됨
+[11:53:58.964] [INFO] 작업자 스레드 시작 (ThreadID: 4392)
+[11:53:58.964] [INFO] 작업자 스레드 #12 생성됨
+[11:53:58.964] [INFO] 작업자 스레드 시작 (ThreadID: 34256)
+[11:53:58.965] [INFO] 작업자 스레드 #13 생성됨
+[11:53:58.965] [INFO] 작업자 스레드 시작 (ThreadID: 31308)
+[11:53:58.965] [INFO] 작업자 스레드 #14 생성됨
+[11:53:58.965] [INFO] 작업자 스레드 시작 (ThreadID: 34204)
+[11:53:58.965] [INFO] 작업자 스레드 #15 생성됨
+[11:53:58.965] [INFO] 작업자 스레드 시작 (ThreadID: 27680)
+[11:53:58.966] [INFO] 작업자 스레드 #16 생성됨
+[11:53:58.966] [INFO] 작업자 스레드 시작 (ThreadID: 32412)
+[11:53:58.966] [INFO] 서버 초기화 완료
+[11:53:58.966] [INFO] 서버 실행. 포트 번호: 9000
+[11:53:58.966] [INFO] IOCP 멀티플레이어 서버 시작됨...
+[11:53:58.967] [INFO] 서버 실행 시작
+[11:54:10.252] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: SendClientId, 보낸 크기: 7, 클라이언트 ID: 1
+[11:54:10.252] [INFO] 새 클라이언트에게 ID 1 전송됨
+[11:54:10.253] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: SendInitialPosition, 보낸 크기: 32, 클라이언트 ID: 1
+[11:54:10.253] [INFO] 초기 위치 정보 전송됨 - 클라이언트 ID: 1, 위치: X=0.000000, Y=0.000000, Z=90.000000
+[11:54:10.253] [INFO] 새 플레이어 정보(ID: 1) 브로드캐스트 - 수신자 수: 0
+[11:54:10.253] [INFO] 기존 플레이어 정보 0개가 새 클라이언트(ID: 1)에게 전송됨
+[11:54:10.254] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:54:10.254] [INFO] 위치 업데이트 - 클라이언트 ID: 1, 위치: X=0.000000, Y=0.000000, Z=90.000000, 속도: X=0.000000, Y=0.000000, Z=0.000000
+[11:54:10.254] [INFO] 서버 FPS: 0.177289, 평균 프레임 시간: 1128.099976ms, 클라이언트 수: 1
+[11:54:10.583] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:54:10.583] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: false
+[11:54:10.916] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:54:10.916] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: false
+[11:54:11.249] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:54:11.249] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: false
+[11:54:11.583] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:54:11.584] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: false
+[11:54:11.916] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:54:11.916] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: false
+[11:54:12.249] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:54:12.250] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: false
+[11:54:12.582] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:54:12.583] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: false
+[11:54:12.917] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:54:12.918] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: false
+[11:54:13.249] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:54:13.250] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: false
+[11:54:13.582] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:54:13.583] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: false
+[11:54:13.916] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:54:13.916] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: false
+[11:54:14.249] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:54:14.250] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: false
+[11:54:14.583] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:54:14.583] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: false
+[11:54:14.916] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:54:14.916] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: false
+[11:54:15.249] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:54:15.250] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: false
+[11:54:15.582] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:54:15.583] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: false
+[11:54:15.916] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:54:15.916] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: false
+[11:54:16.250] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:54:16.250] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: false
+[11:54:16.584] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:54:16.584] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: false
+[11:54:16.916] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:54:16.916] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: false
+[11:54:17.250] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:54:17.251] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: false
+[11:54:17.584] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:54:17.584] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: false
+[11:54:17.916] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:54:17.916] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: false
+[11:54:18.249] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:54:18.249] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: false
+[11:54:18.582] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:54:18.583] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: false
+[11:54:18.917] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:54:18.917] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: false
+[11:54:19.249] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:54:19.249] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: false
+[11:54:19.583] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:54:19.584] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: false
+[11:54:19.916] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:54:19.917] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: false
+[11:54:20.250] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:54:20.250] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: false
+[11:54:20.583] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:54:20.584] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: false
+[11:54:20.917] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:54:20.917] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: false

@@ -35,6 +35,7 @@ private:
     void SendExistingPlayerList(ClientSession* newClient);  // 기존 플레이어 정보 전송
     void RemoveClient(int clientId);  // 클라이언트 제거
     void NotifyClientDisconnect(int disconnectedClientId);  // 클라이언트 연결 끊김 알림
+	void SendPong(ClientSession* client);  // Pong 패킷 전송
 
     // 게임 로직 메서드
     void HandleInputPacket(ClientSession* client, const InputPacket* packet);  // 입력 패킷 처리

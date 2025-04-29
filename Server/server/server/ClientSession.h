@@ -23,7 +23,8 @@ struct ClientSession {
     Vec3 Velocity;                // 현재 속도
 
     float LastUpdateTime;         // 마지막 업데이트 시간
-    float LastPingTime;           // 마지막으로 Ping 받은 시간
+	float LastPingTime;           // 마지막 Ping 보낸 시간
+    float LastPongTime;           // 마지막으로 Pong 받은 시간
 
     // 입력 데이터
     float InputForward = 0.0f;    // 전/후 입력값

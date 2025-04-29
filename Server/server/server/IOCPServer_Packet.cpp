@@ -98,6 +98,23 @@ void IOCPServer::SendExistingPlayerList(ClientSession* newClient)
         ")에게 전송됨");
 }
 
+void IOCPServer::SendPong(ClientSession* client)
+{
+    if (!client) return;
+
+    PongPacket pongPacket;
+    pongPacket.Header.PacketType = EPacketType::PONG;
+    pongPacket.Header.PacketSize = sizeof(PongPacket);
+    pongPacket.ClientId = client->id;
+    pongPacket.PingTime = GetTickCount64();
+
+    client->LastPongTime = GetTickCount64() / 1000.0f; // 초 단위로 기록
+
+    SendPacket(client, &pongPacket, sizeof(pongPacket), "ServerPong");
+
+    LOG_INFO("[Packet] Pong 전송 - ClientId: " + std::to_string(client->id));
+}
+
 void IOCPServer::ProcessPacket(ClientSession* client, char* data, int length)
 {
     if (length < sizeof(PacketHeader))
@@ -125,17 +142,13 @@ void IOCPServer::ProcessPacket(ClientSession* client, char* data, int length)
         if (length >= sizeof(PingPacket))
         {
             PingPacket* pingPacket = reinterpret_cast<PingPacket*>(data);
-            client->LastPingTime = GetTickCount64() / 1000.0f;  // 서버시간으로 갱신
 
-            PongPacket pongPacket;
-            pongPacket.Header.PacketType = EPacketType::PONG;
-            pongPacket.Header.PacketSize = sizeof(PongPacket);
-            pongPacket.ClientId = pingPacket->ClientId;
-            pongPacket.PingTime = pingPacket->PingTime;
+            LOG_DEBUG("[ProcessPacket] Ping 수신, ClientId: " + std::to_string(client->id));
 
-            SendPacket(client, &pongPacket, sizeof(pongPacket), "SendPong");
+            client->LastPingTime = GetTickCount64() / 1000.0f;
 
-            LOG_DEBUG("[서버] PingPacket 수신 - ClientId: " + std::to_string(client->id));
+            // 다음 Ping 준비
+            SendPong(client);
         }
         else
         {
@@ -173,7 +186,7 @@ void IOCPServer::HandleInputPacket(ClientSession* client, const InputPacket* pac
     if (!client || !packet)
         return;
 
-    LOG_DEBUG("입력 패킷 수신 - 클라이언트 ID: " + std::to_string(client->id) +
+    LOG_INFO("입력 패킷 수신 - 클라이언트 ID: " + std::to_string(client->id) +
         ", Forward: " + std::to_string(packet->ForwardValue) +
         ", Right: " + std::to_string(packet->RightValue) +
 		", Yaw: " + std::to_string(packet->ControlRotationYaw) +
