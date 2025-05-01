@@ -112,7 +112,7 @@ void IOCPServer::SendPong(ClientSession* client)
 
     SendPacket(client, &pongPacket, sizeof(pongPacket), "ServerPong");
 
-    LOG_INFO("[Packet] Pong 전송 - ClientId: " + std::to_string(client->id));
+    LOG_DEBUG("[Packet] Pong 전송 - ClientId: " + std::to_string(client->id));
 }
 
 void IOCPServer::ProcessPacket(ClientSession* client, char* data, int length)
@@ -186,7 +186,7 @@ void IOCPServer::HandleInputPacket(ClientSession* client, const InputPacket* pac
     if (!client || !packet)
         return;
 
-    LOG_INFO("입력 패킷 수신 - 클라이언트 ID: " + std::to_string(client->id) +
+    LOG_DEBUG("입력 패킷 수신 - 클라이언트 ID: " + std::to_string(client->id) +
         ", Forward: " + std::to_string(packet->ForwardValue) +
         ", Right: " + std::to_string(packet->RightValue) +
 		", Yaw: " + std::to_string(packet->ControlRotationYaw) +
@@ -196,6 +196,7 @@ void IOCPServer::HandleInputPacket(ClientSession* client, const InputPacket* pac
     // 이동 입력 저장
     client->InputForward = packet->ForwardValue;
     client->InputRight = packet->RightValue;
+	client->ControlRotationYaw = packet->ControlRotationYaw;
     client->bJumpRequested = packet->bJumpPressed;
     client->bAttackRequested = packet->bAttackPressed;
 

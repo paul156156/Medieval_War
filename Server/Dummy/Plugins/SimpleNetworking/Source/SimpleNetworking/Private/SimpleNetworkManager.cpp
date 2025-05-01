@@ -137,14 +137,14 @@ void USimpleNetworkManager::HandleIncomingPacket(const uint8* Data, int32 Size)
             const FClientIdPacket* ClientIdPacket = reinterpret_cast<const FClientIdPacket*>(Data + Offset);
             Replicator->HandleClientIdPacket(ClientIdPacket);
             LocalClientId = ClientIdPacket->ClientId;
-            UE_LOG(LogSimpleNetwork, Display, TEXT("[SimpleNetworkManager] Client ID assigned: %d"), ClientIdPacket->ClientId);
+            //UE_LOG(LogSimpleNetwork, Display, TEXT("[SimpleNetworkManager] Client ID assigned: %d"), ClientIdPacket->ClientId);
         }
         break;
         case EPacketType::DISCONNECT:
         {
             const FDisconnectPacket* DisconnectPacket = reinterpret_cast<const FDisconnectPacket*>(Data + Offset);
             Replicator->HandleDisconnectPacket(DisconnectPacket);
-            UE_LOG(LogSimpleNetwork, Display, TEXT("[SimpleNetworkManager] Player disconnected - Client ID: %d"), DisconnectPacket->ClientId);
+            //UE_LOG(LogSimpleNetwork, Display, TEXT("[SimpleNetworkManager] Player disconnected - Client ID: %d"), DisconnectPacket->ClientId);
         }
         break;
         case EPacketType::PONG:
@@ -154,21 +154,21 @@ void USimpleNetworkManager::HandleIncomingPacket(const uint8* Data, int32 Size)
             double Now = FPlatformTime::Seconds();
             double RTT = Now - PongPacket->PingTime;
 
-            UE_LOG(LogSimpleNetwork, Display, TEXT("[SimpleNetworkManager] Pong Received - RTT: %f sec (ClientId: %d)"), RTT, PongPacket->ClientId);
+            //UE_LOG(LogSimpleNetwork, Display, TEXT("[SimpleNetworkManager] Pong Received - RTT: %f sec (ClientId: %d)"), RTT, PongPacket->ClientId);
         }
         break;
-        case EPacketType::PLAYER_INIT_INFO:
-        {
-            const FPositionPacket* InitPacket = reinterpret_cast<const FPositionPacket*>(Data + Offset);
-            Replicator->HandleInitialPositionPacket(InitPacket);
-            UE_LOG(LogSimpleNetwork, Display, TEXT("[SimpleNetworkManager] Player Initial Position Received"));
-        }
-        break;
+        //case EPacketType::PLAYER_INIT_INFO:
+        //{
+        //    const FPositionPacket* InitPacket = reinterpret_cast<const FPositionPacket*>(Data + Offset);
+        //    Replicator->HandleInitialPositionPacket(InitPacket);
+        //    //UE_LOG(LogSimpleNetwork, Display, TEXT("[SimpleNetworkManager] Player Initial Position Received"));
+        //}
+        //break;
         case EPacketType::PLAYER_POSITION_INFO:
         {
             const FPositionPacket* PositionPacket = reinterpret_cast<const FPositionPacket*>(Data + Offset);
             Replicator->HandlePositionPacket(PositionPacket);
-            UE_LOG(LogSimpleNetwork, Display, TEXT("[SimpleNetworkManager] Player Position Update"));
+            //UE_LOG(LogSimpleNetwork, Display, TEXT("[SimpleNetworkManager] Player Position Update"));
         }
         break;
         default:

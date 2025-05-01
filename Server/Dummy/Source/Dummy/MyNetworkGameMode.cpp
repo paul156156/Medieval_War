@@ -92,7 +92,7 @@ void AMyNetworkGameMode::HandlePlayerDisconnected(int32 ClientId)
     }
 }
 
-void AMyNetworkGameMode::HandlePlayerPositionUpdated(int32 ClientId, FVector Position, FVector Velocity, EPlayerState State, float Timestamp)
+void AMyNetworkGameMode::HandlePlayerPositionUpdated(int32 ClientId, FVector Position, float Yaw, float Roll, FVector Velocity, EPlayerState State, float Timestamp)
 {
     //if (ClientId == LocalClientId)
     //    return;
@@ -110,12 +110,12 @@ void AMyNetworkGameMode::HandlePlayerPositionUpdated(int32 ClientId, FVector Pos
     }
     else
     {
-        OtherPlayer = SpawnOtherPlayerCharacter(ClientId, Position);
+        OtherPlayer = SpawnOtherPlayerCharacter(ClientId, Position, Yaw, Roll);
     }
 
     if (OtherPlayer)
     {
-        OtherPlayer->UpdateTransform(Position, Velocity);
+        OtherPlayer->UpdateTransform(Position, Yaw, Roll, Velocity);
         OtherPlayer->UpdateAnimationState(State);
     }
 }
@@ -150,7 +150,7 @@ void AMyNetworkGameMode::HandleInitialPositionReceived(int32 ClientId, FVector P
     }
 }
 
-AOtherCharacter* AMyNetworkGameMode::SpawnOtherPlayerCharacter(int32 ClientId, const FVector& SpawnPosition)
+AOtherCharacter* AMyNetworkGameMode::SpawnOtherPlayerCharacter(int32 ClientId, const FVector& SpawnPosition, const float& SpawnYaw, const float& SpawnRoll)
 {
     if (!OtherPlayerCharacterClass)
     {
@@ -166,7 +166,7 @@ AOtherCharacter* AMyNetworkGameMode::SpawnOtherPlayerCharacter(int32 ClientId, c
     if (NewOtherPlayer)
     {
         OtherPlayers.Add(ClientId, NewOtherPlayer);
-        NewOtherPlayer->UpdateTransform(SpawnPosition, FVector::ZeroVector);
+        NewOtherPlayer->UpdateTransform(SpawnPosition, SpawnYaw, SpawnRoll, FVector::ZeroVector);
     }
 
     return NewOtherPlayer;

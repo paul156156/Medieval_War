@@ -21,6 +21,7 @@ struct ClientSession {
     Vec3 LastPosition;            // 이전 위치
     Rot3 Rotation;                // 현재 회전값
     Vec3 Velocity;                // 현재 속도
+	Vec3 PreviousVelocity;        // 이전 속도
 
     float LastUpdateTime;         // 마지막 업데이트 시간
 	float LastPingTime;           // 마지막 Ping 보낸 시간

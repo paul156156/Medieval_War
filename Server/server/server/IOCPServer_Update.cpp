@@ -90,7 +90,7 @@ void IOCPServer::Update(float DeltaTime)
             client->Position.Y += client->Velocity.Y * DeltaTime;
             client->Position.Z += client->Velocity.Z * DeltaTime;
 
-            LOG_INFO("위치 업데이트 - 클라이언트 ID: " + std::to_string(client->id) +
+            LOG_DEBUG("위치 업데이트 - 클라이언트 ID: " + std::to_string(client->id) +
                 ", 위치: X=" + std::to_string(client->Position.X) +
                 ", Y=" + std::to_string(client->Position.Y) +
                 ", Z=" + std::to_string(client->Position.Z) +
@@ -114,7 +114,7 @@ void IOCPServer::Update(float DeltaTime)
             }
 
             // 월드 경계 충돌 처리 (예시: -5000~5000)
-            const float WorldBoundary = 1000.0f;
+            const float WorldBoundary = 5000.0f;
             if (client->Position.X < -WorldBoundary) client->Position.X = -WorldBoundary;
             if (client->Position.X > WorldBoundary) client->Position.X = WorldBoundary;
             if (client->Position.Y < -WorldBoundary) client->Position.Y = -WorldBoundary;
@@ -131,12 +131,25 @@ void IOCPServer::Update(float DeltaTime)
             // 충분히 이동했거나, 상태가 변경되었거나, 일정 시간이 지난 경우에만 브로드캐스트
             const float UpdateInterval = 0.1f; // 최대 0.1초마다 업데이트
             float currentTime = GetTickCount64() / 1000.0f;
+
+            float velocitySq = client->Velocity.X * client->Velocity.X +
+                client->Velocity.Y * client->Velocity.Y +
+                client->Velocity.Z * client->Velocity.Z;
+
+            float prevVelocitySq = client->PreviousVelocity.X * client->PreviousVelocity.X +
+                client->PreviousVelocity.Y * client->PreviousVelocity.Y +
+                client->PreviousVelocity.Z * client->PreviousVelocity.Z;
+
+            bool bWasMoving = prevVelocitySq > 1.0f;      // 이전에 움직이고 있었는지
+            bool bIsNowStopped = velocitySq <= 1.0f;       // 현재 멈췄는지
+
             if (distMoved > MinUpdateDistance ||
                 client->State != client->PreviousState ||
+                bWasMoving && bIsNowStopped ||  // 새로 추가된 조건
                 currentTime - client->LastUpdateTime > UpdateInterval)
             {
 
-                LOG_INFO("[서버] BroadcastPosition 준비 완료 - ClientId: " + std::to_string(client->id) +
+                LOG_DEBUG("[서버] BroadcastPosition 준비 완료 - ClientId: " + std::to_string(client->id) +
                     ", distMoved: " + std::to_string(distMoved) +
                     ", State: " + std::to_string((int)client->State) +
                     ", TimeSinceLastUpdate: " + std::to_string(currentTime - client->LastUpdateTime));
@@ -144,6 +157,7 @@ void IOCPServer::Update(float DeltaTime)
 
                 client->LastUpdateTime = currentTime;
                 client->PreviousState = client->State;
+                client->PreviousVelocity = client->Velocity;  // ← 꼭 갱신해줘야 함
 
                 // 클라이언트에 위치 정보 전송
                 BroadcastPosition(client);
@@ -151,6 +165,7 @@ void IOCPServer::Update(float DeltaTime)
 
             client->bJumpRequested = false;
             client->bAttackRequested = false;
+            client->PreviousVelocity = client->Velocity;
         }
     }
     for (int clientId : ClientsToRemove) {
@@ -165,10 +180,12 @@ void IOCPServer::BroadcastPosition(ClientSession* sourceClient)
     packet.Header.PacketSize = sizeof(PositionPacket);
     packet.ClientId = sourceClient->id;
     packet.Position = sourceClient->Position;
+	packet.Yaw = sourceClient->ControlRotationYaw;
+	packet.Roll = sourceClient->Rotation.Roll;
     packet.Velocity = sourceClient->Velocity;
     packet.State = sourceClient->State;
 
-    LOG_INFO("[서버] BroadcastPosition 호출 - ClientId: " + std::to_string(sourceClient->id) +
+    LOG_DEBUG("[서버] BroadcastPosition 호출 - ClientId: " + std::to_string(sourceClient->id) +
         ", Position: (" + std::to_string(sourceClient->Position.X) + ", " +
         std::to_string(sourceClient->Position.Y) + ", " +
         std::to_string(sourceClient->Position.Z) + ")");
@@ -187,7 +204,7 @@ void IOCPServer::BroadcastPosition(ClientSession* sourceClient)
             continue;
         }
 
-        LOG_INFO("[서버] PositionUpdatePacket 전송 - From ClientId: " + std::to_string(sourceClient->id) +
+        LOG_DEBUG("[서버] PositionUpdatePacket 전송 - From ClientId: " + std::to_string(sourceClient->id) +
             " To ClientId: " + std::to_string(targetClient->id));
 
         // 비동기 전송

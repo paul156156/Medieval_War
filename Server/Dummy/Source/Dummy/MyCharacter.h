@@ -45,6 +45,9 @@ public:
     float CurrentControlRotationYaw;
 
     UPROPERTY(BlueprintReadOnly, Category = "Input")
+    float CurrentControlRotationRoll;
+
+    UPROPERTY(BlueprintReadOnly, Category = "Input")
     bool bJumpPressed;
 
     UPROPERTY(BlueprintReadOnly, Category = "Input")
@@ -84,6 +87,14 @@ protected:
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
     bool bIsAttacking;
+
+    // 입력 변화 감지용 상태 저장 변수들
+    float PrevForwardValue = 0.0f;
+    float PrevRightValue = 0.0f;
+    bool bPrevJumpPressed = false;
+    bool bPrevAttackPressed = false;
+    bool bWasMoving = false;
+
 
     /** 입력 처리 함수 */
     void Move(const FInputActionValue& Value);

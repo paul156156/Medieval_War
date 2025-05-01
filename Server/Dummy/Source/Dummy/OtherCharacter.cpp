@@ -37,7 +37,9 @@ void AOtherCharacter::Tick(float DeltaTime)
 
     SetActorLocation(NewLocation);
 
-    // Velocity는 GetCharacterMovement()->Velocity로 이미 적용 중
+    FRotator NewRotation = FMath::RInterpTo(GetActorRotation(), TargetRotation, DeltaTime, InterpSpeed);
+    SetActorRotation(NewRotation);
+
 }
 
 void AOtherCharacter::UpdateAnimationState(EPlayerState NewState)
@@ -66,20 +68,28 @@ void AOtherCharacter::UpdateAnimationState(EPlayerState NewState)
     }
 }
 
-void AOtherCharacter::UpdateTransform(const FVector& NewPosition, const FVector& NewVelocity)
+void AOtherCharacter::UpdateTransform(const FVector& NewPosition, const float& NewYaw, const float& NewRoll, const FVector& NewVelocity)
 {
     TargetPosition = NewPosition;
     PositionInterpolationTime = 0.0f;
-    bInterpEnabled = true;
+
+    bInterpEnabled = !NewVelocity.IsNearlyZero();
 
     if (GetCharacterMovement())
     {
         GetCharacterMovement()->Velocity = NewVelocity;
     }
 
-    UE_LOG(LogTemp, Display, TEXT("[UpdateTransform] %s - Pos: (%.1f, %.1f, %.1f), Vel: (%.1f, %.1f, %.1f)"),
+    // Yaw 회전 적용
+    FRotator TargetRot = GetActorRotation();
+    TargetRot.Yaw = NewYaw;
+    TargetRot.Roll = NewRoll;
+    SetActorRotation(TargetRot);
+
+    UE_LOG(LogTemp, Display, TEXT("[UpdateTransform] %s - Pos: (%.1f, %.1f, %.1f), Yaw: %.1f, Roll: %.1f, Vel: (%.1f, %.1f, %.1f)"),
         *GetName(),
         NewPosition.X, NewPosition.Y, NewPosition.Z,
+        NewYaw, NewRoll,
         NewVelocity.X, NewVelocity.Y, NewVelocity.Z
     );
 }
