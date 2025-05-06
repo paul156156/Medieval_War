@@ -1,0 +1,26 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\users\\blues\\desktop\\dummy\\intermediate\\build\\win64\\unrealeditor\\inc\\dummy\\uht\\othercharacter.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\users\\blues\\desktop\\dummy\\intermediate\\build\\win64\\x64\\dummyeditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
+        "Includes": [
+            "c:\\users\\blues\\desktop\\dummy\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\dummy\\definitions.dummy.h",
+            "c:\\users\\blues\\desktop\\dummy\\source\\dummy\\othercharacter.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\engine\\classes\\gameframework\\character.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\engine\\classes\\gameframework\\charactermovementreplication.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\net\\core\\public\\net\\core\\nettoken\\nettokenexportcontext.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\experimental\\iris\\core\\public\\iris\\serialization\\irisobjectreferencepackagemap.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\iriscore\\uht\\irisobjectreferencepackagemap.generated.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\charactermovementreplication.generated.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\source\\runtime\\engine\\classes\\gameframework\\rootmotionsource.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\rootmotionsource.generated.h",
+            "c:\\program files\\epic games\\ue_5.5\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\character.generated.h",
+            "c:\\users\\blues\\desktop\\dummy\\plugins\\simplenetworking\\source\\simplenetworking\\public\\networktypes.h",
+            "c:\\users\\blues\\desktop\\dummy\\plugins\\simplenetworking\\intermediate\\build\\win64\\unrealeditor\\inc\\simplenetworking\\uht\\networktypes.generated.h",
+            "c:\\users\\blues\\desktop\\dummy\\intermediate\\build\\win64\\unrealeditor\\inc\\dummy\\uht\\othercharacter.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

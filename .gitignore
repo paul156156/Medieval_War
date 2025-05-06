@@ -130,3 +130,7 @@ Plugins/**/Binaries/*
 Plugins/**/Intermediate/*
 
 # End of https://www.toptal.com/developers/gitignore/api/unrealengine
+/Server/Dummy/Content/ParagonGreystone
+/Server/Dummy/Saved/Cooked/Windows/Dummy/Content/ParagonGreystone
+/Server/Dummy/Plugins/SimpleNetworking/Binaries
+/Server/Dummy/Binaries

@@ -1,0 +1,14 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\users\\blues\\desktop\\dummy\\source\\dummy\\dummy.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\users\\blues\\desktop\\dummy\\intermediate\\build\\win64\\x64\\dummy\\development\\engine\\sharedpch.engine.project.valapi.cpp20.h.pch",
+        "Includes": [
+            "c:\\users\\blues\\desktop\\dummy\\intermediate\\build\\win64\\x64\\unrealgame\\development\\dummy\\definitions.dummy.h",
+            "c:\\users\\blues\\desktop\\dummy\\source\\dummy\\dummy.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

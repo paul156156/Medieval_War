@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\Dummy.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{F31BBDD1-B3E8-3BCC-9652-680E16935819}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\Dummy.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\DummyEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\.editorconfig" />
+    <None Include="..\..\.vsconfig" />
+    <None Include="..\..\shadertoolsconfig.json" />
+    <None Include="..\..\UpgradeLog.htm" />
+    <Filter Include="Config">
+      <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Plugins">
+      <UniqueIdentifier>{BB38096A-B391-30DC-A0D4-4F3EA6B44507}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\SimpleNetworking">
+      <UniqueIdentifier>{21513597-D949-3A3B-A0A8-64215AE82EC6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\SimpleNetworking\Source">
+      <UniqueIdentifier>{64B2DACC-889A-3F88-9F31-E152F3C8BF74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\SimpleNetworking\Source\SimpleNetworking">
+      <UniqueIdentifier>{819D4DA3-E4BC-3EEC-B0C3-7E336754E9E1}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\SimpleNetworking.build.cs">
+      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking</Filter>
+    </None>
+    <Filter Include="Plugins\SimpleNetworking\Source\SimpleNetworking\Private">
+      <UniqueIdentifier>{6B3C7139-F0C2-3668-8B2C-54A4304DDADD}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\Private\SimpleNetworking.cpp">
+      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\Private\SimpleNetworkManager.cpp">
+      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\Private\SimpleNetworkReplicator.cpp">
+      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\Private</Filter>
+    </ClCompile>
+    <Filter Include="Plugins\SimpleNetworking\Source\SimpleNetworking\Public">
+      <UniqueIdentifier>{4CB92460-5F3F-34C1-AA1A-4438F3EB08DA}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\Public\NetworkTypes.h">
+      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\Public\SimpleNetworking.h">
+      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\Public\SimpleNetworkManager.h">
+      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\SimpleNetworking\Source\SimpleNetworking\Public\SimpleNetworkReplicator.h">
+      <Filter>Plugins\SimpleNetworking\Source\SimpleNetworking\Public</Filter>
+    </ClCompile>
+    <None Include="..\..\Plugins\SimpleNetworking\SimpleNetworking.uplugin">
+      <Filter>Plugins\SimpleNetworking</Filter>
+    </None>
+    <Filter Include="Source\Dummy">
+      <UniqueIdentifier>{B618454E-E517-3F25-8385-3F1CB2AC2FA9}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\Dummy\Dummy.Build.cs">
+      <Filter>Source\Dummy</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\Dummy\Dummy.cpp">
+      <Filter>Source\Dummy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Dummy\Dummy.h">
+      <Filter>Source\Dummy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Dummy\MyCharacter.cpp">
+      <Filter>Source\Dummy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Dummy\MyCharacter.h">
+      <Filter>Source\Dummy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Dummy\MyGameMode.cpp">
+      <Filter>Source\Dummy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Dummy\MyGameMode.h">
+      <Filter>Source\Dummy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Dummy\MyNetworkGameMode.cpp">
+      <Filter>Source\Dummy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Dummy\MyNetworkGameMode.h">
+      <Filter>Source\Dummy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Dummy\OtherCharacter.cpp">
+      <Filter>Source\Dummy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Dummy\OtherCharacter.h">
+      <Filter>Source\Dummy</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

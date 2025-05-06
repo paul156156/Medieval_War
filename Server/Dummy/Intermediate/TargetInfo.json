@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "Dummy",
+			"Path": "..\\Source\\Dummy.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "DummyEditor",
+			"Path": "..\\Source\\DummyEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}

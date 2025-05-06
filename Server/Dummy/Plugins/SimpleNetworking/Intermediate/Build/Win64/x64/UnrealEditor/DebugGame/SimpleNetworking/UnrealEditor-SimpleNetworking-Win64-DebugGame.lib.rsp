@@ -1,0 +1,15 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UnrealEditor-SimpleNetworking-Win64-DebugGame.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"C:\Users\Blues\Documents\GitHub\Medieval_War\Server\Dummy\Intermediate\Build\Win64\x64\DummyEditor\DebugGame\UnrealEd\SharedPCH.UnrealEd.Project.NonOptimized.ValApi.Cpp20.h.obj"
+"C:\Users\Blues\Documents\GitHub\Medieval_War\Server\Dummy\Plugins\SimpleNetworking\Intermediate\Build\Win64\x64\UnrealEditor\DebugGame\SimpleNetworking\Module.SimpleNetworking.cpp.obj"
+"C:\Users\Blues\Documents\GitHub\Medieval_War\Server\Dummy\Plugins\SimpleNetworking\Intermediate\Build\Win64\x64\UnrealEditor\DebugGame\SimpleNetworking\SimpleNetworking.cpp.obj"
+"C:\Users\Blues\Documents\GitHub\Medieval_War\Server\Dummy\Plugins\SimpleNetworking\Intermediate\Build\Win64\x64\UnrealEditor\DebugGame\SimpleNetworking\SimpleNetworkManager.cpp.obj"
+"C:\Users\Blues\Documents\GitHub\Medieval_War\Server\Dummy\Plugins\SimpleNetworking\Intermediate\Build\Win64\x64\UnrealEditor\DebugGame\SimpleNetworking\SimpleNetworkReplicator.cpp.obj"
+"C:\Users\Blues\Documents\GitHub\Medieval_War\Server\Dummy\Plugins\SimpleNetworking\Intermediate\Build\Win64\x64\UnrealEditor\DebugGame\SimpleNetworking\Default.rc2.res"
+/OUT:"C:\Users\Blues\Documents\GitHub\Medieval_War\Server\Dummy\Plugins\SimpleNetworking\Intermediate\Build\Win64\x64\UnrealEditor\DebugGame\SimpleNetworking\UnrealEditor-SimpleNetworking-Win64-DebugGame.lib"
