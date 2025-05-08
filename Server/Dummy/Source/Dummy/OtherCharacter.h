@@ -23,7 +23,7 @@ public:
 
     // 위치 및 회전 업데이트
     UFUNCTION(BlueprintCallable, Category = "Networking")
-    void UpdateTransform(const FVector& NewPosition, const float& NewYaw, const float& NewRoll, const FVector& NewVelocity);
+    void UpdateTransform(const FVector& NewPosition, const FVector& NewVelocity);
 
     // 현재 상태
     UPROPERTY(BlueprintReadOnly, Category = "Animation")
@@ -35,7 +35,6 @@ public:
 private:
     // 보간을 위한 변수
     FVector TargetPosition;
-	FRotator TargetRotation;
     bool bInterpEnabled = false;
     float PositionInterpolationTime;
 };

@@ -68,8 +68,9 @@ void AMyCharacter::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
 
+    // 인스턴스별 타이머를 사용
     LogTimer += DeltaTime;
-    if (LogTimer >= 5.0f)
+    if (LogTimer >= 5.0f)  // 1초마다 로그
     {
         LogTimer = 0.0f;
         UE_LOG(LogTemp, Display, TEXT("[My Character] ClientId %d, Position: X=%.2f, Y=%.2f, Z=%.2f"),
@@ -78,13 +79,10 @@ void AMyCharacter::Tick(float DeltaTime)
 
     if (NetworkManager && NetworkManager->IsConnected())
     {
-        bool bInputChanged =
-            !FMath::IsNearlyEqual(CurrentForwardValue, PrevForwardValue) ||
-            !FMath::IsNearlyEqual(CurrentRightValue, PrevRightValue) ||
-            bJumpPressed != bPrevJumpPressed ||
-            bAttackPressed != bPrevAttackPressed;
-
-        if (bInputChanged)
+        if (CurrentForwardValue != 0.0f ||
+            CurrentRightValue != 0.0f ||
+            bJumpPressed ||
+            bAttackPressed)
         {
             FInputPacket Packet;
             Packet.Header.PacketSize = sizeof(FInputPacket);
@@ -93,23 +91,21 @@ void AMyCharacter::Tick(float DeltaTime)
             Packet.ForwardValue = CurrentForwardValue;
             Packet.RightValue = CurrentRightValue;
             Packet.ControlRotationYaw = CurrentControlRotationYaw;
-            Packet.ControlRotationYaw = CurrentControlRotationRoll;
             Packet.bJumpPressed = bJumpPressed;
             Packet.bAttackPressed = bAttackPressed;
 
             NetworkManager->SendInputPacket(Packet);
 
-            // 이전 값 저장
-            PrevForwardValue = CurrentForwardValue;
-            PrevRightValue = CurrentRightValue;
-            bPrevJumpPressed = bJumpPressed;
-            bPrevAttackPressed = bAttackPressed;
+            //UE_LOG(LogTemp, Display, TEXT("Packet Input Value - Forward: % .2f, Right: % .2f, Yaw: % .2f, Jump: %d, Attack: %d"),
+            // CurrentForwardValue, CurrentRightValue, CurrentControlRotationYaw,
+            // bJumpPressed ? 1 : 0, bAttackPressed ? 1 : 0);
 
-            //UE_LOG(...) 등 로그 출력 가능
+            bJumpPressed = false;
+            bAttackPressed = false;
         }
     }
 
-    // 매 프레임 초기화는 여전히 유지
+    // 매 프레임 전송 후 점프/공격 플래그 초기화
     bJumpPressed = false;
     bAttackPressed = false;
 }

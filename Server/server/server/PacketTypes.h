@@ -84,8 +84,6 @@ struct PositionPacket {
     PacketHeader Header;    // 패킷 헤더
     int32_t ClientId;       // 클라이언트 ID
     Vec3 Position;          // 현재 위치
-	float Yaw;             // 현재 Yaw 회전값
-	float Roll;		   // 현재 Roll 회전값
     Vec3 Velocity;          // 현재 속도
     EPlayerState State;     // 현재 플레이어 상태
 };

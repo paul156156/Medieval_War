@@ -68,10 +68,10 @@ protected:
 	void HandlePlayerDisconnected(int32 ClientId);
 
     UFUNCTION()
-    void HandlePlayerPositionUpdated(int32 ClientId, FVector Position, float Yaw, float Roll, FVector Velocity, EPlayerState State, float Timestamp);
+    void HandlePlayerPositionUpdated(int32 ClientId, FVector Position, FVector Velocity, EPlayerState State, float Timestamp);
 
     UFUNCTION()
 	void HandleInitialPositionReceived(int32 ClientId, FVector Position, FVector Velocity, EPlayerState State);
 
-    AOtherCharacter* SpawnOtherPlayerCharacter(int32 ClientId, const FVector& SpawnPosition, const float& SpawnYaw, const float& SpwanRoll);
+    AOtherCharacter* SpawnOtherPlayerCharacter(int32 ClientId, const FVector& SpawnPosition);
 };
