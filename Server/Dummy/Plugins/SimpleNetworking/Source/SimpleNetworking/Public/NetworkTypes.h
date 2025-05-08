@@ -85,7 +85,6 @@ struct FInputPacket
     float ForwardValue; // W/S
     float RightValue;   // A/D
     float ControlRotationYaw;   // 좌우 회전
-    float ControlRotationRoll;
     bool bJumpPressed;  // 스페이스바
     bool bAttackPressed; // 공격(왼쪽 마우스 클릭)
 };
@@ -95,8 +94,6 @@ struct FPositionPacket
     FPacketHeader Header;
     int32 ClientId;
     FVec3 Position;
-    float Yaw;
-	float Roll;
     FVec3 Velocity;
     EPlayerState State;
 };

@@ -61,15 +61,11 @@ void USimpleNetworkReplicator::HandlePositionPacket(const FPositionPacket* Packe
     }
 
     FVector Position(Packet->Position.X, Packet->Position.Y, Packet->Position.Z);
-	float Yaw = Packet->Yaw;
-	float Roll = Packet->Roll;
     FVector Velocity(Packet->Velocity.X, Packet->Velocity.Y, Packet->Velocity.Z);
 
     OnPlayerPositionUpdated.Broadcast(
         Packet->ClientId,
         Position,
-        Yaw,
-        Roll,
         Velocity,
         Packet->State,
         FPlatformTime::Seconds()

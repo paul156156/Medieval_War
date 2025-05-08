@@ -24,12 +24,10 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(
     EPlayerState, State
 );
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_SevenParams(
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FiveParams(
     FOnPlayerPositionUpdated,
     int32, ClientId,
     FVector, NewPosition,
-    float, NewYaw,
-	float, NewRoll,
     FVector, NewVelocity,
     EPlayerState, State,
     float, Timestamp
