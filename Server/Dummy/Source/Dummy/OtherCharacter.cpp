@@ -12,8 +12,7 @@ AOtherCharacter::AOtherCharacter()
     bUseControllerRotationYaw = false;
     bUseControllerRotationRoll = false;
 
-    GetCharacterMovement()->bOrientRotationToMovement = true;
-    GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.0f, 0.0f);
+    GetCharacterMovement()->bOrientRotationToMovement = false;
 }
 
 void AOtherCharacter::BeginPlay()
@@ -34,8 +33,11 @@ void AOtherCharacter::Tick(float DeltaTime)
 
     FVector CurrentLocation = GetActorLocation();
     FVector NewLocation = FMath::VInterpTo(CurrentLocation, TargetPosition, DeltaTime, InterpSpeed);
-
     SetActorLocation(NewLocation);
+
+    FRotator CurrentRotation = GetActorRotation();
+    FRotator NewRotation = FMath::RInterpTo(CurrentRotation, TargetRotation, DeltaTime, InterpSpeed);
+    SetActorRotation(NewRotation);
 
     // Velocity는 GetCharacterMovement()->Velocity로 이미 적용 중
 }
@@ -47,7 +49,7 @@ void AOtherCharacter::UpdateAnimationState(EPlayerState NewState)
         CurrentState = NewState;
 
         UE_LOG(LogTemp, Display, TEXT("AnimationState Changed to: %s"), *PlayerStateToString(CurrentState));
-
+        
         if (NewState == EPlayerState::JUMPING)
         {
             Jump();
@@ -66,20 +68,20 @@ void AOtherCharacter::UpdateAnimationState(EPlayerState NewState)
     }
 }
 
-void AOtherCharacter::UpdateTransform(const FVector& NewPosition, const FVector& NewVelocity)
+void AOtherCharacter::UpdateTransform(const FVector& NewPosition, const FRotator& NewRotation, const FVector& NewVelocity)
 {
     TargetPosition = NewPosition;
+	TargetRotation = NewRotation;
     PositionInterpolationTime = 0.0f;
     bInterpEnabled = true;
 
-    if (GetCharacterMovement())
-    {
-        GetCharacterMovement()->Velocity = NewVelocity;
-    }
+    ReplicatedVelocity = NewVelocity;
 
-    UE_LOG(LogTemp, Display, TEXT("[UpdateTransform] %s - Pos: (%.1f, %.1f, %.1f), Vel: (%.1f, %.1f, %.1f)"),
-        *GetName(),
-        NewPosition.X, NewPosition.Y, NewPosition.Z,
-        NewVelocity.X, NewVelocity.Y, NewVelocity.Z
-    );
+
+    //UE_LOG(LogTemp, Display,
+    //    TEXT("[UpdateTransform] %s - Pos: (%.1f, %.1f, %.1f), Rot: (Yaw=%.1f, Pitch=%.1f, Roll=%.1f), Vel: (%.1f, %.1f, %.1f)"),
+    //    *GetName(),
+    //    NewPosition.X, NewPosition.Y, NewPosition.Z,
+    //    NewRotation.Yaw, NewRotation.Pitch, NewRotation.Roll,
+    //    NewVelocity.X, NewVelocity.Y, NewVelocity.Z);
 }

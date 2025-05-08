@@ -7,6 +7,7 @@
 #include "TimerManager.h"
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
+#include "GameFramework/PlayerStart.h"      // player start
 
 AMyNetworkGameMode::AMyNetworkGameMode()
 {
@@ -28,7 +29,7 @@ void AMyNetworkGameMode::BeginPlay()
 
         NetworkReplicator->OnClientIdAssigned.AddDynamic(this, &AMyNetworkGameMode::HandleClientIdAssigned);
         NetworkReplicator->OnPlayerDisconnected.AddDynamic(this, &AMyNetworkGameMode::HandlePlayerDisconnected);
-        NetworkReplicator->OnMyInitialPositionReceived.AddDynamic(this, &AMyNetworkGameMode::HandleInitialPositionReceived);
+        //NetworkReplicator->OnMyInitialPositionReceived.AddDynamic(this, &AMyNetworkGameMode::HandleInitialPositionReceived);
         NetworkReplicator->OnPlayerPositionUpdated.AddDynamic(this, &AMyNetworkGameMode::HandlePlayerPositionUpdated);
 
     }
@@ -75,7 +76,36 @@ void AMyNetworkGameMode::HandleClientIdAssigned(int32 ClientId)
 {
     LocalClientId = ClientId;
     UE_LOG(LogTemp, Display, TEXT("[GameMode] Local ClientId assigned: %d"), LocalClientId);
+
+    if (!DeferredCharacter)
+    {
+        APlayerStart* PlayerStart = Cast<APlayerStart>(
+            UGameplayStatics::GetActorOfClass(this, APlayerStart::StaticClass()));
+
+        if (!PlayerStart)
+        {
+            UE_LOG(LogTemp, Error, TEXT("[GameMode] No PlayerStart found!"));
+            return;
+        }
+
+        FTransform SpawnTransform = PlayerStart->GetActorTransform();
+
+        DeferredCharacter = Cast<AMyCharacter>(
+            UGameplayStatics::BeginDeferredActorSpawnFromClass(this, AMyCharacter::StaticClass(), SpawnTransform));
+
+        if (!DeferredCharacter)
+        {
+            UE_LOG(LogTemp, Error, TEXT("[GameMode] Character Deferred Spawn Fail"));
+            return;
+        }
+
+        UGameplayStatics::FinishSpawningActor(DeferredCharacter, SpawnTransform);
+
+        UE_LOG(LogTemp, Display, TEXT("[GameMode] Character Spawned at PlayerStart (%f, %f, %f)"),
+            SpawnTransform.GetLocation().X, SpawnTransform.GetLocation().Y, SpawnTransform.GetLocation().Z);
+    }
 }
+
 
 void AMyNetworkGameMode::HandlePlayerDisconnected(int32 ClientId)
 {
@@ -92,7 +122,7 @@ void AMyNetworkGameMode::HandlePlayerDisconnected(int32 ClientId)
     }
 }
 
-void AMyNetworkGameMode::HandlePlayerPositionUpdated(int32 ClientId, FVector Position, FVector Velocity, EPlayerState State, float Timestamp)
+void AMyNetworkGameMode::HandlePlayerPositionUpdated(int32 ClientId, FVector Position, FRotator Rotation, FVector Velocity, EPlayerState State, float Timestamp)
 {
     //if (ClientId == LocalClientId)
     //    return;
@@ -110,47 +140,47 @@ void AMyNetworkGameMode::HandlePlayerPositionUpdated(int32 ClientId, FVector Pos
     }
     else
     {
-        OtherPlayer = SpawnOtherPlayerCharacter(ClientId, Position);
+        OtherPlayer = SpawnOtherPlayerCharacter(ClientId, Position, Rotation, Velocity);
     }
 
     if (OtherPlayer)
     {
-        OtherPlayer->UpdateTransform(Position, Velocity);
+        OtherPlayer->UpdateTransform(Position, Rotation, Velocity);
         OtherPlayer->UpdateAnimationState(State);
     }
 }
 
-void AMyNetworkGameMode::HandleInitialPositionReceived(int32 ClientId, FVector Position, FVector Velocity, EPlayerState State)
-{
-    if (!DeferredCharacter)
-    {
-        FTransform SpawnTransform;
-        SpawnTransform.SetLocation(Position); // 서버에서 받은 초기 위치 적용
+//void AMyNetworkGameMode::HandleInitialPositionReceived(int32 ClientId, FVector Position, FVector Velocity, EPlayerState State)
+//{
+//    if (!DeferredCharacter)
+//    {
+//        FTransform SpawnTransform;
+//        SpawnTransform.SetLocation(Position); // 서버에서 받은 초기 위치 적용
+//
+//        DeferredCharacter = Cast<AMyCharacter>(
+//            UGameplayStatics::BeginDeferredActorSpawnFromClass(this, AMyCharacter::StaticClass(), SpawnTransform)
+//        );
+//
+//        if (!DeferredCharacter)
+//        {
+//            UE_LOG(LogTemp, Error, TEXT("[NetworkGameMode] Character Deferred Spawn Fail"));
+//            return;
+//        }
+//
+//        UE_LOG(LogTemp, Warning, TEXT("[NetworkGameMode] Character Deferred Spawn Done, Initial Position Setting"));
+//
+//        UGameplayStatics::FinishSpawningActor(DeferredCharacter, SpawnTransform);
+//
+//        UE_LOG(LogTemp, Warning, TEXT("[NetworkGameMode] Character Finish Spawning Done"));
+//    }
+//    else
+//    {
+//        UE_LOG(LogTemp, Warning, TEXT("[NetworkGameMode] Already Character Exist. Position Update"));
+//        DeferredCharacter->SetActorLocation(Position);
+//    }
+//}
 
-        DeferredCharacter = Cast<AMyCharacter>(
-            UGameplayStatics::BeginDeferredActorSpawnFromClass(this, AMyCharacter::StaticClass(), SpawnTransform)
-        );
-
-        if (!DeferredCharacter)
-        {
-            UE_LOG(LogTemp, Error, TEXT("[NetworkGameMode] Character Deferred Spawn Fail"));
-            return;
-        }
-
-        UE_LOG(LogTemp, Warning, TEXT("[NetworkGameMode] Character Deferred Spawn Done, Initial Position Setting"));
-
-        UGameplayStatics::FinishSpawningActor(DeferredCharacter, SpawnTransform);
-
-        UE_LOG(LogTemp, Warning, TEXT("[NetworkGameMode] Character Finish Spawning Done"));
-    }
-    else
-    {
-        UE_LOG(LogTemp, Warning, TEXT("[NetworkGameMode] Already Character Exist. Position Update"));
-        DeferredCharacter->SetActorLocation(Position);
-    }
-}
-
-AOtherCharacter* AMyNetworkGameMode::SpawnOtherPlayerCharacter(int32 ClientId, const FVector& SpawnPosition)
+AOtherCharacter* AMyNetworkGameMode::SpawnOtherPlayerCharacter(int32 ClientId, const FVector& SpawnPosition, const FRotator& SpawnRotation, const FVector& SpawnVelocity)
 {
     if (!OtherPlayerCharacterClass)
     {
@@ -161,12 +191,12 @@ AOtherCharacter* AMyNetworkGameMode::SpawnOtherPlayerCharacter(int32 ClientId, c
     FActorSpawnParameters SpawnParams;
     SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
-    AOtherCharacter* NewOtherPlayer = GetWorld()->SpawnActor<AOtherCharacter>(OtherPlayerCharacterClass, SpawnPosition, FRotator::ZeroRotator, SpawnParams);
+    AOtherCharacter* NewOtherPlayer = GetWorld()->SpawnActor<AOtherCharacter>(OtherPlayerCharacterClass, SpawnPosition, SpawnRotation, SpawnParams);
 
     if (NewOtherPlayer)
     {
         OtherPlayers.Add(ClientId, NewOtherPlayer);
-        NewOtherPlayer->UpdateTransform(SpawnPosition, FVector::ZeroVector);
+        NewOtherPlayer->UpdateTransform(SpawnPosition, SpawnRotation, SpawnVelocity);
     }
 
     return NewOtherPlayer;

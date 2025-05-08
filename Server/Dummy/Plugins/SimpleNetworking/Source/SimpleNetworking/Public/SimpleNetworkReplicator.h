@@ -16,18 +16,20 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(
     int32, ClientId
 );
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_FourParams(
-    FOnMyInitialPositionReceived,
-    int32, ClientId,
-    FVector, Position,
-    FVector, Velocity,
-    EPlayerState, State
-);
+//DECLARE_DYNAMIC_MULTICAST_DELEGATE_FiveParams(
+//    FOnMyInitialPositionReceived,
+//    int32, ClientId,
+//    FVector, Position,
+//	FRotator, Rotation,
+//    FVector, Velocity,
+//    EPlayerState, State
+//);
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_FiveParams(
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_SixParams(
     FOnPlayerPositionUpdated,
     int32, ClientId,
     FVector, NewPosition,
+	FRotator, NewRotation,
     FVector, NewVelocity,
     EPlayerState, State,
     float, Timestamp
@@ -45,7 +47,7 @@ public:
 
 	void HandleDisconnectPacket(const FDisconnectPacket* Packet);
 
-	void HandleInitialPositionPacket(const FPositionPacket* Packet);
+	//void HandleInitialPositionPacket(const FPositionPacket* Packet);
 
     void HandlePositionPacket(const FPositionPacket* Packet);
 
@@ -61,8 +63,8 @@ public:
     UPROPERTY(BlueprintAssignable, Category = "Networking")
     FOnPlayerPositionUpdated OnPlayerPositionUpdated;
 
-    UPROPERTY(BlueprintAssignable, Category = "Networking")
-    FOnMyInitialPositionReceived OnMyInitialPositionReceived;
+    //UPROPERTY(BlueprintAssignable, Category = "Networking")
+    //FOnMyInitialPositionReceived OnMyInitialPositionReceived;
 
 private:
     int32 LocalClientId;

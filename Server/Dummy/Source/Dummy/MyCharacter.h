@@ -45,6 +45,9 @@ public:
     float CurrentControlRotationYaw;
 
     UPROPERTY(BlueprintReadOnly, Category = "Input")
+	float CurrentControlRotationPitch;
+
+    UPROPERTY(BlueprintReadOnly, Category = "Input")
     bool bJumpPressed;
 
     UPROPERTY(BlueprintReadOnly, Category = "Input")
@@ -68,8 +71,14 @@ protected:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
     UInputAction* JumpAction;
 
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
-    UInputAction* AttackAction;
+    //UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+    //UInputAction* AttackAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+	UInputAction* LeftAttackAction;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+	UInputAction* RightAttackAction;
+
 
     /** 카메라 설정 */
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
@@ -80,9 +89,17 @@ protected:
 
     /** 전투 관련 */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
-    UAnimMontage* AttackMontage;
+    UAnimMontage* AttackMontage_1;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+
+    UAnimMontage* AttackMontage_2;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+
+	UAnimMontage* AttackMontage_3;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
+
     bool bIsAttacking;
 
     /** 입력 처리 함수 */
@@ -94,4 +111,17 @@ protected:
     void Attack();
 
     float LogTimer;
+
+    float PrevForwardValue = 0.0f;
+    float PrevRightValue = 0.0f;
+	float PrevControlRotationYaw = 0.0f;
+	float PrevControlRotationPitch = 0.0f;
+
+    bool bLeftMousePressed = false;
+    bool bRightMousePressed = false;
+	void TryAttack();
+	void OnLeftMousePressed();
+	void OnLeftMouseReleased();
+	void OnRightMousePressed();
+	void OnRightMouseReleased();
 };

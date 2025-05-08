@@ -21,7 +21,7 @@ AMyCharacter::AMyCharacter()
 
     GetCharacterMovement()->bOrientRotationToMovement = true;
     GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.0f, 0.0f);
-    GetCharacterMovement()->JumpZVelocity = 700.f;
+    GetCharacterMovement()->JumpZVelocity = 500.f;
     GetCharacterMovement()->AirControl = 0.35f;
     GetCharacterMovement()->MaxWalkSpeed = 500.f;
     GetCharacterMovement()->MinAnalogWalkSpeed = 20.f;
@@ -68,21 +68,47 @@ void AMyCharacter::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
 
+    if (Controller)
+    {
+        FRotator ControlRot = Controller->GetControlRotation();
+        CurrentControlRotationYaw = ControlRot.Yaw;
+		CurrentControlRotationPitch = ControlRot.Pitch;
+    }
+
     // 인스턴스별 타이머를 사용
     LogTimer += DeltaTime;
     if (LogTimer >= 5.0f)  // 1초마다 로그
     {
         LogTimer = 0.0f;
-        UE_LOG(LogTemp, Display, TEXT("[My Character] ClientId %d, Position: X=%.2f, Y=%.2f, Z=%.2f"),
+        UE_LOG(LogTemp, Display, TEXT("[My Character] ClientId %d, Position: X=%.1f, Y=%.1f, Z=%.1f"),
             NetworkManager->GetLocalClientId(), GetActorLocation().X, GetActorLocation().Y, GetActorLocation().Z);
+
+        //FVector LocalPos = GetActorLocation();
+        //FRotator LocalRot = GetActorRotation();
+
+        //float PosDelta = FVector::Dist(LocalPos, LastServerPosition);
+        //float RotDelta = FMath::Abs(LocalRot.Yaw - LastServerRotation.Yaw); // 또는 Pitch, Roll도 포함
+
+        //UE_LOG(LogTemp, Display,
+        //    TEXT("[My Character] ClientId %d\n  Local Pos:  (%.1f, %.1f, %.1f)\n  Server Pos: (%.1f, %.1f, %.1f)\n  ΔPos: %.2f\n  Local Yaw: %.1f | Server Yaw: %.1f | ΔYaw: %.2f"),
+        //    NetworkManager->GetLocalClientId(),
+        //    LocalPos.X, LocalPos.Y, LocalPos.Z,
+        //    LastServerPosition.X, LastServerPosition.Y, LastServerPosition.Z,
+        //    PosDelta,
+        //    LocalRot.Yaw, LastServerRotation.Yaw, RotDelta);
     }
 
     if (NetworkManager && NetworkManager->IsConnected())
     {
-        if (CurrentForwardValue != 0.0f ||
-            CurrentRightValue != 0.0f ||
+        bool bInputChanged =
+            (CurrentForwardValue != PrevForwardValue) ||
+            (CurrentRightValue != PrevRightValue) ||
+			(CurrentControlRotationYaw != PrevControlRotationYaw) ||
+			(CurrentControlRotationPitch != PrevControlRotationPitch) ||
             bJumpPressed ||
-            bAttackPressed)
+            bAttackPressed;
+
+        if (bInputChanged)
         {
             FInputPacket Packet;
             Packet.Header.PacketSize = sizeof(FInputPacket);
@@ -91,6 +117,7 @@ void AMyCharacter::Tick(float DeltaTime)
             Packet.ForwardValue = CurrentForwardValue;
             Packet.RightValue = CurrentRightValue;
             Packet.ControlRotationYaw = CurrentControlRotationYaw;
+            Packet.ControlRotationPitch = CurrentControlRotationPitch;
             Packet.bJumpPressed = bJumpPressed;
             Packet.bAttackPressed = bAttackPressed;
 
@@ -100,14 +127,14 @@ void AMyCharacter::Tick(float DeltaTime)
             // CurrentForwardValue, CurrentRightValue, CurrentControlRotationYaw,
             // bJumpPressed ? 1 : 0, bAttackPressed ? 1 : 0);
 
+            PrevForwardValue = CurrentForwardValue;
+            PrevRightValue = CurrentRightValue;
+			PrevControlRotationYaw = CurrentControlRotationYaw;
+			PrevControlRotationPitch = CurrentControlRotationPitch;
             bJumpPressed = false;
             bAttackPressed = false;
         }
     }
-
-    // 매 프레임 전송 후 점프/공격 플래그 초기화
-    bJumpPressed = false;
-    bAttackPressed = false;
 }
 
 void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -119,7 +146,12 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
         EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AMyCharacter::Look);
         EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &AMyCharacter::Jump);
         EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &AMyCharacter::StopJumping);
-        EnhancedInputComponent->BindAction(AttackAction, ETriggerEvent::Triggered, this, &AMyCharacter::Attack);
+        //EnhancedInputComponent->BindAction(AttackAction, ETriggerEvent::Triggered, this, &AMyCharacter::Attack);
+        EnhancedInputComponent->BindAction(LeftAttackAction, ETriggerEvent::Triggered, this, &AMyCharacter::OnLeftMousePressed);
+        EnhancedInputComponent->BindAction(LeftAttackAction, ETriggerEvent::Completed, this, &AMyCharacter::OnLeftMouseReleased);
+        EnhancedInputComponent->BindAction(RightAttackAction, ETriggerEvent::Triggered, this, &AMyCharacter::OnRightMousePressed);
+        EnhancedInputComponent->BindAction(RightAttackAction, ETriggerEvent::Completed, this, &AMyCharacter::OnRightMouseReleased);
+
     }
 }
 
@@ -129,12 +161,16 @@ void AMyCharacter::Move(const FInputActionValue& Value)
 
     if (Controller != nullptr)
     {
+        const FRotator ControlRotation = Controller->GetControlRotation();
+
+        const FRotator YawRotation(0, ControlRotation.Yaw, 0);
+
+        CurrentControlRotationYaw = ControlRotation.Yaw;
+        CurrentControlRotationPitch = ControlRotation.Pitch;
+
         if (MovementVector.Y != 0.0f)
         {
             CurrentForwardValue = MovementVector.Y;
-            const FRotator Rotation = Controller->GetControlRotation();
-            const FRotator YawRotation(0, Rotation.Yaw, 0);
-
             const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
             AddMovementInput(Direction, MovementVector.Y);
         }
@@ -146,9 +182,6 @@ void AMyCharacter::Move(const FInputActionValue& Value)
         if (MovementVector.X != 0.0f)
         {
             CurrentRightValue = MovementVector.X;
-            const FRotator Rotation = Controller->GetControlRotation();
-            const FRotator YawRotation(0, Rotation.Yaw, 0);
-
             const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
             AddMovementInput(Direction, MovementVector.X);
         }
@@ -163,6 +196,26 @@ void AMyCharacter::StopMoving(const FInputActionValue& Value)
 {
     CurrentForwardValue = 0.0f;
     CurrentRightValue = 0.0f;
+
+    // 서버에 멈춤 입력 전송
+    if (NetworkManager && NetworkManager->IsConnected())
+    {
+        FInputPacket Packet;
+        Packet.Header.PacketSize = sizeof(FInputPacket);
+        Packet.Header.PacketType = EPacketType::PLAYER_INPUT_INFO;
+        Packet.ClientId = NetworkManager->GetLocalClientId();
+        Packet.ForwardValue = 0.0f;
+        Packet.RightValue = 0.0f;
+        Packet.ControlRotationYaw = CurrentControlRotationYaw;
+        Packet.ControlRotationPitch = CurrentControlRotationPitch;
+        Packet.bJumpPressed = false;
+        Packet.bAttackPressed = false;
+
+        NetworkManager->SendInputPacket(Packet);
+
+        PrevForwardValue = 0.0f;
+        PrevRightValue = 0.0f;
+    }
 }
 
 void AMyCharacter::Look(const FInputActionValue& Value)
@@ -177,6 +230,7 @@ void AMyCharacter::Look(const FInputActionValue& Value)
         // 현재 바라보는 방향 저장
         FRotator ControlRotation = Controller->GetControlRotation();
         CurrentControlRotationYaw = ControlRotation.Yaw;
+		CurrentControlRotationPitch = ControlRotation.Pitch;
     }
 }
 
@@ -192,29 +246,111 @@ void AMyCharacter::StopJumping()
     bJumpPressed = false;
 }
 
-void AMyCharacter::Attack()
+void AMyCharacter::TryAttack()
 {
-    if (bIsAttacking)
-        return;
+    if (bIsAttacking) return;
 
-    bAttackPressed = true;
+    UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+    if (!AnimInstance) return;
 
-    if (AttackMontage)
+    UAnimMontage* SelectedMontage = nullptr;
+
+    if (bLeftMousePressed && bRightMousePressed)
     {
-        UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
-        if (AnimInstance)
-        {
-            float MontageLength = AnimInstance->Montage_Play(AttackMontage, 1.0f);
-
-            FTimerHandle TimerHandle;
-            GetWorld()->GetTimerManager().SetTimer(TimerHandle, [this]()
-                {
-                    bIsAttacking = false;
-                }, MontageLength, false);
-        }
+        SelectedMontage = AttackMontage_3;
     }
-    else
+    else if (bLeftMousePressed)
     {
-        bIsAttacking = false;
+        SelectedMontage = AttackMontage_1;
+    }
+    else if (bRightMousePressed)
+    {
+        SelectedMontage = AttackMontage_2;
+    }
+
+    if (SelectedMontage)
+    {
+        bIsAttacking = true;
+        float MontageLength = AnimInstance->Montage_Play(SelectedMontage, 1.0f);
+        FTimerHandle TimerHandle;
+        GetWorld()->GetTimerManager().SetTimer(TimerHandle, [this]()
+            {
+                bIsAttacking = false;
+            }, MontageLength, false);
     }
 }
+
+void AMyCharacter::OnLeftMousePressed()
+{
+    bLeftMousePressed = true;
+    TryAttack();
+}
+
+void AMyCharacter::OnLeftMouseReleased()
+{
+    bLeftMousePressed = false;
+}
+
+void AMyCharacter::OnRightMousePressed()
+{
+    bRightMousePressed = true;
+    TryAttack();
+}
+
+void AMyCharacter::OnRightMouseReleased()
+{
+    bRightMousePressed = false;
+}
+
+//void AMyCharacter::Attack()
+//{
+//    if (bIsAttacking)
+//        return;
+//
+//    bAttackPressed = true;
+//
+//    if (AttackMontage_1)
+//    {
+//        UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+//        if (AnimInstance)
+//        {
+//            float MontageLength = AnimInstance->Montage_Play(AttackMontage_1, 1.0f);
+//
+//            FTimerHandle TimerHandle;
+//            GetWorld()->GetTimerManager().SetTimer(TimerHandle, [this]()
+//                {
+//                    bIsAttacking = false;
+//                }, MontageLength, false);
+//        }
+//    }
+//	else if (AttackMontage_2)
+//	{
+//		UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+//		if (AnimInstance)
+//		{
+//			float MontageLength = AnimInstance->Montage_Play(AttackMontage_2, 1.0f);
+//			FTimerHandle TimerHandle;
+//			GetWorld()->GetTimerManager().SetTimer(TimerHandle, [this]()
+//				{
+//					bIsAttacking = false;
+//				}, MontageLength, false);
+//		}
+//	}
+//	else if (AttackMontage_1 && AttackMontage_2)
+//	{
+//		UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+//		if (AnimInstance)
+//		{
+//			float MontageLength = AnimInstance->Montage_Play(AttackMontage_3, 1.0f);
+//			FTimerHandle TimerHandle;
+//			GetWorld()->GetTimerManager().SetTimer(TimerHandle, [this]()
+//				{
+//					bIsAttacking = false;
+//				}, MontageLength, false);
+//		}
+//	}
+//    else
+//    {
+//        bIsAttacking = false;
+//    }
+//}

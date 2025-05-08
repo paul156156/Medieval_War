@@ -90,7 +90,7 @@ void IOCPServer::Update(float DeltaTime)
             client->Position.Y += client->Velocity.Y * DeltaTime;
             client->Position.Z += client->Velocity.Z * DeltaTime;
 
-            LOG_INFO("위치 업데이트 - 클라이언트 ID: " + std::to_string(client->id) +
+            LOG_DEBUG("위치 업데이트 - 클라이언트 ID: " + std::to_string(client->id) +
                 ", 위치: X=" + std::to_string(client->Position.X) +
                 ", Y=" + std::to_string(client->Position.Y) +
                 ", Z=" + std::to_string(client->Position.Z) +
@@ -168,7 +168,7 @@ void IOCPServer::BroadcastPosition(ClientSession* sourceClient)
     packet.Velocity = sourceClient->Velocity;
     packet.State = sourceClient->State;
 
-    LOG_INFO("[서버] BroadcastPosition 호출 - ClientId: " + std::to_string(sourceClient->id) +
+    LOG_DEBUG("[서버] BroadcastPosition 호출 - ClientId: " + std::to_string(sourceClient->id) +
         ", Position: (" + std::to_string(sourceClient->Position.X) + ", " +
         std::to_string(sourceClient->Position.Y) + ", " +
         std::to_string(sourceClient->Position.Z) + ")");

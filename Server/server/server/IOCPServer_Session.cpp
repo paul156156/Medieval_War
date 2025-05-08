@@ -32,7 +32,7 @@ ClientSession* IOCPServer::CreateSession(SOCKET socket, SOCKADDR_IN addr)
 void IOCPServer::InitializeNewClientSession(ClientSession* client)
 {
     SendClientId(client);
-    SendInitialPosition(client);
+    //SendInitialPosition(client);
     BroadcastNewPlayerJoin(client);
     SendExistingPlayerList(client);
 }

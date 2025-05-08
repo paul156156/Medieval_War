@@ -135,9 +135,13 @@ Plugins/**/Intermediate/*
 /Server/Dummy/Plugins/SimpleNetworking/Binaries
 /Server/Dummy/Plugins/SimpleNetworking/Intermediate
 /Server/Dummy/Content/ParagonGreystone
-/Server/Dummy/Saved/Logs
-/Server/Dummy/Saved/Cooked/Windows/Dummy/Content/ParagonGreystone
 /Server/Dummy/Content/StarterContent
+/Server/Dummy/Saved
 /Server/server/server/x64
-/Server/Dummy/Saved/Config/CrashReportClient
-
+/Server/server/x64
+/Server/Dummy/Content/Desert_Castle
+/Server/Dummy/Plugins/SimpleNetworking/Binaries
+/Server/Dummy/Content/MyContent/Animation
+/Server/Dummy/Content/MyContent/Weapon
+/Server/Dummy/Content/MyContent/knight
+/Server/Dummy/Plugins/SimpleNetworking/Binaries

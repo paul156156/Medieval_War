@@ -157,18 +157,18 @@ void USimpleNetworkManager::HandleIncomingPacket(const uint8* Data, int32 Size)
             UE_LOG(LogSimpleNetwork, Display, TEXT("[SimpleNetworkManager] Pong Received - RTT: %f sec (ClientId: %d)"), RTT, PongPacket->ClientId);
         }
         break;
-        case EPacketType::PLAYER_INIT_INFO:
-        {
-            const FPositionPacket* InitPacket = reinterpret_cast<const FPositionPacket*>(Data + Offset);
-            Replicator->HandleInitialPositionPacket(InitPacket);
-            UE_LOG(LogSimpleNetwork, Display, TEXT("[SimpleNetworkManager] Player Initial Position Received"));
-        }
-        break;
+        //case EPacketType::PLAYER_INIT_INFO:
+        //{
+        //    const FPositionPacket* InitPacket = reinterpret_cast<const FPositionPacket*>(Data + Offset);
+        //    Replicator->HandleInitialPositionPacket(InitPacket);
+        //    UE_LOG(LogSimpleNetwork, Display, TEXT("[SimpleNetworkManager] Player Initial Position Received"));
+        //}
+        //break;
         case EPacketType::PLAYER_POSITION_INFO:
         {
             const FPositionPacket* PositionPacket = reinterpret_cast<const FPositionPacket*>(Data + Offset);
             Replicator->HandlePositionPacket(PositionPacket);
-            UE_LOG(LogSimpleNetwork, Display, TEXT("[SimpleNetworkManager] Player Position Update"));
+            //UE_LOG(LogSimpleNetwork, Display, TEXT("[SimpleNetworkManager] Player Position Update"));
         }
         break;
         default:

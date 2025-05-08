@@ -75,6 +75,7 @@ struct InputPacket {
     float ForwardValue;     // 전진/후진 입력값 (-1.0 ~ 1.0)
     float RightValue;       // 좌/우 입력값 (-1.0 ~ 1.0)
 	float ControlRotationYaw; // 회전값 (-180.0 ~ 180.0)
+    float ControlRotationPitch; // 회전값 (-180.0 ~ 180.0)
     bool bJumpPressed;      // 점프 버튼 눌림 여부
     bool bAttackPressed;    // 공격 버튼 눌림 여부
 };
@@ -84,6 +85,7 @@ struct PositionPacket {
     PacketHeader Header;    // 패킷 헤더
     int32_t ClientId;       // 클라이언트 ID
     Vec3 Position;          // 현재 위치
+	Rot3 Rotation;          // 현재 회전값
     Vec3 Velocity;          // 현재 속도
     EPlayerState State;     // 현재 플레이어 상태
 };
