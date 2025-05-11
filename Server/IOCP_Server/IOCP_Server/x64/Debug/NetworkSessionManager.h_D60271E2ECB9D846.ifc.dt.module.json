@@ -1,0 +1,22 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "x64\\Debug\\NetworkSessionManager.obj",
+            "outputs": [
+                "x64\\Debug\\NetworkSessionManager.h_D60271E2ECB9D846.ifc.dt.module.json",
+                "x64\\Debug\\NetworkSessionManager.h_D60271E2ECB9D846.ifc.dt.d.json",
+                "x64\\Debug\\NetworkSessionManager.h.ifc"
+            ],
+            "provides": [
+                {
+                    "logical-name": "C:\\Users\\Blues\\Desktop\\IOCP_Server\\IOCP_Server\\NetworkSessionManager.h",
+                    "source-path": "c:\\users\\blues\\desktop\\iocp_server\\iocp_server\\networksessionmanager.h",
+                    "lookup-method": "absolute"
+                }
+            ],
+            "requires": []
+        }
+    ]
+}

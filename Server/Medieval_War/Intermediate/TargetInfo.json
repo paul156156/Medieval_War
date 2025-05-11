@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "Medieval_War",
+			"Path": "..\\Source\\Medieval_War.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "Medieval_WarEditor",
+			"Path": "..\\Source\\Medieval_WarEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}

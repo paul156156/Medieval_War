@@ -1,0 +1,22 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "x64\\Debug\\NetworkSessionManager.h.obj",
+            "outputs": [
+                "C:\\Users\\Blues\\Desktop\\IOCP_Server\\IOCP_Server\\x64\\Debug\\vc143.pdb",
+                "x64\\Debug\\",
+                "C:\\Users\\Blues\\Desktop\\IOCP_Server\\IOCP_Server\\x64\\Debug\\NetworkSessionManager.h.ifc"
+            ],
+            "provides": [
+                {
+                    "logical-name": "NetworkSessionManager.h",
+                    "source-path": "c:\\users\\blues\\desktop\\iocp_server\\iocp_server\\networksessionmanager.h",
+                    "lookup-method": "absolute"
+                }
+            ],
+            "requires": []
+        }
+    ]
+}
