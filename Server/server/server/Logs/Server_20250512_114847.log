@@ -1,0 +1,312 @@
+[11:48:47.849] [INFO] 로깅 시스템 초기화됨
+[11:48:47.849] [INFO] 서버 인스턴스 생성됨
+[11:48:47.849] [INFO] 서버 초기화 시작 (포트: 9000)
+[11:48:47.850] [INFO] 윈속 초기화 성공
+[11:48:47.851] [INFO] 리스닝 소켓 생성 성공
+[11:48:47.851] [INFO] 소켓 바인딩 성공 (포트: 9000)
+[11:48:47.851] [INFO] 리스닝 시작됨
+[11:48:47.851] [INFO] IOCP 생성 성공
+[11:48:47.851] [INFO] CPU 코어 수: 16, 생성할 작업자 스레드: 16
+[11:48:47.852] [INFO] 작업자 스레드 #1 생성됨
+[11:48:47.852] [INFO] 작업자 스레드 시작 (ThreadID: 27604)
+[11:48:47.852] [INFO] 작업자 스레드 #2 생성됨
+[11:48:47.852] [INFO] 작업자 스레드 시작 (ThreadID: 3316)
+[11:48:47.853] [INFO] 작업자 스레드 #3 생성됨
+[11:48:47.853] [INFO] 작업자 스레드 시작 (ThreadID: 20008)
+[11:48:47.853] [INFO] 작업자 스레드 #4 생성됨
+[11:48:47.853] [INFO] 작업자 스레드 시작 (ThreadID: 12152)
+[11:48:47.853] [INFO] 작업자 스레드 #5 생성됨
+[11:48:47.854] [INFO] 작업자 스레드 시작 (ThreadID: 32256)
+[11:48:47.854] [INFO] 작업자 스레드 #6 생성됨
+[11:48:47.854] [INFO] 작업자 스레드 시작 (ThreadID: 4524)
+[11:48:47.854] [INFO] 작업자 스레드 #7 생성됨
+[11:48:47.854] [INFO] 작업자 스레드 시작 (ThreadID: 29164)
+[11:48:47.855] [INFO] 작업자 스레드 #8 생성됨
+[11:48:47.855] [INFO] 작업자 스레드 시작 (ThreadID: 33668)
+[11:48:47.855] [INFO] 작업자 스레드 #9 생성됨
+[11:48:47.855] [INFO] 작업자 스레드 시작 (ThreadID: 22832)
+[11:48:47.855] [INFO] 작업자 스레드 시작 (ThreadID: 31012)
+[11:48:47.855] [INFO] 작업자 스레드 #10 생성됨
+[11:48:47.855] [INFO] 작업자 스레드 #11 생성됨
+[11:48:47.856] [INFO] 작업자 스레드 시작 (ThreadID: 27320)
+[11:48:47.856] [INFO] 작업자 스레드 #12 생성됨
+[11:48:47.856] [INFO] 작업자 스레드 시작 (ThreadID: 16056)
+[11:48:47.856] [INFO] 작업자 스레드 #13 생성됨
+[11:48:47.856] [INFO] 작업자 스레드 시작 (ThreadID: 30756)
+[11:48:47.856] [INFO] 작업자 스레드 #14 생성됨
+[11:48:47.857] [INFO] 작업자 스레드 시작 (ThreadID: 32136)
+[11:48:47.857] [INFO] 작업자 스레드 #15 생성됨
+[11:48:47.857] [INFO] 작업자 스레드 시작 (ThreadID: 27616)
+[11:48:47.857] [INFO] 작업자 스레드 #16 생성됨
+[11:48:47.857] [INFO] 서버 초기화 완료
+[11:48:47.857] [INFO] 서버 실행. 포트 번호: 9000
+[11:48:47.858] [INFO] IOCP 멀티플레이어 서버 시작됨...
+[11:48:47.858] [INFO] 서버 실행 시작
+[11:48:47.858] [INFO] 작업자 스레드 시작 (ThreadID: 30372)
+[11:48:47.858] [INFO] listenSocket 논블로킹 설정 성공
+[11:48:48.877] [INFO] 서버 FPS: 33.947624, 평균 프레임 시간: 0.000000ms, 클라이언트 수: 0
+[11:48:49.905] [INFO] 서버 FPS: 32.480316, 평균 프레임 시간: 0.000000ms, 클라이언트 수: 0
+[11:48:50.920] [INFO] 서버 FPS: 32.512314, 평균 프레임 시간: 0.000000ms, 클라이언트 수: 0
+[11:48:51.835] [INFO] 새 클라이언트에게 ID 1 전송됨
+[11:48:51.836] [INFO] 새 플레이어 정보(ID: 1) 브로드캐스트 - 수신자 수: 0
+[11:48:51.836] [INFO] 기존 플레이어 정보 0개가 새 클라이언트(ID: 1)에게 전송됨
+[11:48:51.928] [INFO] 서버 FPS: 33.464565, 평균 프레임 시간: 0.000000ms, 클라이언트 수: 1
+[11:48:52.022] [INFO] 새 클라이언트에게 ID 2 전송됨
+[11:48:52.025] [INFO] 새 플레이어 정보(ID: 2) 브로드캐스트 - 수신자 수: 1
+[11:48:52.025] [INFO] 기존 플레이어 정보 1개가 새 클라이언트(ID: 2)에게 전송됨
+[11:48:52.082] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:52.145] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:52.208] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:52.271] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:52.334] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:52.396] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:52.458] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:52.521] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:52.583] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:52.644] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:52.706] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:52.768] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:52.830] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:52.892] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:52.953] [INFO] 서버 FPS: 32.512314, 평균 프레임 시간: 0.000000ms, 클라이언트 수: 2
+[11:48:52.954] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:53.015] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:53.078] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:53.141] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:53.204] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:53.264] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:53.326] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:53.388] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:53.451] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:53.514] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:53.576] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:53.639] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:53.702] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:53.764] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:53.826] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:53.890] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:53.951] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:53.973] [INFO] [Packet] Pong 전송 - ClientId: 1
+[11:48:53.975] [INFO] [Packet] Pong 전송 - ClientId: 2
+[11:48:53.982] [INFO] 서버 FPS: 32.945736, 평균 프레임 시간: 0.049445ms, 클라이언트 수: 2
+[11:48:54.012] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:54.075] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:54.139] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:54.201] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:54.263] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:54.326] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:54.388] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:54.450] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:54.512] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:54.575] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:54.637] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:54.701] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:54.762] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:54.825] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:54.877] [INFO] [Packet] Pong 전송 - ClientId: 1
+[11:48:54.878] [INFO] [Packet] Pong 전송 - ClientId: 2
+[11:48:54.887] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:54.949] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:55.011] [INFO] 서버 FPS: 32.007759, 평균 프레임 시간: 0.001528ms, 클라이언트 수: 2
+[11:48:55.012] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:55.074] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:55.137] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:55.200] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:55.262] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:55.324] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:55.387] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:55.448] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:55.509] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:55.572] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:55.635] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:55.696] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:55.758] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:55.819] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:55.857] [INFO] [Packet] Pong 전송 - ClientId: 1
+[11:48:55.857] [INFO] [Packet] Pong 전송 - ClientId: 2
+[11:48:55.881] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:55.943] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:56.005] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:56.036] [INFO] 서버 FPS: 32.007759, 평균 프레임 시간: 0.000047ms, 클라이언트 수: 2
+[11:48:56.067] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:56.130] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:56.193] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:56.255] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:56.317] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:56.379] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:56.442] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:56.504] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:56.566] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:56.628] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:56.690] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:56.752] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:56.813] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:56.890] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:56.896] [INFO] [Packet] Pong 전송 - ClientId: 1
+[11:48:56.897] [INFO] [Packet] Pong 전송 - ClientId: 2
+[11:48:56.922] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:57.013] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:57.045] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:57.076] [INFO] 서버 FPS: 32.977692, 평균 프레임 시간: 0.645702ms, 클라이언트 수: 2
+[11:48:57.139] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:57.170] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:57.264] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:57.295] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:57.389] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:57.419] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:57.511] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:57.542] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:57.636] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:57.667] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:57.760] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:57.792] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:57.861] [INFO] [Packet] Pong 전송 - ClientId: 1
+[11:48:57.862] [INFO] [Packet] Pong 전송 - ClientId: 2
+[11:48:57.885] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:57.916] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:58.007] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:58.038] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:58.100] [INFO] 서버 FPS: 31.976744, 평균 프레임 시간: 0.019954ms, 클라이언트 수: 2
+[11:48:58.131] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:58.162] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:58.256] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:58.287] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:58.366] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:58.397] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:58.490] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:58.522] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:58.614] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:58.645] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:58.739] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:58.770] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:58.863] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:58.890] [INFO] [Packet] Pong 전송 - ClientId: 1
+[11:48:58.890] [INFO] [Packet] Pong 전송 - ClientId: 2
+[11:48:58.895] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:58.988] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:59.020] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:59.112] [INFO] 서버 FPS: 32.512314, 평균 프레임 시간: 0.000617ms, 클라이언트 수: 2
+[11:48:59.113] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:59.142] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:59.235] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:59.267] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:59.330] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:59.392] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:59.455] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:59.516] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:59.578] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:59.639] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:59.685] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:59.749] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:59.810] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:59.858] [INFO] [Packet] Pong 전송 - ClientId: 1
+[11:48:59.859] [INFO] [Packet] Pong 전송 - ClientId: 2
+[11:48:59.872] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:48:59.934] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:48:59.997] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:00.059] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:00.121] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:00.152] [INFO] 서버 FPS: 33.914730, 평균 프레임 시간: 0.175086ms, 클라이언트 수: 2
+[11:49:00.184] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:00.245] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:00.306] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:00.368] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:00.429] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:00.491] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:00.554] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:00.616] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:00.679] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:00.740] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:00.802] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:00.864] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:00.877] [INFO] [Packet] Pong 전송 - ClientId: 1
+[11:49:00.878] [INFO] [Packet] Pong 전송 - ClientId: 2
+[11:49:00.926] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:00.987] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:01.049] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:01.111] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:01.173] [INFO] 서버 FPS: 32.007759, 평균 프레임 시간: 0.005411ms, 클라이언트 수: 2
+[11:49:01.174] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:01.236] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:01.298] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:01.345] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:01.437] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:01.468] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:01.560] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:01.591] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:01.684] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:01.715] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:01.809] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:01.840] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:01.917] [INFO] [Packet] Pong 전송 - ClientId: 1
+[11:49:01.918] [INFO] [Packet] Pong 전송 - ClientId: 2
+[11:49:01.935] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:01.965] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:02.058] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:02.089] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:02.182] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:02.212] [INFO] 서버 FPS: 32.977692, 평균 프레임 시간: 0.000150ms, 클라이언트 수: 2
+[11:49:02.212] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:02.304] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:02.334] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:02.426] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:02.458] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:02.551] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:02.581] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:02.674] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:02.705] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:02.798] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:02.829] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:02.862] [INFO] [Packet] Pong 전송 - ClientId: 1
+[11:49:02.863] [INFO] [Packet] Pong 전송 - ClientId: 2
+[11:49:02.893] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:02.956] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:03.018] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:03.080] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:03.142] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:03.203] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:03.234] [INFO] 서버 FPS: 32.480316, 평균 프레임 시간: 0.000005ms, 클라이언트 수: 2
+[11:49:03.266] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:03.328] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:03.390] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:03.452] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:03.513] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:03.576] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:03.638] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:03.699] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:03.761] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:03.823] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:03.884] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:03.903] [INFO] [Packet] Pong 전송 - ClientId: 1
+[11:49:03.903] [INFO] [Packet] Pong 전송 - ClientId: 2
+[11:49:03.946] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:04.008] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:04.070] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:04.132] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:04.194] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:04.256] [INFO] 서버 FPS: 32.007759, 평균 프레임 시간: 0.000000ms, 클라이언트 수: 2
+[11:49:04.257] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:04.317] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:04.379] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:04.440] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:04.501] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:04.562] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[11:49:04.624] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[11:49:04.659] [INFO] 클라이언트가 정상적으로 연결 종료함 - ID: 2
+[11:49:04.660] [INFO] 클라이언트 연결 끊김 (ID: 2)
+[11:49:04.660] [INFO] 클라이언트 연결 끊김 알림(ID: 2) - 수신자 수: 1
+[11:49:04.671] [INFO] 클라이언트가 정상적으로 연결 종료함 - ID: 1
+[11:49:04.671] [INFO] 클라이언트 연결 끊김 (ID: 1)
+[11:49:04.671] [INFO] 클라이언트 연결 끊김 알림(ID: 1) - 수신자 수: 0
+[11:49:05.272] [INFO] 서버 FPS: 32.480316, 평균 프레임 시간: 0.000000ms, 클라이언트 수: 0
+[11:49:06.282] [INFO] 서버 FPS: 32.512314, 평균 프레임 시간: 0.000000ms, 클라이언트 수: 0
+[11:49:07.325] [INFO] 서버 FPS: 32.977692, 평균 프레임 시간: 0.000000ms, 클라이언트 수: 0
+[11:49:08.337] [INFO] 서버 FPS: 32.480316, 평균 프레임 시간: 0.000000ms, 클라이언트 수: 0
+[11:49:09.365] [INFO] 서버 FPS: 32.977692, 평균 프레임 시간: 0.000000ms, 클라이언트 수: 0
+[11:49:10.394] [INFO] 서버 FPS: 31.976744, 평균 프레임 시간: 0.000000ms, 클라이언트 수: 0
+[11:49:11.438] [INFO] 서버 FPS: 32.977692, 평균 프레임 시간: 0.000000ms, 클라이언트 수: 0
+[11:49:12.468] [INFO] 서버 FPS: 33.947624, 평균 프레임 시간: 0.000000ms, 클라이언트 수: 0
+[11:49:13.497] [INFO] 서버 FPS: 32.007759, 평균 프레임 시간: 0.000000ms, 클라이언트 수: 0
+[11:49:14.526] [INFO] 서버 FPS: 32.945736, 평균 프레임 시간: 0.000000ms, 클라이언트 수: 0
+[11:49:15.556] [INFO] 서버 FPS: 32.007759, 평균 프레임 시간: 0.000000ms, 클라이언트 수: 0
+[11:49:16.582] [INFO] 서버 FPS: 32.007759, 평균 프레임 시간: 0.000000ms, 클라이언트 수: 0

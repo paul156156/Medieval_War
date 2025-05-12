@@ -2,10 +2,6 @@
 	"BuildId": "37670630",
 	"Modules": 
 	{
-<<<<<<< Updated upstream
-		"SimpleNetworking": "UnrealEditor-SimpleNetworking-0002-Win64-DebugGame.dll"
-=======
-		"SimpleNetworking": "UnrealEditor-SimpleNetworking-Win64-DebugGame.dll"
->>>>>>> Stashed changes
+		"SimpleNetworking": "UnrealEditor-SimpleNetworking-0001-Win64-DebugGame.dll"
 	}
 }

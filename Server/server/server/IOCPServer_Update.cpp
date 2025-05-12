@@ -6,10 +6,9 @@ void IOCPServer::Update(float DeltaTime)
 {
     if (DeltaTime > 0.5f) {
         LOG_WARNING("비정상적으로 긴 델타 타임: " + std::to_string(DeltaTime) + "초");
-        // 너무 긴 델타 타임을 제한하여 물리 계산 오차 방지
         DeltaTime = 0.5f;
     }
-    const float CurrentTime = GetTickCount64() / 1000.0f; // 초 단위
+    const float CurrentTime = GetTickCount64() / 1000.0f;
 
     std::vector<int> ClientsToRemove;
 
@@ -26,7 +25,7 @@ void IOCPServer::Update(float DeltaTime)
             }
             float TimeSinceLastPing = CurrentTime - client->LastPingTime;
 
-            // (2) 5초 넘으면 제거 대상
+            // 5초 넘으면 제거 대상
             if (TimeSinceLastPing > 5.0f)
             {
                 LOG_WARNING("클라이언트 Ping 타임아웃 발생 - ID: " + std::to_string(client->id) +
@@ -34,7 +33,7 @@ void IOCPServer::Update(float DeltaTime)
                 ClientsToRemove.push_back(client->id);
             }
 
-            // --- 이동 방향 계산 (시야 기준) 수정 ---
+            // 이동 방향 계산 (시야 기준)
             float Forward = client->InputForward;
             float Right = client->InputRight;
 
@@ -136,7 +135,7 @@ void IOCPServer::Update(float DeltaTime)
                 currentTime - client->LastUpdateTime > UpdateInterval)
             {
 
-                LOG_INFO("[서버] BroadcastPosition 준비 완료 - ClientId: " + std::to_string(client->id) +
+                LOG_DEBUG("[서버] BroadcastPosition 준비 완료 - ClientId: " + std::to_string(client->id) +
                     ", distMoved: " + std::to_string(distMoved) +
                     ", State: " + std::to_string((int)client->State) +
                     ", TimeSinceLastUpdate: " + std::to_string(currentTime - client->LastUpdateTime));
@@ -187,7 +186,7 @@ void IOCPServer::BroadcastPosition(ClientSession* sourceClient)
             continue;
         }
 
-        LOG_INFO("[서버] PositionUpdatePacket 전송 - From ClientId: " + std::to_string(sourceClient->id) +
+        LOG_DEBUG("[서버] PositionUpdatePacket 전송 - From ClientId: " + std::to_string(sourceClient->id) +
             " To ClientId: " + std::to_string(targetClient->id));
 
         // 비동기 전송

@@ -25,31 +25,31 @@ void USimpleNetworkReplicator::HandleDisconnectPacket(const FDisconnectPacket* P
     OnPlayerDisconnected.Broadcast(Packet->ClientId);
 }
 
-//void USimpleNetworkReplicator::HandleInitialPositionPacket(const FPositionPacket* Packet)
-//{
-//	if (!Packet)
-//		return;
-//
-//    if (Packet->ClientId == LocalClientId)
-//    {
-//        UE_LOG(LogSimpleNetworkReplicator, Display, TEXT("[SimpleNetworkReplicator] Initial Position - ClientId: %d, Position: X=%.2f, Y=%.2f, Z=%.2f"),
-//            Packet->ClientId, Packet->Position.X, Packet->Position.Y, Packet->Position.Z);
-//
-//        FVector Position(Packet->Position.X, Packet->Position.Y, Packet->Position.Z);
-//		FRotator Rotation(Packet->Rotation.Pitch, Packet->Rotation.Yaw, Packet->Rotation.Roll);
-//        FVector Velocity(Packet->Velocity.X, Packet->Velocity.Y, Packet->Velocity.Z);
-//
-//        OnMyInitialPositionReceived.Broadcast(
-//            Packet->ClientId,
-//            Position,
-//			Rotation,
-//            Velocity,
-//            Packet->State
-//        );
-//    }
-//    else
-//        return;
-//}
+void USimpleNetworkReplicator::HandleInitialPositionPacket(const FPositionPacket* Packet)
+{
+	if (!Packet)
+		return;
+
+    if (Packet->ClientId == LocalClientId)
+    {
+        UE_LOG(LogSimpleNetworkReplicator, Display, TEXT("[SimpleNetworkReplicator] Initial Position - ClientId: %d, Position: X=%.2f, Y=%.2f, Z=%.2f"),
+            Packet->ClientId, Packet->Position.X, Packet->Position.Y, Packet->Position.Z);
+
+        FVector Position(Packet->Position.X, Packet->Position.Y, Packet->Position.Z);
+		FRotator Rotation(Packet->Rotation.Pitch, Packet->Rotation.Yaw, Packet->Rotation.Roll);
+        FVector Velocity(Packet->Velocity.X, Packet->Velocity.Y, Packet->Velocity.Z);
+
+        OnMyInitialPositionReceived.Broadcast(
+            Packet->ClientId,
+            Position,
+			Rotation,
+            Velocity,
+            Packet->State
+        );
+    }
+    else
+        return;
+}
 
 void USimpleNetworkReplicator::HandlePositionPacket(const FPositionPacket* Packet)
 {
