@@ -145,3 +145,16 @@ Plugins/**/Intermediate/*
 /Server/Dummy/Content/MyContent/Weapon
 /Server/Dummy/Content/MyContent/knight
 /Server/Dummy/Plugins/SimpleNetworking/Binaries
+/Server/MultiplayerGame/Saved
+/Server/MultiplayerGame/Intermediate
+/Server/MultiplayerGame/Content/StarterContent
+/Server/MultiplayerGame/Content/ParagonGreystone
+/Server/MultiplayerGame/Content/LevelPrototyping
+/Server/MultiplayerGame/Content/Desert_Castle
+/Server/MultiplayerGame/Content/Characters/Mannequins
+/Server/MultiplayerGame/Content/Characters/Mannequin_UE4
+/Server/MultiplayerGame/Content/Characters/knight2
+/Server/MultiplayerGame/Content/Characters/knight3
+/Server/MultiplayerGame/Content/Characters/knight1
+/Server/MultiplayerGame/Binaries
+/Server/Dummy/Saved
