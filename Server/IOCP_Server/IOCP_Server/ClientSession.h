@@ -2,9 +2,8 @@
 #pragma once
 #include <WinSock2.h>
 #include <WS2tcpip.h>
-
-#include "PacketTypes.h"
 #include <Windows.h>
+#include "PacketTypes.h"
 
 class ClientSession
 {

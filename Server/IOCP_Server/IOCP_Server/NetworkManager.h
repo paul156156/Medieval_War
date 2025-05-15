@@ -1,9 +1,9 @@
 // NetworkSessionManager.h
 #pragma once
 #include "Logger.h"
-#include <Windows.h>
 #include <WinSock2.h>
 #include <WS2tcpip.h>
+#include <Windows.h>
 
 class NetworkManager
 {

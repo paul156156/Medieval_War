@@ -4,9 +4,9 @@
 #include "NetworkManager.h"
 #include <mutex>
 #include <unordered_map>
-#include <Windows.h>
 #include <WinSock2.h>
 #include <WS2tcpip.h>
+#include <Windows.h>
 
 class IOCPServer {
 public:

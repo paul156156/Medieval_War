@@ -77,6 +77,7 @@ struct InputPacket {
     float ControlRotationYaw; // 회전값 (-180.0 ~ 180.0)
     bool bJumpPressed;      // 점프 버튼 눌림 여부
     bool bAttackPressed;    // 공격 버튼 눌림 여부
+	bool bCrouchPressed;   // 쭈그리기 버튼 눌림 여부
 };
 
 // 위치 업데이트 패킷 (서버 -> 클라이언트)
@@ -84,8 +85,9 @@ struct PositionPacket {
     PacketHeader Header;    // 패킷 헤더
     int32_t ClientId;       // 클라이언트 ID
     Vec3 Position;          // 현재 위치
-    float Yaw;             // 현재 Yaw 회전값
-    float Roll;		   // 현재 Roll 회전값
+	Rot3 Rotation;         // 현재 회전값
+    //float Yaw;             // 현재 Yaw 회전값
+    //float Roll;		   // 현재 Roll 회전값
     Vec3 Velocity;          // 현재 속도
     EPlayerState State;     // 현재 플레이어 상태
 };

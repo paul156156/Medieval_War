@@ -2,7 +2,6 @@
 #pragma once
 #include <WinSock2.h>
 #include <WS2tcpip.h>
-
 #include "ClientSession.h"
 #include "Logger.h"
 #include <atomic>

@@ -33,6 +33,8 @@ AMyPlayerCharacter::AMyPlayerCharacter()
     ControlRotationYaw = 0.f;
     bAttackPressed = false;
     bJumpPressed = false;
+	bIsAttacked = false;
+	bIsCrouched = false;
 }
 
 void AMyPlayerCharacter::BeginPlay()
@@ -120,6 +122,7 @@ void AMyPlayerCharacter::StopJump(const FInputActionValue& Value)
 void AMyPlayerCharacter::Attack(const FInputActionValue& Value)
 {
     bAttackPressed = true;
+	bIsAttacked = true; // 공격 상태로 설정
     UE_LOG(LogTemp, Log, TEXT("[MyPlayerCharacter] Attack Triggered"));
 
     if (AttackMontage)

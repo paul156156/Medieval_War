@@ -33,7 +33,7 @@ void PacketDispatcher::SendInitialPosition(ClientSession* client)
     LOG_INFO("초기 위치 정보 전송 - 클라이언트 ID: " + std::to_string(client->id));
 }
 
-void PacketDispatcher::BroadcastNewPlayerJoin(ClientSession* newClient, const std::unordered_map<int, ClientSession*>& clients)
+void PacketDispatcher::BroadcastNewPlayer(ClientSession* newClient, const std::unordered_map<int, ClientSession*>& clients)
 {
     for (const auto& pair : clients)
     {
@@ -53,7 +53,7 @@ void PacketDispatcher::BroadcastNewPlayerJoin(ClientSession* newClient, const st
     LOG_INFO("새 플레이어 정보 브로드캐스트 완료 - ID: " + std::to_string(newClient->id));
 }
 
-void PacketDispatcher::SendExistingPlayerList(ClientSession* newClient, const std::unordered_map<int, ClientSession*>& clients)
+void PacketDispatcher::SendExistingPlayer(ClientSession* newClient, const std::unordered_map<int, ClientSession*>& clients)
 {
     for (const auto& pair : clients)
     {

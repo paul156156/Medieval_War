@@ -102,6 +102,7 @@ struct InputPacket
     float ControlRotationPitch; // 회전값 (-180.0 ~ 180.0)
     bool bJumpPressed;      // 점프 버튼 눌림 여부
     bool bAttackPressed;    // 공격 버튼 눌림 여부
+	bool bCrouchPressed;   // 쭈그리기 버튼 눌림 여부
 };
 
 // 위치 업데이트 패킷 (서버 -> 클라이언트)

@@ -1,10 +1,10 @@
 {
     "Version": "1.2",
     "Data": {
-        "Source": "c:\\users\\blues\\desktop\\iocp_server\\iocp_server\\networksessionmanager.h",
+        "Source": "c:\\users\\blues\\documents\\github\\medieval_war\\server\\iocp_server\\iocp_server\\networksessionmanager.h",
         "ProvidedModule": "",
         "Includes": [
-            "c:\\users\\blues\\desktop\\iocp_server\\iocp_server\\clientsession.h",
+            "c:\\users\\blues\\documents\\github\\medieval_war\\server\\iocp_server\\iocp_server\\clientsession.h",
             "c:\\program files (x86)\\windows kits\\10\\include\\10.0.26100.0\\um\\winsock2.h",
             "c:\\program files (x86)\\windows kits\\10\\include\\10.0.26100.0\\shared\\winapifamily.h",
             "c:\\program files (x86)\\windows kits\\10\\include\\10.0.26100.0\\shared\\winpackagefamily.h",
@@ -235,12 +235,12 @@
             "c:\\program files (x86)\\windows kits\\10\\include\\10.0.26100.0\\um\\ws2tcpip.h",
             "c:\\program files (x86)\\windows kits\\10\\include\\10.0.26100.0\\shared\\ws2ipdef.h",
             "c:\\program files (x86)\\windows kits\\10\\include\\10.0.26100.0\\shared\\in6addr.h",
-            "c:\\users\\blues\\desktop\\iocp_server\\iocp_server\\packettypes.h",
+            "c:\\users\\blues\\documents\\github\\medieval_war\\server\\iocp_server\\iocp_server\\packettypes.h",
             "c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.38.33130\\include\\cstdint",
             "c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.38.33130\\include\\yvals_core.h",
             "c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.38.33130\\include\\xkeycheck.h",
             "c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.38.33130\\include\\stdint.h",
-            "c:\\users\\blues\\desktop\\iocp_server\\iocp_server\\logger.h",
+            "c:\\users\\blues\\documents\\github\\medieval_war\\server\\iocp_server\\iocp_server\\logger.h",
             "c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.38.33130\\include\\fstream",
             "c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.38.33130\\include\\__msvc_filebuf.hpp",
             "c:\\program files\\microsoft visual studio\\2022\\community\\vc\\tools\\msvc\\14.38.33130\\include\\yvals.h",

@@ -1,0 +1,22 @@
+{
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "x64\\Release\\NetworkSessionManager.h.obj",
+            "outputs": [
+                "C:\\Users\\Blues\\Documents\\GitHub\\Medieval_War\\Server\\IOCP_Server\\IOCP_Server\\x64\\Release\\vc143.pdb",
+                "x64\\Release\\",
+                "C:\\Users\\Blues\\Documents\\GitHub\\Medieval_War\\Server\\IOCP_Server\\IOCP_Server\\x64\\Release\\NetworkSessionManager.h.ifc"
+            ],
+            "provides": [
+                {
+                    "logical-name": "NetworkSessionManager.h",
+                    "source-path": "c:\\users\\blues\\documents\\github\\medieval_war\\server\\iocp_server\\iocp_server\\networksessionmanager.h",
+                    "lookup-method": "absolute"
+                }
+            ],
+            "requires": []
+        }
+    ]
+}

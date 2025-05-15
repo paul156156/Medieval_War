@@ -24,6 +24,7 @@ protected:
     void StartJump(const FInputActionValue& Value);
     void StopJump(const FInputActionValue& Value);
     void Look(const FInputActionValue& Value);
+    void Crouch(const FInputActionValue& Value);
     void Attack(const FInputActionValue& Value);
 
     void SendInputToServer();
@@ -31,6 +32,7 @@ protected:
     float ForwardInput;
     float RightInput;
     float ControlRotationYaw;
+    bool bCrouchPressed;
     bool bAttackPressed;
     bool bJumpPressed;
 
@@ -63,4 +65,7 @@ public:
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
     float AttackMontageDuration = 1.0f;
+
+    UPROPERTY(BlueprintReadWrite, Category = "Combat")
+    bool bIsAttacked = false;
 };

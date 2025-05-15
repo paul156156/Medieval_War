@@ -3,7 +3,6 @@
 #include "Logger.h"
 #include "NetworkSessionManager.h"
 #include "PacketDispatcher.h"
-
 #include <cmath>
 #include <WinSock2.h>
 #include <WS2tcpip.h>
@@ -119,8 +118,7 @@ void GameUpdater::BroadcastPosition(ClientSession* sourceClient, std::unordered_
     packet.Header.PacketSize = sizeof(PositionPacket);
     packet.ClientId = sourceClient->id;
     packet.Position = sourceClient->Position;
-    packet.Yaw = sourceClient->ControlRotationYaw;
-    packet.Roll = sourceClient->Rotation.Roll;
+	packet.Rotation = sourceClient->Rotation;
     packet.Velocity = sourceClient->Velocity;
     packet.State = sourceClient->State;
 
