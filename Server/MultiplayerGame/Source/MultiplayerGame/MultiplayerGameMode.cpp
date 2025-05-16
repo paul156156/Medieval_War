@@ -4,6 +4,7 @@
 #include "MyPlayerCharacter.h"
 #include "OtherPlayerCharacter.h"
 #include "NetworkManager.h"
+#include "MultiplayerHUD.h"
 #include "Kismet/GameplayStatics.h"
 #include "TimerManager.h"
 #include "Engine/World.h"
@@ -141,12 +142,29 @@ ACharacter* AMultiplayerGameMode::GetLocalPlayerCharacter() const
 void AMultiplayerGameMode::OnConnectionStatusChanged(bool bIsConnected)
 {
     UE_LOG(LogTemp, Log, TEXT("Server Connection Changed: %s"), bIsConnected ? TEXT("Connect") : TEXT("Disconnect"));
+
+    // HUD °»½Å
+    if (APlayerController* PC = UGameplayStatics::GetPlayerController(this, 0))
+    {
+        if (AMultiplayerHUD* HUD = Cast<AMultiplayerHUD>(PC->GetHUD()))
+        {
+            HUD->SetConnectionStatus(bIsConnected);
+        }
+    }
 }
 
 void AMultiplayerGameMode::OnPlayerJoined(int32 PlayerId)
 {
     bool bIsLocalPlayer = (PlayerId == NetworkManager->GetCurrentPlayerId());
     SpawnPlayerCharacter(PlayerId, bIsLocalPlayer);
+
+    if (APlayerController* PC = UGameplayStatics::GetPlayerController(this, 0))
+    {
+        if (AMultiplayerHUD* HUD = Cast<AMultiplayerHUD>(PC->GetHUD()))
+        {
+            HUD->UpdatePlayerCount(PlayerCharacters.Num());
+        }
+    }
 }
 
 void AMultiplayerGameMode::OnPlayerLeft(int32 PlayerId)
