@@ -1,0 +1,133 @@
+[15:33:36.332] [INFO] 로깅 시스템 초기화됨
+[15:33:36.333] [INFO] 서버 인스턴스 생성됨
+[15:33:36.333] [INFO] 서버 초기화 시작 (포트: 9000)
+[15:33:36.334] [INFO] 윈속 초기화 성공
+[15:33:36.336] [INFO] 리스닝 소켓 생성 성공
+[15:33:36.337] [INFO] 소켓 바인딩 성공 (포트: 9000)
+[15:33:36.337] [INFO] 리스닝 시작됨
+[15:33:36.338] [INFO] IOCP 생성 성공
+[15:33:36.338] [INFO] CPU 코어 수: 16, 생성할 작업자 스레드: 16
+[15:33:36.338] [INFO] 작업자 스레드 #1 생성됨
+[15:33:36.339] [INFO] 작업자 스레드 시작 (ThreadID: 8272)
+[15:33:36.339] [INFO] 작업자 스레드 #2 생성됨
+[15:33:36.340] [INFO] 작업자 스레드 시작 (ThreadID: 3836)
+[15:33:36.341] [INFO] 작업자 스레드 #3 생성됨
+[15:33:36.341] [INFO] 작업자 스레드 #4 생성됨
+[15:33:36.342] [INFO] 작업자 스레드 시작 (ThreadID: 32276)
+[15:33:36.342] [INFO] 작업자 스레드 시작 (ThreadID: 43424)
+[15:33:36.343] [INFO] 작업자 스레드 #5 생성됨
+[15:33:36.343] [INFO] 작업자 스레드 시작 (ThreadID: 34392)
+[15:33:36.343] [INFO] 작업자 스레드 #6 생성됨
+[15:33:36.344] [INFO] 작업자 스레드 시작 (ThreadID: 23644)
+[15:33:36.344] [INFO] 작업자 스레드 시작 (ThreadID: 43888)
+[15:33:36.345] [INFO] 작업자 스레드 #7 생성됨
+[15:33:36.346] [INFO] 작업자 스레드 #8 생성됨
+[15:33:36.346] [INFO] 작업자 스레드 시작 (ThreadID: 38936)
+[15:33:36.347] [INFO] 작업자 스레드 #9 생성됨
+[15:33:36.347] [INFO] 작업자 스레드 시작 (ThreadID: 41528)
+[15:33:36.348] [INFO] 작업자 스레드 #10 생성됨
+[15:33:36.348] [INFO] 작업자 스레드 시작 (ThreadID: 37096)
+[15:33:36.349] [INFO] 작업자 스레드 #11 생성됨
+[15:33:36.349] [INFO] 작업자 스레드 시작 (ThreadID: 18808)
+[15:33:36.350] [INFO] 작업자 스레드 #12 생성됨
+[15:33:36.350] [INFO] 작업자 스레드 시작 (ThreadID: 44172)
+[15:33:36.351] [INFO] 작업자 스레드 #13 생성됨
+[15:33:36.352] [INFO] 작업자 스레드 #14 생성됨
+[15:33:36.352] [INFO] 작업자 스레드 시작 (ThreadID: 28456)
+[15:33:36.352] [INFO] 작업자 스레드 시작 (ThreadID: 30020)
+[15:33:36.353] [INFO] 작업자 스레드 #15 생성됨
+[15:33:36.353] [INFO] 작업자 스레드 시작 (ThreadID: 37536)
+[15:33:36.354] [INFO] 작업자 스레드 #16 생성됨
+[15:33:36.354] [INFO] 작업자 스레드 시작 (ThreadID: 32836)
+[15:33:36.354] [INFO] 서버 초기화 완료
+[15:33:36.354] [INFO] 서버 실행. 포트 번호: 9000
+[15:33:36.355] [INFO] IOCP 멀티플레이어 서버 시작됨...
+[15:33:36.355] [INFO] 서버 실행 시작
+[15:33:40.481] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: SendClientId, 보낸 크기: 7, 클라이언트 ID: 1
+[15:33:40.482] [INFO] 새 클라이언트에게 ID 1 전송됨
+[15:33:40.483] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: SendInitialPosition, 보낸 크기: 32, 클라이언트 ID: 1
+[15:33:40.483] [INFO] 초기 위치 정보 전송됨 - 클라이언트 ID: 1, 위치: X=0.000000, Y=0.000000, Z=90.000000
+[15:33:40.484] [INFO] 새 플레이어 정보(ID: 1) 브로드캐스트 - 수신자 수: 0
+[15:33:40.484] [INFO] 기존 플레이어 정보 0개가 새 클라이언트(ID: 1)에게 전송됨
+[15:33:40.485] [INFO] [Run] Update() 호출 직전
+[15:33:40.485] [INFO] Update() 호출
+[15:33:40.485] [INFO] 위치 업데이트 - 클라이언트 ID: 1, 위치: X=0.000000, Y=0.000000, Z=90.000000, 속도: X=0.000000, Y=0.000000, Z=0.000000
+[15:33:40.486] [INFO] Update() 호출 끝
+[15:33:40.486] [INFO] [Run] Update() 호출 직후
+[15:33:40.486] [INFO] 서버 FPS: 0.483092, 평균 프레임 시간: 414.000000ms, 클라이언트 수: 1
+[15:33:41.477] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[15:33:41.477] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[15:33:41.478] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[15:33:41.478] [INFO] [Packet] Pong 전송 - ClientId: 1
+[15:33:42.476] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[15:33:42.477] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[15:33:42.477] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[15:33:42.478] [INFO] [Packet] Pong 전송 - ClientId: 1
+[15:33:43.477] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[15:33:43.478] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[15:33:43.479] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[15:33:43.480] [INFO] [Packet] Pong 전송 - ClientId: 1
+[15:33:44.477] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[15:33:44.478] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[15:33:44.478] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[15:33:44.479] [INFO] [Packet] Pong 전송 - ClientId: 1
+[15:33:45.477] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[15:33:45.478] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[15:33:45.479] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[15:33:45.479] [INFO] [Packet] Pong 전송 - ClientId: 1
+[15:33:46.477] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[15:33:46.478] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[15:33:46.479] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[15:33:46.479] [INFO] [Packet] Pong 전송 - ClientId: 1
+[15:33:47.478] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[15:33:47.478] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[15:33:47.479] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[15:33:47.479] [INFO] [Packet] Pong 전송 - ClientId: 1
+[15:33:48.477] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[15:33:48.479] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[15:33:48.479] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[15:33:48.483] [INFO] [Packet] Pong 전송 - ClientId: 1
+[15:33:49.478] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[15:33:49.478] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[15:33:49.478] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[15:33:49.479] [INFO] [Packet] Pong 전송 - ClientId: 1
+[15:33:50.478] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[15:33:50.478] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[15:33:50.479] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[15:33:50.480] [INFO] [Packet] Pong 전송 - ClientId: 1
+[15:33:51.478] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[15:33:51.478] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[15:33:51.479] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[15:33:51.479] [INFO] [Packet] Pong 전송 - ClientId: 1
+[15:33:52.476] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[15:33:52.477] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[15:33:52.478] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[15:33:52.478] [INFO] [Packet] Pong 전송 - ClientId: 1
+[15:33:53.478] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[15:33:53.479] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[15:33:53.479] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[15:33:53.480] [INFO] [Packet] Pong 전송 - ClientId: 1
+[15:33:54.479] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[15:33:54.479] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[15:33:54.480] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[15:33:54.481] [INFO] [Packet] Pong 전송 - ClientId: 1
+[15:33:55.479] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[15:33:55.479] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[15:33:55.480] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[15:33:55.480] [INFO] [Packet] Pong 전송 - ClientId: 1
+[15:33:56.479] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[15:33:56.480] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[15:33:56.481] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[15:33:56.481] [INFO] [Packet] Pong 전송 - ClientId: 1
+[15:33:56.963] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[15:33:56.963] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 164.425003, Jump: false, Attack: true
+[15:33:56.997] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[15:33:56.998] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 164.425003, Jump: false, Attack: true
+[15:33:57.495] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[15:33:57.495] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[15:33:57.495] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[15:33:57.496] [INFO] [Packet] Pong 전송 - ClientId: 1
+[15:33:58.503] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[15:33:58.504] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[15:33:58.505] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[15:33:58.505] [INFO] [Packet] Pong 전송 - ClientId: 1

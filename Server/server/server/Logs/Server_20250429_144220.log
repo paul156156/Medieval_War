@@ -1,0 +1,940 @@
+[14:42:20.533] [INFO] 로깅 시스템 초기화됨
+[14:42:20.534] [INFO] 서버 인스턴스 생성됨
+[14:42:20.534] [INFO] 서버 초기화 시작 (포트: 9000)
+[14:42:20.535] [INFO] 윈속 초기화 성공
+[14:42:20.537] [INFO] 리스닝 소켓 생성 성공
+[14:42:20.537] [INFO] 소켓 바인딩 성공 (포트: 9000)
+[14:42:20.537] [INFO] 리스닝 시작됨
+[14:42:20.538] [INFO] IOCP 생성 성공
+[14:42:20.538] [INFO] CPU 코어 수: 16, 생성할 작업자 스레드: 16
+[14:42:20.538] [INFO] 작업자 스레드 #1 생성됨
+[14:42:20.539] [INFO] 작업자 스레드 시작 (ThreadID: 13360)
+[14:42:20.539] [INFO] 작업자 스레드 #2 생성됨
+[14:42:20.539] [INFO] 작업자 스레드 시작 (ThreadID: 15892)
+[14:42:20.540] [INFO] 작업자 스레드 #3 생성됨
+[14:42:20.540] [INFO] 작업자 스레드 시작 (ThreadID: 2412)
+[14:42:20.540] [INFO] 작업자 스레드 #4 생성됨
+[14:42:20.541] [INFO] 작업자 스레드 시작 (ThreadID: 16724)
+[14:42:20.541] [INFO] 작업자 스레드 #5 생성됨
+[14:42:20.541] [INFO] 작업자 스레드 시작 (ThreadID: 30940)
+[14:42:20.542] [INFO] 작업자 스레드 #6 생성됨
+[14:42:20.542] [INFO] 작업자 스레드 시작 (ThreadID: 39624)
+[14:42:20.542] [INFO] 작업자 스레드 #7 생성됨
+[14:42:20.543] [INFO] 작업자 스레드 시작 (ThreadID: 44232)
+[14:42:20.543] [INFO] 작업자 스레드 #8 생성됨
+[14:42:20.543] [INFO] 작업자 스레드 시작 (ThreadID: 2084)
+[14:42:20.543] [INFO] 작업자 스레드 #9 생성됨
+[14:42:20.544] [INFO] 작업자 스레드 시작 (ThreadID: 44116)
+[14:42:20.544] [INFO] 작업자 스레드 #10 생성됨
+[14:42:20.544] [INFO] 작업자 스레드 시작 (ThreadID: 9592)
+[14:42:20.545] [INFO] 작업자 스레드 #11 생성됨
+[14:42:20.545] [INFO] 작업자 스레드 시작 (ThreadID: 33372)
+[14:42:20.546] [INFO] 작업자 스레드 #12 생성됨
+[14:42:20.546] [INFO] 작업자 스레드 시작 (ThreadID: 17428)
+[14:42:20.547] [INFO] 작업자 스레드 #13 생성됨
+[14:42:20.547] [INFO] 작업자 스레드 시작 (ThreadID: 36748)
+[14:42:20.547] [INFO] 작업자 스레드 #14 생성됨
+[14:42:20.547] [INFO] 작업자 스레드 시작 (ThreadID: 42916)
+[14:42:20.548] [INFO] 작업자 스레드 #15 생성됨
+[14:42:20.548] [INFO] 작업자 스레드 시작 (ThreadID: 44340)
+[14:42:20.548] [INFO] 작업자 스레드 #16 생성됨
+[14:42:20.549] [INFO] 작업자 스레드 시작 (ThreadID: 18696)
+[14:42:20.549] [INFO] 서버 초기화 완료
+[14:42:20.549] [INFO] 서버 실행. 포트 번호: 9000
+[14:42:20.549] [INFO] IOCP 멀티플레이어 서버 시작됨...
+[14:42:20.549] [INFO] 서버 실행 시작
+[14:42:23.611] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: SendClientId, 보낸 크기: 7, 클라이언트 ID: 1
+[14:42:23.612] [INFO] 새 클라이언트에게 ID 1 전송됨
+[14:42:23.612] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: SendInitialPosition, 보낸 크기: 32, 클라이언트 ID: 1
+[14:42:23.613] [INFO] 초기 위치 정보 전송됨 - 클라이언트 ID: 1, 위치: X=0.000000, Y=0.000000, Z=90.000000
+[14:42:23.613] [INFO] 새 플레이어 정보(ID: 1) 브로드캐스트 - 수신자 수: 0
+[14:42:23.613] [INFO] 기존 플레이어 정보 0개가 새 클라이언트(ID: 1)에게 전송됨
+[14:42:23.613] [INFO] 위치 업데이트 - 클라이언트 ID: 1, 위치: X=0.000000, Y=0.000000, Z=90.000000, 속도: X=0.000000, Y=0.000000, Z=0.000000
+[14:42:23.613] [INFO] 서버 FPS: 0.653168, 평균 프레임 시간: 306.200012ms, 클라이언트 수: 1
+[14:42:23.614] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: SendClientId, 보낸 크기: 7, 클라이언트 ID: 2
+[14:42:23.614] [INFO] 새 클라이언트에게 ID 2 전송됨
+[14:42:23.614] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: SendInitialPosition, 보낸 크기: 32, 클라이언트 ID: 2
+[14:42:23.615] [INFO] 초기 위치 정보 전송됨 - 클라이언트 ID: 2, 위치: X=300.000000, Y=0.000000, Z=90.000000
+[14:42:23.615] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: BroadcastNewPlayer, 보낸 크기: 32, 클라이언트 ID: 1
+[14:42:23.615] [INFO] 새 플레이어 정보(ID: 2) 브로드캐스트 - 수신자 수: 1
+[14:42:23.615] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: SendExistingPlayers, 보낸 크기: 32, 클라이언트 ID: 2
+[14:42:23.615] [INFO] 기존 플레이어 정보 1개가 새 클라이언트(ID: 2)에게 전송됨
+[14:42:23.616] [WARNING] 비정상적으로 긴 델타 타임: 3.062000초
+[14:42:23.616] [INFO] 위치 업데이트 - 클라이언트 ID: 1, 위치: X=0.000000, Y=0.000000, Z=90.000000, 속도: X=0.000000, Y=0.000000, Z=0.000000
+[14:42:23.616] [INFO] 위치 업데이트 - 클라이언트 ID: 2, 위치: X=300.000000, Y=0.000000, Z=90.000000, 속도: X=0.000000, Y=0.000000, Z=0.000000
+[14:42:24.608] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:24.609] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:24.609] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:24.611] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:24.611] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:24.612] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:24.612] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:24.612] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:25.610] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:25.611] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:25.612] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:25.612] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:25.613] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:25.614] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:25.614] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:25.614] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:26.613] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:26.614] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:26.614] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:26.614] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:26.616] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:26.616] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:26.616] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:26.616] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:27.645] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:27.646] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:27.646] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:27.647] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:27.647] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:27.648] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:27.648] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:27.648] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:28.646] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:28.646] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:28.647] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:28.647] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:28.648] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:28.648] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:28.648] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:28.649] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:29.662] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:29.663] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:29.663] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:29.663] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:29.663] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:29.664] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:29.664] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:29.664] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:30.680] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:30.680] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:30.681] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:30.681] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:30.681] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:30.681] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:30.682] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:30.682] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:31.681] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:31.681] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:31.682] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:31.682] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:31.683] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:31.683] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:31.683] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:31.684] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:32.688] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:32.689] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:32.689] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:32.689] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:32.690] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:32.690] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:32.690] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:32.691] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:33.897] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:33.898] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:33.898] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:33.899] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:33.899] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:33.899] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:33.900] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:33.900] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:34.911] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:34.912] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:34.912] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:34.912] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:34.913] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:34.913] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:34.913] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:34.914] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:35.929] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:35.930] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:35.930] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:35.930] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:35.931] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:35.931] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:35.931] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:35.931] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:36.941] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:36.941] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:36.942] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:36.942] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:36.943] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:36.943] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:36.943] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:36.943] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:38.145] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:38.145] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:38.146] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:38.146] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:38.146] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:38.147] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:38.147] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:38.147] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:39.153] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:39.154] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:39.154] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:39.154] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:39.154] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:39.155] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:39.155] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:39.155] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:40.163] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:40.164] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:40.164] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:40.164] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:40.165] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:40.165] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:40.165] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:40.165] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:41.175] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:41.175] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:41.176] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:41.176] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:41.176] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:41.176] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:41.177] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:41.177] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:42.187] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:42.188] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:42.188] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:42.189] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:42.189] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:42.189] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:42.190] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:42.190] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:43.199] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:43.200] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:43.200] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:43.200] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:43.201] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:43.201] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:43.202] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:43.202] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:44.217] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:44.217] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:44.218] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:44.218] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:44.218] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:44.219] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:44.219] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:44.219] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:45.222] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:45.222] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:45.223] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:45.223] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:45.224] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:45.224] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:45.224] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:45.224] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:46.229] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:46.229] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:46.230] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:46.230] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:46.231] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:46.231] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:46.231] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:46.231] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:47.240] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:47.241] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:47.241] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:47.241] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:47.242] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:47.242] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:47.242] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:47.242] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:48.456] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:48.457] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:48.457] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:48.457] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:48.458] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:48.458] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:48.459] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:48.459] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:49.364] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:42:49.365] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: true
+[14:42:49.417] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:42:49.418] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: true
+[14:42:49.476] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:49.476] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:49.476] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:49.477] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:49.477] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:49.477] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:49.477] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:49.478] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:50.517] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:50.518] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:50.518] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:50.518] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:50.519] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:42:50.519] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: -1.000000, Yaw: 359.649994, Jump: false, Attack: false
+[14:42:50.519] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:50.519] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:50.520] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:50.520] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:50.570] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:42:50.570] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: -1.000000, Yaw: 359.649994, Jump: false, Attack: false
+[14:42:50.622] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:42:50.623] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: -1.000000, Yaw: 359.649994, Jump: false, Attack: false
+[14:42:50.677] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:42:50.677] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: -1.000000, Yaw: 359.649994, Jump: false, Attack: false
+[14:42:50.734] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:42:50.734] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: -1.000000, Yaw: 359.649994, Jump: false, Attack: false
+[14:42:50.790] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:42:50.791] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: -1.000000, Yaw: 359.649994, Jump: false, Attack: false
+[14:42:50.844] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:42:50.845] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: -1.000000, Yaw: 359.649994, Jump: false, Attack: false
+[14:42:50.900] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:42:50.901] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: -1.000000, Yaw: 359.649994, Jump: false, Attack: false
+[14:42:50.955] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:42:50.956] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: -1.000000, Yaw: 359.649994, Jump: false, Attack: false
+[14:42:51.449] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:42:51.449] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 1.000000, Yaw: 359.649994, Jump: false, Attack: false
+[14:42:51.502] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:42:51.502] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 1.000000, Yaw: 359.649994, Jump: false, Attack: false
+[14:42:51.557] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:51.557] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:51.558] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:51.558] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:51.559] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:51.559] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:42:51.559] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:51.560] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 1.000000, Yaw: 359.649994, Jump: false, Attack: false
+[14:42:51.560] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:51.560] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:51.614] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:42:51.614] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 1.000000, Yaw: 359.649994, Jump: false, Attack: false
+[14:42:51.668] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:42:51.669] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 1.000000, Yaw: 359.649994, Jump: false, Attack: false
+[14:42:51.724] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:42:51.725] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 1.000000, Yaw: 359.649994, Jump: false, Attack: false
+[14:42:52.582] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:52.582] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:52.583] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:52.583] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:52.583] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:52.584] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:52.584] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:52.584] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:53.630] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:53.630] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:53.631] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:53.631] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:53.631] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:53.632] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:53.632] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:53.632] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:54.670] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:54.671] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:54.671] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:54.671] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:54.672] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:54.672] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:54.673] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:54.673] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:55.672] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:55.672] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:55.673] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:55.673] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:55.674] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:55.675] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:55.675] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:55.676] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:56.108] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:42:56.108] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 0.000000, Yaw: 0.000000, Jump: false, Attack: true
+[14:42:56.318] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:42:56.318] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: -1.000000, Yaw: 356.850006, Jump: false, Attack: false
+[14:42:56.375] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:42:56.376] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: -1.000000, Yaw: 356.850006, Jump: false, Attack: false
+[14:42:56.436] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:42:56.436] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: -1.000000, Yaw: 356.674988, Jump: false, Attack: false
+[14:42:56.497] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:42:56.498] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: -1.000000, Yaw: 358.424988, Jump: false, Attack: false
+[14:42:56.559] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:42:56.560] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: -1.000000, Yaw: 359.825012, Jump: false, Attack: false
+[14:42:56.619] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:42:56.620] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: -1.000000, Yaw: 5.950000, Jump: false, Attack: false
+[14:42:56.676] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:56.676] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:56.677] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:56.677] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:56.678] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:56.678] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:56.678] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:56.678] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:56.678] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:42:56.679] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: -1.000000, Yaw: 9.975000, Jump: false, Attack: false
+[14:42:56.734] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:42:56.734] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: -1.000000, Yaw: 16.799999, Jump: false, Attack: false
+[14:42:56.789] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:42:56.790] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: -1.000000, Yaw: 34.475002, Jump: false, Attack: false
+[14:42:56.850] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:42:56.851] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: -1.000000, Yaw: 53.375000, Jump: false, Attack: false
+[14:42:56.911] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:42:56.911] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: -1.000000, Yaw: 69.125000, Jump: false, Attack: false
+[14:42:56.968] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:42:56.968] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: -1.000000, Yaw: 69.125000, Jump: false, Attack: false
+[14:42:57.245] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:42:57.246] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 1.000000, Yaw: 41.475002, Jump: false, Attack: false
+[14:42:57.303] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:42:57.303] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 1.000000, Yaw: 33.775002, Jump: false, Attack: false
+[14:42:57.361] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:42:57.362] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 1.000000, Yaw: 16.100000, Jump: false, Attack: false
+[14:42:57.415] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:42:57.416] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 1.000000, Yaw: 7.000000, Jump: false, Attack: false
+[14:42:57.469] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:42:57.470] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 1.000000, Yaw: 5.599999, Jump: false, Attack: false
+[14:42:57.525] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:42:57.526] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 1.000000, Yaw: 5.425000, Jump: false, Attack: false
+[14:42:57.580] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:42:57.580] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: 1.000000, Yaw: 5.250000, Jump: false, Attack: false
+[14:42:57.634] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:42:57.634] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: 1.000000, Yaw: 4.724999, Jump: false, Attack: false
+[14:42:57.687] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:57.688] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:57.688] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:57.688] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:57.689] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:57.690] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:57.690] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:57.690] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:57.690] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:42:57.690] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 1.000000, Yaw: 0.524999, Jump: false, Attack: false
+[14:42:58.127] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:42:58.127] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: 0.000000, Yaw: 353.000000, Jump: false, Attack: false
+[14:42:58.181] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:42:58.182] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: 0.000000, Yaw: 353.000000, Jump: false, Attack: false
+[14:42:58.239] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:42:58.240] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 0.000000, Yaw: 353.000000, Jump: false, Attack: true
+[14:42:58.717] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:58.717] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:58.718] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:58.718] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:58.719] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:58.719] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:58.719] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:58.719] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:42:58.980] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:42:58.981] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 0.000000, Yaw: 353.000000, Jump: true, Attack: false
+[14:42:59.032] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:42:59.032] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 0.000000, Yaw: 353.000000, Jump: true, Attack: false
+[14:42:59.087] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:42:59.087] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 0.000000, Yaw: 353.000000, Jump: true, Attack: false
+[14:42:59.729] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:42:59.729] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:42:59.730] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:42:59.730] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:42:59.731] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:42:59.731] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:42:59.731] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:42:59.731] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:43:00.616] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:00.616] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 0.000000, Yaw: 353.000000, Jump: true, Attack: false
+[14:43:00.667] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:00.668] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 0.000000, Yaw: 353.000000, Jump: true, Attack: false
+[14:43:00.723] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:00.724] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 0.000000, Yaw: 353.000000, Jump: true, Attack: false
+[14:43:00.777] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:43:00.778] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:43:00.779] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:43:00.779] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:43:00.779] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:43:00.779] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:43:00.780] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:43:00.780] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:43:01.778] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:43:01.778] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:43:01.778] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:43:01.779] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:43:01.779] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:43:01.779] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:43:01.780] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:43:01.780] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:43:02.432] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:02.432] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 0.000000, Yaw: 353.000000, Jump: true, Attack: false
+[14:43:02.485] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:02.486] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 0.000000, Yaw: 353.000000, Jump: true, Attack: false
+[14:43:02.540] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:02.541] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 0.000000, Yaw: 353.000000, Jump: true, Attack: false
+[14:43:02.809] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:43:02.809] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:43:02.810] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:43:02.810] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:43:02.811] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:43:02.811] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:43:02.812] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:43:02.812] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:43:03.841] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:43:03.842] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:43:03.842] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:43:03.842] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:43:03.843] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:43:03.843] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:43:03.843] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:43:03.843] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:43:04.113] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:04.113] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 0.000000, Yaw: 353.000000, Jump: true, Attack: false
+[14:43:04.164] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:04.164] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 0.000000, Yaw: 353.000000, Jump: true, Attack: false
+[14:43:04.874] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:43:04.874] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:43:04.875] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:43:04.875] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:43:04.876] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:43:04.876] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:43:04.876] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:43:04.877] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:43:05.922] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:43:05.923] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:43:05.924] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:43:05.924] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:43:05.924] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:43:05.925] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:43:05.925] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:43:05.925] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:43:06.031] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:06.032] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 0.000000, Yaw: 353.000000, Jump: true, Attack: false
+[14:43:06.085] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:06.086] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 0.000000, Yaw: 353.000000, Jump: true, Attack: false
+[14:43:06.138] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:06.138] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 0.000000, Yaw: 353.000000, Jump: true, Attack: false
+[14:43:06.953] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:43:06.953] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:43:06.954] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:43:06.954] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:43:06.955] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:43:06.955] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:43:06.955] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:43:06.955] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:43:07.717] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:07.718] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 1.000000, Yaw: 353.000000, Jump: false, Attack: false
+[14:43:07.773] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:07.773] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 1.000000, Yaw: 353.000000, Jump: false, Attack: false
+[14:43:07.829] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:07.829] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 1.000000, Yaw: 353.000000, Jump: false, Attack: false
+[14:43:07.881] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:07.881] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 1.000000, Yaw: 353.000000, Jump: false, Attack: false
+[14:43:07.935] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:07.936] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: 1.000000, Yaw: 353.000000, Jump: false, Attack: false
+[14:43:07.986] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:43:07.987] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:43:07.987] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:43:07.987] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:43:07.988] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:43:07.988] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:43:07.988] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:43:07.989] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:43:07.989] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:07.989] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: 1.000000, Yaw: 353.000000, Jump: false, Attack: false
+[14:43:08.041] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:08.041] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: 1.000000, Yaw: 353.000000, Jump: false, Attack: false
+[14:43:08.094] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:08.094] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: 1.000000, Yaw: 353.000000, Jump: false, Attack: false
+[14:43:08.147] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:08.148] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: 1.000000, Yaw: 353.000000, Jump: false, Attack: false
+[14:43:08.200] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:08.201] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: 0.000000, Yaw: 353.000000, Jump: false, Attack: false
+[14:43:08.255] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:08.255] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: -1.000000, Yaw: 353.000000, Jump: false, Attack: false
+[14:43:08.308] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:08.308] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: -1.000000, Yaw: 352.825012, Jump: false, Attack: false
+[14:43:08.360] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:08.360] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: -1.000000, Yaw: 352.825012, Jump: false, Attack: false
+[14:43:08.416] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:08.416] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: -1.000000, Yaw: 352.825012, Jump: false, Attack: false
+[14:43:08.471] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:08.472] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: -1.000000, Yaw: 352.825012, Jump: false, Attack: false
+[14:43:08.524] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:08.525] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: -1.000000, Yaw: 352.299988, Jump: false, Attack: false
+[14:43:08.577] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:08.578] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: -1.000000, Yaw: 352.125000, Jump: false, Attack: false
+[14:43:08.630] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:08.630] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: -1.000000, Yaw: 351.774994, Jump: false, Attack: false
+[14:43:08.682] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:08.683] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: -1.000000, Yaw: 351.774994, Jump: false, Attack: false
+[14:43:08.737] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:08.738] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: -1.000000, Yaw: 351.774994, Jump: false, Attack: false
+[14:43:08.792] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:08.792] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: -1.000000, Yaw: 351.774994, Jump: false, Attack: false
+[14:43:08.846] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:08.847] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: -1.000000, Yaw: 351.774994, Jump: false, Attack: false
+[14:43:08.902] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:08.903] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: -1.000000, Yaw: 351.774994, Jump: false, Attack: false
+[14:43:08.958] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:08.959] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: -1.000000, Yaw: 351.774994, Jump: false, Attack: false
+[14:43:09.013] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:43:09.014] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:43:09.014] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:43:09.014] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:43:09.015] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:43:09.015] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:43:09.016] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:43:09.016] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:43:09.016] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:09.016] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: -1.000000, Yaw: 351.774994, Jump: false, Attack: false
+[14:43:09.077] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:09.078] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: -1.000000, Yaw: 351.600006, Jump: false, Attack: false
+[14:43:09.134] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:09.135] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: -1.000000, Yaw: 352.299988, Jump: false, Attack: false
+[14:43:09.193] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:09.194] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: 0.000000, Yaw: 353.700012, Jump: false, Attack: false
+[14:43:09.245] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:09.245] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: 0.000000, Yaw: 354.575012, Jump: false, Attack: false
+[14:43:09.297] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:09.298] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: 0.000000, Yaw: 354.575012, Jump: false, Attack: false
+[14:43:09.353] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:09.353] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: 0.000000, Yaw: 354.924988, Jump: false, Attack: false
+[14:43:09.409] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:09.409] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: 0.000000, Yaw: 354.924988, Jump: false, Attack: false
+[14:43:09.463] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:09.464] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: 0.000000, Yaw: 354.924988, Jump: false, Attack: false
+[14:43:09.518] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:09.518] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: 0.000000, Yaw: 355.274994, Jump: false, Attack: false
+[14:43:09.572] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:09.573] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: 0.000000, Yaw: 355.799988, Jump: false, Attack: false
+[14:43:09.626] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:09.627] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: 0.000000, Yaw: 356.325012, Jump: false, Attack: false
+[14:43:09.681] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:09.681] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: 0.000000, Yaw: 357.375000, Jump: false, Attack: false
+[14:43:09.737] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:09.737] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: 0.000000, Yaw: 358.774994, Jump: false, Attack: false
+[14:43:09.796] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:09.796] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: 0.000000, Yaw: 2.099999, Jump: false, Attack: false
+[14:43:09.849] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:09.849] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 1.000000, Yaw: 8.749999, Jump: false, Attack: false
+[14:43:09.903] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:09.904] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 1.000000, Yaw: 8.749999, Jump: false, Attack: false
+[14:43:09.960] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:09.960] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 1.000000, Yaw: 8.749999, Jump: false, Attack: false
+[14:43:10.018] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:43:10.019] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:43:10.019] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:43:10.020] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:43:10.020] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:43:10.020] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:43:10.021] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:43:10.021] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:43:10.021] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:10.021] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 1.000000, Yaw: 8.749999, Jump: false, Attack: true
+[14:43:10.074] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:10.075] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 1.000000, Yaw: 12.424999, Jump: false, Attack: false
+[14:43:10.129] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:10.130] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: 1.000000, Yaw: 12.424999, Jump: false, Attack: false
+[14:43:10.185] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:10.186] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: 1.000000, Yaw: 12.424999, Jump: false, Attack: false
+[14:43:10.243] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:10.244] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: 1.000000, Yaw: 12.249999, Jump: false, Attack: false
+[14:43:10.299] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:10.300] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: 1.000000, Yaw: 12.075000, Jump: false, Attack: false
+[14:43:10.359] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:10.359] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 1.000000, Right: 1.000000, Yaw: 11.900000, Jump: false, Attack: false
+[14:43:10.421] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:10.421] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 1.000000, Yaw: 11.724999, Jump: false, Attack: false
+[14:43:10.640] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:10.640] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: -1.000000, Right: 0.000000, Yaw: 11.374999, Jump: false, Attack: false
+[14:43:10.693] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:10.693] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: -1.000000, Right: 0.000000, Yaw: 11.374999, Jump: false, Attack: false
+[14:43:10.747] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:10.747] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: -1.000000, Right: 1.000000, Yaw: 11.374999, Jump: false, Attack: false
+[14:43:10.801] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:10.802] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: -1.000000, Right: 0.000000, Yaw: 11.374999, Jump: false, Attack: false
+[14:43:10.854] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:10.855] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: -1.000000, Right: 0.000000, Yaw: 11.200000, Jump: false, Attack: false
+[14:43:10.910] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:10.911] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: -1.000000, Right: 0.000000, Yaw: 11.025000, Jump: false, Attack: false
+[14:43:10.964] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:10.964] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: -1.000000, Right: 0.000000, Yaw: 11.025000, Jump: false, Attack: false
+[14:43:11.016] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:43:11.017] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:43:11.017] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:43:11.017] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:43:11.018] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:43:11.018] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:43:11.018] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:43:11.019] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:43:11.019] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:11.019] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: -1.000000, Right: 0.000000, Yaw: 10.849999, Jump: false, Attack: false
+[14:43:11.075] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:11.075] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: -1.000000, Right: 0.000000, Yaw: 10.674999, Jump: false, Attack: false
+[14:43:11.131] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:11.132] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: -1.000000, Right: 0.000000, Yaw: 9.974999, Jump: false, Attack: false
+[14:43:11.185] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:11.186] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: -1.000000, Right: 0.000000, Yaw: 9.625000, Jump: false, Attack: false
+[14:43:11.242] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:11.242] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: -1.000000, Right: 0.000000, Yaw: 8.750000, Jump: false, Attack: false
+[14:43:11.298] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:11.298] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: -1.000000, Right: 0.000000, Yaw: 7.000000, Jump: false, Attack: false
+[14:43:11.354] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:11.354] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: -1.000000, Right: 0.000000, Yaw: 5.599999, Jump: false, Attack: false
+[14:43:11.409] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:11.409] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: -1.000000, Right: -1.000000, Yaw: 5.074999, Jump: false, Attack: false
+[14:43:11.464] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:11.465] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: -1.000000, Right: -1.000000, Yaw: 3.674999, Jump: false, Attack: false
+[14:43:11.519] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:11.520] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: -1.000000, Right: -1.000000, Yaw: 2.625000, Jump: false, Attack: false
+[14:43:11.575] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:11.575] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: -1.000000, Right: -1.000000, Yaw: 2.450000, Jump: false, Attack: false
+[14:43:11.628] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:11.629] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: -1.000000, Right: -1.000000, Yaw: 2.450000, Jump: false, Attack: false
+[14:43:11.683] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:11.683] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: -1.000000, Right: -1.000000, Yaw: 2.274999, Jump: false, Attack: false
+[14:43:11.740] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:11.741] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: -1.000000, Right: 1.000000, Yaw: 2.099999, Jump: false, Attack: false
+[14:43:11.796] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:11.797] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 1.000000, Yaw: 2.099999, Jump: false, Attack: false
+[14:43:11.850] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:11.850] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 1.000000, Yaw: 2.099999, Jump: false, Attack: false
+[14:43:11.933] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:11.934] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 1.000000, Yaw: 1.750000, Jump: false, Attack: false
+[14:43:11.964] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:11.965] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 1.000000, Yaw: 1.224999, Jump: false, Attack: false
+[14:43:12.018] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:12.019] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 1.000000, Yaw: 1.049999, Jump: false, Attack: false
+[14:43:12.069] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:43:12.070] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:43:12.070] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:43:12.070] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:43:12.071] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:43:12.071] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:43:12.071] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:43:12.072] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:43:12.072] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:12.072] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 1.000000, Yaw: 0.699999, Jump: false, Attack: false
+[14:43:12.124] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:12.125] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 1.000000, Yaw: 0.524999, Jump: false, Attack: false
+[14:43:12.178] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 2
+[14:43:12.178] [INFO] 입력 패킷 수신 - 클라이언트 ID: 2, Forward: 0.000000, Right: 1.000000, Yaw: 0.349999, Jump: false, Attack: false
+[14:43:13.080] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:43:13.080] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:43:13.081] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:43:13.081] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:43:13.081] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:43:13.082] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:43:13.082] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:43:13.082] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:43:14.024] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:14.024] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 359.299988, Jump: false, Attack: true
+[14:43:14.119] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:43:14.119] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:43:14.120] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:43:14.120] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:43:14.121] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:43:14.121] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:43:14.121] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:43:14.122] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:43:14.622] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:14.623] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: -1.000000, Yaw: 352.649994, Jump: false, Attack: false
+[14:43:14.675] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:14.676] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: -1.000000, Yaw: 352.475006, Jump: false, Attack: false
+[14:43:14.728] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:14.729] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 0.000000, Yaw: 351.424988, Jump: false, Attack: false
+[14:43:14.781] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:14.781] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 0.000000, Yaw: 348.799988, Jump: false, Attack: false
+[14:43:14.832] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:14.832] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 0.000000, Yaw: 346.000000, Jump: false, Attack: false
+[14:43:14.882] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:14.883] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 0.000000, Yaw: 346.000000, Jump: false, Attack: false
+[14:43:14.933] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:14.934] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 0.000000, Yaw: 346.000000, Jump: false, Attack: false
+[14:43:14.985] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:14.986] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 0.000000, Yaw: 346.000000, Jump: false, Attack: false
+[14:43:15.036] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:15.037] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 0.000000, Yaw: 346.000000, Jump: false, Attack: false
+[14:43:15.089] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:15.090] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 0.000000, Yaw: 346.000000, Jump: false, Attack: false
+[14:43:15.145] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:43:15.145] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:43:15.145] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:43:15.146] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:43:15.146] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:15.146] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 0.000000, Yaw: 344.950012, Jump: false, Attack: false
+[14:43:15.146] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:43:15.147] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:43:15.147] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:43:15.147] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:43:15.206] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:15.206] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 0.000000, Yaw: 344.950012, Jump: false, Attack: false
+[14:43:15.260] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:15.261] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 1.000000, Yaw: 344.950012, Jump: false, Attack: false
+[14:43:15.313] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:15.314] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 1.000000, Yaw: 344.950012, Jump: false, Attack: false
+[14:43:15.375] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:15.376] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 1.000000, Yaw: 344.950012, Jump: false, Attack: false
+[14:43:15.429] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:15.430] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 1.000000, Yaw: 344.774994, Jump: false, Attack: false
+[14:43:15.484] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:15.484] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 1.000000, Yaw: 344.424988, Jump: false, Attack: false
+[14:43:15.536] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:15.536] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 1.000000, Yaw: 344.250000, Jump: false, Attack: false
+[14:43:15.588] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:15.588] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 1.000000, Yaw: 343.899994, Jump: false, Attack: false
+[14:43:15.644] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:15.644] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 1.000000, Yaw: 342.149994, Jump: false, Attack: true
+[14:43:15.690] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:15.691] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 1.000000, Yaw: 342.149994, Jump: false, Attack: true
+[14:43:15.743] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:15.744] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 1.000000, Yaw: 341.274994, Jump: false, Attack: false
+[14:43:15.795] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:15.795] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 1.000000, Yaw: 341.274994, Jump: false, Attack: false
+[14:43:15.848] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:15.849] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 1.000000, Yaw: 341.274994, Jump: false, Attack: false
+[14:43:15.902] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:15.903] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 1.000000, Yaw: 341.274994, Jump: false, Attack: false
+[14:43:15.958] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:15.959] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 1.000000, Yaw: 341.274994, Jump: false, Attack: false
+[14:43:16.010] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:16.011] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 1.000000, Yaw: 341.274994, Jump: false, Attack: false
+[14:43:16.063] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:16.064] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 1.000000, Yaw: 341.100006, Jump: false, Attack: false
+[14:43:16.117] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:16.117] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 1.000000, Yaw: 340.750000, Jump: false, Attack: false
+[14:43:16.169] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:43:16.169] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:43:16.170] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:43:16.170] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:43:16.170] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:16.170] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 1.000000, Yaw: 340.750000, Jump: false, Attack: false
+[14:43:16.171] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:43:16.171] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:43:16.171] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:43:16.172] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:43:16.220] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:16.221] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 0.000000, Yaw: 340.750000, Jump: false, Attack: false
+[14:43:16.271] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:16.271] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 0.000000, Yaw: 340.750000, Jump: false, Attack: false
+[14:43:16.329] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:16.329] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: -1.000000, Yaw: 340.750000, Jump: false, Attack: false
+[14:43:16.381] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:16.382] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: -1.000000, Yaw: 340.750000, Jump: false, Attack: false
+[14:43:16.433] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:16.434] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: -1.000000, Yaw: 340.750000, Jump: false, Attack: false
+[14:43:16.493] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:16.494] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: -1.000000, Yaw: 340.575012, Jump: false, Attack: false
+[14:43:16.545] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:16.546] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: -1.000000, Yaw: 340.399994, Jump: false, Attack: false
+[14:43:16.596] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:16.596] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: -1.000000, Yaw: 340.399994, Jump: false, Attack: false
+[14:43:16.649] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:16.649] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: -1.000000, Yaw: 340.399994, Jump: false, Attack: false
+[14:43:16.702] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:16.703] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: -1.000000, Yaw: 340.399994, Jump: false, Attack: false
+[14:43:16.753] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:16.754] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: -1.000000, Yaw: 340.399994, Jump: false, Attack: false
+[14:43:16.804] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:16.805] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 0.000000, Yaw: 340.399994, Jump: false, Attack: false
+[14:43:16.855] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:16.855] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 0.000000, Yaw: 340.399994, Jump: false, Attack: false
+[14:43:16.906] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:16.907] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 0.000000, Yaw: 340.399994, Jump: false, Attack: false
+[14:43:16.959] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:16.959] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 0.000000, Yaw: 340.399994, Jump: false, Attack: false
+[14:43:17.019] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:17.019] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 0.000000, Yaw: 340.399994, Jump: false, Attack: false
+[14:43:17.073] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:17.074] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 0.000000, Yaw: 340.399994, Jump: false, Attack: false
+[14:43:17.127] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:17.128] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 0.000000, Yaw: 340.399994, Jump: false, Attack: false
+[14:43:17.180] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:43:17.180] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:43:17.181] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:43:17.181] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:43:17.181] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:17.181] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:43:17.181] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 0.000000, Yaw: 340.399994, Jump: false, Attack: false
+[14:43:17.182] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:43:17.182] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:43:17.182] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:43:17.231] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:17.231] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 0.000000, Yaw: 340.399994, Jump: false, Attack: false
+[14:43:17.282] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:17.282] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 0.000000, Yaw: 340.399994, Jump: false, Attack: false
+[14:43:17.340] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:17.341] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 0.000000, Yaw: 340.399994, Jump: false, Attack: false
+[14:43:17.395] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:17.395] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 0.000000, Yaw: 340.049988, Jump: true, Attack: false
+[14:43:17.445] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:17.446] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 1.000000, Right: 0.000000, Yaw: 340.049988, Jump: true, Attack: false
+[14:43:17.499] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:17.500] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Yaw: 342.149994, Jump: true, Attack: false
+[14:43:17.551] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:17.552] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 1.000000, Yaw: 342.149994, Jump: false, Attack: false
+[14:43:17.602] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:17.603] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 1.000000, Yaw: 344.950012, Jump: false, Attack: false
+[14:43:17.655] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:17.656] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 1.000000, Yaw: 344.950012, Jump: false, Attack: false
+[14:43:17.709] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:17.710] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 1.000000, Yaw: 344.950012, Jump: false, Attack: true
+[14:43:17.759] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:17.760] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 1.000000, Yaw: 344.950012, Jump: false, Attack: true
+[14:43:17.812] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:17.812] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 1.000000, Yaw: 344.950012, Jump: false, Attack: false
+[14:43:17.861] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:17.861] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 1.000000, Yaw: 344.950012, Jump: false, Attack: false
+[14:43:17.916] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:17.917] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 1.000000, Yaw: 344.600006, Jump: false, Attack: false
+[14:43:17.968] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:17.969] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 1.000000, Yaw: 343.024994, Jump: false, Attack: false
+[14:43:18.018] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:18.018] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: -1.000000, Right: 1.000000, Yaw: 341.799988, Jump: false, Attack: false
+[14:43:18.066] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:18.066] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: -1.000000, Right: 1.000000, Yaw: 340.575012, Jump: false, Attack: false
+[14:43:18.112] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:18.113] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: -1.000000, Right: 1.000000, Yaw: 339.700012, Jump: false, Attack: false
+[14:43:18.166] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:18.167] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: -1.000000, Right: 1.000000, Yaw: 339.700012, Jump: false, Attack: false
+[14:43:18.214] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:43:18.215] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:43:18.215] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:43:18.216] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:43:18.216] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:18.216] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: -1.000000, Right: 1.000000, Yaw: 339.700012, Jump: false, Attack: false
+[14:43:18.216] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:43:18.217] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:43:18.217] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:43:18.217] [INFO] [Packet] Pong 전송 - ClientId: 2
+[14:43:18.263] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:18.264] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: -1.000000, Right: 1.000000, Yaw: 339.700012, Jump: false, Attack: false
+[14:43:18.311] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:18.312] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: -1.000000, Right: 1.000000, Yaw: 339.524994, Jump: false, Attack: false
+[14:43:18.363] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:18.364] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: -1.000000, Right: 1.000000, Yaw: 339.174988, Jump: false, Attack: false
+[14:43:18.411] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:18.412] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: -1.000000, Right: 1.000000, Yaw: 337.600006, Jump: false, Attack: false
+[14:43:18.463] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:18.464] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: -1.000000, Right: 1.000000, Yaw: 337.250000, Jump: false, Attack: false
+[14:43:18.510] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:18.511] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: -1.000000, Right: 1.000000, Yaw: 336.899994, Jump: false, Attack: false
+[14:43:18.558] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:18.559] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: -1.000000, Right: 1.000000, Yaw: 336.375000, Jump: false, Attack: false
+[14:43:18.605] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:18.606] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: -1.000000, Right: 0.000000, Yaw: 336.375000, Jump: false, Attack: false
+[14:43:18.652] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:18.652] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: -1.000000, Right: 0.000000, Yaw: 336.200012, Jump: false, Attack: false
+[14:43:18.700] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:18.701] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: -1.000000, Right: 0.000000, Yaw: 335.850006, Jump: false, Attack: false
+[14:43:18.749] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:18.750] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: -1.000000, Right: 0.000000, Yaw: 335.500000, Jump: false, Attack: false
+[14:43:18.795] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:18.796] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: -1.000000, Right: 0.000000, Yaw: 335.500000, Jump: false, Attack: false
+[14:43:18.842] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:18.843] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: -1.000000, Right: 0.000000, Yaw: 335.325012, Jump: false, Attack: false
+[14:43:18.890] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:18.891] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: -1.000000, Right: 0.000000, Yaw: 335.149994, Jump: false, Attack: false
+[14:43:18.941] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:18.941] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: -1.000000, Right: 0.000000, Yaw: 334.975006, Jump: false, Attack: false
+[14:43:18.991] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:18.992] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: -1.000000, Right: 0.000000, Yaw: 334.975006, Jump: false, Attack: false
+[14:43:19.040] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[14:43:19.041] [INFO] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: -1.000000, Right: 0.000000, Yaw: 334.975006, Jump: false, Attack: false
+[14:43:19.241] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[14:43:19.241] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 1
+[14:43:19.242] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 1
+[14:43:19.242] [INFO] [Packet] Pong 전송 - ClientId: 1
+[14:43:19.242] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 2
+[14:43:19.243] [DEBUG] [ProcessPacket] Ping 수신, ClientId: 2
+[14:43:19.243] [DEBUG] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPong, 보낸 크기: 11, 클라이언트 ID: 2
+[14:43:19.243] [INFO] [Packet] Pong 전송 - ClientId: 2

@@ -1,0 +1,349 @@
+[11:25:45.294] [INFO] 로깅 시스템 초기화됨
+[11:25:45.294] [INFO] 서버 인스턴스 생성됨
+[11:25:45.294] [INFO] 서버 초기화 시작 (포트: 9000)
+[11:25:45.295] [INFO] 윈속 초기화 성공
+[11:25:45.296] [INFO] 리스닝 소켓 생성 성공
+[11:25:45.296] [INFO] 소켓 바인딩 성공 (포트: 9000)
+[11:25:45.296] [INFO] 리스닝 시작됨
+[11:25:45.297] [INFO] IOCP 생성 성공
+[11:25:45.297] [INFO] CPU 코어 수: 16, 생성할 작업자 스레드: 16
+[11:25:45.297] [INFO] 작업자 스레드 #1 생성됨
+[11:25:45.297] [INFO] 작업자 스레드 시작 (ThreadID: 13456)
+[11:25:45.297] [INFO] 작업자 스레드 #2 생성됨
+[11:25:45.297] [INFO] 작업자 스레드 시작 (ThreadID: 18340)
+[11:25:45.298] [INFO] 작업자 스레드 #3 생성됨
+[11:25:45.298] [INFO] 작업자 스레드 시작 (ThreadID: 31200)
+[11:25:45.298] [INFO] 작업자 스레드 #4 생성됨
+[11:25:45.298] [INFO] 작업자 스레드 시작 (ThreadID: 13980)
+[11:25:45.299] [INFO] 작업자 스레드 #5 생성됨
+[11:25:45.299] [INFO] 작업자 스레드 시작 (ThreadID: 14260)
+[11:25:45.299] [INFO] 작업자 스레드 #6 생성됨
+[11:25:45.299] [INFO] 작업자 스레드 시작 (ThreadID: 26364)
+[11:25:45.299] [INFO] 작업자 스레드 #7 생성됨
+[11:25:45.299] [INFO] 작업자 스레드 시작 (ThreadID: 12084)
+[11:25:45.300] [INFO] 작업자 스레드 #8 생성됨
+[11:25:45.300] [INFO] 작업자 스레드 시작 (ThreadID: 32324)
+[11:25:45.300] [INFO] 작업자 스레드 #9 생성됨
+[11:25:45.300] [INFO] 작업자 스레드 시작 (ThreadID: 14860)
+[11:25:45.300] [INFO] 작업자 스레드 #10 생성됨
+[11:25:45.301] [INFO] 작업자 스레드 시작 (ThreadID: 11500)
+[11:25:45.301] [INFO] 작업자 스레드 #11 생성됨
+[11:25:45.301] [INFO] 작업자 스레드 시작 (ThreadID: 19488)
+[11:25:45.301] [INFO] 작업자 스레드 #12 생성됨
+[11:25:45.301] [INFO] 작업자 스레드 시작 (ThreadID: 31068)
+[11:25:45.302] [INFO] 작업자 스레드 #13 생성됨
+[11:25:45.302] [INFO] 작업자 스레드 시작 (ThreadID: 32240)
+[11:25:45.302] [INFO] 작업자 스레드 #14 생성됨
+[11:25:45.302] [INFO] 작업자 스레드 시작 (ThreadID: 18888)
+[11:25:45.302] [INFO] 작업자 스레드 #15 생성됨
+[11:25:45.303] [INFO] 작업자 스레드 시작 (ThreadID: 17824)
+[11:25:45.303] [INFO] 작업자 스레드 #16 생성됨
+[11:25:45.303] [INFO] 서버 초기화 완료
+[11:25:45.303] [INFO] 서버 실행. 포트 번호: 9000
+[11:25:45.303] [INFO] IOCP 멀티플레이어 서버 시작됨...
+[11:25:45.303] [INFO] 서버 실행 시작
+[11:25:45.304] [INFO] 작업자 스레드 시작 (ThreadID: 32212)
+[11:25:49.020] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: SendClientId, 보낸 크기: 7, 클라이언트 ID: 1
+[11:25:49.020] [INFO] 새 클라이언트에게 ID 1 전송됨
+[11:25:49.021] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: SendInitialPosition, 보낸 크기: 32, 클라이언트 ID: 1
+[11:25:49.021] [INFO] 초기 위치 정보 전송됨 - 클라이언트 ID: 1, 위치: X=0.000000, Y=0.000000, Z=90.000000
+[11:25:49.021] [INFO] 새 플레이어 정보(ID: 1) 브로드캐스트 - 수신자 수: 0
+[11:25:49.021] [INFO] 기존 플레이어 정보 0개가 새 클라이언트(ID: 1)에게 전송됨
+[11:25:49.022] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:25:49.022] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:25:49.022] [INFO] 위치 업데이트 - 클라이언트 ID: 1, 위치: X=0.000000, Y=0.000000, Z=90.000000, 속도: X=0.000000, Y=0.000000, Z=0.000000
+[11:25:49.022] [INFO] 서버 FPS: 0.537779, 평균 프레임 시간: 371.899994ms, 클라이언트 수: 1
+[11:25:49.354] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:25:49.355] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:25:49.355] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:25:49.686] [INFO] [서버] Pong 수신 - RTT: 0.343018초, ClientId: 1
+[11:25:49.686] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:25:49.686] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:25:50.019] [INFO] [서버] Pong 수신 - RTT: 0.329102초, ClientId: 1
+[11:25:50.020] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:25:50.020] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:25:50.353] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:25:50.354] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:25:50.354] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:25:50.686] [INFO] [서버] Pong 수신 - RTT: 0.343018초, ClientId: 1
+[11:25:50.686] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:25:50.686] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:25:51.019] [INFO] [서버] Pong 수신 - RTT: 0.329102초, ClientId: 1
+[11:25:51.020] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:25:51.020] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:25:51.354] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:25:51.354] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:25:51.354] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:25:51.686] [INFO] [서버] Pong 수신 - RTT: 0.343018초, ClientId: 1
+[11:25:51.686] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:25:51.686] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:25:52.020] [INFO] [서버] Pong 수신 - RTT: 0.329102초, ClientId: 1
+[11:25:52.021] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:25:52.022] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:25:52.353] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:25:52.353] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:25:52.353] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:25:52.686] [INFO] [서버] Pong 수신 - RTT: 0.343018초, ClientId: 1
+[11:25:52.687] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:25:52.687] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:25:53.019] [INFO] [서버] Pong 수신 - RTT: 0.329102초, ClientId: 1
+[11:25:53.020] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:25:53.020] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:25:53.353] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:25:53.353] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:25:53.354] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:25:53.686] [INFO] [서버] Pong 수신 - RTT: 0.343018초, ClientId: 1
+[11:25:53.686] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:25:53.687] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:25:54.019] [INFO] [서버] Pong 수신 - RTT: 0.329102초, ClientId: 1
+[11:25:54.020] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:25:54.020] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:25:54.353] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:25:54.353] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:25:54.353] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:25:54.686] [INFO] [서버] Pong 수신 - RTT: 0.343018초, ClientId: 1
+[11:25:54.687] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:25:54.689] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:25:55.020] [INFO] [서버] Pong 수신 - RTT: 0.329102초, ClientId: 1
+[11:25:55.020] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:25:55.021] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:25:55.354] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:25:55.355] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:25:55.355] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:25:55.686] [INFO] [서버] Pong 수신 - RTT: 0.343018초, ClientId: 1
+[11:25:55.687] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:25:55.687] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:25:56.020] [INFO] [서버] Pong 수신 - RTT: 0.329102초, ClientId: 1
+[11:25:56.021] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:25:56.021] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:25:56.353] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:25:56.354] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:25:56.354] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:25:56.687] [INFO] [서버] Pong 수신 - RTT: 0.343018초, ClientId: 1
+[11:25:56.687] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:25:56.687] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:25:57.020] [INFO] [서버] Pong 수신 - RTT: 0.329102초, ClientId: 1
+[11:25:57.020] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:25:57.020] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:25:57.353] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:25:57.354] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:25:57.354] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:25:57.686] [INFO] [서버] Pong 수신 - RTT: 0.343018초, ClientId: 1
+[11:25:57.687] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:25:57.687] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:25:58.021] [INFO] [서버] Pong 수신 - RTT: 0.329102초, ClientId: 1
+[11:25:58.021] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:25:58.021] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:25:58.354] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:25:58.355] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:25:58.355] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:25:58.687] [INFO] [서버] Pong 수신 - RTT: 0.343018초, ClientId: 1
+[11:25:58.688] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:25:58.689] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:25:59.021] [INFO] [서버] Pong 수신 - RTT: 0.329102초, ClientId: 1
+[11:25:59.021] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:25:59.021] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:25:59.355] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:25:59.355] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:25:59.356] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:25:59.687] [INFO] [서버] Pong 수신 - RTT: 0.343018초, ClientId: 1
+[11:25:59.688] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:25:59.688] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:00.021] [INFO] [서버] Pong 수신 - RTT: 0.329102초, ClientId: 1
+[11:26:00.021] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:00.021] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:00.354] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:26:00.354] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:00.354] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:00.689] [INFO] [서버] Pong 수신 - RTT: 0.343018초, ClientId: 1
+[11:26:00.689] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:00.690] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:01.023] [INFO] [서버] Pong 수신 - RTT: 0.329102초, ClientId: 1
+[11:26:01.023] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:01.024] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:01.355] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:26:01.355] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:01.356] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:01.689] [INFO] [서버] Pong 수신 - RTT: 0.343018초, ClientId: 1
+[11:26:01.690] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:01.690] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:02.022] [INFO] [서버] Pong 수신 - RTT: 0.329102초, ClientId: 1
+[11:26:02.023] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:02.023] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:02.355] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:26:02.355] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:02.355] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:02.688] [INFO] [서버] Pong 수신 - RTT: 0.343018초, ClientId: 1
+[11:26:02.689] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:02.689] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:03.022] [INFO] [서버] Pong 수신 - RTT: 0.329102초, ClientId: 1
+[11:26:03.022] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:03.022] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:03.355] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:26:03.356] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:03.356] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:03.688] [INFO] [서버] Pong 수신 - RTT: 0.343018초, ClientId: 1
+[11:26:03.689] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:03.689] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:04.022] [INFO] [서버] Pong 수신 - RTT: 0.329102초, ClientId: 1
+[11:26:04.022] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:04.022] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:04.355] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:26:04.355] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:04.356] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:04.688] [INFO] [서버] Pong 수신 - RTT: 0.343018초, ClientId: 1
+[11:26:04.689] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:04.689] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:05.022] [INFO] [서버] Pong 수신 - RTT: 0.329102초, ClientId: 1
+[11:26:05.022] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:05.022] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:05.355] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:26:05.355] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:05.356] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:05.688] [INFO] [서버] Pong 수신 - RTT: 0.343018초, ClientId: 1
+[11:26:05.689] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:05.689] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:06.022] [INFO] [서버] Pong 수신 - RTT: 0.329102초, ClientId: 1
+[11:26:06.023] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:06.023] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:06.355] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:26:06.355] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:06.356] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:06.688] [INFO] [서버] Pong 수신 - RTT: 0.343018초, ClientId: 1
+[11:26:06.689] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:06.689] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:07.022] [INFO] [서버] Pong 수신 - RTT: 0.329102초, ClientId: 1
+[11:26:07.022] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:07.023] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:07.355] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:26:07.355] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:07.356] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:07.688] [INFO] [서버] Pong 수신 - RTT: 0.343018초, ClientId: 1
+[11:26:07.689] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:07.689] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:08.022] [INFO] [서버] Pong 수신 - RTT: 0.329102초, ClientId: 1
+[11:26:08.022] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:08.022] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:08.355] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:26:08.355] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:08.356] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:08.689] [INFO] [서버] Pong 수신 - RTT: 0.343018초, ClientId: 1
+[11:26:08.690] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:08.690] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:09.037] [INFO] [서버] Pong 수신 - RTT: 0.343994초, ClientId: 1
+[11:26:09.037] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:09.037] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:09.357] [INFO] [서버] Pong 수신 - RTT: 0.328125초, ClientId: 1
+[11:26:09.357] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:09.357] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:09.690] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:26:09.690] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:09.691] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:10.022] [INFO] [서버] Pong 수신 - RTT: 0.329102초, ClientId: 1
+[11:26:10.023] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:10.023] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:10.356] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:26:10.356] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:10.356] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:10.689] [INFO] [서버] Pong 수신 - RTT: 0.343018초, ClientId: 1
+[11:26:10.689] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:10.690] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:11.024] [INFO] [서버] Pong 수신 - RTT: 0.329102초, ClientId: 1
+[11:26:11.024] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:11.024] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:11.357] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:26:11.357] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:11.357] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:11.690] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:26:11.691] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:11.691] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:12.025] [INFO] [서버] Pong 수신 - RTT: 0.329102초, ClientId: 1
+[11:26:12.025] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:12.026] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:12.358] [INFO] [서버] Pong 수신 - RTT: 0.343018초, ClientId: 1
+[11:26:12.358] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:12.359] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:12.690] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:26:12.691] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:12.691] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:13.025] [INFO] [서버] Pong 수신 - RTT: 0.329102초, ClientId: 1
+[11:26:13.025] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:13.025] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:13.357] [INFO] [서버] Pong 수신 - RTT: 0.343018초, ClientId: 1
+[11:26:13.357] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:13.357] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:13.690] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:26:13.690] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:13.691] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:14.024] [INFO] [서버] Pong 수신 - RTT: 0.329102초, ClientId: 1
+[11:26:14.025] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:14.025] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:14.357] [INFO] [서버] Pong 수신 - RTT: 0.343018초, ClientId: 1
+[11:26:14.358] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:14.358] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:14.690] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:26:14.691] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:14.691] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:15.024] [INFO] [서버] Pong 수신 - RTT: 0.329102초, ClientId: 1
+[11:26:15.024] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:15.024] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:15.357] [INFO] [서버] Pong 수신 - RTT: 0.343018초, ClientId: 1
+[11:26:15.358] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:15.358] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:15.691] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:26:15.691] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:15.692] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:16.023] [INFO] [서버] Pong 수신 - RTT: 0.329102초, ClientId: 1
+[11:26:16.024] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:16.024] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:16.357] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:26:16.357] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:16.358] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:16.690] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:26:16.691] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:16.691] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:17.024] [INFO] [서버] Pong 수신 - RTT: 0.329102초, ClientId: 1
+[11:26:17.025] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:17.025] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:17.357] [INFO] [서버] Pong 수신 - RTT: 0.343018초, ClientId: 1
+[11:26:17.357] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:17.358] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:17.692] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:26:17.692] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:17.692] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:18.025] [INFO] [서버] Pong 수신 - RTT: 0.329102초, ClientId: 1
+[11:26:18.026] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:18.026] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:18.357] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:26:18.357] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:18.358] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:18.690] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:26:18.691] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:18.691] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:19.024] [INFO] [서버] Pong 수신 - RTT: 0.329102초, ClientId: 1
+[11:26:19.024] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:19.024] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:19.358] [INFO] [서버] Pong 수신 - RTT: 0.343018초, ClientId: 1
+[11:26:19.358] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:19.358] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:19.691] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:26:19.692] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:19.692] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:20.024] [INFO] [서버] Pong 수신 - RTT: 0.329102초, ClientId: 1
+[11:26:20.025] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:20.025] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:20.357] [INFO] [서버] Pong 수신 - RTT: 0.343018초, ClientId: 1
+[11:26:20.357] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:20.358] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:20.690] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:26:20.691] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:20.691] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:21.024] [INFO] [서버] Pong 수신 - RTT: 0.329102초, ClientId: 1
+[11:26:21.024] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:21.024] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:21.357] [INFO] [서버] Pong 수신 - RTT: 0.343018초, ClientId: 1
+[11:26:21.358] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:21.358] [INFO] [서버] Ping 전송 - ClientId: 1
+[11:26:21.691] [INFO] [서버] Pong 수신 - RTT: 0.327881초, ClientId: 1
+[11:26:21.691] [INFO] [SendPacket] WSASend 요청 성공 - 컨텍스트: ServerPing, 보낸 크기: 11, 클라이언트 ID: 1
+[11:26:21.691] [INFO] [서버] Ping 전송 - ClientId: 1

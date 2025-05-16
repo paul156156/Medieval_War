@@ -1,0 +1,201 @@
+[00:56:04.665] [INFO] 로깅 시스템 초기화됨
+[00:56:04.666] [INFO] 서버 인스턴스 생성됨
+[00:56:04.666] [INFO] 서버 초기화 시작 (포트: 9000)
+[00:56:04.667] [INFO] 윈속 초기화 성공
+[00:56:04.667] [INFO] 리스닝 소켓 생성 성공
+[00:56:04.668] [INFO] 소켓 바인딩 성공 (포트: 9000)
+[00:56:04.668] [INFO] 리스닝 시작됨
+[00:56:04.668] [INFO] IOCP 생성 성공
+[00:56:04.668] [INFO] CPU 코어 수: 16, 생성할 작업자 스레드: 32
+[00:56:04.668] [INFO] 작업자 스레드 #1 생성됨
+[00:56:04.669] [INFO] 작업자 스레드 시작 (ThreadID: 6236)
+[00:56:04.669] [INFO] 작업자 스레드 #2 생성됨
+[00:56:04.669] [INFO] 작업자 스레드 시작 (ThreadID: 19436)
+[00:56:04.669] [INFO] 작업자 스레드 #3 생성됨
+[00:56:04.669] [INFO] 작업자 스레드 시작 (ThreadID: 29156)
+[00:56:04.670] [INFO] 작업자 스레드 #4 생성됨
+[00:56:04.670] [INFO] 작업자 스레드 시작 (ThreadID: 26484)
+[00:56:04.670] [INFO] 작업자 스레드 #5 생성됨
+[00:56:04.670] [INFO] 작업자 스레드 시작 (ThreadID: 24664)
+[00:56:04.670] [INFO] 작업자 스레드 #6 생성됨
+[00:56:04.671] [INFO] 작업자 스레드 시작 (ThreadID: 6104)
+[00:56:04.671] [INFO] 작업자 스레드 #7 생성됨
+[00:56:04.671] [INFO] 작업자 스레드 시작 (ThreadID: 25964)
+[00:56:04.671] [INFO] 작업자 스레드 #8 생성됨
+[00:56:04.671] [INFO] 작업자 스레드 시작 (ThreadID: 31276)
+[00:56:04.672] [INFO] 작업자 스레드 #9 생성됨
+[00:56:04.672] [INFO] 작업자 스레드 시작 (ThreadID: 31312)
+[00:56:04.672] [INFO] 작업자 스레드 #10 생성됨
+[00:56:04.672] [INFO] 작업자 스레드 시작 (ThreadID: 27424)
+[00:56:04.672] [INFO] 작업자 스레드 #11 생성됨
+[00:56:04.672] [INFO] 작업자 스레드 시작 (ThreadID: 30796)
+[00:56:04.673] [INFO] 작업자 스레드 #12 생성됨
+[00:56:04.673] [INFO] 작업자 스레드 시작 (ThreadID: 25016)
+[00:56:04.673] [INFO] 작업자 스레드 #13 생성됨
+[00:56:04.673] [INFO] 작업자 스레드 시작 (ThreadID: 15508)
+[00:56:04.673] [INFO] 작업자 스레드 #14 생성됨
+[00:56:04.673] [INFO] 작업자 스레드 시작 (ThreadID: 26612)
+[00:56:04.674] [INFO] 작업자 스레드 #15 생성됨
+[00:56:04.674] [INFO] 작업자 스레드 시작 (ThreadID: 30196)
+[00:56:04.674] [INFO] 작업자 스레드 #16 생성됨
+[00:56:04.674] [INFO] 작업자 스레드 시작 (ThreadID: 30516)
+[00:56:04.674] [INFO] 작업자 스레드 #17 생성됨
+[00:56:04.674] [INFO] 작업자 스레드 시작 (ThreadID: 23060)
+[00:56:04.675] [INFO] 작업자 스레드 #18 생성됨
+[00:56:04.675] [INFO] 작업자 스레드 시작 (ThreadID: 31864)
+[00:56:04.675] [INFO] 작업자 스레드 #19 생성됨
+[00:56:04.675] [INFO] 작업자 스레드 시작 (ThreadID: 27108)
+[00:56:04.675] [INFO] 작업자 스레드 #20 생성됨
+[00:56:04.675] [INFO] 작업자 스레드 시작 (ThreadID: 31528)
+[00:56:04.676] [INFO] 작업자 스레드 #21 생성됨
+[00:56:04.676] [INFO] 작업자 스레드 시작 (ThreadID: 27304)
+[00:56:04.676] [INFO] 작업자 스레드 #22 생성됨
+[00:56:04.676] [INFO] 작업자 스레드 시작 (ThreadID: 23316)
+[00:56:04.677] [INFO] 작업자 스레드 #23 생성됨
+[00:56:04.677] [INFO] 작업자 스레드 시작 (ThreadID: 28812)
+[00:56:04.677] [INFO] 작업자 스레드 #24 생성됨
+[00:56:04.677] [INFO] 작업자 스레드 시작 (ThreadID: 32408)
+[00:56:04.677] [INFO] 작업자 스레드 #25 생성됨
+[00:56:04.677] [INFO] 작업자 스레드 시작 (ThreadID: 6380)
+[00:56:04.678] [INFO] 작업자 스레드 #26 생성됨
+[00:56:04.678] [INFO] 작업자 스레드 시작 (ThreadID: 24184)
+[00:56:04.678] [INFO] 작업자 스레드 #27 생성됨
+[00:56:04.678] [INFO] 작업자 스레드 시작 (ThreadID: 28272)
+[00:56:04.678] [INFO] 작업자 스레드 #28 생성됨
+[00:56:04.678] [INFO] 작업자 스레드 시작 (ThreadID: 31056)
+[00:56:04.679] [INFO] 작업자 스레드 #29 생성됨
+[00:56:04.679] [INFO] 작업자 스레드 시작 (ThreadID: 31304)
+[00:56:04.679] [INFO] 작업자 스레드 #30 생성됨
+[00:56:04.679] [INFO] 작업자 스레드 시작 (ThreadID: 23720)
+[00:56:04.679] [INFO] 작업자 스레드 #31 생성됨
+[00:56:04.679] [INFO] 작업자 스레드 시작 (ThreadID: 25472)
+[00:56:04.680] [INFO] 작업자 스레드 #32 생성됨
+[00:56:04.680] [INFO] 작업자 스레드 시작 (ThreadID: 27084)
+[00:56:04.680] [INFO] 서버 초기화 완료
+[00:56:04.680] [INFO] 서버 실행. 포트 번호: 9000
+[00:56:04.680] [INFO] IOCP 멀티플레이어 서버 시작됨...
+[00:56:04.680] [INFO] 서버 실행 시작
+[00:56:11.912] [INFO] 클라이언트 연결됨: 127.0.0.1:5555 (ID: 1)
+[00:56:11.912] [INFO] 새 클라이언트에게 ID 1 전송됨
+[00:56:11.913] [INFO] 새 플레이어 정보(ID: 1) 브로드캐스트 - 수신자 수: 0
+[00:56:11.913] [INFO] 기존 플레이어 정보 0개가 새 클라이언트(ID: 1)에게 전송됨
+[00:56:11.916] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 90.000000, State: 0, TimeSinceLastUpdate: 0.000000
+[00:56:11.916] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[00:56:11.916] [INFO] 서버 FPS: 0.276472, 평균 프레임 시간: 723.400024ms, 클라이언트 수: 1
+[00:56:27.041] [INFO] 클라이언트 연결됨: 127.0.0.1:5557 (ID: 2)
+[00:56:27.042] [INFO] 새 클라이언트에게 ID 2 전송됨
+[00:56:27.042] [INFO] 새 플레이어 정보(ID: 2) 브로드캐스트 - 수신자 수: 1
+[00:56:27.042] [INFO] 기존 플레이어 정보 1개가 새 클라이언트(ID: 2)에게 전송됨
+[00:56:27.042] [WARNING] 비정상적으로 긴 델타 타임: 7.234000초
+[00:56:27.042] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 15.125000
+[00:56:27.043] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[00:56:27.043] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[00:56:27.043] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 2, distMoved: 90.000000, State: 0, TimeSinceLastUpdate: 0.000000
+[00:56:27.043] [INFO] [서버] BroadcastPosition 호출 - ClientId: 2, Position: (0.000000, 0.000000, 90.000000)
+[00:56:27.044] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[00:56:27.044] [INFO] 서버 FPS: 0.066116, 평균 프레임 시간: 2163.560059ms, 클라이언트 수: 2
+[00:56:27.044] [INFO] 클라이언트 연결됨: 127.0.0.1:5558 (ID: 3)
+[00:56:27.044] [INFO] 새 클라이언트에게 ID 3 전송됨
+[00:56:27.045] [INFO] 새 플레이어 정보(ID: 3) 브로드캐스트 - 수신자 수: 2
+[00:56:27.045] [INFO] 기존 플레이어 정보 2개가 새 클라이언트(ID: 3)에게 전송됨
+[00:56:27.045] [WARNING] 비정상적으로 긴 델타 타임: 15.125000초
+[00:56:27.045] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 3, distMoved: 90.000000, State: 0, TimeSinceLastUpdate: 0.000000
+[00:56:27.045] [INFO] [서버] BroadcastPosition 호출 - ClientId: 3, Position: (0.000000, 0.000000, 90.000000)
+[00:56:27.045] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 3 To ClientId: 1
+[00:56:27.046] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 3 To ClientId: 2
+[00:59:00.359] [INFO] 클라이언트 연결됨: 127.0.0.1:5590 (ID: 4)
+[00:59:00.359] [INFO] 새 클라이언트에게 ID 4 전송됨
+[00:59:00.359] [INFO] 새 플레이어 정보(ID: 4) 브로드캐스트 - 수신자 수: 3
+[00:59:00.359] [INFO] 기존 플레이어 정보 3개가 새 클라이언트(ID: 4)에게 전송됨
+[00:59:00.360] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 153.328125
+[00:59:00.360] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[00:59:00.360] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[00:59:00.360] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 3
+[00:59:00.361] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 4
+[00:59:00.361] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 2, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 153.328125
+[00:59:00.361] [INFO] [서버] BroadcastPosition 호출 - ClientId: 2, Position: (0.000000, 0.000000, 90.000000)
+[00:59:00.361] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[00:59:00.361] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 3
+[00:59:00.362] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 4
+[00:59:00.362] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 3, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 153.328125
+[00:59:00.362] [INFO] [서버] BroadcastPosition 호출 - ClientId: 3, Position: (0.000000, 0.000000, 90.000000)
+[00:59:00.363] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 3 To ClientId: 1
+[00:59:00.363] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 3 To ClientId: 2
+[00:59:00.363] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 3 To ClientId: 4
+[00:59:00.363] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 4, distMoved: 90.000000, State: 0, TimeSinceLastUpdate: 0.000000
+[00:59:00.363] [INFO] [서버] BroadcastPosition 호출 - ClientId: 4, Position: (0.000000, 0.000000, 90.000000)
+[00:59:00.363] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 4 To ClientId: 1
+[00:59:00.364] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 4 To ClientId: 2
+[00:59:00.364] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 4 To ClientId: 3
+[00:59:00.364] [INFO] 서버 FPS: 0.013044, 평균 프레임 시간: 17085.123047ms, 클라이언트 수: 4
+[00:59:00.365] [INFO] 클라이언트 연결됨: 127.0.0.1:5591 (ID: 5)
+[00:59:00.365] [INFO] 새 클라이언트에게 ID 5 전송됨
+[00:59:00.366] [INFO] 새 플레이어 정보(ID: 5) 브로드캐스트 - 수신자 수: 4
+[00:59:00.366] [INFO] 기존 플레이어 정보 4개가 새 클라이언트(ID: 5)에게 전송됨
+[00:59:00.366] [WARNING] 비정상적으로 긴 델타 타임: 153.311996초
+[00:59:00.366] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 5, distMoved: 90.000000, State: 0, TimeSinceLastUpdate: 0.000000
+[00:59:00.366] [INFO] [서버] BroadcastPosition 호출 - ClientId: 5, Position: (0.000000, 0.000000, 90.000000)
+[00:59:00.366] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 5 To ClientId: 1
+[00:59:00.367] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 5 To ClientId: 2
+[00:59:00.367] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 5 To ClientId: 3
+[00:59:00.367] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 5 To ClientId: 4
+[01:00:48.905] [INFO] 클라이언트 연결됨: 127.0.0.1:5619 (ID: 6)
+[01:00:48.905] [INFO] 새 클라이언트에게 ID 6 전송됨
+[01:00:48.906] [INFO] 새 플레이어 정보(ID: 6) 브로드캐스트 - 수신자 수: 5
+[01:00:48.906] [INFO] 기존 플레이어 정보 5개가 새 클라이언트(ID: 6)에게 전송됨
+[01:00:48.906] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 1, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 108.546875
+[01:00:48.906] [INFO] [서버] BroadcastPosition 호출 - ClientId: 1, Position: (0.000000, 0.000000, 90.000000)
+[01:00:48.906] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 2
+[01:00:48.907] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 3
+[01:00:48.907] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 4
+[01:00:48.907] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 5
+[01:00:48.907] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 1 To ClientId: 6
+[01:00:48.908] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 2, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 108.546875
+[01:00:48.908] [INFO] [서버] BroadcastPosition 호출 - ClientId: 2, Position: (0.000000, 0.000000, 90.000000)
+[01:00:48.908] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 1
+[01:00:48.909] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 3
+[01:00:48.909] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 4
+[01:00:48.909] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 5
+[01:00:48.909] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 2 To ClientId: 6
+[01:00:48.909] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 3, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 108.546875
+[01:00:48.910] [INFO] [서버] BroadcastPosition 호출 - ClientId: 3, Position: (0.000000, 0.000000, 90.000000)
+[01:00:48.910] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 3 To ClientId: 1
+[01:00:48.910] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 3 To ClientId: 2
+[01:00:48.910] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 3 To ClientId: 4
+[01:00:48.910] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 3 To ClientId: 5
+[01:00:48.911] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 3 To ClientId: 6
+[01:00:48.911] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 4, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 108.546875
+[01:00:48.911] [INFO] [서버] BroadcastPosition 호출 - ClientId: 4, Position: (0.000000, 0.000000, 90.000000)
+[01:00:48.911] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 4 To ClientId: 1
+[01:00:48.911] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 4 To ClientId: 2
+[01:00:48.912] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 4 To ClientId: 3
+[01:00:48.912] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 4 To ClientId: 5
+[01:00:48.912] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 4 To ClientId: 6
+[01:00:48.912] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 5, distMoved: 0.000000, State: 0, TimeSinceLastUpdate: 108.546875
+[01:00:48.913] [INFO] [서버] BroadcastPosition 호출 - ClientId: 5, Position: (0.000000, 0.000000, 90.000000)
+[01:00:48.913] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 5 To ClientId: 1
+[01:00:48.913] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 5 To ClientId: 2
+[01:00:48.914] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 5 To ClientId: 3
+[01:00:48.914] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 5 To ClientId: 4
+[01:00:48.914] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 5 To ClientId: 6
+[01:00:48.914] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 6, distMoved: 90.000000, State: 0, TimeSinceLastUpdate: 0.015625
+[01:00:48.915] [INFO] [서버] BroadcastPosition 호출 - ClientId: 6, Position: (0.000000, 0.000000, 90.000000)
+[01:00:48.915] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 6 To ClientId: 1
+[01:00:48.915] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 6 To ClientId: 2
+[01:00:48.915] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 6 To ClientId: 3
+[01:00:48.915] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 6 To ClientId: 4
+[01:00:48.916] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 6 To ClientId: 5
+[01:00:48.916] [INFO] 서버 FPS: 0.018425, 평균 프레임 시간: 24690.449219ms, 클라이언트 수: 6
+[01:00:48.916] [INFO] 클라이언트 연결됨: 127.0.0.1:5620 (ID: 7)
+[01:00:48.916] [INFO] 새 클라이언트에게 ID 7 전송됨
+[01:00:48.917] [INFO] 새 플레이어 정보(ID: 7) 브로드캐스트 - 수신자 수: 6
+[01:00:48.917] [INFO] 기존 플레이어 정보 6개가 새 클라이언트(ID: 7)에게 전송됨
+[01:00:48.917] [WARNING] 비정상적으로 긴 델타 타임: 108.514999초
+[01:00:48.917] [INFO] [서버] BroadcastPosition 준비 완료 - ClientId: 7, distMoved: 90.000000, State: 0, TimeSinceLastUpdate: 0.000000
+[01:00:48.918] [INFO] [서버] BroadcastPosition 호출 - ClientId: 7, Position: (0.000000, 0.000000, 90.000000)
+[01:00:48.918] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 7 To ClientId: 1
+[01:00:48.918] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 7 To ClientId: 2
+[01:00:48.918] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 7 To ClientId: 3
+[01:00:48.918] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 7 To ClientId: 4
+[01:00:48.919] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 7 To ClientId: 5
+[01:00:48.919] [INFO] [서버] PositionUpdatePacket 전송 - From ClientId: 7 To ClientId: 6

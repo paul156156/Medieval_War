@@ -1,0 +1,190 @@
+[18:35:02.552] [INFO] 로깅 시스템 초기화됨
+[18:35:02.552] [INFO] 서버 인스턴스 생성됨
+[18:35:02.552] [INFO] 서버 초기화 시작 (포트: 9000)
+[18:35:02.553] [INFO] 윈속 초기화 성공
+[18:35:02.554] [INFO] 리스닝 소켓 생성 성공
+[18:35:02.554] [INFO] 소켓 바인딩 성공 (포트: 9000)
+[18:35:02.554] [INFO] 리스닝 시작됨
+[18:35:02.554] [INFO] IOCP 생성 성공
+[18:35:02.555] [INFO] CPU 코어 수: 16, 생성할 작업자 스레드: 16
+[18:35:02.555] [INFO] 작업자 스레드 #1 생성됨
+[18:35:02.555] [INFO] 작업자 스레드 시작 (ThreadID: 32432)
+[18:35:02.555] [INFO] 작업자 스레드 #2 생성됨
+[18:35:02.555] [INFO] 작업자 스레드 시작 (ThreadID: 7080)
+[18:35:02.556] [INFO] 작업자 스레드 #3 생성됨
+[18:35:02.556] [INFO] 작업자 스레드 시작 (ThreadID: 21256)
+[18:35:02.556] [INFO] 작업자 스레드 #4 생성됨
+[18:35:02.556] [INFO] 작업자 스레드 시작 (ThreadID: 11212)
+[18:35:02.557] [INFO] 작업자 스레드 #5 생성됨
+[18:35:02.557] [INFO] 작업자 스레드 시작 (ThreadID: 25488)
+[18:35:02.557] [INFO] 작업자 스레드 #6 생성됨
+[18:35:02.557] [INFO] 작업자 스레드 시작 (ThreadID: 33332)
+[18:35:02.557] [INFO] 작업자 스레드 #7 생성됨
+[18:35:02.558] [INFO] 작업자 스레드 시작 (ThreadID: 26296)
+[18:35:02.558] [INFO] 작업자 스레드 #8 생성됨
+[18:35:02.558] [INFO] 작업자 스레드 시작 (ThreadID: 27120)
+[18:35:02.558] [INFO] 작업자 스레드 #9 생성됨
+[18:35:02.558] [INFO] 작업자 스레드 시작 (ThreadID: 8748)
+[18:35:02.559] [INFO] 작업자 스레드 #10 생성됨
+[18:35:02.559] [INFO] 작업자 스레드 시작 (ThreadID: 24276)
+[18:35:02.559] [INFO] 작업자 스레드 #11 생성됨
+[18:35:02.559] [INFO] 작업자 스레드 시작 (ThreadID: 28968)
+[18:35:02.559] [INFO] 작업자 스레드 #12 생성됨
+[18:35:02.559] [INFO] 작업자 스레드 시작 (ThreadID: 3000)
+[18:35:02.560] [INFO] 작업자 스레드 #13 생성됨
+[18:35:02.560] [INFO] 작업자 스레드 시작 (ThreadID: 25132)
+[18:35:02.560] [INFO] 작업자 스레드 #14 생성됨
+[18:35:02.560] [INFO] 작업자 스레드 시작 (ThreadID: 33284)
+[18:35:02.560] [INFO] 작업자 스레드 #15 생성됨
+[18:35:02.561] [INFO] 작업자 스레드 시작 (ThreadID: 29080)
+[18:35:02.561] [INFO] 작업자 스레드 #16 생성됨
+[18:35:02.561] [INFO] 작업자 스레드 시작 (ThreadID: 33304)
+[18:35:02.561] [INFO] 서버 초기화 완료
+[18:35:02.561] [INFO] 서버 실행. 포트 번호: 9000
+[18:35:02.561] [INFO] IOCP 멀티플레이어 서버 시작됨...
+[18:35:02.562] [INFO] 서버 실행 시작
+[18:35:51.803] [INFO] 클라이언트 연결됨: 127.0.0.1:10477 (ID: 1)
+[18:35:51.803] [INFO] 새 클라이언트에게 ID 1 전송됨
+[18:35:51.804] [INFO] 새 플레이어 정보(ID: 1) 브로드캐스트 - 수신자 수: 0
+[18:35:51.804] [INFO] 기존 플레이어 정보 0개가 새 클라이언트(ID: 1)에게 전송됨
+[18:35:51.804] [INFO] 서버 FPS: 0.040622, 평균 프레임 시간: 4923.500000ms, 클라이언트 수: 1
+[18:35:51.811] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:51.812] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:51.819] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:51.819] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:51.828] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:51.828] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:51.836] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:51.836] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:51.844] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:51.845] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:51.853] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:51.853] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:51.861] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:51.861] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:51.869] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:51.870] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:51.878] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:51.878] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:51.886] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:51.886] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:51.894] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:51.895] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:51.903] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:51.903] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:51.911] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:51.911] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:51.919] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:51.919] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:52.253] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:52.253] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:52.586] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:52.586] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:52.919] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[18:35:52.920] [DEBUG] [서버] PingPacket 수신 - ClientId: 1
+[18:35:52.920] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:52.920] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:53.253] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:53.253] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:53.586] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:53.586] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:53.919] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[18:35:53.920] [DEBUG] [서버] PingPacket 수신 - ClientId: 1
+[18:35:53.920] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:53.920] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:54.253] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:54.253] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:54.586] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:54.586] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:54.919] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[18:35:54.920] [DEBUG] [서버] PingPacket 수신 - ClientId: 1
+[18:35:54.920] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:54.920] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:55.253] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:55.253] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:55.586] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:55.586] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:55.919] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[18:35:55.920] [DEBUG] [서버] PingPacket 수신 - ClientId: 1
+[18:35:55.920] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:55.920] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:56.253] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:56.253] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:56.586] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:56.586] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:56.919] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[18:35:56.920] [DEBUG] [서버] PingPacket 수신 - ClientId: 1
+[18:35:56.920] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:56.920] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:57.253] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:57.253] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:57.586] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:57.587] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:57.920] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[18:35:57.920] [DEBUG] [서버] PingPacket 수신 - ClientId: 1
+[18:35:57.920] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:57.920] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:58.253] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:58.253] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:58.586] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:58.586] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:58.919] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[18:35:58.920] [DEBUG] [서버] PingPacket 수신 - ClientId: 1
+[18:35:58.920] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:58.920] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:59.253] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:59.253] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:59.586] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:59.587] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:35:59.919] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[18:35:59.920] [DEBUG] [서버] PingPacket 수신 - ClientId: 1
+[18:35:59.920] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:35:59.920] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:36:00.253] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:36:00.253] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:36:00.586] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:36:00.587] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:36:00.920] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[18:36:00.920] [DEBUG] [서버] PingPacket 수신 - ClientId: 1
+[18:36:00.920] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:36:00.920] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:36:01.253] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:36:01.253] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:36:01.586] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:36:01.587] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:36:01.920] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[18:36:01.920] [DEBUG] [서버] PingPacket 수신 - ClientId: 1
+[18:36:01.920] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:36:01.920] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:36:02.253] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:36:02.253] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:36:02.586] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:36:02.587] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:36:02.920] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[18:36:02.920] [DEBUG] [서버] PingPacket 수신 - ClientId: 1
+[18:36:02.920] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:36:02.920] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:36:03.253] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:36:03.253] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:36:03.586] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:36:03.587] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:36:03.920] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[18:36:03.920] [DEBUG] [서버] PingPacket 수신 - ClientId: 1
+[18:36:03.920] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:36:03.920] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:36:04.253] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:36:04.253] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:36:04.586] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:36:04.587] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:36:04.920] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[18:36:04.920] [DEBUG] [서버] PingPacket 수신 - ClientId: 1
+[18:36:04.920] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:36:04.920] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:36:05.253] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:36:05.253] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:36:05.586] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:36:05.587] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
+[18:36:05.920] [DEBUG] 데이터 수신: 11 바이트, 클라이언트 ID: 1
+[18:36:05.920] [DEBUG] [서버] PingPacket 수신 - ClientId: 1
+[18:36:05.920] [DEBUG] 데이터 수신: 21 바이트, 클라이언트 ID: 1
+[18:36:05.920] [DEBUG] 입력 패킷 수신 - 클라이언트 ID: 1, Forward: 0.000000, Right: 0.000000, Jump: false, Attack: false
