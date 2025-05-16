@@ -1,9 +1,0 @@
-{
-	"SourceFiles": [
-		"C:\\Users\\Blues\\Documents\\GitHub\\Medieval_War\\Server\\Dummy\\Source\\Dummy\\Dummy.Build.cs",
-		"C:\\Users\\Blues\\Documents\\GitHub\\Medieval_War\\Server\\Dummy\\Plugins\\SimpleNetworking\\Source\\SimpleNetworking\\SimpleNetworking.build.cs",
-		"C:\\Users\\Blues\\Documents\\GitHub\\Medieval_War\\Server\\Dummy\\Source\\Dummy.Target.cs",
-		"C:\\Users\\Blues\\Documents\\GitHub\\Medieval_War\\Server\\Dummy\\Source\\DummyEditor.Target.cs"
-	],
-	"EngineVersion": "5.5.4"
-}

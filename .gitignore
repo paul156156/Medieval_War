@@ -134,3 +134,11 @@ Plugins/**/Intermediate/*
 /Server/Dummy/Saved/Cooked/Windows/Dummy/Content/ParagonGreystone
 /Server/Dummy/Plugins/SimpleNetworking/Binaries
 /Server/Dummy/Binaries
+/Server/server/x64
+/Server/MultiplayerGame/Saved
+/Server/MultiplayerGame/Intermediate
+/Server/MultiplayerGame/Content/StarterContent
+/Server/MultiplayerGame/Content/ParagonGreystone
+/Server/MultiplayerGame/Content/LevelPrototyping
+/Server/MultiplayerGame/Content/Desert_Castle
+/Server/MultiplayerGame/Binaries
