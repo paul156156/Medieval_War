@@ -25,7 +25,8 @@ AMyPlayerCharacter::AMyPlayerCharacter()
 
     GetCharacterMovement()->bOrientRotationToMovement = true;
     GetCharacterMovement()->RotationRate = FRotator(0.f, 500.f, 0.f);
-    GetCharacterMovement()->JumpZVelocity = 600.f;
+    GetCharacterMovement()->MaxWalkSpeed = 300.f;
+    GetCharacterMovement()->JumpZVelocity = 300.f;
     GetCharacterMovement()->AirControl = 0.35f;
 
     ForwardInput = 0.f;
@@ -65,6 +66,16 @@ void AMyPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputC
             Input->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AMyPlayerCharacter::Move);
             Input->BindAction(MoveAction, ETriggerEvent::Completed, this, &AMyPlayerCharacter::Move);
         }
+        if (RunAction)
+        {
+            Input->BindAction(RunAction, ETriggerEvent::Started, this, &AMyPlayerCharacter::StartRun);
+			Input->BindAction(RunAction, ETriggerEvent::Completed, this, &AMyPlayerCharacter::StopRun);
+        }
+        if (CrouchAction)
+        {
+            Input->BindAction(CrouchAction, ETriggerEvent::Started, this, &AMyPlayerCharacter::StartCrouch);
+            Input->BindAction(CrouchAction, ETriggerEvent::Completed, this, &AMyPlayerCharacter::StopCrouch);
+		}
         if (JumpAction)
         {
             Input->BindAction(JumpAction, ETriggerEvent::Started, this, &AMyPlayerCharacter::StartJump);
@@ -105,6 +116,30 @@ void AMyPlayerCharacter::Move(const FInputActionValue& Value)
     ForwardInput = Movement.Y;
     RightInput = Movement.X;
     ControlRotationYaw = YawRot.Yaw;
+}
+
+void AMyPlayerCharacter::StartRun(const FInputActionValue& Value)
+{
+    GetCharacterMovement()->MaxWalkSpeed = 600.f;
+	bRunPressed = true;
+}
+
+void AMyPlayerCharacter::StopRun(const FInputActionValue& Value)
+{
+    GetCharacterMovement()->MaxWalkSpeed = 300.f;
+    bRunPressed = false;
+}
+
+void AMyPlayerCharacter::StartCrouch(const FInputActionValue& Value)
+{
+    Crouch();
+    bIsCrouched = true;
+}
+
+void AMyPlayerCharacter::StopCrouch(const FInputActionValue& Value)
+{
+    UnCrouch();
+    bIsCrouched = false;
 }
 
 void AMyPlayerCharacter::StartJump(const FInputActionValue& Value)
@@ -156,6 +191,6 @@ void AMyPlayerCharacter::SendInputToServer()
     UNetworkManager* Network = UGameplayStatics::GetGameInstance(this)->GetSubsystem<UNetworkManager>();
     if (Network && Network->IsConnected())
     {
-        Network->SendPlayerInput(ForwardInput, RightInput, ControlRotationPitch,  ControlRotationYaw, ControlRotationRoll, bJumpPressed, bAttackPressed, bCrouchPressed);
+        Network->SendPlayerInput(ForwardInput, RightInput, ControlRotationPitch, ControlRotationYaw, ControlRotationRoll, bRunPressed, bCrouchPressed, bJumpPressed, bAttackPressed);
     }
 }

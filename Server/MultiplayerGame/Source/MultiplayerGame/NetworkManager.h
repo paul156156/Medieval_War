@@ -42,7 +42,7 @@ public:
 
     // 플레이어 입력 전송 함수
     UFUNCTION(BlueprintCallable, Category = "Network")
-    void SendPlayerInput(float ForwardValue, float RightValue, float ControlRotationPitch, float ControlRotationYaw,float ControlRotationRoll, bool bJumpPressed, bool bAttackPressed, bool bCrouchPressed);
+    void SendPlayerInput(float ForwardValue, float RightValue, float ControlRotationPitch, float ControlRotationYaw,float ControlRotationRoll, bool bRunPressed, bool bCrouchPressed, bool bJumpPressed, bool bAttackPressed);
 
     // 서버에서 받은 패킷 처리 함수
     void ProcessReceivedData(const TArray<uint8>& Data, int32 BytesRead);

@@ -87,7 +87,7 @@ ACharacter* AMultiplayerGameMode::SpawnPlayerCharacter(int32 PlayerId, bool bIsL
         PlayerStart = PlayerStarts[Index];
     }
 
-    FVector SpawnLocation = PlayerStart ? PlayerStart->GetActorLocation() : FVector(4300, -9100, 100);
+    FVector SpawnLocation = PlayerStart ? PlayerStart->GetActorLocation() : FVector::ZeroVector;
     FRotator SpawnRotation = PlayerStart ? PlayerStart->GetActorRotation() : FRotator::ZeroRotator;
 
     // 클래스 선택
@@ -214,9 +214,10 @@ void AMultiplayerGameMode::UpdatePlayerInput()
     float CurrentYaw = CurrentRotation.Yaw;
     float CurrentRoll = CurrentRotation.Roll;
 
+	bool bCurrentRunPressed = Character->GetInputAxisValue("Run") > 0.5f;
     bool bCurrentJumpPressed = Character->GetCharacterMovement()->IsFalling();
-    bool bCurrentAttackPressed = false; // 나중에 공격 처리 연동
-    bool bCurrentCrouchPressed = false; // 나중에 앉기 처리 연동
+    bool bCurrentAttackPressed = false;
+	bool bCurrentCrouchPressed = Character->GetCharacterMovement()->IsCrouching();
 
     bool bInputChanged =
         FMath::Abs(CurrentForwardInput - LastForwardInput) > 0.01f ||
@@ -242,9 +243,10 @@ void AMultiplayerGameMode::UpdatePlayerInput()
             CurrentPitch,
             CurrentYaw,
             CurrentRoll,
+            bCurrentRunPressed,
+            bCurrentCrouchPressed,
             bCurrentJumpPressed,
-            bCurrentAttackPressed,
-            bCurrentCrouchPressed
+            bCurrentAttackPressed
         );
 
         LastForwardInput = CurrentForwardInput;

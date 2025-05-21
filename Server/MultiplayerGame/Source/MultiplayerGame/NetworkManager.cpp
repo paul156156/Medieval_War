@@ -339,7 +339,7 @@ void UNetworkManager::SendPing()
     SendPacket(&Packet, sizeof(Packet));
 }
 
-void UNetworkManager::SendPlayerInput(float ForwardValue, float RightValue, float ControlRotationPitch, float ControlRotationYaw, float ControlRotationRoll, bool bJumpPressed, bool bAttackPressed, bool bCrouchPressed)
+void UNetworkManager::SendPlayerInput(float ForwardValue, float RightValue, float ControlRotationPitch, float ControlRotationYaw, float ControlRotationRoll, bool bRunPressed, bool bCrouchPressed, bool bJumpPressed, bool bAttackPressed)
 {
     if (!IsConnected() || CurrentPlayerId < 0) return;
 
@@ -352,9 +352,10 @@ void UNetworkManager::SendPlayerInput(float ForwardValue, float RightValue, floa
     Packet.RotationPitch = ControlRotationPitch;
     Packet.RotationYaw = ControlRotationYaw;
     Packet.RotationRoll = ControlRotationRoll;
+	Packet.bRunPressed = bRunPressed;
+	Packet.bCrouchPressed = bCrouchPressed;
     Packet.bJumpPressed = bJumpPressed;
     Packet.bAttackPressed = bAttackPressed;
-    Packet.bCrouchPressed = bCrouchPressed;
 
     SendPacket(&Packet, sizeof(Packet));
 }

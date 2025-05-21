@@ -101,9 +101,10 @@ struct InputPacket
     float RotationPitch;
     float RotationYaw;
     float RotationRoll;
+	bool bRunPressed;      // 달리기 버튼 눌림 여부
+	bool bCrouchPressed;   // 쭈그리기 버튼 눌림 여부
     bool bJumpPressed;      // 점프 버튼 눌림 여부
     bool bAttackPressed;    // 공격 버튼 눌림 여부
-	bool bCrouchPressed;   // 쭈그리기 버튼 눌림 여부
 };
 
 // 위치 업데이트 패킷 (서버 -> 클라이언트)
