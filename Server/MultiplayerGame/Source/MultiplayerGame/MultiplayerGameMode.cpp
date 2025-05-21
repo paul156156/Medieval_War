@@ -18,9 +18,12 @@ AMultiplayerGameMode::AMultiplayerGameMode()
     NetworkManager = nullptr;
     LastForwardInput = 0.0f;
     LastRightInput = 0.0f;
-    LastYawRotation = 0.0f;
+    LastPitch = 0.0f;
+    LastYaw = 0.0f;
+    LastRoll = 0.0f;
     bLastJumpPressed = false;
     bLastAttackPressed = false;
+    bLastCrouchPressed = false;
     DefaultServerIp = TEXT("127.0.0.1");
     DefaultServerPort = 9000;
     bAutoConnect = true;
@@ -205,17 +208,25 @@ void AMultiplayerGameMode::UpdatePlayerInput()
 
     float CurrentForwardInput = Character->GetInputAxisValue("MoveForward");
     float CurrentRightInput = Character->GetInputAxisValue("MoveRight");
-    float CurrentYawRotation = Character->GetControlRotation().Yaw;
+
+    FRotator CurrentRotation = Character->GetControlRotation();
+    float CurrentPitch = CurrentRotation.Pitch;
+    float CurrentYaw = CurrentRotation.Yaw;
+    float CurrentRoll = CurrentRotation.Roll;
 
     bool bCurrentJumpPressed = Character->GetCharacterMovement()->IsFalling();
     bool bCurrentAttackPressed = false; // 나중에 공격 처리 연동
+    bool bCurrentCrouchPressed = false; // 나중에 앉기 처리 연동
 
     bool bInputChanged =
         FMath::Abs(CurrentForwardInput - LastForwardInput) > 0.01f ||
         FMath::Abs(CurrentRightInput - LastRightInput) > 0.01f ||
-        FMath::Abs(CurrentYawRotation - LastYawRotation) > 0.1f ||
+        FMath::Abs(CurrentPitch - LastPitch) > 0.1f ||
+        FMath::Abs(CurrentYaw - LastYaw) > 0.1f ||
+        FMath::Abs(CurrentRoll - LastRoll) > 0.1f ||
         bCurrentJumpPressed != bLastJumpPressed ||
-        bCurrentAttackPressed != bLastAttackPressed;
+        bCurrentAttackPressed != bLastAttackPressed ||
+        bCurrentCrouchPressed != bLastCrouchPressed;
 
     bool bSendZeroInput =
         (FMath::Abs(CurrentForwardInput) < 0.01f && FMath::Abs(LastForwardInput) >= 0.01f) ||
@@ -228,15 +239,21 @@ void AMultiplayerGameMode::UpdatePlayerInput()
         NetworkManager->SendPlayerInput(
             CurrentForwardInput,
             CurrentRightInput,
-            CurrentYawRotation,
+            CurrentPitch,
+            CurrentYaw,
+            CurrentRoll,
             bCurrentJumpPressed,
-            bCurrentAttackPressed
+            bCurrentAttackPressed,
+            bCurrentCrouchPressed
         );
 
         LastForwardInput = CurrentForwardInput;
         LastRightInput = CurrentRightInput;
-        LastYawRotation = CurrentYawRotation;
+        LastPitch = CurrentPitch;
+        LastYaw = CurrentYaw;
+        LastRoll = CurrentRoll;
         bLastJumpPressed = bCurrentJumpPressed;
         bLastAttackPressed = bCurrentAttackPressed;
+        bLastCrouchPressed = bCurrentCrouchPressed;
     }
 }

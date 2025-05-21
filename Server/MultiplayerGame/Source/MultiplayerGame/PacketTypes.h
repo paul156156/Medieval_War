@@ -98,8 +98,9 @@ struct InputPacket
     int32 ClientId;       // 클라이언트 ID
     float ForwardValue;     // 전진/후진 입력값 (-1.0 ~ 1.0)
     float RightValue;       // 좌/우 입력값 (-1.0 ~ 1.0)
-    float ControlRotationYaw; // 회전값 (-180.0 ~ 180.0)
-    float ControlRotationPitch; // 회전값 (-180.0 ~ 180.0)
+    float RotationPitch;
+    float RotationYaw;
+    float RotationRoll;
     bool bJumpPressed;      // 점프 버튼 눌림 여부
     bool bAttackPressed;    // 공격 버튼 눌림 여부
 	bool bCrouchPressed;   // 쭈그리기 버튼 눌림 여부

@@ -31,7 +31,9 @@ protected:
 
     float ForwardInput;
     float RightInput;
+    float ControlRotationPitch;
     float ControlRotationYaw;
+    float ControlRotationRoll;
     bool bCrouchPressed;
     bool bAttackPressed;
     bool bJumpPressed;
