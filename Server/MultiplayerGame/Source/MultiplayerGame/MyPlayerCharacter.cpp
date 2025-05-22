@@ -29,28 +29,27 @@ AMyPlayerCharacter::AMyPlayerCharacter()
     GetCharacterMovement()->JumpZVelocity = 300.f;
     GetCharacterMovement()->AirControl = 0.35f;
 
-    ForwardInput = 0.f;
-    RightInput = 0.f;
-    ControlRotationYaw = 0.f;
-    bAttackPressed = false;
-    bJumpPressed = false;
-	bIsAttacked = false;
-	bIsCrouched = false;
+    CurrentState = EPlayerState::IDLE;
 }
 
 void AMyPlayerCharacter::BeginPlay()
 {
     Super::BeginPlay();
 
-    if (APlayerController* PC = Cast<APlayerController>(Controller))
+    if (!bIsRemoteControlled)
     {
-        if (ULocalPlayer* LP = PC->GetLocalPlayer())
+        NotifySpawn();
+
+        if (APlayerController* PC = Cast<APlayerController>(Controller))
         {
-            if (UEnhancedInputLocalPlayerSubsystem* Subsystem = LP->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>())
+            if (ULocalPlayer* LP = PC->GetLocalPlayer())
             {
-                if (DefaultMappingContext)
+                if (UEnhancedInputLocalPlayerSubsystem* Subsystem = LP->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>())
                 {
-                    Subsystem->AddMappingContext(DefaultMappingContext, 0);
+                    if (DefaultMappingContext)
+                    {
+                        Subsystem->AddMappingContext(DefaultMappingContext, 0);
+                    }
                 }
             }
         }
@@ -59,48 +58,54 @@ void AMyPlayerCharacter::BeginPlay()
 
 void AMyPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
-    if (UEnhancedInputComponent* Input = Cast<UEnhancedInputComponent>(PlayerInputComponent))
+    if (!bIsRemoteControlled)
     {
-        if (MoveAction)
+        if (UEnhancedInputComponent* Input = Cast<UEnhancedInputComponent>(PlayerInputComponent))
         {
-            Input->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AMyPlayerCharacter::Move);
-            Input->BindAction(MoveAction, ETriggerEvent::Completed, this, &AMyPlayerCharacter::Move);
-        }
-        if (RunAction)
-        {
-            Input->BindAction(RunAction, ETriggerEvent::Started, this, &AMyPlayerCharacter::StartRun);
-			Input->BindAction(RunAction, ETriggerEvent::Completed, this, &AMyPlayerCharacter::StopRun);
-        }
-        if (CrouchAction)
-        {
-            Input->BindAction(CrouchAction, ETriggerEvent::Started, this, &AMyPlayerCharacter::StartCrouch);
-            Input->BindAction(CrouchAction, ETriggerEvent::Completed, this, &AMyPlayerCharacter::StopCrouch);
-		}
-        if (JumpAction)
-        {
-            Input->BindAction(JumpAction, ETriggerEvent::Started, this, &AMyPlayerCharacter::StartJump);
-            Input->BindAction(JumpAction, ETriggerEvent::Completed, this, &AMyPlayerCharacter::StopJump);
-        }
-        if (AttackAction)
-        {
-            Input->BindAction(AttackAction, ETriggerEvent::Started, this, &AMyPlayerCharacter::Attack);
-        }
-        if (LookAction)
-        {
-            Input->BindAction(LookAction, ETriggerEvent::Triggered, this, &AMyPlayerCharacter::Look);
+            if (MoveAction)
+            {
+                Input->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AMyPlayerCharacter::Move);
+                Input->BindAction(MoveAction, ETriggerEvent::Completed, this, &AMyPlayerCharacter::Move);
+            }
+            if (RunAction)
+            {
+                Input->BindAction(RunAction, ETriggerEvent::Started, this, &AMyPlayerCharacter::StartRun);
+                Input->BindAction(RunAction, ETriggerEvent::Completed, this, &AMyPlayerCharacter::StopRun);
+            }
+            if (CrouchAction)
+            {
+                Input->BindAction(CrouchAction, ETriggerEvent::Started, this, &AMyPlayerCharacter::StartCrouch);
+                Input->BindAction(CrouchAction, ETriggerEvent::Completed, this, &AMyPlayerCharacter::StopCrouch);
+            }
+            if (JumpAction)
+            {
+                Input->BindAction(JumpAction, ETriggerEvent::Started, this, &AMyPlayerCharacter::StartJump);
+                Input->BindAction(JumpAction, ETriggerEvent::Completed, this, &AMyPlayerCharacter::StopJump);
+            }
+            if (AttackAction)
+            {
+                Input->BindAction(AttackAction, ETriggerEvent::Started, this, &AMyPlayerCharacter::Attack);
+            }
+            if (LookAction)
+            {
+                Input->BindAction(LookAction, ETriggerEvent::Triggered, this, &AMyPlayerCharacter::Look);
+            }
         }
     }
 }
 
-void AMyPlayerCharacter::Tick(float DeltaSeconds)
+void AMyPlayerCharacter::Tick(float DeltaTime)
 {
-    Super::Tick(DeltaSeconds);
-    SendInputToServer();
-}
+    Super::Tick(DeltaTime);
 
-void AMyPlayerCharacter::UpdateFromNetwork(const FTransform& NewTransform, EPlayerState NewState)
-{
-    UE_LOG(LogTemp, Warning, TEXT("[MyPlayerCharacter] UpdateFromNetwork called on local player. Should not happen."));
+    if (bIsRemoteControlled)
+    {
+        InterpolateRemoteMovement(DeltaTime);
+    }
+    else
+    {
+        SendInputToServer();
+    }
 }
 
 void AMyPlayerCharacter::Move(const FInputActionValue& Value)
@@ -121,7 +126,7 @@ void AMyPlayerCharacter::Move(const FInputActionValue& Value)
 void AMyPlayerCharacter::StartRun(const FInputActionValue& Value)
 {
     GetCharacterMovement()->MaxWalkSpeed = 600.f;
-	bRunPressed = true;
+    bRunPressed = true;
 }
 
 void AMyPlayerCharacter::StopRun(const FInputActionValue& Value)
@@ -133,13 +138,13 @@ void AMyPlayerCharacter::StopRun(const FInputActionValue& Value)
 void AMyPlayerCharacter::StartCrouch(const FInputActionValue& Value)
 {
     Crouch();
-    bIsCrouched = true;
+    bCrouchPressed = true;
 }
 
 void AMyPlayerCharacter::StopCrouch(const FInputActionValue& Value)
 {
     UnCrouch();
-    bIsCrouched = false;
+    bCrouchPressed = false;
 }
 
 void AMyPlayerCharacter::StartJump(const FInputActionValue& Value)
@@ -157,8 +162,7 @@ void AMyPlayerCharacter::StopJump(const FInputActionValue& Value)
 void AMyPlayerCharacter::Attack(const FInputActionValue& Value)
 {
     bAttackPressed = true;
-	bIsAttacked = true; // 공격 상태로 설정
-    UE_LOG(LogTemp, Log, TEXT("[MyPlayerCharacter] Attack Triggered"));
+    bIsAttackPressed = true;
 
     if (AttackMontage)
     {
@@ -186,6 +190,21 @@ void AMyPlayerCharacter::Look(const FInputActionValue& Value)
     }
 }
 
+void AMyPlayerCharacter::NotifySpawn()
+{
+    FVector Pos = GetActorLocation();
+    FRotator Rot = GetActorRotation();
+
+    UNetworkManager* Network = UGameplayStatics::GetGameInstance(this)->GetSubsystem<UNetworkManager>();
+    if (Network && Network->IsConnected())
+    {
+		Vec3 Position = Vec3(Pos.X, Pos.Y, Pos.Z);
+		Rot3 Rotation = Rot3(Rot.Pitch, Rot.Yaw, Rot.Roll);
+
+        Network->SendPlayerInitInfo(Position, Rotation);
+    }
+}
+
 void AMyPlayerCharacter::SendInputToServer()
 {
     UNetworkManager* Network = UGameplayStatics::GetGameInstance(this)->GetSubsystem<UNetworkManager>();
@@ -193,4 +212,45 @@ void AMyPlayerCharacter::SendInputToServer()
     {
         Network->SendPlayerInput(ForwardInput, RightInput, ControlRotationPitch, ControlRotationYaw, ControlRotationRoll, bRunPressed, bCrouchPressed, bJumpPressed, bAttackPressed);
     }
+}
+
+void AMyPlayerCharacter::UpdateFromNetwork(const FTransform& NewTransform, EPlayerState NewState)
+{
+    TargetLocation = NewTransform.GetLocation();
+    TargetRotation = NewTransform.GetRotation().Rotator();
+    CurrentState = NewState;
+
+    if (!bInitialPositionSet)
+    {
+        SetActorLocation(TargetLocation);
+        SetActorRotation(TargetRotation);
+        bInitialPositionSet = true;
+    }
+
+    if (NewState == EPlayerState::ATTACKING && AttackMontage)
+    {
+        if (UAnimInstance* Anim = GetMesh()->GetAnimInstance())
+        {
+            Anim->Montage_Play(AttackMontage);
+        }
+    }
+    else if (NewState == EPlayerState::JUMPING)
+    {
+        GetCharacterMovement()->SetMovementMode(MOVE_Falling);
+    }
+    else if (NewState == EPlayerState::WALKING)
+    {
+        GetCharacterMovement()->SetMovementMode(MOVE_Walking);
+    }
+}
+
+void AMyPlayerCharacter::InterpolateRemoteMovement(float DeltaTime)
+{
+    FVector CurrentLocation = GetActorLocation();
+    FVector NewLocation = FMath::VInterpTo(CurrentLocation, TargetLocation, DeltaTime, InterpSpeed);
+    SetActorLocation(NewLocation);
+
+    FRotator CurrentRotation = GetActorRotation();
+    FRotator NewRotation = FMath::RInterpTo(CurrentRotation, TargetRotation, DeltaTime, InterpSpeed);
+    SetActorRotation(NewRotation);
 }

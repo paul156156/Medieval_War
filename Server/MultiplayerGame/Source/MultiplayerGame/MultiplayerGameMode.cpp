@@ -1,6 +1,5 @@
 // MultiplayerGameMode.cpp
 #include "MultiplayerGameMode.h"
-#include "MultiplayerBaseCharacter.h"
 #include "MyPlayerCharacter.h"
 #include "OtherPlayerCharacter.h"
 #include "NetworkManager.h"
@@ -107,7 +106,7 @@ ACharacter* AMultiplayerGameMode::SpawnPlayerCharacter(int32 PlayerId, bool bIsL
 
     if (NewCharacter)
     {
-        if (AMultiplayerBaseCharacter* BaseChar = Cast<AMultiplayerBaseCharacter>(NewCharacter))
+        if (AMyPlayerCharacter* BaseChar = Cast<AMyPlayerCharacter>(NewCharacter))
         {
             BaseChar->SetPlayerId(PlayerId);
             BaseChar->SetIsLocalPlayer(bIsLocalPlayer);
@@ -133,7 +132,7 @@ ACharacter* AMultiplayerGameMode::GetLocalPlayerCharacter() const
 {
     for (const auto& Pair : PlayerCharacters)
     {
-        const AMultiplayerBaseCharacter* Char = Cast<AMultiplayerBaseCharacter>(Pair.Value);
+        const AMyPlayerCharacter* Char = Cast<AMyPlayerCharacter>(Pair.Value);
         if (Char && Char->GetLocalRole() == ROLE_AutonomousProxy)
         {
             return Pair.Value;
@@ -177,7 +176,7 @@ void AMultiplayerGameMode::OnPlayerLeft(int32 PlayerId)
 
 void AMultiplayerGameMode::OnPlayerPositionUpdated(int32 PlayerId, FTransform NewTransform)
 {
-    if (AMultiplayerBaseCharacter* Character = Cast<AMultiplayerBaseCharacter>(PlayerCharacters.FindRef(PlayerId)))
+    if (AMyPlayerCharacter* Character = Cast<AMyPlayerCharacter>(PlayerCharacters.FindRef(PlayerId)))
     {
         Character->UpdateFromNetwork(NewTransform, Character->GetCharacterMovement()->IsFalling() ? EPlayerState::JUMPING : EPlayerState::IDLE);
     }
@@ -185,7 +184,7 @@ void AMultiplayerGameMode::OnPlayerPositionUpdated(int32 PlayerId, FTransform Ne
 
 void AMultiplayerGameMode::OnPlayerStateChanged(int32 PlayerId, EPlayerState NewState)
 {
-    if (AMultiplayerBaseCharacter* Character = Cast<AMultiplayerBaseCharacter>(PlayerCharacters.FindRef(PlayerId)))
+    if (AMyPlayerCharacter* Character = Cast<AMyPlayerCharacter>(PlayerCharacters.FindRef(PlayerId)))
     {
         Character->UpdateFromNetwork(Character->GetActorTransform(), NewState);
     }
@@ -203,7 +202,7 @@ void AMultiplayerGameMode::UpdatePlayerInput()
     ACharacter* LocalPlayer = GetLocalPlayerCharacter();
     if (!LocalPlayer) return;
 
-    AMultiplayerBaseCharacter* Character = Cast<AMultiplayerBaseCharacter>(LocalPlayer);
+    AMyPlayerCharacter* Character = Cast<AMyPlayerCharacter>(LocalPlayer);
     if (!Character) return;
 
     float CurrentForwardInput = Character->GetInputAxisValue("MoveForward");
@@ -214,39 +213,35 @@ void AMultiplayerGameMode::UpdatePlayerInput()
     float CurrentYaw = CurrentRotation.Yaw;
     float CurrentRoll = CurrentRotation.Roll;
 
-	bool bCurrentRunPressed = Character->GetInputAxisValue("Run") > 0.5f;
-    bool bCurrentJumpPressed = Character->GetCharacterMovement()->IsFalling();
-    bool bCurrentAttackPressed = false;
-	bool bCurrentCrouchPressed = Character->GetCharacterMovement()->IsCrouching();
+	bool bCurrentRunPressed = Character->bRunPressed;
+    bool bCurrentJumpPressed = Character->bJumpPressed;
+    bool bCurrentAttackPressed = Character->bIsAttackPressed;
+	bool bCurrentCrouchPressed = Character->bCrouchPressed;
 
-    bool bInputChanged =
+    bool bMovementChanged =
         FMath::Abs(CurrentForwardInput - LastForwardInput) > 0.01f ||
         FMath::Abs(CurrentRightInput - LastRightInput) > 0.01f ||
         FMath::Abs(CurrentPitch - LastPitch) > 0.1f ||
         FMath::Abs(CurrentYaw - LastYaw) > 0.1f ||
-        FMath::Abs(CurrentRoll - LastRoll) > 0.1f ||
+        FMath::Abs(CurrentRoll - LastRoll) > 0.1f;
+
+    bool bEventChanged =
+        bCurrentRunPressed != bLastRunPressed ||
         bCurrentJumpPressed != bLastJumpPressed ||
         bCurrentAttackPressed != bLastAttackPressed ||
         bCurrentCrouchPressed != bLastCrouchPressed;
 
-    bool bSendZeroInput =
+    bool bSendZeroMovement =
         (FMath::Abs(CurrentForwardInput) < 0.01f && FMath::Abs(LastForwardInput) >= 0.01f) ||
-        (FMath::Abs(CurrentRightInput) < 0.01f && FMath::Abs(LastRightInput) >= 0.01f) ||
-        (!bCurrentJumpPressed && bLastJumpPressed) ||
-        (!bCurrentAttackPressed && bLastAttackPressed);
+        (FMath::Abs(CurrentRightInput) < 0.01f && FMath::Abs(LastRightInput) >= 0.01f);
 
-    if (bInputChanged || bSendZeroInput)
+    if (bMovementChanged || bSendZeroMovement)
     {
-        NetworkManager->SendPlayerInput(
+        Rot3 CurrentRot3 = { CurrentPitch, CurrentYaw, CurrentRoll };
+        NetworkManager->SendPlayerMovement(
             CurrentForwardInput,
             CurrentRightInput,
-            CurrentPitch,
-            CurrentYaw,
-            CurrentRoll,
-            bCurrentRunPressed,
-            bCurrentCrouchPressed,
-            bCurrentJumpPressed,
-            bCurrentAttackPressed
+            CurrentRot3
         );
 
         LastForwardInput = CurrentForwardInput;
@@ -254,6 +249,18 @@ void AMultiplayerGameMode::UpdatePlayerInput()
         LastPitch = CurrentPitch;
         LastYaw = CurrentYaw;
         LastRoll = CurrentRoll;
+    }
+
+    if (bEventChanged)
+    {
+        NetworkManager->SendPlayerEvent(
+            bCurrentRunPressed,
+            bCurrentCrouchPressed,
+            bCurrentJumpPressed,
+            bCurrentAttackPressed
+        );
+
+        bLastRunPressed = bCurrentRunPressed;
         bLastJumpPressed = bCurrentJumpPressed;
         bLastAttackPressed = bCurrentAttackPressed;
         bLastCrouchPressed = bCurrentCrouchPressed;
