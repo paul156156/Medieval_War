@@ -18,9 +18,10 @@ enum class EPacketType : uint8
     PING = 3,               // 핑 테스트
     PONG = 4,               // 핑 응답
     PLAYER_INIT_INFO = 5,   // 플레이어 초기 정보
-    PLAYER_POSITION_INFO = 6, // 위치 업데이트
-	PLAYER_MOVEMENT_INFO = 7, // 플레이어 이동 정보
-	PLAYER_EVENT_INFO = 8,   // 플레이어 이벤트 정보
+    PLAYER_INPUT_INFO = 6,
+    PLAYER_POSITION_INFO = 7, // 위치 업데이트
+	PLAYER_MOVEMENT_INFO = 8, // 플레이어 이동 정보
+	PLAYER_EVENT_INFO = 9,   // 플레이어 이벤트 정보
 };
 
 // 플레이어 상태 정의
@@ -92,13 +93,29 @@ struct PongPacket
     float PingTime;         // 핑 시간
 };
 
-struct InitInfoPacket
+struct InitPacket
 {
 	PacketHeader Header;    // 패킷 헤더
 	int32 ClientId; // 클라이언트 ID
 	Vec3 Position; // 초기 위치
 	Rot3 Rotation; // 초기 회전값
 };
+
+struct InputPacket
+{
+    PacketHeader Header;    // 패킷 헤더
+    int32 ClientId;       // 클라이언트 ID
+    float ForwardValue;     // 전진/후진 입력값 (-1.0 ~ 1.0)
+    float RightValue;       // 좌/우 입력값 (-1.0 ~ 1.0)
+    float Pitch;
+    float Yaw;
+    float Roll;
+    bool bRunPressed;      // 달리기 버튼 눌림 여부
+    bool bCrouchPressed;   // 쭈그리기 버튼 눌림 여부
+    bool bJumpPressed;      // 점프 버튼 눌림 여부
+    bool bAttackPressed;    // 공격 버튼 눌림 여부
+};
+
 // 움직임 패킷 (클라이언트 -> 서버)
 struct MovementInfoPacket
 {

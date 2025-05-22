@@ -213,35 +213,51 @@ void AMultiplayerGameMode::UpdatePlayerInput()
     float CurrentYaw = CurrentRotation.Yaw;
     float CurrentRoll = CurrentRotation.Roll;
 
-	bool bCurrentRunPressed = Character->bRunPressed;
+    bool bCurrentRunPressed = Character->bRunPressed;
     bool bCurrentJumpPressed = Character->bJumpPressed;
     bool bCurrentAttackPressed = Character->bIsAttackPressed;
-	bool bCurrentCrouchPressed = Character->bCrouchPressed;
+    bool bCurrentCrouchPressed = Character->bCrouchPressed;
 
-    bool bMovementChanged =
+    bool bInputChanged =
         FMath::Abs(CurrentForwardInput - LastForwardInput) > 0.01f ||
         FMath::Abs(CurrentRightInput - LastRightInput) > 0.01f ||
         FMath::Abs(CurrentPitch - LastPitch) > 0.1f ||
         FMath::Abs(CurrentYaw - LastYaw) > 0.1f ||
-        FMath::Abs(CurrentRoll - LastRoll) > 0.1f;
-
-    bool bEventChanged =
+        FMath::Abs(CurrentRoll - LastRoll) > 0.1f ||
         bCurrentRunPressed != bLastRunPressed ||
         bCurrentJumpPressed != bLastJumpPressed ||
         bCurrentAttackPressed != bLastAttackPressed ||
         bCurrentCrouchPressed != bLastCrouchPressed;
 
+    //bool bMovementChanged =
+    //    FMath::Abs(CurrentForwardInput - LastForwardInput) > 0.01f ||
+    //    FMath::Abs(CurrentRightInput - LastRightInput) > 0.01f ||
+    //    FMath::Abs(CurrentPitch - LastPitch) > 0.1f ||
+    //    FMath::Abs(CurrentYaw - LastYaw) > 0.1f ||
+    //    FMath::Abs(CurrentRoll - LastRoll) > 0.1f;
+
+    //bool bEventChanged =
+    //    bCurrentRunPressed != bLastRunPressed ||
+    //    bCurrentJumpPressed != bLastJumpPressed ||
+    //    bCurrentAttackPressed != bLastAttackPressed ||
+    //    bCurrentCrouchPressed != bLastCrouchPressed;
+
     bool bSendZeroMovement =
         (FMath::Abs(CurrentForwardInput) < 0.01f && FMath::Abs(LastForwardInput) >= 0.01f) ||
         (FMath::Abs(CurrentRightInput) < 0.01f && FMath::Abs(LastRightInput) >= 0.01f);
 
-    if (bMovementChanged || bSendZeroMovement)
+    if (bInputChanged || bSendZeroMovement)
     {
-        Rot3 CurrentRot3 = { CurrentPitch, CurrentYaw, CurrentRoll };
-        NetworkManager->SendPlayerMovement(
+        NetworkManager->SendPlayerInput(
             CurrentForwardInput,
             CurrentRightInput,
-            CurrentRot3
+            CurrentPitch,
+            CurrentYaw,
+            CurrentRoll,
+            bCurrentRunPressed,
+            bCurrentCrouchPressed,
+            bCurrentJumpPressed,
+            bCurrentAttackPressed
         );
 
         LastForwardInput = CurrentForwardInput;
@@ -249,20 +265,25 @@ void AMultiplayerGameMode::UpdatePlayerInput()
         LastPitch = CurrentPitch;
         LastYaw = CurrentYaw;
         LastRoll = CurrentRoll;
-    }
-
-    if (bEventChanged)
-    {
-        NetworkManager->SendPlayerEvent(
-            bCurrentRunPressed,
-            bCurrentCrouchPressed,
-            bCurrentJumpPressed,
-            bCurrentAttackPressed
-        );
 
         bLastRunPressed = bCurrentRunPressed;
         bLastJumpPressed = bCurrentJumpPressed;
         bLastAttackPressed = bCurrentAttackPressed;
         bLastCrouchPressed = bCurrentCrouchPressed;
     }
+
+    //if (bEventChanged)
+    //{
+    //    NetworkManager->SendPlayerEvent(
+    //        bCurrentRunPressed,
+    //        bCurrentCrouchPressed,
+    //        bCurrentJumpPressed,
+    //        bCurrentAttackPressed
+    //    );
+
+    //    bLastRunPressed = bCurrentRunPressed;
+    //    bLastJumpPressed = bCurrentJumpPressed;
+    //    bLastAttackPressed = bCurrentAttackPressed;
+    //    bLastCrouchPressed = bCurrentCrouchPressed;
+    //}
 }

@@ -187,6 +187,7 @@ void AMyPlayerCharacter::Look(const FInputActionValue& Value)
     {
         ControlRotationPitch = Controller->GetControlRotation().Pitch;
         ControlRotationYaw = Controller->GetControlRotation().Yaw;
+        ControlRotationRoll = Controller->GetControlRotation().Roll;
     }
 }
 
@@ -211,6 +212,8 @@ void AMyPlayerCharacter::SendInputToServer()
     if (Network && Network->IsConnected())
     {
         Network->SendPlayerInput(ForwardInput, RightInput, ControlRotationPitch, ControlRotationYaw, ControlRotationRoll, bRunPressed, bCrouchPressed, bJumpPressed, bAttackPressed);
+        //Network->SendPlayerMovement(ForwardInput, RightInput, Rotation);
+        //Network->SendPlayerEvent(bRunPressed, bCrouchPressed, bJumpPressed, bAttackPressed);
     }
 }
 

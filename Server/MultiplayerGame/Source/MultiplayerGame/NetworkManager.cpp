@@ -343,9 +343,9 @@ void UNetworkManager::SendPlayerInitInfo(Vec3 Position, Rot3 Rotation)
 {
     if (!IsConnected() || CurrentPlayerId < 0) return;
     
-    InitInfoPacket Packet;
+    InitPacket Packet;
     Packet.Header.PacketType = EPacketType::PLAYER_INIT_INFO;
-    Packet.Header.PacketSize = sizeof(InitInfoPacket);
+    Packet.Header.PacketSize = sizeof(InitPacket);
     Packet.ClientId = CurrentPlayerId;
     Packet.Position = Position;
     Packet.Rotation = Rotation;
@@ -353,36 +353,61 @@ void UNetworkManager::SendPlayerInitInfo(Vec3 Position, Rot3 Rotation)
     SendPacket(&Packet, sizeof(Packet));
 }
 
-void UNetworkManager::SendPlayerMovement(float ForwardValue, float RightValue, Rot3 Rotation)
+void UNetworkManager::SendPlayerInput(float ForwardValue, float RightValue, float Pitch, float Yaw, float Roll, bool bRunPressed, bool bCrouchPressed, bool bJumpPressed, bool bAttackPressed)
 {
     if (!IsConnected() || CurrentPlayerId < 0) return;
 
-    MovementInfoPacket Packet;
-    Packet.Header.PacketType = EPacketType::PLAYER_MOVEMENT_INFO;
-    Packet.Header.PacketSize = sizeof(MovementInfoPacket);
+    InputPacket Packet;
+    Packet.Header.PacketType = EPacketType::PLAYER_INPUT_INFO;
+    Packet.Header.PacketSize = sizeof(InputPacket);
     Packet.ClientId = CurrentPlayerId;
+
+    // Movement 데이터
     Packet.ForwardValue = ForwardValue;
     Packet.RightValue = RightValue;
-	Packet.Rotation = Rotation;
+    Packet.Pitch = Pitch;
+    Packet.Yaw = Yaw;
+    Packet.Roll = Roll;
 
-    SendPacket(&Packet, sizeof(Packet));
-}
-
-void UNetworkManager::SendPlayerEvent(bool bRunPressed, bool bCrouchPressed, bool bJumpPressed, bool bAttackPressed)
-{
-    if (!IsConnected() || CurrentPlayerId < 0) return;
-
-    EventInfoPacket Packet;
-    Packet.Header.PacketType = EPacketType::PLAYER_EVENT_INFO;
-    Packet.Header.PacketSize = sizeof(EventInfoPacket);
-    Packet.ClientId = CurrentPlayerId;
+    // Event 데이터
     Packet.bRunPressed = bRunPressed;
     Packet.bCrouchPressed = bCrouchPressed;
     Packet.bJumpPressed = bJumpPressed;
     Packet.bAttackPressed = bAttackPressed;
 
-	SendPacket(&Packet, sizeof(Packet));
+    SendPacket(&Packet, sizeof(Packet));
 }
+
+//void UNetworkManager::SendPlayerMovement(float ForwardValue, float RightValue, Rot3 Rotation)
+//{
+//    if (!IsConnected() || CurrentPlayerId < 0) return;
+//
+//    MovementInfoPacket Packet;
+//    Packet.Header.PacketType = EPacketType::PLAYER_MOVEMENT_INFO;
+//    Packet.Header.PacketSize = sizeof(MovementInfoPacket);
+//    Packet.ClientId = CurrentPlayerId;
+//    Packet.ForwardValue = ForwardValue;
+//    Packet.RightValue = RightValue;
+//	Packet.Rotation = Rotation;
+//
+//    SendPacket(&Packet, sizeof(Packet));
+//}
+//
+//void UNetworkManager::SendPlayerEvent(bool bRunPressed, bool bCrouchPressed, bool bJumpPressed, bool bAttackPressed)
+//{
+//    if (!IsConnected() || CurrentPlayerId < 0) return;
+//
+//    EventInfoPacket Packet;
+//    Packet.Header.PacketType = EPacketType::PLAYER_EVENT_INFO;
+//    Packet.Header.PacketSize = sizeof(EventInfoPacket);
+//    Packet.ClientId = CurrentPlayerId;
+//    Packet.bRunPressed = bRunPressed;
+//    Packet.bCrouchPressed = bCrouchPressed;
+//    Packet.bJumpPressed = bJumpPressed;
+//    Packet.bAttackPressed = bAttackPressed;
+//
+//	SendPacket(&Packet, sizeof(Packet));
+//}
 
 bool UNetworkManager::SendPacket(const void* Data, int32 Size)
 {
