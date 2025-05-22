@@ -41,7 +41,7 @@ private:
     void HandleInputPacket(ClientSession* client, const InputPacket* packet);  // 입력 패킷 처리
     void Update(float DeltaTime);  // 게임 상태 업데이트
     void BroadcastPosition(ClientSession* sourceClient);  // 위치 정보 브로드캐스트
-    void SetupSpawnPositions();
+    //void SetupSpawnPositions();
 
     // 스레드 관련 메서드
     void WorkerThread();  // 작업자 스레드 구현

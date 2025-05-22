@@ -14,23 +14,23 @@ void IOCPServer::SendClientId(ClientSession* client)
     LOG_INFO("새 클라이언트에게 ID " + std::to_string(client->id) + " 전송됨");
 }
 
-void IOCPServer::SendInitialPosition(ClientSession* client)
-{
-    PositionPacket packet;
-    packet.Header.PacketType = EPacketType::PLAYER_INIT_INFO;
-    packet.Header.PacketSize = sizeof(PositionPacket);
-    packet.ClientId = client->id;
-    packet.Position = client->Position;
-    packet.Velocity = client->Velocity;
-    packet.State = client->State;
-
-    SendPacket(client, &packet, sizeof(packet), "SendInitialPosition");
-
-    LOG_INFO("초기 위치 정보 전송됨 - 클라이언트 ID: " + std::to_string(client->id) +
-        ", 위치: X=" + std::to_string(client->Position.X) +
-        ", Y=" + std::to_string(client->Position.Y) +
-        ", Z=" + std::to_string(client->Position.Z));
-}
+//void IOCPServer::SendInitialPosition(ClientSession* client)
+//{
+//    PositionPacket packet;
+//    packet.Header.PacketType = EPacketType::PLAYER_INIT_INFO;
+//    packet.Header.PacketSize = sizeof(PositionPacket);
+//    packet.ClientId = client->id;
+//    packet.Position = client->Position;
+//    packet.Velocity = client->Velocity;
+//    packet.State = client->State;
+//
+//    SendPacket(client, &packet, sizeof(packet), "SendInitialPosition");
+//
+//    LOG_INFO("초기 위치 정보 전송됨 - 클라이언트 ID: " + std::to_string(client->id) +
+//        ", 위치: X=" + std::to_string(client->Position.X) +
+//        ", Y=" + std::to_string(client->Position.Y) +
+//        ", Z=" + std::to_string(client->Position.Z));
+//}
 
 void IOCPServer::BroadcastNewPlayerJoin(ClientSession* newClient)
 {
@@ -129,7 +129,7 @@ void IOCPServer::ProcessPacket(ClientSession* client, char* data, int length)
 
     // 패킷 타입 유효성 검사
     if (static_cast<int>(header->PacketType) < 0 ||
-        static_cast<int>(header->PacketType) > 7) {
+        static_cast<int>(header->PacketType) > 8) {
         LOG_WARNING("잘못된 패킷 타입: " + std::to_string(static_cast<int>(header->PacketType)) +
             ", 클라이언트 ID: " + std::to_string(client->id));
         return;
@@ -154,6 +154,30 @@ void IOCPServer::ProcessPacket(ClientSession* client, char* data, int length)
         {
             LOG_WARNING("[ProcessPacket] 잘못된 PING 패킷 크기 수신");
         }
+    }
+    break;
+    case EPacketType::PLAYER_INIT_INFO:
+    {
+        if (length >= sizeof(InitPacket))
+        {
+            InitPacket* initPacket = reinterpret_cast<InitPacket*>(data);
+            //HandleInitPacket(client, initPacket);
+			client->id = initPacket->ClientId;
+            client->Position = initPacket->Position;
+			client->Rotation = initPacket->Rotation;
+
+            LOG_INFO("[ProcessPacket] 초기 위치 정보 수신 - 클라이언트 ID: " +
+                std::to_string(client->id) +
+                ", 위치: " + std::to_string(client->Position.X) +
+                ", " + std::to_string(client->Position.Y) +
+                ", " + std::to_string(client->Position.Z));
+        }
+        else
+        {
+            LOG_ERROR("[ProcessPacket] PLAYER_INIT_INFO 패킷 크기 불일치. 수신: " +
+                std::to_string(length) + ", 예상: " +
+                std::to_string(sizeof(PositionPacket)));
+				}
     }
     break;
     case EPacketType::PLAYER_INPUT_INFO:
@@ -189,13 +213,24 @@ void IOCPServer::HandleInputPacket(ClientSession* client, const InputPacket* pac
     LOG_INFO("입력 패킷 수신 - 클라이언트 ID: " + std::to_string(client->id) +
         ", Forward: " + std::to_string(packet->ForwardValue) +
         ", Right: " + std::to_string(packet->RightValue) +
-		", Yaw: " + std::to_string(packet->ControlRotationYaw) +
+		", Pitch: " + std::to_string(packet->Pitch) +
+		", Yaw: " + std::to_string(packet->Yaw) +
+		", Roll: " + std::to_string(packet->Roll) +
+		", Run: " + (packet->bRunPressed ? "true" : "false") +
+		", Crouch: " + (packet->bCrouchPressed ? "true" : "false") +
         ", Jump: " + (packet->bJumpPressed ? "true" : "false") +
         ", Attack: " + (packet->bAttackPressed ? "true" : "false"));
 
     // 이동 입력 저장
     client->InputForward = packet->ForwardValue;
     client->InputRight = packet->RightValue;
+
+	client->Pitch = packet->Pitch;
+	client->Yaw = packet->Yaw;
+	client->Roll = packet->Roll;
+
+	client->bRunRequested = packet->bRunPressed;
+	client->bCrouchRequested = packet->bCrouchPressed;
     client->bJumpRequested = packet->bJumpPressed;
     client->bAttackRequested = packet->bAttackPressed;
 

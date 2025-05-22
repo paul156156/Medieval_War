@@ -236,12 +236,12 @@ void UNetworkManager::ProcessReceivedData(const TArray<uint8>& Data, int32 Bytes
             }
             break;
 
-        case EPacketType::PLAYER_INIT_INFO:
-            if (Header->PacketSize >= sizeof(PositionPacket))
-            {
-                HandlePositionPacket(reinterpret_cast<PositionPacket*>(PacketProcessBuffer.GetData() + ProcessedBytes));
-            }
-            break;
+        //case EPacketType::PLAYER_INIT_INFO:
+        //    if (Header->PacketSize >= sizeof(PositionPacket))
+        //    {
+        //        HandlePositionPacket(reinterpret_cast<PositionPacket*>(PacketProcessBuffer.GetData() + ProcessedBytes));
+        //    }
+        //    break;
 
         case EPacketType::DISCONNECT:
             if (Header->PacketSize >= sizeof(DisconnectPacket))
@@ -287,13 +287,7 @@ void UNetworkManager::HandlePositionPacket(const PositionPacket* Packet)
     UE_LOG(LogTemp, Log, TEXT("Received position for PlayerId: %d (CurrentId: %d)"), Packet->ClientId, CurrentPlayerId);
 
     FVector Position(Packet->Position.X, Packet->Position.Y, Packet->Position.Z);
-    FRotator Rotation(0.0f, 0.0f, 0.0f); // 서버에서 전체 회전값을 보내지 않으므로 임시로 설정
-
-    // Rotation이 있으면 반영
-    if (Packet->Header.PacketSize >= sizeof(PositionPacket))
-    {
-        Rotation = FRotator(0.0f, Packet->Rotation.Yaw, 0.0f);
-    }
+    FRotator Rotation(Packet->Rotation.Pitch, Packet->Rotation.Yaw, Packet->Rotation.Roll);
 
     FTransform NewTransform(Rotation, Position);
 

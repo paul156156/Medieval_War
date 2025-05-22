@@ -19,12 +19,12 @@ ClientSession* IOCPServer::CreateSession(SOCKET socket, SOCKADDR_IN addr)
 
     ZeroMemory(&client->overlapped, sizeof(WSAOVERLAPPED));
 
-    if (SpawnPositions.empty())
-    {
-        SetupSpawnPositions();
-    }
-    client->Position = SpawnPositions[(client->id - 1) % SpawnPositions.size()];
-    client->LastPosition = client->Position;
+    //if (SpawnPositions.empty())
+    //{
+    //    SetupSpawnPositions();
+    //}
+    //client->Position = SpawnPositions[(client->id - 1) % SpawnPositions.size()];
+    //client->LastPosition = client->Position;
 
     return client;
 }

@@ -29,7 +29,12 @@ struct ClientSession {
     // 입력 데이터
     float InputForward = 0.0f;    // 전/후 입력값
     float InputRight = 0.0f;      // 좌/우 입력값
-	float ControlRotationYaw = 0.0f; // 회전값
+	float Pitch = 0.0f;   // 피치값
+	float Yaw = 0.0f; // 회전값
+	float Roll = 0.0f; // 롤값
+
+	bool bRunRequested = false;   // 이동 요청 여부
+	bool bCrouchRequested = false; // 쭈그리기 요청 여부
     bool bJumpRequested = false;  // 점프 요청 여부
     bool bAttackRequested = false;// 공격 요청 여부
 };
