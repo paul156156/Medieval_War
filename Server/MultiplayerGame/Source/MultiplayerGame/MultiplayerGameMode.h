@@ -81,7 +81,12 @@ private:
 
     float LastForwardInput;
     float LastRightInput;
-    float LastYawRotation;
+    float LastPitch;
+    float LastYaw;
+    float LastRoll;
+
+    bool bLastRunPressed;
+    bool bLastCrouchPressed;
     bool bLastJumpPressed;
     bool bLastAttackPressed;
 };

@@ -236,12 +236,12 @@ void UNetworkManager::ProcessReceivedData(const TArray<uint8>& Data, int32 Bytes
             }
             break;
 
-        case EPacketType::PLAYER_INIT_INFO:
-            if (Header->PacketSize >= sizeof(PositionPacket))
-            {
-                HandlePositionPacket(reinterpret_cast<PositionPacket*>(PacketProcessBuffer.GetData() + ProcessedBytes));
-            }
-            break;
+        //case EPacketType::PLAYER_INIT_INFO:
+        //    if (Header->PacketSize >= sizeof(PositionPacket))
+        //    {
+        //        HandlePositionPacket(reinterpret_cast<PositionPacket*>(PacketProcessBuffer.GetData() + ProcessedBytes));
+        //    }
+        //    break;
 
         case EPacketType::DISCONNECT:
             if (Header->PacketSize >= sizeof(DisconnectPacket))
@@ -287,13 +287,7 @@ void UNetworkManager::HandlePositionPacket(const PositionPacket* Packet)
     UE_LOG(LogTemp, Log, TEXT("Received position for PlayerId: %d (CurrentId: %d)"), Packet->ClientId, CurrentPlayerId);
 
     FVector Position(Packet->Position.X, Packet->Position.Y, Packet->Position.Z);
-    FRotator Rotation(0.0f, 0.0f, 0.0f); // 서버에서 전체 회전값을 보내지 않으므로 임시로 설정
-
-    // Rotation이 있으면 반영
-    if (Packet->Header.PacketSize >= sizeof(PositionPacket))
-    {
-        Rotation = FRotator(0.0f, Packet->Rotation.Yaw, 0.0f);
-    }
+    FRotator Rotation(Packet->Rotation.Pitch, Packet->Rotation.Yaw, Packet->Rotation.Roll);
 
     FTransform NewTransform(Rotation, Position);
 
@@ -339,7 +333,21 @@ void UNetworkManager::SendPing()
     SendPacket(&Packet, sizeof(Packet));
 }
 
-void UNetworkManager::SendPlayerInput(float ForwardValue, float RightValue, float ControlRotationYaw, bool bJumpPressed, bool bAttackPressed)
+void UNetworkManager::SendPlayerInitInfo(Vec3 Position, Rot3 Rotation)
+{
+    if (!IsConnected() || CurrentPlayerId < 0) return;
+    
+    InitPacket Packet;
+    Packet.Header.PacketType = EPacketType::PLAYER_INIT_INFO;
+    Packet.Header.PacketSize = sizeof(InitPacket);
+    Packet.ClientId = CurrentPlayerId;
+    Packet.Position = Position;
+    Packet.Rotation = Rotation;
+
+    SendPacket(&Packet, sizeof(Packet));
+}
+
+void UNetworkManager::SendPlayerInput(float ForwardValue, float RightValue, float Pitch, float Yaw, float Roll, bool bRunPressed, bool bCrouchPressed, bool bJumpPressed, bool bAttackPressed)
 {
     if (!IsConnected() || CurrentPlayerId < 0) return;
 
@@ -347,15 +355,53 @@ void UNetworkManager::SendPlayerInput(float ForwardValue, float RightValue, floa
     Packet.Header.PacketType = EPacketType::PLAYER_INPUT_INFO;
     Packet.Header.PacketSize = sizeof(InputPacket);
     Packet.ClientId = CurrentPlayerId;
+
+    // Movement 데이터
     Packet.ForwardValue = ForwardValue;
     Packet.RightValue = RightValue;
-    Packet.ControlRotationYaw = ControlRotationYaw;
-    Packet.ControlRotationPitch = 0.0f; // 현재는 사용하지 않음
+    Packet.Pitch = Pitch;
+    Packet.Yaw = Yaw;
+    Packet.Roll = Roll;
+
+    // Event 데이터
+    Packet.bRunPressed = bRunPressed;
+    Packet.bCrouchPressed = bCrouchPressed;
     Packet.bJumpPressed = bJumpPressed;
     Packet.bAttackPressed = bAttackPressed;
 
     SendPacket(&Packet, sizeof(Packet));
 }
+
+//void UNetworkManager::SendPlayerMovement(float ForwardValue, float RightValue, Rot3 Rotation)
+//{
+//    if (!IsConnected() || CurrentPlayerId < 0) return;
+//
+//    MovementInfoPacket Packet;
+//    Packet.Header.PacketType = EPacketType::PLAYER_MOVEMENT_INFO;
+//    Packet.Header.PacketSize = sizeof(MovementInfoPacket);
+//    Packet.ClientId = CurrentPlayerId;
+//    Packet.ForwardValue = ForwardValue;
+//    Packet.RightValue = RightValue;
+//	Packet.Rotation = Rotation;
+//
+//    SendPacket(&Packet, sizeof(Packet));
+//}
+//
+//void UNetworkManager::SendPlayerEvent(bool bRunPressed, bool bCrouchPressed, bool bJumpPressed, bool bAttackPressed)
+//{
+//    if (!IsConnected() || CurrentPlayerId < 0) return;
+//
+//    EventInfoPacket Packet;
+//    Packet.Header.PacketType = EPacketType::PLAYER_EVENT_INFO;
+//    Packet.Header.PacketSize = sizeof(EventInfoPacket);
+//    Packet.ClientId = CurrentPlayerId;
+//    Packet.bRunPressed = bRunPressed;
+//    Packet.bCrouchPressed = bCrouchPressed;
+//    Packet.bJumpPressed = bJumpPressed;
+//    Packet.bAttackPressed = bAttackPressed;
+//
+//	SendPacket(&Packet, sizeof(Packet));
+//}
 
 bool UNetworkManager::SendPacket(const void* Data, int32 Size)
 {

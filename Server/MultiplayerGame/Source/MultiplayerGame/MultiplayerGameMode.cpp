@@ -1,6 +1,5 @@
 // MultiplayerGameMode.cpp
 #include "MultiplayerGameMode.h"
-#include "MultiplayerBaseCharacter.h"
 #include "MyPlayerCharacter.h"
 #include "OtherPlayerCharacter.h"
 #include "NetworkManager.h"
@@ -18,9 +17,12 @@ AMultiplayerGameMode::AMultiplayerGameMode()
     NetworkManager = nullptr;
     LastForwardInput = 0.0f;
     LastRightInput = 0.0f;
-    LastYawRotation = 0.0f;
+    LastPitch = 0.0f;
+    LastYaw = 0.0f;
+    LastRoll = 0.0f;
     bLastJumpPressed = false;
     bLastAttackPressed = false;
+    bLastCrouchPressed = false;
     DefaultServerIp = TEXT("127.0.0.1");
     DefaultServerPort = 9000;
     bAutoConnect = true;
@@ -84,7 +86,7 @@ ACharacter* AMultiplayerGameMode::SpawnPlayerCharacter(int32 PlayerId, bool bIsL
         PlayerStart = PlayerStarts[Index];
     }
 
-    FVector SpawnLocation = PlayerStart ? PlayerStart->GetActorLocation() : FVector(4300, -9100, 100);
+    FVector SpawnLocation = PlayerStart ? PlayerStart->GetActorLocation() : FVector::ZeroVector;
     FRotator SpawnRotation = PlayerStart ? PlayerStart->GetActorRotation() : FRotator::ZeroRotator;
 
     // 클래스 선택
@@ -104,7 +106,7 @@ ACharacter* AMultiplayerGameMode::SpawnPlayerCharacter(int32 PlayerId, bool bIsL
 
     if (NewCharacter)
     {
-        if (AMultiplayerBaseCharacter* BaseChar = Cast<AMultiplayerBaseCharacter>(NewCharacter))
+        if (AMyPlayerCharacter* BaseChar = Cast<AMyPlayerCharacter>(NewCharacter))
         {
             BaseChar->SetPlayerId(PlayerId);
             BaseChar->SetIsLocalPlayer(bIsLocalPlayer);
@@ -130,7 +132,7 @@ ACharacter* AMultiplayerGameMode::GetLocalPlayerCharacter() const
 {
     for (const auto& Pair : PlayerCharacters)
     {
-        const AMultiplayerBaseCharacter* Char = Cast<AMultiplayerBaseCharacter>(Pair.Value);
+        const AMyPlayerCharacter* Char = Cast<AMyPlayerCharacter>(Pair.Value);
         if (Char && Char->GetLocalRole() == ROLE_AutonomousProxy)
         {
             return Pair.Value;
@@ -174,7 +176,7 @@ void AMultiplayerGameMode::OnPlayerLeft(int32 PlayerId)
 
 void AMultiplayerGameMode::OnPlayerPositionUpdated(int32 PlayerId, FTransform NewTransform)
 {
-    if (AMultiplayerBaseCharacter* Character = Cast<AMultiplayerBaseCharacter>(PlayerCharacters.FindRef(PlayerId)))
+    if (AMyPlayerCharacter* Character = Cast<AMyPlayerCharacter>(PlayerCharacters.FindRef(PlayerId)))
     {
         Character->UpdateFromNetwork(NewTransform, Character->GetCharacterMovement()->IsFalling() ? EPlayerState::JUMPING : EPlayerState::IDLE);
     }
@@ -182,7 +184,7 @@ void AMultiplayerGameMode::OnPlayerPositionUpdated(int32 PlayerId, FTransform Ne
 
 void AMultiplayerGameMode::OnPlayerStateChanged(int32 PlayerId, EPlayerState NewState)
 {
-    if (AMultiplayerBaseCharacter* Character = Cast<AMultiplayerBaseCharacter>(PlayerCharacters.FindRef(PlayerId)))
+    if (AMyPlayerCharacter* Character = Cast<AMyPlayerCharacter>(PlayerCharacters.FindRef(PlayerId)))
     {
         Character->UpdateFromNetwork(Character->GetActorTransform(), NewState);
     }
@@ -200,43 +202,88 @@ void AMultiplayerGameMode::UpdatePlayerInput()
     ACharacter* LocalPlayer = GetLocalPlayerCharacter();
     if (!LocalPlayer) return;
 
-    AMultiplayerBaseCharacter* Character = Cast<AMultiplayerBaseCharacter>(LocalPlayer);
+    AMyPlayerCharacter* Character = Cast<AMyPlayerCharacter>(LocalPlayer);
     if (!Character) return;
 
     float CurrentForwardInput = Character->GetInputAxisValue("MoveForward");
     float CurrentRightInput = Character->GetInputAxisValue("MoveRight");
-    float CurrentYawRotation = Character->GetControlRotation().Yaw;
 
-    bool bCurrentJumpPressed = Character->GetCharacterMovement()->IsFalling();
-    bool bCurrentAttackPressed = false; // 나중에 공격 처리 연동
+    FRotator CurrentRotation = Character->GetControlRotation();
+    float CurrentPitch = CurrentRotation.Pitch;
+    float CurrentYaw = CurrentRotation.Yaw;
+    float CurrentRoll = CurrentRotation.Roll;
+
+    bool bCurrentRunPressed = Character->bRunPressed;
+    bool bCurrentJumpPressed = Character->bJumpPressed;
+    bool bCurrentAttackPressed = Character->bIsAttackPressed;
+    bool bCurrentCrouchPressed = Character->bCrouchPressed;
 
     bool bInputChanged =
         FMath::Abs(CurrentForwardInput - LastForwardInput) > 0.01f ||
         FMath::Abs(CurrentRightInput - LastRightInput) > 0.01f ||
-        FMath::Abs(CurrentYawRotation - LastYawRotation) > 0.1f ||
+        FMath::Abs(CurrentPitch - LastPitch) > 0.1f ||
+        FMath::Abs(CurrentYaw - LastYaw) > 0.1f ||
+        FMath::Abs(CurrentRoll - LastRoll) > 0.1f ||
+        bCurrentRunPressed != bLastRunPressed ||
         bCurrentJumpPressed != bLastJumpPressed ||
-        bCurrentAttackPressed != bLastAttackPressed;
+        bCurrentAttackPressed != bLastAttackPressed ||
+        bCurrentCrouchPressed != bLastCrouchPressed;
 
-    bool bSendZeroInput =
+    //bool bMovementChanged =
+    //    FMath::Abs(CurrentForwardInput - LastForwardInput) > 0.01f ||
+    //    FMath::Abs(CurrentRightInput - LastRightInput) > 0.01f ||
+    //    FMath::Abs(CurrentPitch - LastPitch) > 0.1f ||
+    //    FMath::Abs(CurrentYaw - LastYaw) > 0.1f ||
+    //    FMath::Abs(CurrentRoll - LastRoll) > 0.1f;
+
+    //bool bEventChanged =
+    //    bCurrentRunPressed != bLastRunPressed ||
+    //    bCurrentJumpPressed != bLastJumpPressed ||
+    //    bCurrentAttackPressed != bLastAttackPressed ||
+    //    bCurrentCrouchPressed != bLastCrouchPressed;
+
+    bool bSendZeroMovement =
         (FMath::Abs(CurrentForwardInput) < 0.01f && FMath::Abs(LastForwardInput) >= 0.01f) ||
-        (FMath::Abs(CurrentRightInput) < 0.01f && FMath::Abs(LastRightInput) >= 0.01f) ||
-        (!bCurrentJumpPressed && bLastJumpPressed) ||
-        (!bCurrentAttackPressed && bLastAttackPressed);
+        (FMath::Abs(CurrentRightInput) < 0.01f && FMath::Abs(LastRightInput) >= 0.01f);
 
-    if (bInputChanged || bSendZeroInput)
+    if (bInputChanged || bSendZeroMovement)
     {
         NetworkManager->SendPlayerInput(
             CurrentForwardInput,
             CurrentRightInput,
-            CurrentYawRotation,
+            CurrentPitch,
+            CurrentYaw,
+            CurrentRoll,
+            bCurrentRunPressed,
+            bCurrentCrouchPressed,
             bCurrentJumpPressed,
             bCurrentAttackPressed
         );
 
         LastForwardInput = CurrentForwardInput;
         LastRightInput = CurrentRightInput;
-        LastYawRotation = CurrentYawRotation;
+        LastPitch = CurrentPitch;
+        LastYaw = CurrentYaw;
+        LastRoll = CurrentRoll;
+
+        bLastRunPressed = bCurrentRunPressed;
         bLastJumpPressed = bCurrentJumpPressed;
         bLastAttackPressed = bCurrentAttackPressed;
+        bLastCrouchPressed = bCurrentCrouchPressed;
     }
+
+    //if (bEventChanged)
+    //{
+    //    NetworkManager->SendPlayerEvent(
+    //        bCurrentRunPressed,
+    //        bCurrentCrouchPressed,
+    //        bCurrentJumpPressed,
+    //        bCurrentAttackPressed
+    //    );
+
+    //    bLastRunPressed = bCurrentRunPressed;
+    //    bLastJumpPressed = bCurrentJumpPressed;
+    //    bLastAttackPressed = bCurrentAttackPressed;
+    //    bLastCrouchPressed = bCurrentCrouchPressed;
+    //}
 }

@@ -37,7 +37,7 @@ void IOCPServer::Update(float DeltaTime)
             float Forward = client->InputForward;
             float Right = client->InputRight;
 
-            float YawRad = client->ControlRotationYaw * (3.14159265f / 180.0f);
+            float YawRad = client->Yaw * (3.14159265f / 180.0f);
             float CosYaw = cos(YawRad);
             float SinYaw = sin(YawRad);
 
@@ -53,14 +53,27 @@ void IOCPServer::Update(float DeltaTime)
                 MoveDir.Y /= Magnitude;
             }
 
-            const float MoveSpeed = 500.0f;
+            const float MoveSpeed = 300.0f;
             client->Velocity.X = MoveDir.X * MoveSpeed;
             client->Velocity.Y = MoveDir.Y * MoveSpeed;
 
+            // 崔府扁 贸府
+            if (client->bRunRequested)
+            {
+				client->Velocity.X *= 2.0f;
+                client->Velocity.Y *= 2.0f;
+                client->State = EPlayerState::RUNNING;
+            }
+            if (client->bCrouchRequested)
+            {
+                client->Velocity.X *= 0.5f;
+                client->Velocity.Y *= 0.5f;
+                client->State = EPlayerState::CROUCHING;
+            }
             // 痢橇 贸府
             if (client->bJumpRequested && client->Position.Z <= 90.0f + 1.0f)
             {
-                client->Velocity.Z = 600.0f;
+                client->Velocity.Z = 300.0f;
                 client->State = EPlayerState::JUMPING;
                 client->bJumpRequested = true;
             }
@@ -69,7 +82,6 @@ void IOCPServer::Update(float DeltaTime)
             if (client->bAttackRequested)
             {
                 client->State = EPlayerState::ATTACKING;
-				client->bAttackRequested = true;
             }
             else if (Magnitude > 0.0f)
             {
@@ -148,6 +160,8 @@ void IOCPServer::Update(float DeltaTime)
                 BroadcastPosition(client);
             }
 
+			client->bRunRequested = false;
+			client->bCrouchRequested = false;
             client->bJumpRequested = false;
             client->bAttackRequested = false;
         }
@@ -164,6 +178,9 @@ void IOCPServer::BroadcastPosition(ClientSession* sourceClient)
     packet.Header.PacketSize = sizeof(PositionPacket);
     packet.ClientId = sourceClient->id;
     packet.Position = sourceClient->Position;
+    packet.Rotation.Pitch = sourceClient->Pitch;
+    packet.Rotation.Yaw = sourceClient->Yaw;
+    packet.Rotation.Roll = sourceClient->Roll;
     packet.Velocity = sourceClient->Velocity;
     packet.State = sourceClient->State;
 
@@ -205,11 +222,11 @@ void IOCPServer::BroadcastPosition(ClientSession* sourceClient)
     }
 }
 
-void IOCPServer::SetupSpawnPositions()
-{
-    SpawnPositions.push_back({ 0.0f, 0.0f, 90.0f });
-    SpawnPositions.push_back({ 300.0f, 0.0f, 90.0f });
-    SpawnPositions.push_back({ -300.0f, 0.0f, 90.0f });
-    SpawnPositions.push_back({ 0.0f, 300.0f, 90.0f });
-    SpawnPositions.push_back({ 0.0f, -300.0f, 90.0f });
-}
+//void IOCPServer::SetupSpawnPositions()
+//{
+//    SpawnPositions.push_back({ 0.0f, 0.0f, 90.0f });
+//    SpawnPositions.push_back({ 300.0f, 0.0f, 90.0f });
+//    SpawnPositions.push_back({ -300.0f, 0.0f, 90.0f });
+//    SpawnPositions.push_back({ 0.0f, 300.0f, 90.0f });
+//    SpawnPositions.push_back({ 0.0f, -300.0f, 90.0f });
+//}

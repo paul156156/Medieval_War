@@ -39,11 +39,17 @@ public:
     // 서버 연결 종료 함수
     UFUNCTION(BlueprintCallable, Category = "Network")
     void DisconnectFromServer();
+    	
+    // 서버에 플레이어 초기화 정보 전송 함수
+    void SendPlayerInitInfo(Vec3 Position, Rot3 Rotation);
 
-    // 플레이어 입력 전송 함수
-    UFUNCTION(BlueprintCallable, Category = "Network")
-    void SendPlayerInput(float ForwardValue, float RightValue, float ControlRotationYaw, bool bJumpPressed, bool bAttackPressed);
+    void SendPlayerInput(float ForwardValue, float RightValue, float Pitch, float Yaw, float Roll, bool bRunPressed, bool bCrouchPressed, bool bJumpPressed, bool bAttackPressed);
 
+    //// 플레이어 입력 전송 함수
+    //void SendPlayerMovement(float ForwardValue, float RightValue, Rot3 Rotation);
+
+    //void SendPlayerEvent(bool bRunPressed, bool bCrouchPressed, bool bJumpPressed, bool bAttackPressed);
+    
     // 서버에서 받은 패킷 처리 함수
     void ProcessReceivedData(const TArray<uint8>& Data, int32 BytesRead);
 
