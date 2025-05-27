@@ -1,0 +1,53 @@
+#pragma once
+#include "ClientSession.h"
+#include "PacketTypes.h"
+#include <unordered_map>
+#include <vector>
+#include <WinSock2.h>
+#include <WS2tcpip.h>
+
+class PacketDispatcher {
+public:
+    // 기본 패킷 전송
+    static void SendClientId(ClientSession* client);
+    static void SendInitialPosition(ClientSession* client);
+    static void SendPong(ClientSession* client);
+
+    // 플레이어 정보 브로드캐스트
+    static void BroadcastNewPlayer(ClientSession* newClient, const std::unordered_map<int, ClientSession*>& clients);
+    static void SendExistingPlayer(ClientSession* newClient, const std::unordered_map<int, ClientSession*>& clients);
+    static void BroadcastPlayerUpdate(ClientSession* sourceClient, const std::unordered_map<int, ClientSession*>& clients);
+
+    // 연결 관리
+    static void NotifyPlayerDisconnect(int disconnectedClientId, const std::unordered_map<int, ClientSession*>& clients);
+
+    // 게임 이벤트
+    static void BroadcastPlayerAction(ClientSession* sourceClient, EPlayerState action, const std::unordered_map<int, ClientSession*>& clients);
+
+    // 패킷 검증 및 처리
+    static bool ProcessReceivedPacket(ClientSession* client, char* data, int length);
+
+private:
+    // 패킷 생성 헬퍼
+    static ClientIdPacket CreateClientIdPacket(int clientId);
+    static PositionPacket CreatePositionPacket(ClientSession* client);
+    static PongPacket CreatePongPacket(ClientSession* client);
+    static DisconnectPacket CreateDisconnectPacket(int clientId);
+
+    // 패킷 검증
+    static bool ValidatePacketHeader(const PacketHeader* header, size_t receivedSize);
+    static bool ValidateInputPacket(const InputPacket* packet);
+    static bool ValidatePositionPacket(const PositionPacket* packet);
+
+    // 개별 패킷 처리기
+    static void HandlePingPacket(ClientSession* client, const PingPacket* packet);
+    static void HandleInputPacket(ClientSession* client, const InputPacket* packet);
+    static void HandleInitPacket(ClientSession* client, const InitPacket* packet);
+    static void HandleConnectPacket(ClientSession* client, const ConnectPacket* packet);
+    static void HandleDisconnectPacket(ClientSession* client, const DisconnectPacket* packet);
+
+    // 로깅 및 통계
+    static void LogPacketSent(const char* packetType, int clientId, size_t size);
+    static void LogPacketReceived(const char* packetType, int clientId, size_t size);
+    static void LogBroadcastStats(const char* context, int successCount, int totalCount);
+};
