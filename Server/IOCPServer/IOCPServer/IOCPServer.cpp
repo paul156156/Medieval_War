@@ -193,7 +193,7 @@ void IOCPServer::InitializeNewClient(ClientSession* client) {
     PacketDispatcher::SendClientId(client);
 
     // 초기 위치 전송
-    PacketDispatcher::SendInitialPosition(client);
+    //PacketDispatcher::SendInitialPosition(client);
 
     // 기존 플레이어들에게 새 플레이어 알림
     auto& clients = clientManager->GetClients();

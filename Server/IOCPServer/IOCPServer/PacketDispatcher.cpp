@@ -16,23 +16,23 @@ void PacketDispatcher::SendClientId(ClientSession* client) {
     }
 }
 
-void PacketDispatcher::SendInitialPosition(ClientSession* client) {
-    if (!client) {
-        LOG_ERROR("SendInitialPosition: 유효하지 않은 클라이언트");
-        return;
-    }
-
-    PositionPacket packet = CreatePositionPacket(client);
-    packet.Header.PacketType = EPacketType::PLAYER_INIT_INFO;
-
-    if (NetworkSessionManager::SendPacketSafe(client, &packet, sizeof(packet), "SendInitialPosition")) {
-        LogPacketSent("PLAYER_INIT_INFO", client->id, sizeof(packet));
-        LOG_INFO("초기 위치 정보 전송됨 - 클라이언트 ID: " + std::to_string(client->id) +
-            ", 위치: (" + std::to_string(client->Position.X) +
-            ", " + std::to_string(client->Position.Y) +
-            ", " + std::to_string(client->Position.Z) + ")");
-    }
-}
+//void PacketDispatcher::SendInitialPosition(ClientSession* client) {
+//    if (!client) {
+//        LOG_ERROR("SendInitialPosition: 유효하지 않은 클라이언트");
+//        return;
+//    }
+//
+//    PositionPacket packet = CreatePositionPacket(client);
+//    packet.Header.PacketType = EPacketType::PLAYER_INIT_INFO;
+//
+//    if (NetworkSessionManager::SendPacketSafe(client, &packet, sizeof(packet), "SendInitialPosition")) {
+//        LogPacketSent("PLAYER_INIT_INFO", client->id, sizeof(packet));
+//        LOG_INFO("초기 위치 정보 전송됨 - 클라이언트 ID: " + std::to_string(client->id) +
+//            ", 위치: (" + std::to_string(client->Position.X) +
+//            ", " + std::to_string(client->Position.Y) +
+//            ", " + std::to_string(client->Position.Z) + ")");
+//    }
+//}
 
 void PacketDispatcher::SendPong(ClientSession* client) {
     if (!client) {
@@ -321,12 +321,11 @@ void PacketDispatcher::HandleInputPacket(ClientSession* client, const InputPacke
     // 입력 데이터 업데이트
     client->InputForward = packet->ForwardValue;
     client->InputRight = packet->RightValue;
-    client->ControlRotationPitch = packet->RotationPitch;
-    client->ControlRotationYaw = packet->RotationYaw;
-    client->ControlRotationRoll = packet->RotationRoll;
+    client->InputPitch = packet->RotationPitch;
+    client->InputYaw = packet->RotationYaw;
+    client->InputRoll = packet->RotationRoll;
     client->bJumpRequested = packet->bJumpPressed;
     client->bAttackRequested = packet->bAttackPressed;
-    //client->bCrouchRequested = packet->bCrouchPressed;
     client->bRunRequested = packet->bRunPressed;
 
     // 입력 시간 업데이트 (스팸 방지용)
@@ -338,7 +337,7 @@ void PacketDispatcher::HandleInitPacket(ClientSession* client, const InitPacket*
 
     client->Position = packet->Position;
     client->Rotation = packet->Rotation;
-    client->LastPosition = client->Position;
+    client->PreviousPosition = client->Position;
 
     LOG_INFO("클라이언트 초기화 정보 수신 - ID: " + std::to_string(client->id) +
         ", 위치: (" + std::to_string(client->Position.X) +

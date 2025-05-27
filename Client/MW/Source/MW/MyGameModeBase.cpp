@@ -8,7 +8,8 @@ AMyGameModeBase::AMyGameModeBase()
 {
     // 기본 플레이어 캐릭터 클래스 설정
     DefaultPawnClass = AMyCharacter::StaticClass();
-    NetworkPlayerClass = AMyCharacter::StaticClass();
+    LocalPlayerClass = AMyCharacter::StaticClass();
+    RemotePlayerClass = AOtherCharacter::StaticClass();
 
     // 네트워크 설정
     DefaultServerIp = TEXT("127.0.0.1");
@@ -72,14 +73,14 @@ void AMyGameModeBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
     }
 
     // 네트워크 플레이어들 정리
-    for (auto& Pair : NetworkPlayers)
+    for (auto& Pair : Players)
     {
         if (Pair.Value && IsValid(Pair.Value))
         {
             Pair.Value->Destroy();
         }
     }
-    NetworkPlayers.Empty();
+    Players.Empty();
 
     Super::EndPlay(EndPlayReason);
 }
@@ -112,8 +113,8 @@ void AMyGameModeBase::UpdatePlayerInput()
     // 로컬 플레이어 찾기
     AMyCharacter* LocalCharacter = nullptr;
 
-    // NetworkPlayers에서 로컬 플레이어 찾기
-    for (auto& Pair : NetworkPlayers)
+    // Players에서 로컬 플레이어 찾기
+    for (auto& Pair : Players)
     {
         if (Pair.Value && Pair.Value->IsLocalPlayer())
         {
@@ -188,7 +189,7 @@ void AMyGameModeBase::OnPlayerJoined(int32 PlayerId)
             LocalPlayer->SetPlayerId(PlayerId);
             LocalPlayer->SetIsLocalPlayer(true);
             LocalPlayer->SetIsRemoteControlled(false);
-            NetworkPlayers.Add(PlayerId, LocalPlayer);
+            Players.Add(PlayerId, LocalPlayer);
 
             UE_LOG(LogTemp, Log, TEXT("Local player ID set to: %d"), PlayerId);
         }
@@ -196,11 +197,12 @@ void AMyGameModeBase::OnPlayerJoined(int32 PlayerId)
     else
     {
         // 원격 플레이어 생성
-        AMyCharacter* NewPlayer = CreateNetworkPlayer(PlayerId);
-        if (NewPlayer)
+        AOtherCharacter* NewRemotePlayer = CreateRemotePlayer(PlayerId);
+        if (NewRemotePlayer)
         {
-            NetworkPlayers.Add(PlayerId, NewPlayer);
-            UE_LOG(LogTemp, Log, TEXT("Remote player created: %d"), PlayerId);
+            // AMyCharacter*로 캐스팅하여 맵에 저장 (기존 인터페이스 호환성 유지)
+            Players.Add(PlayerId, Cast<AMyCharacter>(NewRemotePlayer));
+            UE_LOG(LogTemp, Log, TEXT("Remote player (OtherCharacter) created: %d"), PlayerId);
         }
     }
 }
@@ -208,19 +210,37 @@ void AMyGameModeBase::OnPlayerJoined(int32 PlayerId)
 void AMyGameModeBase::OnPlayerLeft(int32 PlayerId)
 {
     UE_LOG(LogTemp, Log, TEXT("Player left: %d"), PlayerId);
-    RemoveNetworkPlayer(PlayerId);
+    RemovePlayer(PlayerId);
 }
 
 void AMyGameModeBase::OnPlayerPositionUpdated(int32 PlayerId, FTransform NewTransform, FVector Velocity)
 {
     AMyCharacter* Player = GetPlayerCharacter(PlayerId);
-    if (Player && Player->IsRemoteControlled())
+    if (!Player) return;
+
+    if (Player->IsRemoteControlled())
     {
-        // 원격 플레이어만 서버 위치로 업데이트
+        // 원격 플레이어 업데이트
         Player->UpdateFromNetwork(NewTransform, Velocity, Player->CurrentState);
+
+        UE_LOG(LogTemp, VeryVerbose, TEXT("Updated remote player %d: (%.1f, %.1f, %.1f)"),
+            PlayerId, NewTransform.GetLocation().X, NewTransform.GetLocation().Y, NewTransform.GetLocation().Z);
+    }
+    else if (Player->IsLocalPlayer())
+    {
+        // 로컬 플레이어는 서버 보정이 필요한 경우에만 업데이트
+        FVector LocalPos = Player->GetActorLocation();
+        FVector ServerPos = NewTransform.GetLocation();
+        float PositionError = FVector::Dist(LocalPos, ServerPos);
+
+        // 위치 차이가 크면 서버 위치로 보정
+        if (PositionError > 100.0f)
+        {
+            UE_LOG(LogTemp, Warning, TEXT("Local player position corrected by server: Error=%.1f"), PositionError);
+            Player->UpdateFromNetwork(NewTransform, Velocity, Player->CurrentState);
+        }
     }
 }
-
 void AMyGameModeBase::OnPlayerStateChanged(int32 PlayerId, EPlayerState NewState)
 {
     AMyCharacter* Player = GetPlayerCharacter(PlayerId);
@@ -241,7 +261,7 @@ void AMyGameModeBase::OnConnectionStatusChanged(bool bIsConnected)
     {
         // 연결이 끊어진 경우 모든 원격 플레이어 제거
         TArray<int32> PlayersToRemove;
-        for (auto& Pair : NetworkPlayers)
+        for (auto& Pair : Players)
         {
             if (Pair.Value && Pair.Value->IsRemoteControlled())
             {
@@ -251,7 +271,7 @@ void AMyGameModeBase::OnConnectionStatusChanged(bool bIsConnected)
 
         for (int32 PlayerId : PlayersToRemove)
         {
-            RemoveNetworkPlayer(PlayerId);
+            RemovePlayer(PlayerId);
         }
     }
 }
@@ -264,21 +284,21 @@ void AMyGameModeBase::OnConnectionError()
 
 AMyCharacter* AMyGameModeBase::GetPlayerCharacter(int32 PlayerId)
 {
-    AMyCharacter** FoundPlayer = NetworkPlayers.Find(PlayerId);
+    AMyCharacter** FoundPlayer = Players.Find(PlayerId);
     return FoundPlayer ? *FoundPlayer : nullptr;
 }
 
-TArray<AMyCharacter*> AMyGameModeBase::GetAllNetworkPlayers()
+TArray<AMyCharacter*> AMyGameModeBase::GetAllPlayers()
 {
-    TArray<AMyCharacter*> Players;
-    for (auto& Pair : NetworkPlayers)
+    TArray<AMyCharacter*> Player;
+    for (auto& Pair : Players)
     {
         if (Pair.Value && IsValid(Pair.Value))
         {
-            Players.Add(Pair.Value);
+            Player.Add(Pair.Value);
         }
     }
-    return Players;
+    return Player;
 }
 
 int32 AMyGameModeBase::GetLocalPlayerId()
@@ -291,11 +311,11 @@ bool AMyGameModeBase::IsLocalPlayer(int32 PlayerId)
     return NetworkManager && PlayerId == NetworkManager->GetCurrentPlayerId();
 }
 
-AMyCharacter* AMyGameModeBase::CreateNetworkPlayer(int32 PlayerId)
+AMyCharacter* AMyGameModeBase::CreateLocalPlayer(int32 PlayerId)
 {
-    if (!NetworkPlayerClass)
+    if (!LocalPlayer)
     {
-        UE_LOG(LogTemp, Error, TEXT("NetworkPlayerClass not set!"));
+        UE_LOG(LogTemp, Error, TEXT("LocalPlayerClass not set!"));
         return nullptr;
     }
 
@@ -307,7 +327,7 @@ AMyCharacter* AMyGameModeBase::CreateNetworkPlayer(int32 PlayerId)
     SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
 
     AMyCharacter* NewPlayer = GetWorld()->SpawnActor<AMyCharacter>(
-        NetworkPlayerClass,
+        LocalPlayerClass,
         SpawnTransform.GetLocation(),
         SpawnTransform.GetRotation().Rotator(),
         SpawnParams
@@ -320,22 +340,64 @@ AMyCharacter* AMyGameModeBase::CreateNetworkPlayer(int32 PlayerId)
         NewPlayer->SetIsLocalPlayer(false);
         NewPlayer->SetIsRemoteControlled(true);
 
-        UE_LOG(LogTemp, Log, TEXT("Network player created successfully - ID: %d"), PlayerId);
+        UE_LOG(LogTemp, Log, TEXT("Player created successfully - ID: %d"), PlayerId);
     }
     else
     {
-        UE_LOG(LogTemp, Error, TEXT("Failed to create network player - ID: %d"), PlayerId);
+        UE_LOG(LogTemp, Error, TEXT("Failed to create local player - ID: %d"), PlayerId);
     }
 
     return NewPlayer;
 }
 
-void AMyGameModeBase::RemoveNetworkPlayer(int32 PlayerId)
+AOtherCharacter* AMyGameModeBase::CreateRemotePlayer(int32 PlayerId)
 {
-    AMyCharacter** FoundPlayer = NetworkPlayers.Find(PlayerId);
+    if (!RemotePlayerClass)
+    {
+        UE_LOG(LogTemp, Error, TEXT("RemotePlayerClass not set!"));
+        return nullptr;
+    }
+
+    // 스폰 위치 가져오기
+    FTransform SpawnTransform = GetSpawnTransform(PlayerId);
+
+    // 원격 플레이어 캐릭터 생성
+    FActorSpawnParameters SpawnParams;
+    SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+
+    AOtherCharacter* NewPlayer = GetWorld()->SpawnActor<AOtherCharacter>(
+        RemotePlayerClass,
+        SpawnTransform.GetLocation(),
+        SpawnTransform.GetRotation().Rotator(),
+        SpawnParams
+    );
+
+    if (NewPlayer)
+    {
+        // 원격 플레이어로 설정
+        NewPlayer->SetPlayerId(PlayerId);
+        NewPlayer->SetIsRemoteControlled(true);
+
+        UE_LOG(LogTemp, Log, TEXT("Remote player(OtherCharacter) created successfully - ID: % d at(% .1f, % .1f, % .1f)"),
+            PlayerId, SpawnTransform.GetLocation().X, SpawnTransform.GetLocation().Y, SpawnTransform.GetLocation().Z);
+    }
+    else
+    {
+        UE_LOG(LogTemp, Error, TEXT("Failed to create remote player - ID: %d"), PlayerId);
+    }
+
+    return NewPlayer;
+}
+
+void AMyGameModeBase::RemovePlayer(int32 PlayerId)
+{
+    AMyCharacter** FoundPlayer = Players.Find(PlayerId);
     if (FoundPlayer && *FoundPlayer)
     {
         AMyCharacter* Player = *FoundPlayer;
+
+        bool bIsLocal = Player->IsLocalPlayer();
+        bool bIsRemote = Player->IsRemoteControlled();
 
         // 로컬 플레이어는 제거하지 않음
         if (!Player->IsLocalPlayer())
@@ -344,7 +406,7 @@ void AMyGameModeBase::RemoveNetworkPlayer(int32 PlayerId)
             UE_LOG(LogTemp, Log, TEXT("Network player removed - ID: %d"), PlayerId);
         }
 
-        NetworkPlayers.Remove(PlayerId);
+        Players.Remove(PlayerId);
     }
 }
 
@@ -369,33 +431,17 @@ void AMyGameModeBase::SetupLocalPlayer()
 
 FTransform AMyGameModeBase::GetSpawnTransform(int32 PlayerId)
 {
-    // 설정된 스폰 포인트가 있으면 사용
-    if (SpawnPoints.Num() > 0)
-    {
-        int32 SpawnIndex = (PlayerId - 1) % SpawnPoints.Num();
-        return SpawnPoints[SpawnIndex];
-    }
-
     // PlayerStart 액터들 찾기
     TArray<AActor*> PlayerStarts;
     UGameplayStatics::GetAllActorsOfClass(GetWorld(), APlayerStart::StaticClass(), PlayerStarts);
 
-    if (PlayerStarts.Num() > 0)
-    {
-        int32 StartIndex = (PlayerId - 1) % PlayerStarts.Num();
-        return PlayerStarts[StartIndex]->GetActorTransform();
-    }
+    // PlayerId에 따라 PlayerStart 선택
+    int32 StartIndex = (PlayerId - 1) % PlayerStarts.Num();
+    AActor* SelectedPlayerStart = PlayerStarts[StartIndex];
 
-    // 기본 위치 (원형 배치)
-    float Angle = (2.0f * PI * (PlayerId - 1)) / 8.0f; // 8명까지 원형 배치
-    float Radius = 500.0f;
-    FVector SpawnLocation(
-        Radius * FMath::Cos(Angle),
-        Radius * FMath::Sin(Angle),
-        100.0f // 지면에서 약간 위
-    );
+    FTransform SpawnTransform = SelectedPlayerStart->GetActorTransform();
 
-    return FTransform(FRotator::ZeroRotator, SpawnLocation);
+    return SpawnTransform;
 }
 
 void AMyGameModeBase::SetupDefaultSpawnPoints()

@@ -36,7 +36,7 @@ void ClientSession::Initialize(SOCKET clientSocket, SOCKADDR_IN clientAddr, int 
 
     // 기본 스폰 위치 설정 (예시)
     Position = Vec3(0.0f, 0.0f, 90.0f);
-    LastPosition = Position;
+    PreviousPosition = Position;
 }
 
 bool ClientSession::IsConnected() const {
@@ -78,15 +78,15 @@ void ClientSession::SetDefaultValues() {
 
     // 위치 및 속도 초기화
     Position = Vec3();
-    LastPosition = Vec3();
+    PreviousPosition = Vec3();
     Velocity = Vec3();
     PreviousVelocity = Vec3();
 
     // 회전 초기화
     Rotation = Rot3();
-    ControlRotationPitch = 0.0f;
-    ControlRotationYaw = 0.0f;
-    ControlRotationRoll = 0.0f;
+    InputPitch = 0.0f;
+    InputYaw = 0.0f;
+    InputRoll = 0.0f;
 
     // 상태 초기화
     State = EPlayerState::IDLE;

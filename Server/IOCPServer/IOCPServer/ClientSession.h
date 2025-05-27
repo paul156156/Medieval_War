@@ -28,15 +28,15 @@ public:
 
     // 게임 상태 데이터
     Vec3 Position;                    // 현재 위치
-    Vec3 LastPosition;                // 이전 위치
+    Vec3 PreviousPosition;            // 이전 위치
     Vec3 Velocity;                    // 현재 속도
     Vec3 PreviousVelocity;            // 이전 속도
 
     // 회전 정보
     Rot3 Rotation;                    // 현재 회전값
-    float ControlRotationPitch;       // 제어 회전 - 상하
-    float ControlRotationYaw;         // 제어 회전 - 좌우
-    float ControlRotationRoll;        // 제어 회전 - 롤
+    float InputPitch;       // 상하
+    float InputYaw;         // 좌우
+    float InputRoll;        // 롤
 
     // 플레이어 상태
     EPlayerState State;               // 현재 플레이어 상태
@@ -49,7 +49,6 @@ public:
     bool bJumpRequested;              // 점프 요청 여부
     bool bAttackRequested;            // 공격 요청 여부
     bool bRunRequested;               // 달리기 요청 여부
-    //bool bCrouchRequested;            // 웅크리기 요청 여부
 
     // 타이밍 관련
     float LastPingTime;               // 마지막 Ping 수신 시간

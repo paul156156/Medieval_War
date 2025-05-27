@@ -99,7 +99,7 @@ void GameUpdater::UpdateClient(ClientSession* client, float deltaTime, float cur
     UpdatePlayerState(client);
 
     // 이전 위치 저장
-    client->LastPosition = client->Position;
+    client->PreviousPosition = client->Position;
 
     // 위치 업데이트
     client->Position.X += client->Velocity.X * deltaTime;
@@ -139,7 +139,7 @@ void GameUpdater::CalculateMovement(ClientSession* client, float deltaTime) {
 Vec3 GameUpdater::CalculateMovementDirection(ClientSession* client) {
     float forward = client->InputForward;
     float right = client->InputRight;
-    float yawRad = client->ControlRotationYaw * (3.14159265f / 180.0f);
+    float yawRad = client->InputYaw * (3.14159265f / 180.0f);
 
     float cosYaw = cos(yawRad);
     float sinYaw = sin(yawRad);
@@ -248,9 +248,9 @@ void GameUpdater::ApplyWorldBounds(ClientSession* client) {
 
 bool GameUpdater::ShouldUpdatePosition(ClientSession* client, float currentTime) {
     // 이동 거리 계산
-    float dx = client->Position.X - client->LastPosition.X;
-    float dy = client->Position.Y - client->LastPosition.Y;
-    float dz = client->Position.Z - client->LastPosition.Z;
+    float dx = client->Position.X - client->PreviousPosition.X;
+    float dy = client->Position.Y - client->PreviousPosition.Y;
+    float dz = client->Position.Z - client->PreviousPosition.Z;
     float movedDistance = sqrt(dx * dx + dy * dy + dz * dz);
 
     // 업데이트 조건 체크
@@ -263,9 +263,9 @@ bool GameUpdater::ShouldUpdatePosition(ClientSession* client, float currentTime)
 
 void GameUpdater::BroadcastPositionUpdate(ClientSession* sourceClient, std::unordered_map<int, ClientSession*>& clients) {
     // 회전 정보 업데이트
-    sourceClient->Rotation.Pitch = sourceClient->ControlRotationPitch;
-    sourceClient->Rotation.Yaw = sourceClient->ControlRotationYaw;
-    sourceClient->Rotation.Roll = sourceClient->ControlRotationRoll;
+    sourceClient->Rotation.Pitch = sourceClient->InputPitch;
+    sourceClient->Rotation.Yaw = sourceClient->InputYaw;
+    sourceClient->Rotation.Roll = sourceClient->InputRoll;
 
     // 위치 업데이트 브로드캐스트
     PacketDispatcher::BroadcastPlayerUpdate(sourceClient, clients);

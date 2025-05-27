@@ -79,6 +79,16 @@ public:
     bool bPreviousJumpPressed = false;
     bool bPreviousAttackPressed = false;
 
+    // 이동 방식 설정 옵션
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
+    bool bAlwaysFaceMovementDirection = true;  // 항상 이동 방향을 향함
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
+    bool bUseCameraRelativeMovement = true;    // 카메라 기준 이동
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
+    float MovementRotationRate = 500.0f;      // 회전 속도 조절
+
     // 플레이어 상태를 public으로 변경
     UPROPERTY(BlueprintReadOnly, Category = "State")
     EPlayerState CurrentState = EPlayerState::IDLE;

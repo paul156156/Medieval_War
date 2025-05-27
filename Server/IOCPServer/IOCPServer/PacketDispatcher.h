@@ -10,7 +10,7 @@ class PacketDispatcher {
 public:
     // 기본 패킷 전송
     static void SendClientId(ClientSession* client);
-    static void SendInitialPosition(ClientSession* client);
+    //static void SendInitialPosition(ClientSession* client);
     static void SendPong(ClientSession* client);
 
     // 플레이어 정보 브로드캐스트

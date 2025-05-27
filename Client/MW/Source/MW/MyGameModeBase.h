@@ -6,6 +6,7 @@
 #include "PacketTypes.h"
 #include "NetworkManager.h"
 #include "MyCharacter.h"
+#include "OtherCharacter.h"
 #include "MyGameModeBase.generated.h"
 
 UCLASS()
@@ -27,7 +28,7 @@ public:
     AMyCharacter* GetPlayerCharacter(int32 PlayerId);
 
     UFUNCTION(BlueprintCallable, Category = "Network")
-    TArray<AMyCharacter*> GetAllNetworkPlayers();
+    TArray<AMyCharacter*> GetAllPlayers();
 
     UFUNCTION(BlueprintCallable, Category = "Network")
     int32 GetLocalPlayerId();
@@ -58,6 +59,30 @@ protected:
     UFUNCTION()
     void OnConnectionError();
 
+    // 네트워크 매니저 참조
+    UPROPERTY()
+    UNetworkManager* NetworkManager;
+
+    // 생성된 네트워크 플레이어들
+    UPROPERTY()
+    TMap<int32, AMyCharacter*> Players;
+
+    // 로컬 플레이어 참조
+    UPROPERTY()
+    AMyCharacter* LocalPlayer;
+
+    // 플레이어 캐릭터 클래스들
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Player")
+    TSubclassOf<AMyCharacter> LocalPlayerClass;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Player")
+    TSubclassOf<AOtherCharacter> RemotePlayerClass;  // 원격 플레이어용 클래스
+
+    // 스폰 위치들
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Spawn")
+    TArray<FTransform> SpawnPoints;
+
+    // 네트워크 설정들
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Network", meta = (AllowPrivateAccess = "true"))
     FString DefaultServerIp;
 
@@ -70,7 +95,7 @@ protected:
     // 입력 업데이트용 타이머
     FTimerHandle InputUpdateTimerHandle;
 
-    // 이전 입력값 저장용 변수들 (MyCharacter.h의 변수명과 맞춤)
+    // 이전 입력값 저장용 변수들
     float PreviousForwardInput = 0.0f;
     float PreviousRightInput = 0.0f;
     float PreviousPitchInput = 0.0f;
@@ -80,32 +105,13 @@ protected:
     bool bPreviousJumpPressed = false;
     bool bPreviousAttackPressed = false;
 
-    // 네트워크 매니저 참조
-    UPROPERTY()
-    UNetworkManager* NetworkManager;
-
-    // 생성된 네트워크 플레이어들
-    UPROPERTY()
-    TMap<int32, AMyCharacter*> NetworkPlayers;
-
-    // 로컬 플레이어 참조
-    UPROPERTY()
-    AMyCharacter* LocalPlayer;
-
-    // 플레이어 캐릭터 클래스
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Player")
-    TSubclassOf<AMyCharacter> NetworkPlayerClass;
-
-    // 스폰 위치들
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Spawn")
-    TArray<FTransform> SpawnPoints;
-
 private:
-    // 네트워크 플레이어 생성
-    AMyCharacter* CreateNetworkPlayer(int32 PlayerId);
+    // 플레이어 생성
+    AMyCharacter* CreateLocalPlayer(int32 PlayerId);
+    AOtherCharacter* CreateRemotePlayer(int32 PlayerId);
 
-    // 네트워크 플레이어 제거
-    void RemoveNetworkPlayer(int32 PlayerId);
+    //플레이어 제거
+    void RemovePlayer(int32 PlayerId);
 
     // 로컬 플레이어 설정
     void SetupLocalPlayer();

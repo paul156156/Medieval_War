@@ -33,7 +33,7 @@ ClientSession* ClientManager::CreateSession(SOCKET socket, SOCKADDR_IN addr) {
 
     // 스폰 위치 설정
     client->Position = GetSpawnPosition(clientId);
-    client->LastPosition = client->Position;
+    client->PreviousPosition = client->Position;
 
     // 클라이언트 맵에 추가
     {
