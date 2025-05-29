@@ -122,6 +122,6 @@ private:
     // 기본 스폰 위치 설정
     void SetupDefaultSpawnPoints();
 
-    // 입력 업데이트 함수 선언 추가
-    void UpdatePlayerInput();
+    //// 입력 업데이트 함수 선언 추가
+    //void UpdatePlayerInput();
 };

@@ -365,7 +365,7 @@ void UNetworkManager::HandlePositionPacket(const PositionPacket* Packet)
 {
     if (bLogPacketDetails)
     {
-        UE_LOG(LogTemp, VeryVerbose, TEXT("Received position for PlayerId: %d (CurrentId: %d)"), Packet->ClientId, CurrentPlayerId);
+        UE_LOG(LogTemp, Log, TEXT("Received position for PlayerId: %d (CurrentId: %d)"), Packet->ClientId, CurrentPlayerId);
     }
 
     // UE 좌표계로 변환
@@ -383,7 +383,7 @@ void UNetworkManager::HandlePositionPacket(const PositionPacket* Packet)
 
     if (bLogPacketDetails)
     {
-        UE_LOG(LogTemp, VeryVerbose, TEXT("Position Update: ClientID=%d, Pos=(%f, %f, %f), State=%d"),
+        UE_LOG(LogTemp, Log, TEXT("Position Update: ClientID=%d, Pos=(%f, %f, %f), State=%d"),
             Packet->ClientId, Position.X, Position.Y, Position.Z, static_cast<int>(Packet->State));
     }
 }
@@ -412,7 +412,7 @@ void UNetworkManager::HandlePongPacket(const PongPacket* Packet)
 
     if (bLogPacketDetails)
     {
-        UE_LOG(LogTemp, VeryVerbose, TEXT("Pong received: ClientId=%d, Ping=%.2f ms"), Packet->ClientId, CurrentPingTime);
+        UE_LOG(LogTemp, Log, TEXT("Pong received: ClientId=%d, Ping=%.2f ms"), Packet->ClientId, CurrentPingTime);
     }
 }
 
@@ -446,14 +446,14 @@ void UNetworkManager::SendPlayerInitInfo(Vec3 Position, Rot3 Rotation)
 
     if (bLogPacketDetails)
     {
-        UE_LOG(LogTemp, Verbose, TEXT("Sent player init info: ClientId=%d, Pos=(%f,%f,%f)"),
+        UE_LOG(LogTemp, Log, TEXT("Sent player init info: ClientId=%d, Pos=(%f,%f,%f)"),
             CurrentPlayerId, Position.X, Position.Y, Position.Z);
     }
 }
 
 void UNetworkManager::SendPlayerInput(float ForwardValue, float RightValue,
     float RotationPitch, float RotationYaw, float RotationRoll,
-    bool bRunPressed, bool bJumpPressed, bool bAttackPressed)
+    bool bRunPressed, bool bJumpPressed, bool bAttackPressed, bool bDefensePressed)
 {
     if (!IsConnected() || CurrentPlayerId < 0) return;
 
@@ -470,16 +470,17 @@ void UNetworkManager::SendPlayerInput(float ForwardValue, float RightValue,
     Packet.RotationRoll = RotationRoll;    // 서버: RotationRoll
 
     // 이벤트 데이터
+    Packet.bRunPressed = bRunPressed; 
     Packet.bJumpPressed = bJumpPressed;
     Packet.bAttackPressed = bAttackPressed;
-    Packet.bRunPressed = bRunPressed;
+    Packet.bDefensePressed = bDefensePressed;
 
     SendPacket(&Packet, sizeof(Packet));
 
     if (bLogPacketDetails)
     {
-        UE_LOG(LogTemp, VeryVerbose, TEXT("Sent input: F=%.2f R=%.2f Y=%.1f Run=%d Jump=%d Attack=%d"),
-            ForwardValue, RightValue, RotationYaw, bRunPressed, bJumpPressed, bAttackPressed);
+        UE_LOG(LogTemp, Log, TEXT("Sent input: F=%.2f R=%.2f Y=%.1f Run=%d Jump=%d Attack=%d Defense=%d"),
+            ForwardValue, RightValue, RotationYaw, bRunPressed, bJumpPressed, bAttackPressed, bDefensePressed);
     }
 }
 
@@ -487,6 +488,7 @@ bool UNetworkManager::SendPacket(const void* Data, int32 Size)
 {
     if (!IsConnected() || !Data || Size <= 0)
     {
+        UE_LOG(LogTemp, Error, TEXT("Send failed"));
         return false;
     }
 

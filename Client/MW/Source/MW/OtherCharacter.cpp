@@ -311,6 +311,7 @@ FString AOtherCharacter::GetPlayerStateString() const
     case EPlayerState::RUNNING: return TEXT("RUNNING");
     case EPlayerState::JUMPING: return TEXT("JUMPING");
     case EPlayerState::ATTACKING: return TEXT("ATTACKING");
+	case EPlayerState::DEFENSING: return TEXT("DEFENSING");
     default: return TEXT("UNKNOWN");
     }
 }

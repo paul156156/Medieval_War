@@ -183,6 +183,9 @@ bool PacketDispatcher::ProcessReceivedPacket(ClientSession* client, char* data, 
         return false;
     }
 
+    LOG_DEBUG("패킷 수신됨 - 클라이언트 ID: " + std::to_string(client->id) +
+        ", 길이: " + std::to_string(length));
+
     PacketHeader* header = reinterpret_cast<PacketHeader*>(data);
 
     if (!ValidatePacketHeader(header, length)) {

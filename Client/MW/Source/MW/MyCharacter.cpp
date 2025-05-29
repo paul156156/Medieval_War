@@ -54,7 +54,7 @@ void AMyCharacter::BeginPlay()
     // 로컬 플레이어만 입력 설정 및 서버 알림
     if (!bIsRemoteControlled)
     {
-        NotifySpawn();
+        //NotifySpawn();
 
         // Enhanced Input 설정
         if (APlayerController* PC = Cast<APlayerController>(Controller))
@@ -108,6 +108,14 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
         if (AttackAction)
         {
             Input->BindAction(AttackAction, ETriggerEvent::Started, this, &AMyCharacter::Attack);
+        }
+
+
+        // 방어 입력
+        if (DefenseAction)
+        {
+            Input->BindAction(DefenseAction, ETriggerEvent::Started, this, &AMyCharacter::StartDefense);
+			Input->BindAction(DefenseAction, ETriggerEvent::Completed, this, &AMyCharacter::StopDefense);
         }
 
         // 마우스 룩 입력
@@ -229,6 +237,37 @@ void AMyCharacter::Attack(const FInputActionValue& Value)
         }, AttackMontageDuration, false);
 }
 
+void AMyCharacter::StartDefense(const FInputActionValue& Value)
+{
+    bDefensePressed = true;
+
+    // 방어 애니메이션 실행
+    if (DefenseMontage)
+    {
+        if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
+        {
+            AnimInstance->Montage_Play(DefenseMontage);
+        }
+    }
+}
+
+void AMyCharacter::StopDefense(const FInputActionValue& Value)
+{
+    bDefensePressed = false;
+
+    // 방어 애니메이션 중단 (필요한 경우)
+    if (DefenseMontage)
+    {
+        if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
+        {
+            if (AnimInstance->Montage_IsPlaying(DefenseMontage))
+            {
+                AnimInstance->Montage_Stop(0.2f, DefenseMontage);
+            }
+        }
+    }
+}
+
 void AMyCharacter::Look(const FInputActionValue& Value)
 {
     FVector2D LookAxis = Value.Get<FVector2D>();
@@ -249,6 +288,8 @@ void AMyCharacter::Look(const FInputActionValue& Value)
 
 void AMyCharacter::NotifySpawn()
 {
+	UE_LOG(LogTemp, Log, TEXT("NotifySpawn called for %s"), *GetName());
+
     UNetworkManager* NetworkManager = UGameplayStatics::GetGameInstance(this)->GetSubsystem<UNetworkManager>();
     if (NetworkManager && NetworkManager->IsConnected())
     {
@@ -285,7 +326,7 @@ void AMyCharacter::SendInputToServer()
         NetworkManager->SendPlayerInput(
             ForwardInput, RightInput,
             PitchInput, YawInput, RollInput,
-            bRunPressed, bJumpPressed, bAttackPressed
+			bRunPressed, bJumpPressed, bAttackPressed, bDefensePressed
         );
 
         LastInputSendTime = CurrentTime;
@@ -298,6 +339,7 @@ void AMyCharacter::SendInputToServer()
         bPreviousRunPressed = bRunPressed;
         bPreviousJumpPressed = bJumpPressed;
         bPreviousAttackPressed = bAttackPressed;
+		bPreviousDefensePressed = bDefensePressed;
     }
 }
 
@@ -391,7 +433,8 @@ bool AMyCharacter::HasInputChanged() const
         FMath::Abs(YawInput - PreviousYawInput) > 1.0f ||
         bRunPressed != bPreviousRunPressed ||
         bJumpPressed != bPreviousJumpPressed ||
-        bAttackPressed != bPreviousAttackPressed);
+        bAttackPressed != bPreviousAttackPressed ||
+        bDefensePressed != bPreviousDefensePressed);
 }
 
 void AMyCharacter::DisplayDebugInfo()
@@ -446,7 +489,7 @@ void AMyCharacter::DisplayDebugInfo()
         PlayerType = TEXT("Remote");
 
     // 입력 상태 정보
-    FString InputInfo = FString::Printf(TEXT("Input: F=%.2f R=%.2f"), ForwardInput, RightInput);
+    FString MoveInfo = FString::Printf(TEXT("Input: F=%.2f R=%.2f"), ForwardInput, RightInput);
 
     // 버튼 상태 정보
     TArray<FString> ButtonStates;
@@ -490,7 +533,7 @@ void AMyCharacter::DisplayDebugInfo()
         Location.X, Location.Y, Location.Z,
         Speed2D, MaxSpeed, SpeedPercentage,
         VerticalSpeed, Speed2D,
-        *InputInfo,
+        *MoveInfo,
         *ButtonString,
         *RotationInfo,
         PitchInput, YawInput

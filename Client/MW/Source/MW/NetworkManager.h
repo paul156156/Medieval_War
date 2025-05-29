@@ -46,7 +46,7 @@ public:
     // 플레이어 입력 전송 함수 (새 서버 구조에 맞춤)
     void SendPlayerInput(float ForwardValue, float RightValue,
         float RotationPitch, float RotationYaw, float RotationRoll,
-        bool bRunPressed, bool bJumpPressed, bool bAttackPressed);
+        bool bRunPressed, bool bJumpPressed, bool bAttackPressed, bool bDefensePressed);
 
     // 서버에서 받은 패킷 처리 함수
     void ProcessReceivedData(const TArray<uint8>& Data, int32 BytesRead);
@@ -151,7 +151,7 @@ private:
 
     // 디버그 설정
     UPROPERTY(EditAnywhere, Category = "Network|Debug")
-    bool bEnableNetworkLogging = true;
+    bool bEnableNetworkLogging = false;
 
     UPROPERTY(EditAnywhere, Category = "Network|Debug")
     bool bLogPacketDetails = false;

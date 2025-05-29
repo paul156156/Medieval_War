@@ -58,7 +58,6 @@ void GameUpdater::UpdateClients(float deltaTime, std::unordered_map<int, ClientS
             client->bJumpRequested = false;
             client->bAttackRequested = false;
             client->bRunRequested = false;
-            //client->bCrouchRequested = false;
 
             // 이전 속도 저장
             client->PreviousVelocity = client->Velocity;

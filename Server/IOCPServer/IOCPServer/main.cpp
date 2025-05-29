@@ -53,7 +53,7 @@ int main(int argc, char* argv[]) {
     timeBeginPeriod(1);
     // 기본 설정
     int port = 9000;
-    LogLevel logLevel = LogLevel::INFO_LEVEL;
+    LogLevel logLevel = LogLevel::DEBUG_LEVEL;
 
     // 명령행 인수 파싱
     for (int i = 1; i < argc; i++) {

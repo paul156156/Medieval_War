@@ -38,7 +38,7 @@ void AMyGameModeBase::BeginPlay()
     NetworkManager->OnConnectionError.AddDynamic(this, &AMyGameModeBase::OnConnectionError);
 
     // 기본 스폰 위치 설정
-    SetupDefaultSpawnPoints();
+    //SetupDefaultSpawnPoints();
 
     // 로컬 플레이어 설정
     SetupLocalPlayer();
@@ -50,8 +50,8 @@ void AMyGameModeBase::BeginPlay()
         ConnectToServer(DefaultServerIp, DefaultServerPort);
     }
 
-    // 입력 업데이트 타이머 설정 (20Hz - 0.05초마다)
-    GetWorldTimerManager().SetTimer(InputUpdateTimerHandle, this, &AMyGameModeBase::UpdatePlayerInput, 0.05f, true);
+    //// 입력 업데이트 타이머 설정 (20Hz - 0.05초마다)
+    //GetWorldTimerManager().SetTimer(InputUpdateTimerHandle, this, &AMyGameModeBase::UpdatePlayerInput, 0.05f, true);
 
     UE_LOG(LogTemp, Log, TEXT("MyGameModeBase initialized"));
 }
@@ -104,78 +104,78 @@ void AMyGameModeBase::DisconnectFromServer()
     }
 }
 
-// 입력 업데이트 함수 구현
-void AMyGameModeBase::UpdatePlayerInput()
-{
-    if (!NetworkManager || !NetworkManager->IsConnected())
-        return;
-
-    // 로컬 플레이어 찾기
-    AMyCharacter* LocalCharacter = nullptr;
-
-    // Players에서 로컬 플레이어 찾기
-    for (auto& Pair : Players)
-    {
-        if (Pair.Value && Pair.Value->IsLocalPlayer())
-        {
-            LocalCharacter = Pair.Value;
-            break;
-        }
-    }
-
-    if (!LocalCharacter)
-        return;
-
-    // 현재 입력값 가져오기 (MyCharacter.h의 public 멤버변수들)
-    float CurrentForwardInput = LocalCharacter->ForwardInput;
-    float CurrentRightInput = LocalCharacter->RightInput;
-    float CurrentPitch = LocalCharacter->PitchInput;
-    float CurrentYaw = LocalCharacter->YawInput;
-    float CurrentRoll = LocalCharacter->RollInput;
-    bool bCurrentRunPressed = LocalCharacter->bRunPressed;
-    bool bCurrentJumpPressed = LocalCharacter->bJumpPressed;
-    bool bCurrentAttackPressed = LocalCharacter->bAttackPressed;
-
-    // 입력 변경 확인
-    bool bInputChanged =
-        FMath::Abs(CurrentForwardInput - PreviousForwardInput) > 0.01f ||
-        FMath::Abs(CurrentRightInput - PreviousRightInput) > 0.01f ||
-        FMath::Abs(CurrentPitch - PreviousPitchInput) > 0.1f ||
-        FMath::Abs(CurrentYaw - PreviousYawInput) > 0.1f ||
-        FMath::Abs(CurrentRoll - PreviousRollInput) > 0.1f ||
-        bCurrentRunPressed != bPreviousRunPressed ||
-        bCurrentJumpPressed != bPreviousJumpPressed ||
-        bCurrentAttackPressed != bPreviousAttackPressed;
-
-    // 제로 움직임 전송 확인 (움직임이 멈췄을 때 서버에 알림)
-    bool bSendZeroMovement =
-        (FMath::Abs(CurrentForwardInput) < 0.01f && FMath::Abs(PreviousForwardInput) >= 0.01f) ||
-        (FMath::Abs(CurrentRightInput) < 0.01f && FMath::Abs(PreviousRightInput) >= 0.01f);
-
-    if (bInputChanged || bSendZeroMovement)
-    {
-        NetworkManager->SendPlayerInput(
-            CurrentForwardInput,
-            CurrentRightInput,
-            CurrentPitch,
-            CurrentYaw,
-            CurrentRoll,
-            bCurrentRunPressed,
-            bCurrentJumpPressed,
-            bCurrentAttackPressed
-        );
-
-        // 이전 값 업데이트
-        PreviousForwardInput = CurrentForwardInput;
-        PreviousRightInput = CurrentRightInput;
-        PreviousPitchInput = CurrentPitch;
-        PreviousYawInput = CurrentYaw;
-        PreviousRollInput = CurrentRoll;
-        bPreviousRunPressed = bCurrentRunPressed;
-        bPreviousJumpPressed = bCurrentJumpPressed;
-        bPreviousAttackPressed = bCurrentAttackPressed;
-    }
-}
+//// 입력 업데이트 함수 구현
+//void AMyGameModeBase::UpdatePlayerInput()
+//{
+//    if (!NetworkManager || !NetworkManager->IsConnected())
+//        return;
+//
+//    // 로컬 플레이어 찾기
+//    AMyCharacter* LocalCharacter = nullptr;
+//
+//    // Players에서 로컬 플레이어 찾기
+//    for (auto& Pair : Players)
+//    {
+//        if (Pair.Value && Pair.Value->IsLocalPlayer())
+//        {
+//            LocalCharacter = Pair.Value;
+//            break;
+//        }
+//    }
+//
+//    if (!LocalCharacter)
+//        return;
+//
+//    // 현재 입력값 가져오기 (MyCharacter.h의 public 멤버변수들)
+//    float CurrentForwardInput = LocalCharacter->ForwardInput;
+//    float CurrentRightInput = LocalCharacter->RightInput;
+//    float CurrentPitch = LocalCharacter->PitchInput;
+//    float CurrentYaw = LocalCharacter->YawInput;
+//    float CurrentRoll = LocalCharacter->RollInput;
+//    bool bCurrentRunPressed = LocalCharacter->bRunPressed;
+//    bool bCurrentJumpPressed = LocalCharacter->bJumpPressed;
+//    bool bCurrentAttackPressed = LocalCharacter->bAttackPressed;
+//
+//    // 입력 변경 확인
+//    bool bInputChanged =
+//        FMath::Abs(CurrentForwardInput - PreviousForwardInput) > 0.01f ||
+//        FMath::Abs(CurrentRightInput - PreviousRightInput) > 0.01f ||
+//        FMath::Abs(CurrentPitch - PreviousPitchInput) > 0.1f ||
+//        FMath::Abs(CurrentYaw - PreviousYawInput) > 0.1f ||
+//        FMath::Abs(CurrentRoll - PreviousRollInput) > 0.1f ||
+//        bCurrentRunPressed != bPreviousRunPressed ||
+//        bCurrentJumpPressed != bPreviousJumpPressed ||
+//        bCurrentAttackPressed != bPreviousAttackPressed;
+//
+//    // 제로 움직임 전송 확인 (움직임이 멈췄을 때 서버에 알림)
+//    bool bSendZeroMovement =
+//        (FMath::Abs(CurrentForwardInput) < 0.01f && FMath::Abs(PreviousForwardInput) >= 0.01f) ||
+//        (FMath::Abs(CurrentRightInput) < 0.01f && FMath::Abs(PreviousRightInput) >= 0.01f);
+//
+//    if (bInputChanged || bSendZeroMovement)
+//    {
+//        NetworkManager->SendPlayerInput(
+//            CurrentForwardInput,
+//            CurrentRightInput,
+//            CurrentPitch,
+//            CurrentYaw,
+//            CurrentRoll,
+//            bCurrentRunPressed,
+//            bCurrentJumpPressed,
+//            bCurrentAttackPressed
+//        );
+//
+//        // 이전 값 업데이트
+//        PreviousForwardInput = CurrentForwardInput;
+//        PreviousRightInput = CurrentRightInput;
+//        PreviousPitchInput = CurrentPitch;
+//        PreviousYawInput = CurrentYaw;
+//        PreviousRollInput = CurrentRoll;
+//        bPreviousRunPressed = bCurrentRunPressed;
+//        bPreviousJumpPressed = bCurrentJumpPressed;
+//        bPreviousAttackPressed = bCurrentAttackPressed;
+//    }
+//}
 
 void AMyGameModeBase::OnPlayerJoined(int32 PlayerId)
 {
@@ -205,6 +205,8 @@ void AMyGameModeBase::OnPlayerJoined(int32 PlayerId)
             UE_LOG(LogTemp, Log, TEXT("Remote player (OtherCharacter) created: %d"), PlayerId);
         }
     }
+
+    LocalPlayer->NotifySpawn();
 }
 
 void AMyGameModeBase::OnPlayerLeft(int32 PlayerId)

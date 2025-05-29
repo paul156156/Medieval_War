@@ -29,9 +29,9 @@ enum class EPlayerState : uint8
     IDLE = 0,       // 정지 상태
     WALKING = 1,    // 걷는 상태
     RUNNING = 2,    // 뛰는 상태
-    //CROUCHING = 3,  // 웅크리는 상태
     JUMPING = 3,    // 점프 상태
-    ATTACKING = 4   // 공격 상태
+    ATTACKING = 4,   // 공격 상태
+	DEFENSING = 5   // 방어 상태
 };
 
 // 메모리 정렬 설정 (1바이트 경계로 정렬)
@@ -126,10 +126,10 @@ struct InputPacket
     float RotationPitch;    // 상하 회전값 (-90.0 ~ 90.0) - 서버와 이름 맞춤
     float RotationYaw;      // 좌우 회전값 (-180.0 ~ 180.0) - 서버와 이름 맞춤
     float RotationRoll;     // 롤 회전값 (-180.0 ~ 180.0) - 서버와 이름 맞춤
+    bool bRunPressed;       // 달리기 버튼 눌림 여부
     bool bJumpPressed;      // 점프 버튼 눌림 여부
     bool bAttackPressed;    // 공격 버튼 눌림 여부
-    //bool bCrouchPressed;    // 웅크리기 버튼 눌림 여부 - 서버와 맞춤
-    bool bRunPressed;       // 달리기 버튼 눌림 여부 - 서버와 맞춤
+	bool bDefensePressed; // 방어 버튼 눌림 여부
 };
 
 // 위치 업데이트 패킷 (서버 -> 클라이언트)

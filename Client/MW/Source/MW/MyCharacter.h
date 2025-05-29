@@ -17,13 +17,14 @@ class MW_API AMyCharacter : public ACharacter
 public:
     AMyCharacter();
 
+    void NotifySpawn();
+
 protected:
     virtual void BeginPlay() override;
     virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
     virtual void Tick(float DeltaSeconds) override;
 
     // 입력 처리 함수들
-    void NotifySpawn();
     void Move(const FInputActionValue& Value);
     void StartRun(const FInputActionValue& Value);
     void StopRun(const FInputActionValue& Value);
@@ -31,6 +32,8 @@ protected:
     void StopJump(const FInputActionValue& Value);
     void Look(const FInputActionValue& Value);
     void Attack(const FInputActionValue& Value);
+	void StartDefense(const FInputActionValue& Value);
+    void StopDefense(const FInputActionValue& Value);
 
     // 네트워크 관련 함수들
     void SendInputToServer();
@@ -68,6 +71,7 @@ public:
     bool bRunPressed = false;
     bool bJumpPressed = false;
     bool bAttackPressed = false;
+	bool bDefensePressed = false;
 
     // 입력이 변경되었는지 체크 (불필요한 전송 방지)
     float PreviousForwardInput = 0.0f;
@@ -78,6 +82,7 @@ public:
     bool bPreviousRunPressed = false;
     bool bPreviousJumpPressed = false;
     bool bPreviousAttackPressed = false;
+	bool bPreviousDefensePressed = false;
 
     // 이동 방식 설정 옵션
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
@@ -117,6 +122,9 @@ protected:
     UPROPERTY(EditAnywhere, Category = "Input")
     class UInputAction* AttackAction;
 
+	UPROPERTY(EditAnywhere, Category = "Input")
+	class UInputAction* DefenseAction;
+
     // 카메라 컴포넌트
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
     class USpringArmComponent* SpringArm;
@@ -131,8 +139,17 @@ protected:
     UPROPERTY(EditAnywhere, Category = "Animation")
     float AttackMontageDuration = 1.0f;
 
+    UPROPERTY(EditAnywhere, Category = "Animation")
+    class UAnimMontage* DefenseMontage;
+
+    UPROPERTY(EditAnywhere, Category = "Animation")
+    float DefenseMontageDuration = 1.0f;
+
     // 공격 타이밍
     FTimerHandle AttackResetHandle;
+
+    // 방어 타이밍
+    FTimerHandle DefenseResetHandle;
 
     // 보간 대상 (네트워크 동기화용)
     FVector TargetLocation = FVector::ZeroVector;
@@ -155,7 +172,7 @@ protected:
 
     // 디버그 표시 여부
     UPROPERTY(EditAnywhere, Category = "Debug")
-    bool bShowDebugInfo = true;
+    bool bShowDebugInfo = false;
 
 private:
     // 입력 변경 감지
