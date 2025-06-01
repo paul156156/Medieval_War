@@ -172,7 +172,7 @@ protected:
 
     // 디버그 표시 여부
     UPROPERTY(EditAnywhere, Category = "Debug")
-    bool bShowDebugInfo = false;
+    bool bShowDebugInfo = true;
 
 private:
     // 입력 변경 감지

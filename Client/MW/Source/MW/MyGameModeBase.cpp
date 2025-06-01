@@ -192,6 +192,8 @@ void AMyGameModeBase::OnPlayerJoined(int32 PlayerId)
             Players.Add(PlayerId, LocalPlayer);
 
             UE_LOG(LogTemp, Log, TEXT("Local player ID set to: %d"), PlayerId);
+
+            LocalPlayer->NotifySpawn();
         }
     }
     else
@@ -205,8 +207,6 @@ void AMyGameModeBase::OnPlayerJoined(int32 PlayerId)
             UE_LOG(LogTemp, Log, TEXT("Remote player (OtherCharacter) created: %d"), PlayerId);
         }
     }
-
-    LocalPlayer->NotifySpawn();
 }
 
 void AMyGameModeBase::OnPlayerLeft(int32 PlayerId)
@@ -446,29 +446,29 @@ FTransform AMyGameModeBase::GetSpawnTransform(int32 PlayerId)
     return SpawnTransform;
 }
 
-void AMyGameModeBase::SetupDefaultSpawnPoints()
-{
-    // 기본 스폰 위치들 설정 (서버와 유사하게)
-    SpawnPoints.Empty();
-
-    const float Radius = 500.0f;
-    const int32 SpawnCount = 8;
-    const float GroundLevel = 100.0f;
-
-    for (int32 i = 0; i < SpawnCount; ++i)
-    {
-        float Angle = (2.0f * PI * i) / SpawnCount;
-        FVector SpawnLocation(
-            Radius * FMath::Cos(Angle),
-            Radius * FMath::Sin(Angle),
-            GroundLevel
-        );
-
-        SpawnPoints.Add(FTransform(FRotator::ZeroRotator, SpawnLocation));
-    }
-
-    // 중앙 스폰 위치도 추가
-    SpawnPoints.Add(FTransform(FRotator::ZeroRotator, FVector(0, 0, GroundLevel)));
-
-    UE_LOG(LogTemp, Log, TEXT("Default spawn points set up: %d points"), SpawnPoints.Num());
-}
+//void AMyGameModeBase::SetupDefaultSpawnPoints()
+//{
+//    // 기본 스폰 위치들 설정 (서버와 유사하게)
+//    SpawnPoints.Empty();
+//
+//    const float Radius = 500.0f;
+//    const int32 SpawnCount = 8;
+//    const float GroundLevel = 100.0f;
+//
+//    for (int32 i = 0; i < SpawnCount; ++i)
+//    {
+//        float Angle = (2.0f * PI * i) / SpawnCount;
+//        FVector SpawnLocation(
+//            Radius * FMath::Cos(Angle),
+//            Radius * FMath::Sin(Angle),
+//            GroundLevel
+//        );
+//
+//        SpawnPoints.Add(FTransform(FRotator::ZeroRotator, SpawnLocation));
+//    }
+//
+//    // 중앙 스폰 위치도 추가
+//    SpawnPoints.Add(FTransform(FRotator::ZeroRotator, FVector(0, 0, GroundLevel)));
+//
+//    UE_LOG(LogTemp, Log, TEXT("Default spawn points set up: %d points"), SpawnPoints.Num());
+//}

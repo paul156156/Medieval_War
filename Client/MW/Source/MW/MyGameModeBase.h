@@ -78,9 +78,9 @@ protected:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Player")
     TSubclassOf<AOtherCharacter> RemotePlayerClass;  // 원격 플레이어용 클래스
 
-    // 스폰 위치들
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Spawn")
-    TArray<FTransform> SpawnPoints;
+    //// 스폰 위치들
+    //UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Spawn")
+    //TArray<FTransform> SpawnPoints;
 
     // 네트워크 설정들
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Network", meta = (AllowPrivateAccess = "true"))
@@ -104,6 +104,7 @@ protected:
     bool bPreviousRunPressed = false;
     bool bPreviousJumpPressed = false;
     bool bPreviousAttackPressed = false;
+	bool bPreviousDefensePressed = false;
 
 private:
     // 플레이어 생성
@@ -119,8 +120,8 @@ private:
     // 스폰 위치 가져오기
     FTransform GetSpawnTransform(int32 PlayerId);
 
-    // 기본 스폰 위치 설정
-    void SetupDefaultSpawnPoints();
+    //// 기본 스폰 위치 설정
+    //void SetupDefaultSpawnPoints();
 
     //// 입력 업데이트 함수 선언 추가
     //void UpdatePlayerInput();
