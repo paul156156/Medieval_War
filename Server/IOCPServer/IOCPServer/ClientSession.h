@@ -61,6 +61,10 @@ public:
     float LastInputTime;              // 마지막 입력 시간
     float ConnectionTimeout;          // 연결 타임아웃
 
+	// 게임 관련 데이터
+	int HP = 100;                        // 현재 HP
+    bool bAttackHitProcessed = false;
+
     float ActionTimer = 0.0f;
     // 안티 치트 관련
     uint32_t PacketSequence;          // 패킷 순서 보장용

@@ -7,6 +7,8 @@
 #include "Kismet/GameplayStatics.h"
 #include "PacketTypes.h"
 #include "NetworkManager.h"
+#include "Components/WidgetComponent.h"
+#include "HealthBarWidget.h"
 #include "MyCharacter.generated.h"
 
 UCLASS()
@@ -56,6 +58,27 @@ public:
 
     UPROPERTY(BlueprintReadOnly, Category = "Action")
     EPlayerAction CurrentAction = EPlayerAction::NONE;
+
+    // ===== 체력 =====
+    UPROPERTY(BlueprintReadOnly, Category = "Stats")
+    int32 CurrentHP = 100;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+	int32 MaxHP = 100;
+
+    UFUNCTION(BlueprintCallable, Category = "Stats")
+    void SetHP(int32 NewHP);
+
+	UFUNCTION(BlueprintCallable, Category = "Stats")
+    void UpdateHealthBarUI(int32 NewHP);
+
+    UFUNCTION(BlueprintPure, Category = "Stats")
+    int32 GetHP() const { return CurrentHP; }
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI")
+    UWidgetComponent* HealthBarComponent;
+
+    UHealthBarWidget* CachedHealthWidget;
 
 protected:
     virtual void BeginPlay() override;
@@ -193,6 +216,11 @@ protected:
     // ===== 디버그 설정 =====
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Debug")
     bool bShowDebugInfo = false;
+
+    UPROPERTY(EditDefaultsOnly, Category = "UI")
+    TSubclassOf<UUserWidget> HealthBarWidgetClass;
+
+    UUserWidget* HealthBarWidget;
 
 private:
     // ===== 헬퍼 함수들 =====

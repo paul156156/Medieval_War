@@ -55,6 +55,8 @@ public:
     // 향후 확장용 - 캐릭터 선택 전송
     void SendCharacterSelection(int32 CharacterModelId, const FString& CharacterName = TEXT(""));
 
+    int32 GetKnownPlayerCount() const { return KnownPlayerIds.Num(); }
+
     // ===== 네트워크 상태 정보 =====
     UFUNCTION(BlueprintPure, Category = "Network|Status")
     int32 GetCurrentPlayerId() const { return CurrentPlayerId; }
@@ -108,6 +110,7 @@ private:
     // ===== 패킷 타입별 처리 함수들 =====
     void HandleClientIdPacket(const ClientIdPacket* Packet);
     void HandleOutputPacket(const OutputPacket* Packet);
+	void HandleStatusPacket(const StatusPacket* Packet);
     void HandleDisconnectPacket(const DisconnectPacket* Packet);
     void HandlePongPacket(const PongPacket* Packet);
 

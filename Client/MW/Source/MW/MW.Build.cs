@@ -10,18 +10,9 @@ public class MW : ModuleRules
 
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput",
 			"Networking", "Sockets", "NetCore",
-			"UMG", "Slate", "SlateCore",
-			// Editor 모듈들 추가
-            "UnrealEd",
-            "EditorStyle",
-            "EditorWidgets",
-            "ToolMenus",
-            
-            // Landscape 모듈들 추가
-            "Landscape",
-            "LandscapeEditor"});
+			"UMG", "Slate", "SlateCore" });
 
-		PrivateDependencyModuleNames.AddRange(new string[] {  });
+        PrivateDependencyModuleNames.AddRange(new string[] {  });
 
 		// Uncomment if you are using Slate UI
 		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });

@@ -19,7 +19,8 @@ enum class EPacketType : uint8
     PONG = 4,                   // 핑 응답
     PLAYER_INIT_INFO = 5,       // 플레이어 초기 정보
     PLAYER_UPDATE_INFO = 6,   // 위치 업데이트 (서버->클라이언트)
-    PLAYER_INPUT_INFO = 7       // 입력 정보 (클라이언트->서버)
+    PLAYER_INPUT_INFO = 7,       // 입력 정보 (클라이언트->서버)
+	PLAYER_STATUS_INFO = 8,      // 플레이어 상태 정보 (서버->클라이언트)
 };
 
 // 플레이어 상태 정의
@@ -150,6 +151,13 @@ struct OutputPacket
     Vec3 Velocity;          // 현재 속도
     EPlayerState State;     // 현재 플레이어 상태
 	EPlayerAction Action; // 현재 플레이어 행동
+};
+
+struct StatusPacket
+{
+    PacketHeader Header;
+    int32 ClientId;         // 클라이언트 ID
+	int32 HP;              // 현재 체력
 };
 
 // 메모리 정렬 설정 복원

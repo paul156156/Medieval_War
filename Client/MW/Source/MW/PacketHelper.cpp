@@ -49,7 +49,7 @@ PingPacket UPacketHelper::CreatePingPacket(int32 ClientId)
 // 패킷 검증 함수들
 bool UPacketHelper::IsValidPacketType(uint8 PacketType)
 {
-    return PacketType >= 0 && PacketType <= 7;
+    return PacketType >= 0 && PacketType <= 8;
 }
 
 bool UPacketHelper::IsValidPlayerState(uint8 PlayerState)

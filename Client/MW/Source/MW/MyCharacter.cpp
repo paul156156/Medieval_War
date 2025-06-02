@@ -49,12 +49,41 @@ AMyCharacter::AMyCharacter()
     // 기본값은 로컬 플레이어로 설정 (GameMode에서 변경할 수 있음)
     bIsLocalPlayer = true;
     bIsRemoteControlled = false;
+
+    HealthBarComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("HealthBar"));
+    HealthBarComponent->SetupAttachment(RootComponent);
+    HealthBarComponent->SetWidgetSpace(EWidgetSpace::World);
+    HealthBarComponent->SetDrawAtDesiredSize(true);
+    HealthBarComponent->SetPivot(FVector2D(0.5f, 0.0f)); // 중심 아래
+    HealthBarComponent->SetRelativeLocation(FVector(0.0f, 0.0f, 120.0f)); // 머리 위 정확한 높이
 }
 
 void AMyCharacter::BeginPlay()
 {
     Super::BeginPlay();
 
+    if (HealthBarWidgetClass)
+    {
+        HealthBarComponent->SetWidgetClass(HealthBarWidgetClass);
+        HealthBarComponent->InitWidget();
+
+        if (UUserWidget* Widget = HealthBarComponent->GetWidget())
+        {
+            CachedHealthWidget = Cast<UHealthBarWidget>(Widget);
+            if (CachedHealthWidget)
+            {
+                CachedHealthWidget->SetHealthPercent((float)CurrentHP / MaxHP);
+            }
+            else
+            {
+                UE_LOG(LogTemp, Warning, TEXT("Health widget cast failed"));
+            }
+        }
+    }
+    else
+    {
+        UE_LOG(LogTemp, Warning, TEXT("HealthBarWidgetClass not set"));
+    }
     // Enhanced Input 설정은 SetupPlayerInputComponent에서 처리
     UE_LOG(LogTemp, Log, TEXT("Player spawned: %s (ID: %d, Local: %s)"),
         *GetName(), PlayerId, bIsLocalPlayer ? TEXT("Yes") : TEXT("No"));
@@ -234,6 +263,26 @@ void AMyCharacter::EnableCameraAndInput()
     bUseControllerRotationRoll = false;
 
     UE_LOG(LogTemp, Log, TEXT("Camera and input enabled for local player %d"), PlayerId);
+}
+
+void AMyCharacter::SetHP(int32 NewHP)
+{
+    CurrentHP = FMath::Clamp(NewHP, 0, MaxHP);
+
+    UE_LOG(LogTemp, Log, TEXT("Player %d: HP updated to %d"), PlayerId, CurrentHP);
+
+    // 필요 시 체력 UI도 이곳에서 갱신
+    UpdateHealthBarUI(CurrentHP);
+}
+
+void AMyCharacter::UpdateHealthBarUI(int32 NewHP)
+{
+    float Percent = FMath::Clamp((float)NewHP / (float)MaxHP, 0.0f, 1.0f);
+
+    if (CachedHealthWidget)
+    {
+        CachedHealthWidget->SetHealthPercent(Percent);
+    }
 }
 
 void AMyCharacter::Move(const FInputActionValue& Value)

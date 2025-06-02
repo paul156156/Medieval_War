@@ -2,6 +2,8 @@
 // 서버와의 통신을 관리하는 클래스 구현
 
 #include "NetworkManager.h"
+#include "MyCharacter.h"
+#include "EngineUtils.h"
 #include "Kismet/GameplayStatics.h"
 #include "TimerManager.h"
 #include "Engine/Engine.h"
@@ -393,7 +395,21 @@ void UNetworkManager::ProcessPacketByType(PacketHeader* Header, int32 ProcessedB
                 sizeof(OutputPacket), Header->PacketSize);
         }
         break;
-
+        
+    case EPacketType::PLAYER_STATUS_INFO:
+        if( bLogPacketDetails )
+        {
+            UE_LOG(LogTemp, VeryVerbose, TEXT("Processing PLAYER_STATUS_INFO packet"));
+		}
+        if( Header->PacketSize >= sizeof(StatusPacket) )
+        {
+            HandleStatusPacket(reinterpret_cast<StatusPacket*>(PacketProcessBuffer.GetData() + ProcessedBytes));
+        }
+        else
+        {
+            UE_LOG(LogTemp, Error, TEXT("PLAYER_STATUS_INFO packet size mismatch: Expected>=%d, Got=%d"),
+                sizeof(StatusPacket), Header->PacketSize);
+		}
     case EPacketType::DISCONNECT:
         if (bLogPacketDetails)
         {
@@ -515,6 +531,42 @@ void UNetworkManager::HandleOutputPacket(const OutputPacket* Packet)
     {
         UE_LOG(LogTemp, VeryVerbose, TEXT("Position Update: ClientID=%d, Pos=(%.1f,%.1f,%.1f)"),
             Packet->ClientId, Position.X, Position.Y, Position.Z);
+    }
+}
+
+void UNetworkManager::HandleStatusPacket(const StatusPacket* Packet)
+{
+    if (!Packet) return;
+
+    if (bLogPacketDetails)
+    {
+        UE_LOG(LogTemp, VeryVerbose, TEXT("Player Status Update: ClientID=%d, HP=%d"),
+            Packet->ClientId, Packet->HP);
+    }
+
+    // 내 캐릭터라면 직접 접근
+    if (Packet->ClientId == GetCurrentPlayerId())
+    {
+        if (APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0))
+        {
+            if (AMyCharacter* MyCharacter = Cast<AMyCharacter>(PC->GetPawn()))
+            {
+                MyCharacter->SetHP(Packet->HP);
+            }
+        }
+    }
+    else
+    {
+        // 다른 플레이어 캐릭터라면 월드에서 ClientId로 직접 탐색
+        for (TActorIterator<AMyCharacter> It(GetWorld()); It; ++It)
+        {
+            AMyCharacter* OtherChar = *It;
+            if (OtherChar && OtherChar->GetPlayerId() == Packet->ClientId)
+            {
+                OtherChar->SetHP(Packet->HP);
+                break;
+            }
+        }
     }
 }
 

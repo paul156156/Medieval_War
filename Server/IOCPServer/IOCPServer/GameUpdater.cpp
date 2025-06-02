@@ -1,14 +1,15 @@
 #include "GameUpdater.h"
 #include "Logger.h"
 #include "PacketDispatcher.h"
+#include "NetworkSessionManager.h"
 #include <cmath>
 #include <chrono>
 
 GameUpdater::GameUpdater() {
-	LOG_INFO("게임 업데이터 초기화 시작");
+    LOG_INFO("게임 업데이터 초기화 시작");
 
     // 높이맵 로드 시도
-	if (LoadHeightmap("heightmap")) {
+    if (LoadHeightmap("heightmap")) {
 
         LOG_INFO("Heightmap 로드 완료!");
     }
@@ -64,7 +65,7 @@ void GameUpdater::UpdateClients(float deltaTime, std::unordered_map<int, ClientS
             }
 
             // 클라이언트 업데이트
-            UpdateClient(client, deltaTime, currentTime);
+            UpdateClient(client, clients, deltaTime, currentTime);
 
             // 위치 브로드캐스트 필요시 수행
             if (ShouldUpdatePosition(client, currentTime)) {
@@ -77,7 +78,7 @@ void GameUpdater::UpdateClients(float deltaTime, std::unordered_map<int, ClientS
             client->bRunRequested = false;
             client->bJumpRequested = false;
             client->bAttackRequested = false;
-			client->bDefendRequested = false;
+            client->bDefendRequested = false;
 
             // 이전 속도 저장
             client->PreviousVelocity = client->Velocity;
@@ -103,7 +104,7 @@ void GameUpdater::UpdateClients(float deltaTime, std::unordered_map<int, ClientS
     UpdatePerformanceStats(updateTime);
 }
 
-void GameUpdater::UpdateClient(ClientSession* client, float deltaTime, float currentTime) {
+void GameUpdater::UpdateClient(ClientSession* client, std::unordered_map<int, ClientSession*>& clients, float deltaTime, float currentTime) {
     if (!client) return;
 
     // 움직임 계산
@@ -116,6 +117,9 @@ void GameUpdater::UpdateClient(ClientSession* client, float deltaTime, float cur
 
     // 플레이어 상태 업데이트
     UpdatePlayerState(client);
+
+    // 플레이어 액션 업데이트
+    UpdatePlayerAction(client, clients);
 
     // 이전 위치 저장
     client->PreviousPosition = client->Position;
@@ -201,42 +205,99 @@ void GameUpdater::UpdatePlayerState(ClientSession* client) {
     }
 }
 
-void GameUpdater::UpdatePlayerAction(ClientSession* client) {
-    // 이전 액션 상태 저장
+void GameUpdater::UpdatePlayerAction(ClientSession* client, std::unordered_map<int, ClientSession*>& clients)
+{
     EPlayerAction previousAction = client->Action;
 
-    // 기본적으로 액션 없음
-    //client->Action = EPlayerAction::NONE;
+    // 기본 액션 없음으로 초기화 (원하면 주석 해제)
+    // client->Action = EPlayerAction::NONE;
 
-    // 공격 요청 확인 - 공격은 일정 시간 동안 유지
-    if (client->bAttackRequested) {
+    // 공격 요청
+    if (client->bAttackRequested)
+    {
         client->Action = EPlayerAction::ATTACK;
-        LOG_DEBUG("Attack action set for client " + std::to_string(client->id));
+        client->ActionTimer = 1.0f; // 공격 지속 시간 (초)
+        client->bAttackHitProcessed = false; // 공격 처리 초기화
 
-        // 공격 상태를 일정 시간 유지하기 위해 타이머 설정 또는 프레임 카운터 사용
-        // 여기서는 간단히 몇 프레임 동안 유지하도록 설정
-        client->ActionTimer = 1.0f; // 1초 동안 유지
+        LOG_DEBUG("Attack action set for client " + std::to_string(client->id));
     }
 
-    // 방어는 버튼을 누르고 있는 동안 지속
-    if (client->bDefendRequested) {
+    // 방어 요청
+    if (client->bDefendRequested)
+    {
         client->Action = EPlayerAction::DEFEND;
         LOG_DEBUG("Defend action set for client " + std::to_string(client->id));
     }
 
-    // 액션 타이머가 있으면 공격 상태 유지
-    if (client->ActionTimer > 0.0f) {
-        if (client->Action == EPlayerAction::NONE && previousAction == EPlayerAction::ATTACK) {
-            client->Action = EPlayerAction::ATTACK;
+    // 액션 타이머 감소
+    if (client->ActionTimer > 0.0f)
+    {
+        client->ActionTimer -= 1.0f / 60.0f; // 60FPS 기준
+    }
+    else
+    {
+        // 타이머 만료 시 상태 초기화
+        if (client->Action == EPlayerAction::ATTACK)
+        {
+            client->bAttackHitProcessed = false; // 다음 공격 가능하게 초기화
         }
-        client->ActionTimer -= 1.0f / 60.0f; // 60FPS 가정하여 감소
+        client->Action = EPlayerAction::NONE;
     }
 
-    // 액션이 변경되었을 때 로그
-    if (previousAction != client->Action) {
+    // 액션 변경 로그
+    if (previousAction != client->Action)
+    {
         LOG_INFO("Action changed for client " + std::to_string(client->id) +
             " from " + std::to_string(static_cast<int>(previousAction)) +
             " to " + std::to_string(static_cast<int>(client->Action)));
+    }
+
+    // 실제 공격 처리 (한 번만)
+    if (client->Action == EPlayerAction::ATTACK && !client->bAttackHitProcessed)
+    {
+        const float attackRange = 200.0f;
+
+        for (const auto& pair : clients)
+        {
+            ClientSession* target = pair.second;
+
+            if (!target || target == client || !target->IsConnected())
+                continue;
+
+            float dx = target->Position.X - client->Position.X;
+            float dy = target->Position.Y - client->Position.Y;
+            float distanceSq = dx * dx + dy * dy;
+
+            if (distanceSq <= attackRange * attackRange)
+            {
+                if (target->Action == EPlayerAction::DEFEND)
+                {
+                    LOG_INFO("공격 무효화 - 대상 방어 중. 공격자: " + std::to_string(client->id) +
+                        ", 대상: " + std::to_string(target->id));
+                    continue;
+                }
+
+                if (target->HP <= 0)
+                    continue;
+
+                target->HP -= 1;
+                if (target->HP < 0) target->HP = 0;
+
+                StatusPacket status;
+                status.Header.PacketType = EPacketType::PLAYER_STATUS_INFO;
+                status.Header.PacketSize = sizeof(StatusPacket);
+                status.ClientId = target->id;
+                status.HP = target->HP;
+
+                NetworkSessionManager::SendPacketSafe(target, &status, sizeof(status), "SendStatusPacket");
+
+                LOG_INFO("공격 성공 - 공격자: " + std::to_string(client->id) +
+                    ", 대상: " + std::to_string(target->id) +
+                    ", 남은 HP: " + std::to_string(target->HP));
+            }
+        }
+
+        client->bAttackHitProcessed = true; // 한 번만 공격 처리
     }
 }
 

@@ -28,7 +28,7 @@ public:
 
 private:
     // 개별 클라이언트 업데이트
-    void UpdateClient(ClientSession* client, float deltaTime, float currentTime);
+    void UpdateClient(ClientSession* client, std::unordered_map<int, ClientSession*>& clients, float deltaTime, float currentTime);
 
     // 물리 시뮬레이션
     void ApplyPhysics(ClientSession* client, float deltaTime);
@@ -40,7 +40,7 @@ private:
     void CalculateMovement(ClientSession* client, float deltaTime);
     Vec3 CalculateMovementDirection(ClientSession* client);
     void UpdatePlayerState(ClientSession* client);
-	void UpdatePlayerAction(ClientSession* client);
+    void UpdatePlayerAction(ClientSession* client, std::unordered_map<int, ClientSession*>& clients);
 
     // 위치 업데이트 최적화
     bool ShouldUpdatePosition(ClientSession* client, float currentTime);
