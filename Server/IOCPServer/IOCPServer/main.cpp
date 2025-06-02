@@ -104,9 +104,9 @@ int main(int argc, char* argv[]) {
 #endif
 
     // 시작 메시지
-    LOG_INFO("================================================");
-    LOG_INFO("       IOCP 멀티플레이어 게임 서버 v1.0         ");
-    LOG_INFO("================================================");
+    //LOG_INFO("================================================");
+    //LOG_INFO("       IOCP 멀티플레이어 게임 서버 v1.0         ");
+    //LOG_INFO("================================================");
     LOG_INFO("포트: " + std::to_string(port));
     LOG_INFO("로그 레벨: " + std::to_string(static_cast<int>(logLevel)));
     LOG_INFO("빌드 시간: " + std::string(__DATE__) + " " + std::string(__TIME__));

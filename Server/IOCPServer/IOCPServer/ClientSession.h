@@ -41,14 +41,18 @@ public:
     // 플레이어 상태
     EPlayerState State;               // 현재 플레이어 상태
     EPlayerState PreviousState;       // 이전 플레이어 상태
+	EPlayerAction Action;         // 현재 플레이어 액션
+	EPlayerAction PreviousAction; // 이전 플레이어 액션
+
     EConnectionState ConnectionState; // 연결 상태
 
     // 입력 데이터
     float InputForward;               // 전/후 입력값
     float InputRight;                 // 좌/우 입력값
+    bool bRunRequested;               // 달리기 요청 여부
     bool bJumpRequested;              // 점프 요청 여부
     bool bAttackRequested;            // 공격 요청 여부
-    bool bRunRequested;               // 달리기 요청 여부
+	bool bDefendRequested;           // 방어 요청 여부
 
     // 타이밍 관련
     float LastPingTime;               // 마지막 Ping 수신 시간

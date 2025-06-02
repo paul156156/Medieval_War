@@ -4,7 +4,7 @@
 // 패킷 생성 헬퍼 함수들
 InputPacket UPacketHelper::CreateInputPacket(int32 ClientId, float Forward, float Right,
     float Pitch, float Yaw, float Roll,
-    bool bRun, bool bJump, bool bAttack, bool bDefense)
+    bool bRun, bool bJump, bool bAttack, bool bDefend)
 {
     InputPacket Packet;
     Packet.Header.PacketType = EPacketType::PLAYER_INPUT_INFO;
@@ -18,7 +18,7 @@ InputPacket UPacketHelper::CreateInputPacket(int32 ClientId, float Forward, floa
     Packet.bRunPressed = bRun;
     Packet.bJumpPressed = bJump;
     Packet.bAttackPressed = bAttack;
-	Packet.bDefensePressed = bDefense;
+	Packet.bDefendPressed = bDefend;
 
     return Packet;
 }
@@ -55,6 +55,11 @@ bool UPacketHelper::IsValidPacketType(uint8 PacketType)
 bool UPacketHelper::IsValidPlayerState(uint8 PlayerState)
 {
     return PlayerState >= 0 && PlayerState <= 5;
+}
+
+bool UPacketHelper::IsValidPlayerAction(uint8 PlayerAction)
+{
+    return PlayerAction >= 0 && PlayerAction <= 3;
 }
 
 bool UPacketHelper::IsValidInputValue(float Value)

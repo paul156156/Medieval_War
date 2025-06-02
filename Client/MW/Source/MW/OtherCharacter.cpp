@@ -1,60 +1,48 @@
-// OtherCharacter.cpp - 원격 플레이어 전용 캐릭터 구현
+// OtherCharacter.cpp - MyCharacter 상속으로 원격 플레이어 구현
 #include "OtherCharacter.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Animation/AnimInstance.h"
 #include "Engine/Engine.h"
 #include "DrawDebugHelpers.h"
 #include "Kismet/GameplayStatics.h"
+#include "Components/InputComponent.h"
+#include "Camera/CameraComponent.h"
+#include "GameFramework/SpringArmComponent.h"
 
 AOtherCharacter::AOtherCharacter()
 {
-    PrimaryActorTick.bCanEverTick = true;
-
-    // 캐릭터 이동 설정 (MyCharacter와 동일)
-    GetCharacterMovement()->bOrientRotationToMovement = true;
-    GetCharacterMovement()->RotationRate = FRotator(0.0f, 500.0f, 0.0f);
-    GetCharacterMovement()->MaxWalkSpeed = 500.0f;
-    GetCharacterMovement()->JumpZVelocity = 600.0f;
-    GetCharacterMovement()->AirControl = 0.35f;
-    GetCharacterMovement()->GravityScale = 1.0f;
-
-    // 컨트롤러 회전 설정
-    bUseControllerRotationPitch = false;
-    bUseControllerRotationYaw = false;
-    bUseControllerRotationRoll = false;
-
-    // 원격 제어 설정
-    bIsRemoteControlled = true;
-
-    // 초기 상태 설정
-    CurrentState = EPlayerState::IDLE;
-
-    // 더 부드러운 보간을 위한 설정
-    InterpSpeed = 12.0f;
-    VelocityInterpSpeed = 8.0f;
+    // 부모 생성자 호출 후 원격 플레이어로 초기화
+    InitializeAsRemotePlayer();
 }
 
 void AOtherCharacter::BeginPlay()
 {
-    Super::BeginPlay();
+    // 부모의 BeginPlay는 호출하지 않음 (Enhanced Input 설정 방지)
+    ACharacter::BeginPlay();  // ACharacter의 BeginPlay만 호출
 
-    UE_LOG(LogTemp, Log, TEXT("OtherCharacter spawned - ID: %d"), PlayerId);
+    // 원격 플레이어 설정 재확인
+    InitializeAsRemotePlayer();
 
-    // 원격 플레이어는 입력을 받지 않음
-    if (APlayerController* PC = Cast<APlayerController>(GetController()))
-    {
-        PC->DisableInput(PC);
-    }
+    UE_LOG(LogTemp, Log, TEXT("Remote player spawned: %s (ID: %d)"), *GetName(), PlayerId);
+}
+
+void AOtherCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+    // 원격 플레이어는 입력을 받지 않음 - 아무것도 하지 않음
+    UE_LOG(LogTemp, Log, TEXT("OtherCharacter: Skipping input setup (Remote Player)"));
+
+    // 부모 함수 호출하지 않음 - 입력 바인딩 완전 방지
 }
 
 void AOtherCharacter::Tick(float DeltaTime)
 {
-    Super::Tick(DeltaTime);
+    // ACharacter의 Tick만 호출 (MyCharacter의 SendInputToServer 방지)
+    ACharacter::Tick(DeltaTime);
 
-    // 원격 플레이어는 항상 보간 처리
-    InterpolateRemoteMovement(DeltaTime);
+    // 원격 플레이어는 부모의 InterpolateToServerPosition 사용
+    InterpolateToServerPosition(DeltaTime);
 
-    // 디버그 정보 표시
+    // 네트워크 디버그 정보 표시
     if (bShowDebugInfo)
     {
         DisplayNetworkDebugInfo();
@@ -70,101 +58,22 @@ void AOtherCharacter::Tick(float DeltaTime)
     }
 }
 
-void AOtherCharacter::UpdateFromNetwork(const FTransform& NewTransform, const FVector& NetworkVelocity, EPlayerState NewState)
+// UpdateFromNetwork 오버라이드 - 부모 기능 + 네트워크 입력 추정
+void AOtherCharacter::UpdateFromNetwork(const FTransform& NewTransform, const FVector& NetworkVelocity, EPlayerState NewState, EPlayerAction NewAction)
 {
+    // 부모의 UpdateFromNetwork 호출 (공통 로직)
+    Super::UpdateFromNetwork(NewTransform, NetworkVelocity, NewState, NewAction);
+
     // 네트워크 업데이트 시간 기록
     LastNetworkUpdateTime = GetWorld()->GetTimeSeconds();
     UpdateCount++;
 
-    // 이전 위치 저장 (보정 계산용)
-    FVector OldLocation = GetActorLocation();
-
-    // 목표 위치 및 회전 설정
-    TargetLocation = NewTransform.GetLocation();
-    TargetRotation = NewTransform.GetRotation().Rotator();
-    TargetVelocity = NetworkVelocity;
-
-    // 상태 업데이트
-    EPlayerState PreviousState = CurrentState;
-    CurrentState = NewState;
-
-    // 위치 차이 계산
-    float PositionDifference = FVector::Dist(OldLocation, TargetLocation);
-
-    // 큰 위치 차이가 있으면 로그 출력
-    if (PositionDifference > 200.0f)
-    {
-        UE_LOG(LogTemp, Warning, TEXT("Large position jump for remote player %d: %.1f units"),
-            PlayerId, PositionDifference);
-    }
-
-    // 초기 위치 설정 (텔레포트)
-    if (!bInitialPositionSet || PositionDifference > 500.0f)
-    {
-        SetActorLocation(TargetLocation);
-        SetActorRotation(TargetRotation);
-        bInitialPositionSet = true;
-
-        UE_LOG(LogTemp, Log, TEXT("Remote player %d position set: (%.1f, %.1f, %.1f)"),
-            PlayerId, TargetLocation.X, TargetLocation.Y, TargetLocation.Z);
-    }
-
-    // 상태별 처리
-    switch (NewState)
-    {
-    case EPlayerState::ATTACKING:
-        if (PreviousState != EPlayerState::ATTACKING && AttackMontage)
-        {
-            if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
-            {
-                AnimInstance->Montage_Play(AttackMontage);
-                UE_LOG(LogTemp, Verbose, TEXT("Remote player %d started attack animation"), PlayerId);
-            }
-        }
-        bNetworkAttackPressed = true;
-        break;
-
-    case EPlayerState::JUMPING:
-        if (GetCharacterMovement()->MovementMode != MOVE_Falling)
-        {
-            GetCharacterMovement()->SetMovementMode(MOVE_Falling);
-        }
-        bNetworkJumpPressed = true;
-        break;
-
-    case EPlayerState::RUNNING:
-        GetCharacterMovement()->MaxWalkSpeed = 1000.0f;
-        bNetworkRunPressed = true;
-        break;
-
-    case EPlayerState::WALKING:
-        GetCharacterMovement()->MaxWalkSpeed = 500.0f;
-        if (GetCharacterMovement()->MovementMode != MOVE_Walking)
-        {
-            GetCharacterMovement()->SetMovementMode(MOVE_Walking);
-        }
-        bNetworkRunPressed = false;
-        break;
-
-    case EPlayerState::IDLE:
-    default:
-        GetCharacterMovement()->MaxWalkSpeed = 500.0f;
-        if (GetCharacterMovement()->MovementMode != MOVE_Walking)
-        {
-            GetCharacterMovement()->SetMovementMode(MOVE_Walking);
-        }
-        bNetworkRunPressed = false;
-        bNetworkJumpPressed = false;
-        bNetworkAttackPressed = false;
-        break;
-    }
-
     // 네트워크 입력 추정 (시각화용)
-    FVector MovementDirection = TargetVelocity.GetSafeNormal2D();
+    FVector MovementDirection = NetworkVelocity.GetSafeNormal2D();
     if (!MovementDirection.IsZero())
     {
         // 대략적인 입력 방향 추정
-        FRotator LookDirection = TargetRotation;
+        FRotator LookDirection = NewTransform.GetRotation().Rotator();
         FVector ForwardVector = LookDirection.Vector();
         FVector RightVector = FRotationMatrix(LookDirection).GetUnitAxis(EAxis::Y);
 
@@ -180,26 +89,41 @@ void AOtherCharacter::UpdateFromNetwork(const FTransform& NewTransform, const FV
         NetworkForwardInput = 0.0f;
         NetworkRightInput = 0.0f;
     }
-}
 
-void AOtherCharacter::InterpolateRemoteMovement(float DeltaTime)
-{
-    if (TargetLocation.IsZero()) return;
+    // 상태별 네트워크 입력 상태 설정
+    switch (NewState)
+    {
+    case EPlayerState::JUMPING:
+        bNetworkJumpPressed = true;
+        break;
+    case EPlayerState::RUNNING:
+        bNetworkRunPressed = true;
+        break;
+    case EPlayerState::WALKING:
+        bNetworkRunPressed = false;
+        break;
+    case EPlayerState::IDLE:
+    default:
+		bNetworkJumpPressed = false;
+		bNetworkRunPressed = false;
+        break;
+    }
 
-    // 위치 보간
-    FVector CurrentLocation = GetActorLocation();
-    FVector NewLocation = FMath::VInterpTo(CurrentLocation, TargetLocation, DeltaTime, InterpSpeed);
-    SetActorLocation(NewLocation);
-
-    // 회전 보간
-    FRotator CurrentRotation = GetActorRotation();
-    FRotator NewRotation = FMath::RInterpTo(CurrentRotation, TargetRotation, DeltaTime, InterpSpeed);
-    SetActorRotation(NewRotation);
-
-    // 속도 보간 (부드러운 애니메이션을 위해)
-    FVector CurrentVelocity = GetVelocity();
-    FVector NewVelocity = FMath::VInterpTo(CurrentVelocity, TargetVelocity, DeltaTime, VelocityInterpSpeed);
-    GetCharacterMovement()->Velocity = NewVelocity;
+	// 액션 상태 업데이트
+    switch (NewAction)
+    {
+        case EPlayerAction::ATTACK:
+            bNetworkAttackPressed = true;
+			break;
+        case EPlayerAction::DEFEND:
+            bNetworkDefensePressed = true;
+            break;
+		case EPlayerAction::NONE:
+        default:
+            bNetworkAttackPressed = false;
+            bNetworkDefensePressed = false;
+			break;
+    }
 }
 
 void AOtherCharacter::DisplayNetworkDebugInfo()
@@ -230,6 +154,7 @@ void AOtherCharacter::DisplayNetworkDebugInfo()
 
     // 상태 정보
     FString StateString = GetPlayerStateString();
+	FString ActionString = GetPlayerActionString();
     FString MovementMode = GetMovementModeString();
 
     // 속도 분석
@@ -241,8 +166,8 @@ void AOtherCharacter::DisplayNetworkDebugInfo()
     FString NetworkInputInfo = TEXT("No Input");
     if (FMath::Abs(NetworkForwardInput) > 0.01f || FMath::Abs(NetworkRightInput) > 0.01f)
     {
-        FString ForwardDir = NetworkForwardInput > 0.01f ? TEXT("UP") : (NetworkForwardInput < -0.01f ? TEXT("DOWN") : TEXT(""));
-        FString RightDir = NetworkRightInput > 0.01f ? TEXT("RIGHT") : (NetworkRightInput < -0.01f ? TEXT("LEFT") : TEXT(""));
+        FString ForwardDir = NetworkForwardInput > 0.01f ? TEXT("W") : (NetworkForwardInput < -0.01f ? TEXT("S") : TEXT(""));
+        FString RightDir = NetworkRightInput > 0.01f ? TEXT("D") : (NetworkRightInput < -0.01f ? TEXT("A") : TEXT(""));
         NetworkInputInfo = FString::Printf(TEXT("Input: %s%s"), *ForwardDir, *RightDir);
     }
 
@@ -251,6 +176,7 @@ void AOtherCharacter::DisplayNetworkDebugInfo()
     if (bNetworkRunPressed) ActiveActions.Add(TEXT("RUN"));
     if (bNetworkJumpPressed) ActiveActions.Add(TEXT("JUMP"));
     if (bNetworkAttackPressed) ActiveActions.Add(TEXT("ATTACK"));
+    if (bNetworkDefensePressed) ActiveActions.Add(TEXT("DEFENSE"));
     FString ActionInfo = ActiveActions.Num() > 0 ?
         FString::Join(ActiveActions, TEXT(" | ")) :
         TEXT("No actions");
@@ -269,16 +195,16 @@ void AOtherCharacter::DisplayNetworkDebugInfo()
 
     // 종합 디버그 정보
     FString DebugText = FString::Printf(
-        TEXT("── REMOTE PLAYER [ID:%d] ──\n")
+        TEXT("=== REMOTE PLAYER [ID:%d] ===\n")
         TEXT("Status: %s (%.1fs ago)\n")
         TEXT("Update Rate: %.1f Hz\n")
         TEXT("State: %s | Mode: %s\n")
-        TEXT("──── POSITION DATA ────\n")
+        TEXT("=== POSITION DATA ===\n")
         TEXT("Current: (%.0f, %.0f, %.0f)\n")
         TEXT("Target: (%.0f, %.0f, %.0f)\n")
         TEXT("Speed: H=%.1f V=%.1f (Max=%.0f)\n")
         TEXT("%s\n")
-        TEXT("──── NETWORK INPUT ────\n")
+        TEXT("=== NETWORK INPUT ===\n")
         TEXT("%s\n")
         TEXT("Actions: %s"),
         PlayerId,
@@ -301,7 +227,31 @@ void AOtherCharacter::DisplayNetworkDebugInfo()
     DrawNetworkStatusVisuals(Location);
 }
 
-// 헬퍼 함수들 구현
+void AOtherCharacter::InitializeAsRemotePlayer()
+{
+    // 카메라 비활성화 (다른 플레이어의 카메라는 필요없음)
+    if (FollowCamera)
+    {
+        FollowCamera->SetActive(false);
+    }
+
+    // Spring Arm도 비활성화
+    if (SpringArm)
+    {
+        SpringArm->SetActive(false);
+    }
+
+    // 원격 플레이어용 보간 설정 (부모의 설정 오버라이드)
+    InterpSpeed = 12.0f;
+    VelocityInterpSpeed = 8.0f;
+
+    // 디버그 정보는 기본적으로 활성화 (원격 플레이어 모니터링용)
+    bShowDebugInfo = true;
+
+    UE_LOG(LogTemp, Log, TEXT("OtherCharacter initialized as remote player: %s"), *GetName());
+}
+
+// 헬퍼 함수들
 FString AOtherCharacter::GetPlayerStateString() const
 {
     switch (CurrentState)
@@ -310,9 +260,19 @@ FString AOtherCharacter::GetPlayerStateString() const
     case EPlayerState::WALKING: return TEXT("WALKING");
     case EPlayerState::RUNNING: return TEXT("RUNNING");
     case EPlayerState::JUMPING: return TEXT("JUMPING");
-    case EPlayerState::ATTACKING: return TEXT("ATTACKING");
-	case EPlayerState::DEFENSING: return TEXT("DEFENSING");
+    case EPlayerState::DEAD: return TEXT("DEAD");
     default: return TEXT("UNKNOWN");
+    }
+}
+
+FString AOtherCharacter::GetPlayerActionString() const
+{
+    switch (CurrentAction)
+    {
+	case EPlayerAction::NONE: return TEXT("NONE");
+    case EPlayerAction::ATTACK: return TEXT("ATTACK");
+    case EPlayerAction::DEFEND: return TEXT("DEFEND");
+    default: return TEXT("NONE");
     }
 }
 
@@ -329,7 +289,7 @@ FString AOtherCharacter::GetMovementModeString() const
     }
 }
 
-FColor AOtherCharacter::GetDebugTextColor() const
+FColor AOtherCharacter::GetNetworkStatusColor() const
 {
     float TimeSinceLastUpdate = GetWorld()->GetTimeSeconds() - LastNetworkUpdateTime;
 
@@ -349,8 +309,19 @@ FColor AOtherCharacter::GetStateCircleColor() const
     case EPlayerState::WALKING: return FColor::Green;
     case EPlayerState::RUNNING: return FColor::Yellow;
     case EPlayerState::JUMPING: return FColor::Blue;
-    case EPlayerState::ATTACKING: return FColor::Red;
-    default: return FColor::Purple;
+    case EPlayerState::DEAD: return FColor::Red;
+    default: return FColor::Magenta;
+    }
+}
+
+FColor AOtherCharacter::GetActionCircleColor() const
+{
+    switch (CurrentAction)
+    {
+	case EPlayerAction::NONE: return FColor::Black;
+    case EPlayerAction::ATTACK: return FColor::Purple;
+    case EPlayerAction::DEFEND: return FColor::Orange;
+    default: return FColor::White;
     }
 }
 
@@ -379,7 +350,7 @@ void AOtherCharacter::DrawNetworkStatusVisuals(const FVector& Location) const
         }
     }
 
-    // 네트워크 입력 방향 화살표 (파란색)
+    // 네트워크 입력 방향 화살표 (파랑색)
     if (FMath::Abs(NetworkForwardInput) > 0.01f || FMath::Abs(NetworkRightInput) > 0.01f)
     {
         FVector InputDir = FVector(NetworkForwardInput, NetworkRightInput, 0).GetSafeNormal();
@@ -396,6 +367,6 @@ void AOtherCharacter::DrawNetworkStatusVisuals(const FVector& Location) const
     }
 
     // 네트워크 상태 표시 (동기화 상태에 따른 색상)
-    FColor NetworkStatusColor = GetDebugTextColor();
+    FColor NetworkStatusColor = GetNetworkStatusColor();
     DrawDebugSphere(GetWorld(), Location + FVector(0, 0, 100), 15.0f, 6, NetworkStatusColor, false, 0.0f, 0, 2.0f);
 }

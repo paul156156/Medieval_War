@@ -1,8 +1,9 @@
-// MyGameModeBase.cpp - 최종 수정된 버전
+// MyGameModeBase.cpp - 컴파일 에러 수정
 #include "MyGameModeBase.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/World.h"
 #include "GameFramework/PlayerStart.h"
+#include "Math/UnrealMathUtility.h"
 
 AMyGameModeBase::AMyGameModeBase()
 {
@@ -32,13 +33,10 @@ void AMyGameModeBase::BeginPlay()
     // 네트워크 이벤트 바인딩
     NetworkManager->OnPlayerJoined.AddDynamic(this, &AMyGameModeBase::OnPlayerJoined);
     NetworkManager->OnPlayerLeft.AddDynamic(this, &AMyGameModeBase::OnPlayerLeft);
-    NetworkManager->OnPlayerPositionUpdated.AddDynamic(this, &AMyGameModeBase::OnPlayerPositionUpdated);
-    NetworkManager->OnPlayerStateChanged.AddDynamic(this, &AMyGameModeBase::OnPlayerStateChanged);
+    NetworkManager->OnPlayerUpdated.AddDynamic(this, &AMyGameModeBase::OnPlayerUpdated);
+    //NetworkManager->OnPlayerStateChanged.AddDynamic(this, &AMyGameModeBase::OnPlayerStateChanged);
     NetworkManager->OnConnectionStatusChanged.AddDynamic(this, &AMyGameModeBase::OnConnectionStatusChanged);
     NetworkManager->OnConnectionError.AddDynamic(this, &AMyGameModeBase::OnConnectionError);
-
-    // 기본 스폰 위치 설정
-    //SetupDefaultSpawnPoints();
 
     // 로컬 플레이어 설정
     SetupLocalPlayer();
@@ -50,15 +48,12 @@ void AMyGameModeBase::BeginPlay()
         ConnectToServer(DefaultServerIp, DefaultServerPort);
     }
 
-    //// 입력 업데이트 타이머 설정 (20Hz - 0.05초마다)
-    //GetWorldTimerManager().SetTimer(InputUpdateTimerHandle, this, &AMyGameModeBase::UpdatePlayerInput, 0.05f, true);
-
     UE_LOG(LogTemp, Log, TEXT("MyGameModeBase initialized"));
 }
 
 void AMyGameModeBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
-    // 타이머 정리
+    // 타이밍 정리
     GetWorldTimerManager().ClearTimer(InputUpdateTimerHandle);
 
     // 네트워크 이벤트 언바인딩
@@ -66,8 +61,8 @@ void AMyGameModeBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
     {
         NetworkManager->OnPlayerJoined.RemoveDynamic(this, &AMyGameModeBase::OnPlayerJoined);
         NetworkManager->OnPlayerLeft.RemoveDynamic(this, &AMyGameModeBase::OnPlayerLeft);
-        NetworkManager->OnPlayerPositionUpdated.RemoveDynamic(this, &AMyGameModeBase::OnPlayerPositionUpdated);
-        NetworkManager->OnPlayerStateChanged.RemoveDynamic(this, &AMyGameModeBase::OnPlayerStateChanged);
+        NetworkManager->OnPlayerUpdated.RemoveDynamic(this, &AMyGameModeBase::OnPlayerUpdated);
+        //NetworkManager->OnPlayerStateChanged.RemoveDynamic(this, &AMyGameModeBase::OnPlayerStateChanged);
         NetworkManager->OnConnectionStatusChanged.RemoveDynamic(this, &AMyGameModeBase::OnConnectionStatusChanged);
         NetworkManager->OnConnectionError.RemoveDynamic(this, &AMyGameModeBase::OnConnectionError);
     }
@@ -104,79 +99,6 @@ void AMyGameModeBase::DisconnectFromServer()
     }
 }
 
-//// 입력 업데이트 함수 구현
-//void AMyGameModeBase::UpdatePlayerInput()
-//{
-//    if (!NetworkManager || !NetworkManager->IsConnected())
-//        return;
-//
-//    // 로컬 플레이어 찾기
-//    AMyCharacter* LocalCharacter = nullptr;
-//
-//    // Players에서 로컬 플레이어 찾기
-//    for (auto& Pair : Players)
-//    {
-//        if (Pair.Value && Pair.Value->IsLocalPlayer())
-//        {
-//            LocalCharacter = Pair.Value;
-//            break;
-//        }
-//    }
-//
-//    if (!LocalCharacter)
-//        return;
-//
-//    // 현재 입력값 가져오기 (MyCharacter.h의 public 멤버변수들)
-//    float CurrentForwardInput = LocalCharacter->ForwardInput;
-//    float CurrentRightInput = LocalCharacter->RightInput;
-//    float CurrentPitch = LocalCharacter->PitchInput;
-//    float CurrentYaw = LocalCharacter->YawInput;
-//    float CurrentRoll = LocalCharacter->RollInput;
-//    bool bCurrentRunPressed = LocalCharacter->bRunPressed;
-//    bool bCurrentJumpPressed = LocalCharacter->bJumpPressed;
-//    bool bCurrentAttackPressed = LocalCharacter->bAttackPressed;
-//
-//    // 입력 변경 확인
-//    bool bInputChanged =
-//        FMath::Abs(CurrentForwardInput - PreviousForwardInput) > 0.01f ||
-//        FMath::Abs(CurrentRightInput - PreviousRightInput) > 0.01f ||
-//        FMath::Abs(CurrentPitch - PreviousPitchInput) > 0.1f ||
-//        FMath::Abs(CurrentYaw - PreviousYawInput) > 0.1f ||
-//        FMath::Abs(CurrentRoll - PreviousRollInput) > 0.1f ||
-//        bCurrentRunPressed != bPreviousRunPressed ||
-//        bCurrentJumpPressed != bPreviousJumpPressed ||
-//        bCurrentAttackPressed != bPreviousAttackPressed;
-//
-//    // 제로 움직임 전송 확인 (움직임이 멈췄을 때 서버에 알림)
-//    bool bSendZeroMovement =
-//        (FMath::Abs(CurrentForwardInput) < 0.01f && FMath::Abs(PreviousForwardInput) >= 0.01f) ||
-//        (FMath::Abs(CurrentRightInput) < 0.01f && FMath::Abs(PreviousRightInput) >= 0.01f);
-//
-//    if (bInputChanged || bSendZeroMovement)
-//    {
-//        NetworkManager->SendPlayerInput(
-//            CurrentForwardInput,
-//            CurrentRightInput,
-//            CurrentPitch,
-//            CurrentYaw,
-//            CurrentRoll,
-//            bCurrentRunPressed,
-//            bCurrentJumpPressed,
-//            bCurrentAttackPressed
-//        );
-//
-//        // 이전 값 업데이트
-//        PreviousForwardInput = CurrentForwardInput;
-//        PreviousRightInput = CurrentRightInput;
-//        PreviousPitchInput = CurrentPitch;
-//        PreviousYawInput = CurrentYaw;
-//        PreviousRollInput = CurrentRoll;
-//        bPreviousRunPressed = bCurrentRunPressed;
-//        bPreviousJumpPressed = bCurrentJumpPressed;
-//        bPreviousAttackPressed = bCurrentAttackPressed;
-//    }
-//}
-
 void AMyGameModeBase::OnPlayerJoined(int32 PlayerId)
 {
     UE_LOG(LogTemp, Log, TEXT("Player joined: %d"), PlayerId);
@@ -187,8 +109,7 @@ void AMyGameModeBase::OnPlayerJoined(int32 PlayerId)
         if (LocalPlayer)
         {
             LocalPlayer->SetPlayerId(PlayerId);
-            LocalPlayer->SetIsLocalPlayer(true);
-            LocalPlayer->SetIsRemoteControlled(false);
+            // SetIsLocalPlayer, SetIsRemoteControlled 호출 제거 (더미 함수로 변경됨)
             Players.Add(PlayerId, LocalPlayer);
 
             UE_LOG(LogTemp, Log, TEXT("Local player ID set to: %d"), PlayerId);
@@ -215,45 +136,36 @@ void AMyGameModeBase::OnPlayerLeft(int32 PlayerId)
     RemovePlayer(PlayerId);
 }
 
-void AMyGameModeBase::OnPlayerPositionUpdated(int32 PlayerId, FTransform NewTransform, FVector Velocity)
+void AMyGameModeBase::OnPlayerUpdated(int32 PlayerId, FTransform NewTransform, FVector Velocity, EPlayerState State, EPlayerAction Action)
 {
     AMyCharacter* Player = GetPlayerCharacter(PlayerId);
     if (!Player) return;
 
+    Player->UpdateFromNetwork(NewTransform, Velocity, State, Action);
+
     if (Player->IsRemoteControlled())
     {
-        // 원격 플레이어 업데이트
-        Player->UpdateFromNetwork(NewTransform, Velocity, Player->CurrentState);
-
-        UE_LOG(LogTemp, VeryVerbose, TEXT("Updated remote player %d: (%.1f, %.1f, %.1f)"),
+        UE_LOG(LogTemp, Log, TEXT("Updated remote player %d: (%.1f, %.1f, %.1f)"),
             PlayerId, NewTransform.GetLocation().X, NewTransform.GetLocation().Y, NewTransform.GetLocation().Z);
     }
     else if (Player->IsLocalPlayer())
     {
-        // 로컬 플레이어는 서버 보정이 필요한 경우에만 업데이트
-        FVector LocalPos = Player->GetActorLocation();
-        FVector ServerPos = NewTransform.GetLocation();
-        float PositionError = FVector::Dist(LocalPos, ServerPos);
+        UE_LOG(LogTemp, Log, TEXT("Updated local player %d from server: (%.1f, %.1f, %.1f)"),
+            PlayerId, NewTransform.GetLocation().X, NewTransform.GetLocation().Y, NewTransform.GetLocation().Z);
+    }
+}
 
-        // 위치 차이가 크면 서버 위치로 보정
-        if (PositionError > 100.0f)
-        {
-            UE_LOG(LogTemp, Warning, TEXT("Local player position corrected by server: Error=%.1f"), PositionError);
-            Player->UpdateFromNetwork(NewTransform, Velocity, Player->CurrentState);
-        }
-    }
-}
-void AMyGameModeBase::OnPlayerStateChanged(int32 PlayerId, EPlayerState NewState)
-{
-    AMyCharacter* Player = GetPlayerCharacter(PlayerId);
-    if (Player)
-    {
-        // 상태 업데이트 (로컬/원격 모두)
-        FTransform CurrentTransform = Player->GetActorTransform();
-        FVector CurrentVelocity = Player->GetVelocity();
-        Player->UpdateFromNetwork(CurrentTransform, CurrentVelocity, NewState);
-    }
-}
+//void AMyGameModeBase::OnPlayerStateChanged(int32 PlayerId, EPlayerState NewState)
+//{
+//    AMyCharacter* Player = GetPlayerCharacter(PlayerId);
+//    if (Player)
+//    {
+//        // 상태 업데이트 (로컬/원격 모두)
+//        FTransform CurrentTransform = Player->GetActorTransform();
+//        FVector CurrentVelocity = Player->GetVelocity();
+//        Player->UpdateFromNetwork(CurrentTransform, CurrentVelocity, NewState);
+//    }
+//}
 
 void AMyGameModeBase::OnConnectionStatusChanged(bool bIsConnected)
 {
@@ -315,7 +227,7 @@ bool AMyGameModeBase::IsLocalPlayer(int32 PlayerId)
 
 AMyCharacter* AMyGameModeBase::CreateLocalPlayer(int32 PlayerId)
 {
-    if (!LocalPlayer)
+    if (!LocalPlayerClass)
     {
         UE_LOG(LogTemp, Error, TEXT("LocalPlayerClass not set!"));
         return nullptr;
@@ -337,12 +249,11 @@ AMyCharacter* AMyGameModeBase::CreateLocalPlayer(int32 PlayerId)
 
     if (NewPlayer)
     {
-        // 원격 플레이어로 설정
+        // 로컬 플레이어로 설정
         NewPlayer->SetPlayerId(PlayerId);
-        NewPlayer->SetIsLocalPlayer(false);
-        NewPlayer->SetIsRemoteControlled(true);
+        // MyCharacter는 기본적으로 로컬 플레이어이므로 추가 설정 불필요
 
-        UE_LOG(LogTemp, Log, TEXT("Player created successfully - ID: %d"), PlayerId);
+        UE_LOG(LogTemp, Log, TEXT("Local player created successfully - ID: %d"), PlayerId);
     }
     else
     {
@@ -378,9 +289,9 @@ AOtherCharacter* AMyGameModeBase::CreateRemotePlayer(int32 PlayerId)
     {
         // 원격 플레이어로 설정
         NewPlayer->SetPlayerId(PlayerId);
-        NewPlayer->SetIsRemoteControlled(true);
+        // OtherCharacter는 기본적으로 원격 플레이어이므로 추가 설정 불필요
 
-        UE_LOG(LogTemp, Log, TEXT("Remote player(OtherCharacter) created successfully - ID: % d at(% .1f, % .1f, % .1f)"),
+        UE_LOG(LogTemp, Log, TEXT("Remote player(OtherCharacter) created successfully - ID: %d at (%.1f, %.1f, %.1f)"),
             PlayerId, SpawnTransform.GetLocation().X, SpawnTransform.GetLocation().Y, SpawnTransform.GetLocation().Z);
     }
     else
@@ -397,9 +308,6 @@ void AMyGameModeBase::RemovePlayer(int32 PlayerId)
     if (FoundPlayer && *FoundPlayer)
     {
         AMyCharacter* Player = *FoundPlayer;
-
-        bool bIsLocal = Player->IsLocalPlayer();
-        bool bIsRemote = Player->IsRemoteControlled();
 
         // 로컬 플레이어는 제거하지 않음
         if (!Player->IsLocalPlayer())
@@ -420,8 +328,7 @@ void AMyGameModeBase::SetupLocalPlayer()
         LocalPlayer = Cast<AMyCharacter>(PC->GetPawn());
         if (LocalPlayer)
         {
-            LocalPlayer->SetIsLocalPlayer(true);
-            LocalPlayer->SetIsRemoteControlled(false);
+            // MyCharacter는 기본적으로 로컬 플레이어이므로 추가 설정 불필요
             UE_LOG(LogTemp, Log, TEXT("Local player set up successfully"));
         }
         else
@@ -437,6 +344,13 @@ FTransform AMyGameModeBase::GetSpawnTransform(int32 PlayerId)
     TArray<AActor*> PlayerStarts;
     UGameplayStatics::GetAllActorsOfClass(GetWorld(), APlayerStart::StaticClass(), PlayerStarts);
 
+    if (PlayerStarts.Num() == 0)
+    {
+        // PlayerStart가 없으면 기본 위치 반환
+        UE_LOG(LogTemp, Warning, TEXT("No PlayerStart found, using default spawn location"));
+        return FTransform(FRotator::ZeroRotator, FVector(0, 0, 100));
+    }
+
     // PlayerId에 따라 PlayerStart 선택
     int32 StartIndex = (PlayerId - 1) % PlayerStarts.Num();
     AActor* SelectedPlayerStart = PlayerStarts[StartIndex];
@@ -445,30 +359,3 @@ FTransform AMyGameModeBase::GetSpawnTransform(int32 PlayerId)
 
     return SpawnTransform;
 }
-
-//void AMyGameModeBase::SetupDefaultSpawnPoints()
-//{
-//    // 기본 스폰 위치들 설정 (서버와 유사하게)
-//    SpawnPoints.Empty();
-//
-//    const float Radius = 500.0f;
-//    const int32 SpawnCount = 8;
-//    const float GroundLevel = 100.0f;
-//
-//    for (int32 i = 0; i < SpawnCount; ++i)
-//    {
-//        float Angle = (2.0f * PI * i) / SpawnCount;
-//        FVector SpawnLocation(
-//            Radius * FMath::Cos(Angle),
-//            Radius * FMath::Sin(Angle),
-//            GroundLevel
-//        );
-//
-//        SpawnPoints.Add(FTransform(FRotator::ZeroRotator, SpawnLocation));
-//    }
-//
-//    // 중앙 스폰 위치도 추가
-//    SpawnPoints.Add(FTransform(FRotator::ZeroRotator, FVector(0, 0, GroundLevel)));
-//
-//    UE_LOG(LogTemp, Log, TEXT("Default spawn points set up: %d points"), SpawnPoints.Num());
-//}

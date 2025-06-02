@@ -54,7 +54,7 @@ void PacketDispatcher::BroadcastNewPlayer(ClientSession* newClient, const std::u
         return;
     }
 
-    PositionPacket packet = CreatePositionPacket(newClient);
+    OutputPacket packet = CreateOutputPacket(newClient);
 
     int successCount = 0;
     int totalCount = 0;
@@ -85,7 +85,7 @@ void PacketDispatcher::SendExistingPlayer(ClientSession* newClient, const std::u
     for (const auto& pair : clients) {
         ClientSession* existing = pair.second;
         if (existing && existing->id != newClient->id && existing->IsConnected()) {
-            PositionPacket packet = CreatePositionPacket(existing);
+            OutputPacket packet = CreateOutputPacket(existing);
 
             if (NetworkSessionManager::SendPacketSafe(newClient, &packet, sizeof(packet), "SendExistingPlayers")) {
                 sentCount++;
@@ -103,14 +103,14 @@ void PacketDispatcher::BroadcastPlayerUpdate(ClientSession* sourceClient, const 
         return;
     }
 
-    PositionPacket packet = CreatePositionPacket(sourceClient);
+    OutputPacket packet = CreateOutputPacket(sourceClient);
 
     int successCount = 0;
     int totalCount = 0;
 
     for (const auto& pair : clients) {
         ClientSession* target = pair.second;
-        if (target && target->id != sourceClient->id && target->IsConnected()) {
+        if (target && target->IsConnected()) {
             totalCount++;
             if (NetworkSessionManager::SendPacketSafe(target, &packet, sizeof(packet), "BroadcastPlayerUpdate")) {
                 successCount++;
@@ -146,20 +146,51 @@ void PacketDispatcher::NotifyPlayerDisconnect(int disconnectedClientId, const st
         ", 알림 대상: " + std::to_string(successCount) + "/" + std::to_string(totalCount));
 }
 
-void PacketDispatcher::BroadcastPlayerAction(ClientSession* sourceClient, EPlayerState action, const std::unordered_map<int, ClientSession*>& clients) {
+void PacketDispatcher::BroadcastPlayerState(ClientSession* sourceClient, EPlayerState state, const std::unordered_map<int, ClientSession*>& clients) {
+    if (!sourceClient) {
+        LOG_ERROR("BroadcastPlayerState: 유효하지 않은 소스 클라이언트");
+        return;
+    }
+
+    // 임시로 상태 변경하여 패킷 생성
+    EPlayerState originalState = sourceClient->State;
+    sourceClient->State = state;
+
+    OutputPacket packet = CreateOutputPacket(sourceClient);
+
+    // 원래 상태로 복원
+    sourceClient->State = originalState;
+
+    int successCount = 0;
+    int totalCount = 0;
+
+    for (const auto& pair : clients) {
+        ClientSession* target = pair.second;
+        if (target && target->id != sourceClient->id && target->IsConnected()) {
+            totalCount++;
+            if (NetworkSessionManager::SendPacketSafe(target, &packet, sizeof(packet), "BroadcastPlayerState")) {
+                successCount++;
+            }
+        }
+    }
+
+    LogBroadcastStats("BroadcastPlayerState", successCount, totalCount);
+}
+
+void PacketDispatcher::BroadcastPlayerAction(ClientSession* sourceClient, EPlayerAction action, const std::unordered_map<int, ClientSession*>& clients) {
     if (!sourceClient) {
         LOG_ERROR("BroadcastPlayerAction: 유효하지 않은 소스 클라이언트");
         return;
     }
 
     // 임시로 상태 변경하여 패킷 생성
-    EPlayerState originalState = sourceClient->State;
-    sourceClient->State = action;
+    EPlayerAction originalAction = sourceClient->Action;
+    sourceClient->Action = action;
 
-    PositionPacket packet = CreatePositionPacket(sourceClient);
+    OutputPacket packet = CreateOutputPacket(sourceClient);
 
     // 원래 상태로 복원
-    sourceClient->State = originalState;
+    sourceClient->Action = originalAction;
 
     int successCount = 0;
     int totalCount = 0;
@@ -183,8 +214,8 @@ bool PacketDispatcher::ProcessReceivedPacket(ClientSession* client, char* data, 
         return false;
     }
 
-    LOG_DEBUG("패킷 수신됨 - 클라이언트 ID: " + std::to_string(client->id) +
-        ", 길이: " + std::to_string(length));
+    //LOG_DEBUG("패킷 수신됨 - 클라이언트 ID: " + std::to_string(client->id) +
+    //    ", 길이: " + std::to_string(length));
 
     PacketHeader* header = reinterpret_cast<PacketHeader*>(data);
 
@@ -251,15 +282,16 @@ ClientIdPacket PacketDispatcher::CreateClientIdPacket(int clientId) {
     return packet;
 }
 
-PositionPacket PacketDispatcher::CreatePositionPacket(ClientSession* client) {
-    PositionPacket packet;
-    packet.Header.PacketType = EPacketType::PLAYER_POSITION_INFO;
-    packet.Header.PacketSize = sizeof(PositionPacket);
+OutputPacket PacketDispatcher::CreateOutputPacket(ClientSession* client) {
+    OutputPacket packet;
+    packet.Header.PacketType = EPacketType::PLAYER_UPDATE_INFO;
+    packet.Header.PacketSize = sizeof(OutputPacket);
     packet.ClientId = client->id;
     packet.Position = client->Position;
     packet.Rotation = client->Rotation;
     packet.Velocity = client->Velocity;
     packet.State = client->State;
+	packet.Action = client->Action;
     return packet;
 }
 
@@ -293,15 +325,15 @@ bool PacketDispatcher::ValidateInputPacket(const InputPacket* packet) {
 
     return IsValidInputValue(packet->ForwardValue) &&
         IsValidInputValue(packet->RightValue) &&
-        packet->RotationPitch >= -90.0f && packet->RotationPitch <= 90.0f &&
+        IsValidRotationValue(packet->RotationPitch) &&
         IsValidRotationValue(packet->RotationYaw) &&
         IsValidRotationValue(packet->RotationRoll);
 }
 
-bool PacketDispatcher::ValidatePositionPacket(const PositionPacket* packet) {
+bool PacketDispatcher::ValidateOutputPacket(const OutputPacket* packet) {
     if (!packet) return false;
 
-    return IsValidPlayerState(packet->State) &&
+	return IsValidPlayerState(packet->State) && IsValidPlayerAction(packet->Action) &&
         isfinite(packet->Position.X) && isfinite(packet->Position.Y) && isfinite(packet->Position.Z) &&
         isfinite(packet->Velocity.X) && isfinite(packet->Velocity.Y) && isfinite(packet->Velocity.Z);
 }
@@ -310,10 +342,22 @@ void PacketDispatcher::HandlePingPacket(ClientSession* client, const PingPacket*
     LogPacketReceived("PING", client->id, sizeof(PingPacket));
 
     client->LastPingTime = GetTickCount64() / 1000.0f;
+
     SendPong(client);
 }
 
 void PacketDispatcher::HandleInputPacket(ClientSession* client, const InputPacket* packet) {
+    LOG_DEBUG("입력 패킷 수신 - 클라이언트 ID: " + std::to_string(packet->ClientId) +
+        ", Forward: " + std::to_string(packet->ForwardValue) +
+        ", Right: " + std::to_string(packet->RightValue) +
+        ", Pitch: " + std::to_string(packet->RotationPitch) +
+        ", Yaw: " + std::to_string(packet->RotationYaw) +
+        ", Roll: " + std::to_string(packet->RotationRoll) +
+        ", Run: " + std::to_string(packet->bRunPressed) +
+        ", Jump: " + std::to_string(packet->bJumpPressed) +
+        ", Attack: " + std::to_string(packet->bAttackPressed) +
+        ", Defend: " + std::to_string(packet->bDefendPressed));
+
     if (!ValidateInputPacket(packet)) {
         LOG_WARNING("유효하지 않은 입력 패킷 - 클라이언트 ID: " + std::to_string(client->id));
         return;
@@ -327,9 +371,26 @@ void PacketDispatcher::HandleInputPacket(ClientSession* client, const InputPacke
     client->InputPitch = packet->RotationPitch;
     client->InputYaw = packet->RotationYaw;
     client->InputRoll = packet->RotationRoll;
+    client->bRunRequested = packet->bRunPressed;
     client->bJumpRequested = packet->bJumpPressed;
     client->bAttackRequested = packet->bAttackPressed;
-    client->bRunRequested = packet->bRunPressed;
+	client->bDefendRequested = packet->bDefendPressed;
+
+    //// 액션 버튼은 트리거 방식으로 처리 (한 번만 실행)
+    //if (packet->bJumpPressed && !client->bJumpRequested) {
+    //    client->bJumpRequested = true;
+    //    LOG_DEBUG("점프 요청 설정 - 클라이언트 ID: " + std::to_string(client->id));
+    //}
+
+    //if (packet->bAttackPressed && !client->bAttackRequested) {
+    //    client->bAttackRequested = true;
+    //    LOG_DEBUG("공격 요청 설정 - 클라이언트 ID: " + std::to_string(client->id));
+    //}
+
+    //if (packet->bDefendPressed && !client->bDefendRequested) {
+    //    client->bDefendRequested = true;
+    //    LOG_DEBUG("방어 요청 설정 - 클라이언트 ID: " + std::to_string(client->id));
+    //}
 
     // 입력 시간 업데이트 (스팸 방지용)
     client->LastInputTime = GetTickCount64() / 1000.0f;

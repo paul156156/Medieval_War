@@ -10,7 +10,7 @@ enum class EPacketType : uint8_t {
     PING = 3,                // 핑 테스트
     PONG = 4,                // 핑 응답
     PLAYER_INIT_INFO = 5,    // 플레이어 초기 정보
-    PLAYER_POSITION_INFO = 6,// 위치 업데이트
+    PLAYER_UPDATE_INFO = 6,// 위치 업데이트
     PLAYER_INPUT_INFO = 7    // 입력 정보
 };
 
@@ -19,9 +19,15 @@ enum class EPlayerState : uint8_t {
     IDLE = 0,       // 정지 상태
     WALKING = 1,    // 걷는 상태
     RUNNING = 2,    // 뛰는 상태
-	//CROUCHING = 3,  // 웅크리는 상태 -> 쓸모없을꺼같아서 주석 처리
     JUMPING = 3,    // 점프 상태
-    ATTACKING = 4   // 공격 상태
+	DEAD = 4        // 사망 상태
+};
+
+// 플레이어 액션 정의
+enum class EPlayerAction : uint8_t {
+    NONE = 0,       // 아무 액션도 없음
+    ATTACK = 1,     // 공격
+    DEFEND = 2      // 방어
 };
 
 // 메모리 정렬 설정 (1바이트 경계로 정렬)
@@ -98,20 +104,21 @@ struct InputPacket {
     float RotationPitch;    // 상하 회전값 (-90.0 ~ 90.0)
     float RotationYaw;      // 좌우 회전값 (-180.0 ~ 180.0)
     float RotationRoll;     // 롤 회전값 (-180.0 ~ 180.0)
+    bool bRunPressed;       // 달리기 버튼 눌림 여부
     bool bJumpPressed;      // 점프 버튼 눌림 여부
     bool bAttackPressed;    // 공격 버튼 눌림 여부
-    //bool bCrouchPressed;    // 웅크리기 버튼 눌림 여부
-    bool bRunPressed;       // 달리기 버튼 눌림 여부
+	bool bDefendPressed;    // 방어 버튼 눌림 여부
 };
 
 // 위치 업데이트 패킷 (서버 -> 클라이언트)
-struct PositionPacket {
+struct OutputPacket {
     PacketHeader Header;
     int32_t ClientId;
     Vec3 Position;
     Rot3 Rotation;
     Vec3 Velocity;
     EPlayerState State;
+	EPlayerAction Action;
 };
 
 // 메모리 정렬 설정 복원
@@ -126,12 +133,17 @@ inline bool IsValidPlayerState(EPlayerState state) {
     return static_cast<int>(state) >= 0 && static_cast<int>(state) <= 4;
 }
 
+inline bool IsValidPlayerAction(EPlayerAction action) {
+    return static_cast<int>(action) >= 0 && static_cast<int>(action) <= 2;
+}
+
 inline bool IsValidInputValue(float value) {
     return value >= -1.0f && value <= 1.0f && !isnan(value) && isfinite(value);
 }
 
 inline bool IsValidRotationValue(float value) {
-    return value >= -180.0f && value <= 180.0f && !isnan(value) && isfinite(value);
+    //return value >= -180.0f && value <= 180.0f && !isnan(value) && isfinite(value);
+    return value >= 0.0f && value <= 360.0f && !isnan(value) && isfinite(value);
 }
 
 inline bool IsValidPacketHeader(const PacketHeader* header, size_t receivedSize) {

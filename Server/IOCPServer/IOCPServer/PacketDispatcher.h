@@ -21,23 +21,26 @@ public:
     // 연결 관리
     static void NotifyPlayerDisconnect(int disconnectedClientId, const std::unordered_map<int, ClientSession*>& clients);
 
-    // 게임 이벤트
-    static void BroadcastPlayerAction(ClientSession* sourceClient, EPlayerState action, const std::unordered_map<int, ClientSession*>& clients);
+	// 플레이어 상태 브로드캐스트
+    static void BroadcastPlayerState(ClientSession* sourceClient, EPlayerState action, const std::unordered_map<int, ClientSession*>& clients);
 
+	// 플레이어 액션 브로드캐스트
+    static void BroadcastPlayerAction(ClientSession* sourceClient, EPlayerAction action, const std::unordered_map<int, ClientSession*>& clients);
+    
     // 패킷 검증 및 처리
     static bool ProcessReceivedPacket(ClientSession* client, char* data, int length);
 
 private:
     // 패킷 생성 헬퍼
     static ClientIdPacket CreateClientIdPacket(int clientId);
-    static PositionPacket CreatePositionPacket(ClientSession* client);
+    static OutputPacket CreateOutputPacket(ClientSession* client);
     static PongPacket CreatePongPacket(ClientSession* client);
     static DisconnectPacket CreateDisconnectPacket(int clientId);
 
     // 패킷 검증
     static bool ValidatePacketHeader(const PacketHeader* header, size_t receivedSize);
     static bool ValidateInputPacket(const InputPacket* packet);
-    static bool ValidatePositionPacket(const PositionPacket* packet);
+    static bool ValidateOutputPacket(const OutputPacket* packet);
 
     // 개별 패킷 처리기
     static void HandlePingPacket(ClientSession* client, const PingPacket* packet);

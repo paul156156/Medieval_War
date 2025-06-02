@@ -42,6 +42,9 @@ bool IOCPServer::Initialize(int port) {
     LOG_INFO("CPU 코어 수: " + std::to_string(sysInfo.dwNumberOfProcessors) +
         ", 워커 스레드 수: " + std::to_string(config.workerThreadCount));
 
+    LOG_INFO("서버 실행 시작");
+    isRunning = true;
+
     // 워커 스레드 시작
     StartWorkerThreads();
 
@@ -62,8 +65,8 @@ void IOCPServer::Run() {
         return;
     }
 
-    LOG_INFO("서버 실행 시작");
-    isRunning = true;
+    //LOG_INFO("서버 실행 시작");
+    //isRunning = true;
 
     SOCKET listenSocket = networkManager->GetListenSocket();
     uint64_t lastTick = GetTickCount64();

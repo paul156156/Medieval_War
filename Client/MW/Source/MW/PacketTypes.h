@@ -18,7 +18,7 @@ enum class EPacketType : uint8
     PING = 3,                   // 핑 테스트
     PONG = 4,                   // 핑 응답
     PLAYER_INIT_INFO = 5,       // 플레이어 초기 정보
-    PLAYER_POSITION_INFO = 6,   // 위치 업데이트 (서버->클라이언트)
+    PLAYER_UPDATE_INFO = 6,   // 위치 업데이트 (서버->클라이언트)
     PLAYER_INPUT_INFO = 7       // 입력 정보 (클라이언트->서버)
 };
 
@@ -30,8 +30,16 @@ enum class EPlayerState : uint8
     WALKING = 1,    // 걷는 상태
     RUNNING = 2,    // 뛰는 상태
     JUMPING = 3,    // 점프 상태
-    ATTACKING = 4,   // 공격 상태
-	DEFENSING = 5   // 방어 상태
+	DEAD = 4,      // 사망 상태
+};
+
+// 플레이어 행동 정의
+UENUM(BlueprintType)
+enum class EPlayerAction : uint8
+{
+    NONE = 0,       // 아무 행동도 하지 않음
+    ATTACK = 1,     // 공격
+    DEFEND = 2     // 방어
 };
 
 // 메모리 정렬 설정 (1바이트 경계로 정렬)
@@ -129,11 +137,11 @@ struct InputPacket
     bool bRunPressed;       // 달리기 버튼 눌림 여부
     bool bJumpPressed;      // 점프 버튼 눌림 여부
     bool bAttackPressed;    // 공격 버튼 눌림 여부
-	bool bDefensePressed; // 방어 버튼 눌림 여부
+	bool bDefendPressed; // 방어 버튼 눌림 여부
 };
 
 // 위치 업데이트 패킷 (서버 -> 클라이언트)
-struct PositionPacket
+struct OutputPacket
 {
     PacketHeader Header;
     int32 ClientId;         // 클라이언트 ID
@@ -141,6 +149,7 @@ struct PositionPacket
     Rot3 Rotation;          // 현재 회전값
     Vec3 Velocity;          // 현재 속도
     EPlayerState State;     // 현재 플레이어 상태
+	EPlayerAction Action; // 현재 플레이어 행동
 };
 
 // 메모리 정렬 설정 복원
@@ -156,7 +165,7 @@ public:
     // 패킷 생성 헬퍼 함수들
     static InputPacket CreateInputPacket(int32 ClientId, float Forward, float Right,
         float Pitch, float Yaw, float Roll,
-        bool bJump, bool bAttack, bool bCrouch, bool bRun);
+        bool bRun, bool bJump, bool bAttack, bool bDefend);
 
     static InitPacket CreateInitPacket(int32 ClientId, const FVector& Position, const FRotator& Rotation);
 
@@ -165,6 +174,7 @@ public:
     // 패킷 검증 함수들
     static bool IsValidPacketType(uint8 PacketType);
     static bool IsValidPlayerState(uint8 PlayerState);
+	static bool IsValidPlayerAction(uint8 PlayerAction);
     static bool IsValidInputValue(float Value);
     static bool IsValidRotationValue(float Value);
 
@@ -195,6 +205,9 @@ struct FNetworkPlayerState
 
     UPROPERTY(BlueprintReadWrite, Category = "Network")
     EPlayerState State = EPlayerState::IDLE;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Network")
+	EPlayerAction Action = EPlayerAction::NONE;
 };
 
 USTRUCT(BlueprintType)
@@ -218,14 +231,14 @@ struct FNetworkInputState
     float RotationRoll = 0.0f;
 
     UPROPERTY(BlueprintReadWrite, Category = "Network")
+    bool bRunPressed = false;
+
+    UPROPERTY(BlueprintReadWrite, Category = "Network")
     bool bJumpPressed = false;
 
     UPROPERTY(BlueprintReadWrite, Category = "Network")
     bool bAttackPressed = false;
 
-    //UPROPERTY(BlueprintReadWrite, Category = "Network")
-    //bool bCrouchPressed = false;
-
-    UPROPERTY(BlueprintReadWrite, Category = "Network")
-    bool bRunPressed = false;
+	UPROPERTY(BlueprintReadWrite, Category = "Network")
+	bool bDefendPressed = false;
 };

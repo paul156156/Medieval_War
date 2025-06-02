@@ -48,10 +48,10 @@ protected:
     void OnPlayerLeft(int32 PlayerId);
 
     UFUNCTION()
-    void OnPlayerPositionUpdated(int32 PlayerId, FTransform NewTransform, FVector Velocity);
+    void OnPlayerUpdated(int32 PlayerId, FTransform NewTransform, FVector Velocity, EPlayerState State, EPlayerAction Action);
 
-    UFUNCTION()
-    void OnPlayerStateChanged(int32 PlayerId, EPlayerState NewState);
+    //UFUNCTION()
+    //void OnPlayerStateChanged(int32 PlayerId, EPlayerState NewState);
 
     UFUNCTION()
     void OnConnectionStatusChanged(bool bIsConnected);

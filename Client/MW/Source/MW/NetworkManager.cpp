@@ -246,15 +246,29 @@ void UNetworkManager::Update()
 
 void UNetworkManager::ProcessReceivedData(const TArray<uint8>& Data, int32 BytesRead)
 {
+    //// === 데이터 수신 디버깅 ===
+    //UE_LOG(LogTemp, Warning, TEXT("=== ProcessReceivedData === BytesRead=%d, BufferSize=%d"),
+    //    BytesRead, PacketProcessBuffer.Num());
+
     // 기존 처리 버퍼에 새 데이터 추가
     PacketProcessBuffer.Append(Data.GetData(), BytesRead);
 
+    //UE_LOG(LogTemp, Log, TEXT("After append: BufferSize=%d"), PacketProcessBuffer.Num());
+
     // 패킷 처리
     int32 ProcessedBytes = 0;
+    int32 PacketCount = 0;
+
     while (ProcessedBytes + sizeof(PacketHeader) <= PacketProcessBuffer.Num())
     {
+        PacketCount++;
+        //UE_LOG(LogTemp, Warning, TEXT("=== Processing Packet #%d ==="), PacketCount);
+
         // 패킷 헤더 가져오기
         PacketHeader* Header = reinterpret_cast<PacketHeader*>(PacketProcessBuffer.GetData() + ProcessedBytes);
+
+        //UE_LOG(LogTemp, Warning, TEXT("Packet Header: Type=%d, Size=%d"),
+        //    (int32)Header->PacketType, Header->PacketSize);
 
         // 패킷 헤더 검증
         if (!ValidatePacketHeader(Header, PacketProcessBuffer.Num() - ProcessedBytes))
@@ -267,27 +281,39 @@ void UNetworkManager::ProcessReceivedData(const TArray<uint8>& Data, int32 Bytes
         // 패킷 전체가 도착했는지 확인
         if (ProcessedBytes + Header->PacketSize > PacketProcessBuffer.Num())
         {
+            UE_LOG(LogTemp, Log, TEXT("Incomplete packet, waiting for more data (Need=%d, Have=%d)"),
+                Header->PacketSize, PacketProcessBuffer.Num() - ProcessedBytes);
             break;
         }
+
+        //UE_LOG(LogTemp, Warning, TEXT("Complete packet received, processing type %d"), (int32)Header->PacketType);
 
         // 패킷 타입에 따른 처리
         switch (Header->PacketType)
         {
         case EPacketType::CLIENT_ID:
+            UE_LOG(LogTemp, Warning, TEXT("Processing CLIENT_ID packet"));
             if (Header->PacketSize >= sizeof(ClientIdPacket))
             {
                 HandleClientIdPacket(reinterpret_cast<ClientIdPacket*>(PacketProcessBuffer.GetData() + ProcessedBytes));
             }
             break;
 
-        case EPacketType::PLAYER_POSITION_INFO:
-            if (Header->PacketSize >= sizeof(PositionPacket))
+        case EPacketType::PLAYER_UPDATE_INFO:
+            UE_LOG(LogTemp, Warning, TEXT(">>> Processing PLAYER_POSITION_INFO packet <<<"));
+            if (Header->PacketSize >= sizeof(OutputPacket))
             {
-                HandlePositionPacket(reinterpret_cast<PositionPacket*>(PacketProcessBuffer.GetData() + ProcessedBytes));
+                HandleOutputPacket(reinterpret_cast<OutputPacket*>(PacketProcessBuffer.GetData() + ProcessedBytes));
+            }
+            else
+            {
+                UE_LOG(LogTemp, Error, TEXT("PLAYER_POSITION_INFO packet size mismatch: Expected>=%d, Got=%d"),
+                    sizeof(OutputPacket), Header->PacketSize);
             }
             break;
 
         case EPacketType::DISCONNECT:
+            UE_LOG(LogTemp, Warning, TEXT("Processing DISCONNECT packet"));
             if (Header->PacketSize >= sizeof(DisconnectPacket))
             {
                 HandleDisconnectPacket(reinterpret_cast<DisconnectPacket*>(PacketProcessBuffer.GetData() + ProcessedBytes));
@@ -295,6 +321,7 @@ void UNetworkManager::ProcessReceivedData(const TArray<uint8>& Data, int32 Bytes
             break;
 
         case EPacketType::PONG:
+            UE_LOG(LogTemp, Log, TEXT("Processing PONG packet"));
             if (Header->PacketSize >= sizeof(PongPacket))
             {
                 HandlePongPacket(reinterpret_cast<PongPacket*>(PacketProcessBuffer.GetData() + ProcessedBytes));
@@ -302,6 +329,7 @@ void UNetworkManager::ProcessReceivedData(const TArray<uint8>& Data, int32 Bytes
             break;
 
         default:
+            UE_LOG(LogTemp, Error, TEXT(">>> UNKNOWN PACKET TYPE: %d <<<"), static_cast<int32>(Header->PacketType));
             if (bEnableNetworkLogging)
             {
                 UE_LOG(LogTemp, Warning, TEXT("Unknown packet type: %d"), static_cast<int32>(Header->PacketType));
@@ -311,13 +339,18 @@ void UNetworkManager::ProcessReceivedData(const TArray<uint8>& Data, int32 Bytes
 
         // 처리된 바이트 수 갱신
         ProcessedBytes += Header->PacketSize;
+        //UE_LOG(LogTemp, Log, TEXT("Packet processed, total processed bytes: %d"), ProcessedBytes);
     }
 
     // 처리된 데이터 제거
     if (ProcessedBytes > 0)
     {
+        //UE_LOG(LogTemp, Log, TEXT("Removing %d processed bytes from buffer"), ProcessedBytes);
         PacketProcessBuffer.RemoveAt(0, ProcessedBytes);
     }
+
+    //UE_LOG(LogTemp, Log, TEXT("ProcessReceivedData completed - Processed %d packets, Remaining buffer: %d bytes"),
+    //    PacketCount, PacketProcessBuffer.Num());
 }
 
 bool UNetworkManager::ValidatePacketHeader(const PacketHeader* Header, int32 AvailableBytes)
@@ -361,7 +394,7 @@ void UNetworkManager::HandleClientIdPacket(const ClientIdPacket* Packet)
     OnPlayerJoined.Broadcast(CurrentPlayerId);
 }
 
-void UNetworkManager::HandlePositionPacket(const PositionPacket* Packet)
+void UNetworkManager::HandleOutputPacket(const OutputPacket* Packet)
 {
     if (bLogPacketDetails)
     {
@@ -376,15 +409,16 @@ void UNetworkManager::HandlePositionPacket(const PositionPacket* Packet)
     FTransform NewTransform(Rotation, Position);
 
     // 위치 업데이트 델리게이트 호출 (속도 정보 포함)
-    OnPlayerPositionUpdated.Broadcast(Packet->ClientId, NewTransform, Velocity);
+    OnPlayerUpdated.Broadcast(Packet->ClientId, NewTransform, Velocity, Packet->State, Packet->Action);
 
     // 상태 변경 델리게이트 호출
-    OnPlayerStateChanged.Broadcast(Packet->ClientId, Packet->State);
+    //OnPlayerStateChanged.Broadcast(Packet->ClientId, Packet->State);
+
 
     if (bLogPacketDetails)
     {
-        UE_LOG(LogTemp, Log, TEXT("Position Update: ClientID=%d, Pos=(%f, %f, %f), State=%d"),
-            Packet->ClientId, Position.X, Position.Y, Position.Z, static_cast<int>(Packet->State));
+        UE_LOG(LogTemp, Log, TEXT("Position Update: ClientID=%d, Pos=(%f, %f, %f), State=%d, Action=%d"),
+            Packet->ClientId, Position.X, Position.Y, Position.Z, static_cast<int>(Packet->State), static_cast<int>(Packet->Action));
     }
 }
 
@@ -453,7 +487,7 @@ void UNetworkManager::SendPlayerInitInfo(Vec3 Position, Rot3 Rotation)
 
 void UNetworkManager::SendPlayerInput(float ForwardValue, float RightValue,
     float RotationPitch, float RotationYaw, float RotationRoll,
-    bool bRunPressed, bool bJumpPressed, bool bAttackPressed, bool bDefensePressed)
+    bool bRunPressed, bool bJumpPressed, bool bAttackPressed, bool bDefendPressed)
 {
     if (!IsConnected() || CurrentPlayerId < 0) return;
 
@@ -473,14 +507,14 @@ void UNetworkManager::SendPlayerInput(float ForwardValue, float RightValue,
     Packet.bRunPressed = bRunPressed; 
     Packet.bJumpPressed = bJumpPressed;
     Packet.bAttackPressed = bAttackPressed;
-    Packet.bDefensePressed = bDefensePressed;
+    Packet.bDefendPressed = bDefendPressed;
 
     SendPacket(&Packet, sizeof(Packet));
 
     if (bLogPacketDetails)
     {
         UE_LOG(LogTemp, Log, TEXT("Sent input: F=%.2f R=%.2f Y=%.1f Run=%d Jump=%d Attack=%d Defense=%d"),
-            ForwardValue, RightValue, RotationYaw, bRunPressed, bJumpPressed, bAttackPressed, bDefensePressed);
+            ForwardValue, RightValue, RotationYaw, bRunPressed, bJumpPressed, bAttackPressed, bDefendPressed);
     }
 }
 
@@ -505,6 +539,8 @@ bool UNetworkManager::SendPacket(const void* Data, int32 Size)
         UE_LOG(LogTemp, Warning, TEXT("Only partial data sent: %d/%d bytes"), BytesSent, Size);
         return false;
     }
+
+	//UE_LOG(LogTemp, Log, TEXT("Packet sent successfully: %d bytes"), Size);
 
     return true;
 }

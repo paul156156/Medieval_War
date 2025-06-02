@@ -8,7 +8,18 @@ public class MW : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "Networking", "Sockets", "NetCore", "UMG", "Slate", "SlateCore" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput",
+			"Networking", "Sockets", "NetCore",
+			"UMG", "Slate", "SlateCore",
+			// Editor 모듈들 추가
+            "UnrealEd",
+            "EditorStyle",
+            "EditorWidgets",
+            "ToolMenus",
+            
+            // Landscape 모듈들 추가
+            "Landscape",
+            "LandscapeEditor"});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 

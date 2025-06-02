@@ -14,8 +14,8 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnConnectionStatusChanged, bool, bIsConnected);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPlayerJoined, int32, PlayerId);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPlayerLeft, int32, PlayerId);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnPlayerPositionUpdated, int32, PlayerId, FTransform, NewTransform, FVector, Velocity);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnPlayerStateChanged, int32, PlayerId, EPlayerState, NewState);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FiveParams(FOnPlayerPositionUpdated, int32, PlayerId, FTransform, NewTransform, FVector, Velocity, EPlayerState, State, EPlayerAction, Action);
+//DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnPlayerStateChanged, int32, PlayerId, EPlayerState, NewState);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnConnectionError);
 
 /**
@@ -84,10 +84,10 @@ public:
     FOnPlayerLeft OnPlayerLeft;
 
     UPROPERTY(BlueprintAssignable, Category = "Network|Events")
-    FOnPlayerPositionUpdated OnPlayerPositionUpdated;
+    FOnPlayerPositionUpdated OnPlayerUpdated;
 
-    UPROPERTY(BlueprintAssignable, Category = "Network|Events")
-    FOnPlayerStateChanged OnPlayerStateChanged;
+    //UPROPERTY(BlueprintAssignable, Category = "Network|Events")
+    //FOnPlayerStateChanged OnPlayerStateChanged;
 
     UPROPERTY(BlueprintAssignable, Category = "Network|Events")
     FOnConnectionError OnConnectionError;
@@ -98,7 +98,7 @@ private:
 
     // 패킷 타입별 처리 함수
     void HandleClientIdPacket(const ClientIdPacket* Packet);
-    void HandlePositionPacket(const PositionPacket* Packet);
+    void HandleOutputPacket(const OutputPacket* Packet);
     void HandleDisconnectPacket(const DisconnectPacket* Packet);
     void HandlePongPacket(const PongPacket* Packet);
 
