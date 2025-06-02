@@ -26,7 +26,7 @@ public:
     bool bNetworkRunPressed = false;
     bool bNetworkJumpPressed = false;
     bool bNetworkAttackPressed = false;
-    bool bNetworkDefensePressed = false;
+    bool bNetworkDefendPressed = false;
 
 protected:
     virtual void BeginPlay() override;

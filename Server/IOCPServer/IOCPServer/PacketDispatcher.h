@@ -53,4 +53,10 @@ private:
     static void LogPacketSent(const char* packetType, int clientId, size_t size);
     static void LogPacketReceived(const char* packetType, int clientId, size_t size);
     static void LogBroadcastStats(const char* context, int successCount, int totalCount);
+
+    // 기존 플레이어들의 ID를 새 클라이언트에게 전송
+    static void SendExistingPlayerIDs(ClientSession* newClient, const std::unordered_map<int, ClientSession*>& clients);
+    // 새 플레이어의 ID를 기존 클라이언트들에게 전송
+    static void BroadcastNewPlayerID(ClientSession* newClient, const std::unordered_map<int, ClientSession*>& clients);
+
 };

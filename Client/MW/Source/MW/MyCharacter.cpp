@@ -15,7 +15,7 @@ AMyCharacter::AMyCharacter()
 {
     PrimaryActorTick.bCanEverTick = true;
 
-    // 스프링암 컴포넌트 설정
+    // 모든 플레이어에게 카메라 컴포넌트를 생성 (나중에 비활성화할 수 있음)
     SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
     SpringArm->SetupAttachment(RootComponent);
     SpringArm->TargetArmLength = 300.0f;
@@ -25,7 +25,6 @@ AMyCharacter::AMyCharacter()
     SpringArm->bInheritYaw = true;
     SpringArm->bInheritRoll = false;
 
-    // 카메라 컴포넌트 설정
     FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
     FollowCamera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
     FollowCamera->bUsePawnControlRotation = false;
@@ -45,77 +44,84 @@ AMyCharacter::AMyCharacter()
 
     // 초기 상태 설정
     CurrentState = EPlayerState::IDLE;
+    CurrentAction = EPlayerAction::NONE;
 
-	// 초기 액션 설정
-	CurrentAction = EPlayerAction::NONE;
+    // 기본값은 로컬 플레이어로 설정 (GameMode에서 변경할 수 있음)
+    bIsLocalPlayer = true;
+    bIsRemoteControlled = false;
 }
 
 void AMyCharacter::BeginPlay()
 {
     Super::BeginPlay();
 
-    // Enhanced Input 설정 (로컬 플레이어만)
-    if (APlayerController* PC = Cast<APlayerController>(Controller))
-    {
-        if (ULocalPlayer* LP = PC->GetLocalPlayer())
-        {
-            if (UEnhancedInputLocalPlayerSubsystem* Subsystem = LP->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>())
-            {
-                if (DefaultMappingContext)
-                {
-                    Subsystem->AddMappingContext(DefaultMappingContext, 0);
-                }
-            }
-        }
-    }
-
-    UE_LOG(LogTemp, Log, TEXT("Local player spawned: %s"), *GetName());
+    // Enhanced Input 설정은 SetupPlayerInputComponent에서 처리
+    UE_LOG(LogTemp, Log, TEXT("Player spawned: %s (ID: %d, Local: %s)"),
+        *GetName(), PlayerId, bIsLocalPlayer ? TEXT("Yes") : TEXT("No"));
 }
 
 void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
-    // 로컬 플레이어만 입력 바인딩
-    if (UEnhancedInputComponent* Input = Cast<UEnhancedInputComponent>(PlayerInputComponent))
+    // 로컬 플레이어만 입력 바인딩 + Enhanced Input 설정
+    if (bIsLocalPlayer)
     {
-        // 이동 입력
-        if (MoveAction)
+        // Enhanced Input 설정
+        if (APlayerController* PC = Cast<APlayerController>(Controller))
         {
-            Input->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AMyCharacter::Move);
-            Input->BindAction(MoveAction, ETriggerEvent::Completed, this, &AMyCharacter::Move);
+            if (ULocalPlayer* LP = PC->GetLocalPlayer())
+            {
+                if (UEnhancedInputLocalPlayerSubsystem* Subsystem = LP->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>())
+                {
+                    if (DefaultMappingContext)
+                    {
+                        Subsystem->AddMappingContext(DefaultMappingContext, 0);
+                    }
+                }
+            }
         }
 
-        // 달리기 입력
-        if (RunAction)
+        // 입력 액션 바인딩
+        if (UEnhancedInputComponent* Input = Cast<UEnhancedInputComponent>(PlayerInputComponent))
         {
-            Input->BindAction(RunAction, ETriggerEvent::Triggered, this, &AMyCharacter::StartRun);
-            Input->BindAction(RunAction, ETriggerEvent::Completed, this, &AMyCharacter::StopRun);
-        }
+            if (MoveAction)
+            {
+                Input->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AMyCharacter::Move);
+                Input->BindAction(MoveAction, ETriggerEvent::Completed, this, &AMyCharacter::Move);
+            }
 
-        // 점프 입력
-        if (JumpAction)
-        {
-            Input->BindAction(JumpAction, ETriggerEvent::Started, this, &AMyCharacter::StartJump);
-            Input->BindAction(JumpAction, ETriggerEvent::Completed, this, &AMyCharacter::StopJump);
-        }
+            if (RunAction)
+            {
+                Input->BindAction(RunAction, ETriggerEvent::Triggered, this, &AMyCharacter::StartRun);
+                Input->BindAction(RunAction, ETriggerEvent::Completed, this, &AMyCharacter::StopRun);
+            }
 
-        // 공격 입력
-        if (AttackAction)
-        {
-            Input->BindAction(AttackAction, ETriggerEvent::Started, this, &AMyCharacter::Attack);
-        }
+            if (JumpAction)
+            {
+                Input->BindAction(JumpAction, ETriggerEvent::Started, this, &AMyCharacter::StartJump);
+                Input->BindAction(JumpAction, ETriggerEvent::Completed, this, &AMyCharacter::StopJump);
+            }
 
-        // 방어 입력
-        if (DefendAction)
-        {
-            Input->BindAction(DefendAction, ETriggerEvent::Triggered, this, &AMyCharacter::StartDefend);
-            Input->BindAction(DefendAction, ETriggerEvent::Completed, this, &AMyCharacter::StopDefend);
-        }
+            if (AttackAction)
+            {
+                Input->BindAction(AttackAction, ETriggerEvent::Started, this, &AMyCharacter::Attack);
+            }
 
-        // 마우스 룩 입력
-        if (LookAction)
-        {
-            Input->BindAction(LookAction, ETriggerEvent::Triggered, this, &AMyCharacter::Look);
+            if (DefendAction)
+            {
+                Input->BindAction(DefendAction, ETriggerEvent::Triggered, this, &AMyCharacter::StartDefend);
+                Input->BindAction(DefendAction, ETriggerEvent::Completed, this, &AMyCharacter::StopDefend);
+            }
+
+            if (LookAction)
+            {
+                Input->BindAction(LookAction, ETriggerEvent::Triggered, this, &AMyCharacter::Look);
+            }
         }
+        UE_LOG(LogTemp, Log, TEXT("Input component set up for local player %d"), PlayerId);
+    }
+    else
+    {
+        UE_LOG(LogTemp, Log, TEXT("Skipping input setup for remote player %d"), PlayerId);
     }
 }
 
@@ -123,12 +129,15 @@ void AMyCharacter::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
 
-    // 로컬 플레이어는 입력을 서버로 전송
-    SendInputToServer();
+    // 로컬 플레이어만 입력을 서버로 전송
+    if (bIsLocalPlayer)
+    {
+        SendInputToServer();
+    }
 
-    // 서버에서 받은 위치로 이동 (원격 플레이어와 동일)
+    // 모든 플레이어는 서버 위치로 보간 (로컬 플레이어도 서버 권한)
     InterpolateToServerPosition(DeltaTime);
-    
+
     // 디버그 정보 표시
     if (bShowDebugInfo)
     {
@@ -136,80 +145,169 @@ void AMyCharacter::Tick(float DeltaTime)
     }
 }
 
+void AMyCharacter::SetIsLocalPlayer(bool bLocal)
+{
+    bIsLocalPlayer = bLocal;
+    bIsRemoteControlled = !bLocal;
+
+    if (!bIsLocalPlayer)
+    {
+        // 원격 플레이어 설정
+        DisableCameraAndInput();
+
+        // 보간 속도 조정 (원격 플레이어용)
+        InterpSpeed = 12.0f;
+        VelocityInterpSpeed = 8.0f;
+
+        // 디버그 정보 표시
+        bShowDebugInfo = true;
+    }
+    else
+    {
+        // 로컬 플레이어 설정
+        EnableCameraAndInput();
+
+        // 보간 속도 (로컬 플레이어용)
+        InterpSpeed = 10.0f;
+        VelocityInterpSpeed = 10.0f;
+
+        // 디버그 정보 표시
+        bShowDebugInfo = true;
+    }
+
+    UE_LOG(LogTemp, Log, TEXT("Player %d set as %s player"),
+        PlayerId, bIsLocalPlayer ? TEXT("Local") : TEXT("Remote"));
+}
+
+void AMyCharacter::SetIsRemoteControlled(bool bRemote)
+{
+    bIsRemoteControlled = bRemote;
+    bIsLocalPlayer = !bRemote;
+
+    if (bIsRemoteControlled)
+    {
+        DisableCameraAndInput();
+    }
+    else
+    {
+        EnableCameraAndInput();
+    }
+}
+
+void AMyCharacter::DisableCameraAndInput()
+{
+    // 카메라 비활성화
+    if (FollowCamera)
+    {
+        FollowCamera->SetActive(false);
+    }
+
+    if (SpringArm)
+    {
+        SpringArm->SetActive(false);
+    }
+
+    // 컨트롤러 회전 비활성화
+    bUseControllerRotationPitch = false;
+    bUseControllerRotationYaw = false;
+    bUseControllerRotationRoll = false;
+
+    UE_LOG(LogTemp, Log, TEXT("Camera and input disabled for remote player %d"), PlayerId);
+}
+
+void AMyCharacter::EnableCameraAndInput()
+{
+    // 카메라 활성화
+    if (FollowCamera)
+    {
+        FollowCamera->SetActive(true);
+    }
+
+    if (SpringArm)
+    {
+        SpringArm->SetActive(true);
+    }
+
+    // 컨트롤러 회전 설정 복원
+    bUseControllerRotationPitch = false;
+    bUseControllerRotationYaw = !bAlwaysFaceMovementDirection;
+    bUseControllerRotationRoll = false;
+
+    UE_LOG(LogTemp, Log, TEXT("Camera and input enabled for local player %d"), PlayerId);
+}
+
 void AMyCharacter::Move(const FInputActionValue& Value)
 {
+    // 로컬 플레이어만 처리
+    if (!bIsLocalPlayer) return;
+
     FVector2D Movement = Value.Get<FVector2D>();
 
     if (Controller)
     {
         FRotator Rotation = Controller->GetControlRotation();
 
-        // 입력값만 저장 (서버 전송용) - 즉시 이동하지 않음
+        // 입력값만 저장 (서버 전송용)
         ForwardInput = Movement.Y;
         RightInput = Movement.X;
         PitchInput = Rotation.Pitch;
         YawInput = Rotation.Yaw;
         RollInput = Rotation.Roll;
-
-        // AddMovementInput 제거 - 서버 응답을 기다림
-        // 로컬 예측 이동 없음, 순수하게 서버 위치로만 이동
     }
 }
 
 void AMyCharacter::StartRun(const FInputActionValue& Value)
 {
-    // 입력 상태만 변경 - 실제 속도는 서버에서 결정
-    bRunPressed = true;
-    GetCharacterMovement()->MaxWalkSpeed = 1000.0f;
+    if (!bIsLocalPlayer) return;
 
+    bRunPressed = true;
 }
 
 void AMyCharacter::StopRun(const FInputActionValue& Value)
 {
-    // 입력 상태만 변경 - 실제 속도는 서버에서 결정
+    if (!bIsLocalPlayer) return;
+
     bRunPressed = false;
-	GetCharacterMovement()->MaxWalkSpeed = 500.0f; // 기본 속도로 되돌림
 }
 
 void AMyCharacter::StartJump(const FInputActionValue& Value)
 {
-    // 입력 상태만 변경 - 실제 점프는 서버에서 처리
+    if (!bIsLocalPlayer) return;
+
     bJumpPressed = true;
 
-	Jump(); // 점프 애니메이션 재생 (로컬에서 즉시 반응)
+    // 로컬에서 즉시 점프 반응 (반응성을 위해)
+    Jump();
 }
 
 void AMyCharacter::StopJump(const FInputActionValue& Value)
 {
-    // 입력 상태만 변경
-    bJumpPressed = false;
+    if (!bIsLocalPlayer) return;
 
-	StopJumping(); // 점프 애니메이션 중지 (로컬에서 즉시 반응)
+    bJumpPressed = false;
+    StopJumping();
 }
 
 void AMyCharacter::Attack(const FInputActionValue& Value)
 {
-    // 입력 상태만 변경 - 실제 애니메이션은 서버에서 결정
+    if (!bIsLocalPlayer) return;
+
     bAttackPressed = true;
 
+    // 로컬에서 즉시 애니메이션 재생 (반응성을 위해)
     if (AttackMontage)
     {
         if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
         {
             AnimInstance->Montage_Play(AttackMontage);
         }
-	}
-    //// 공격 상태 리셋 타이머 (입력 지속 시간 제한)
-    //GetWorld()->GetTimerManager().SetTimer(AttackResetHandle, [this]()
-    //    {    
-    //        bAttackPressed = false;
-    //    }, AttackMontageDuration, false);
-
+    }
 }
 
 void AMyCharacter::StartDefend(const FInputActionValue& Value)
 {
-    // 입력 상태만 변경 - 실제 애니메이션은 서버에서 결정
+    if (!bIsLocalPlayer) return;
+
     bDefendPressed = true;
 
     if (DefendMontage)
@@ -218,25 +316,28 @@ void AMyCharacter::StartDefend(const FInputActionValue& Value)
         {
             AnimInstance->Montage_Play(DefendMontage);
         }
-	}
+    }
 }
 
 void AMyCharacter::StopDefend(const FInputActionValue& Value)
 {
-    // 입력 상태만 변경
+    if (!bIsLocalPlayer) return;
+
     bDefendPressed = false;
 
     if (DefendMontage)
     {
         if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
         {
-            AnimInstance->Montage_Stop(0.2f, DefendMontage); // 애니메이션 중지
+            AnimInstance->Montage_Stop(0.2f, DefendMontage);
         }
-	}
+    }
 }
 
 void AMyCharacter::Look(const FInputActionValue& Value)
 {
+    if (!bIsLocalPlayer) return;
+
     FVector2D LookAxis = Value.Get<FVector2D>();
 
     // 마우스 입력으로 카메라 회전
@@ -273,6 +374,9 @@ void AMyCharacter::NotifySpawn()
 
 void AMyCharacter::SendInputToServer()
 {
+    // 로컬 플레이어만 입력 전송
+    if (!bIsLocalPlayer) return;
+
     UNetworkManager* NetworkManager = UGameplayStatics::GetGameInstance(this)->GetSubsystem<UNetworkManager>();
     if (!NetworkManager || !NetworkManager->IsConnected())
     {
@@ -313,7 +417,18 @@ void AMyCharacter::UpdateFromNetwork(const FTransform& NewTransform, const FVect
 {
     //서버에서 받은 권한 있는 데이터로 목표 설정 (원격 플레이어와 동일)
     TargetLocation = NewTransform.GetLocation();
-    TargetRotation = NewTransform.GetRotation().Rotator();
+    //TargetRotation = NewTransform.GetRotation().Rotator();
+
+    // ===== 회전 업데이트 수정 - Yaw만 사용 =====
+    FRotator ServerRotation = NewTransform.GetRotation().Rotator();
+
+    // 캐릭터 회전은 Yaw만 사용 (Pitch, Roll 제거)
+    TargetRotation = FRotator(
+        0.0f,                    // Pitch = 0
+        ServerRotation.Yaw,      // Yaw만 사용
+        0.0f                     // Roll = 0
+    );
+
     TargetVelocity = NetworkVelocity;
 
     // 초기 위치 설정 (텔레포트)
@@ -364,13 +479,31 @@ void AMyCharacter::UpdateFromNetwork(const FTransform& NewTransform, const FVect
         switch (CurrentAction)
         {
         case EPlayerAction::ATTACK:
-            if (AttackMontage && AnimInstance)
-                AnimInstance->Montage_Play(AttackMontage);
+            // ATTACK 상태일 때 항상 공격 애니메이션이 재생되도록 보장
+            if (AttackMontage)
+            {
+                // 이미 공격 애니메이션이 재생중이 아니라면 재생
+                if (!AnimInstance->Montage_IsPlaying(AttackMontage))
+                {
+                    AnimInstance->Montage_Play(AttackMontage);
+                    UE_LOG(LogTemp, Log, TEXT("Remote player %d: Starting ATTACK animation"), PlayerId);
+                }
+            }
             break;
+
         case EPlayerAction::DEFEND:
-            if (DefendMontage && AnimInstance)
-                AnimInstance->Montage_Play(DefendMontage);
+            // DEFEND 상태일 때 항상 방어 애니메이션이 재생되도록 보장
+            if (DefendMontage)
+            {
+                if (!AnimInstance->Montage_IsPlaying(DefendMontage))
+                {
+                    AnimInstance->Montage_Play(DefendMontage);
+                    UE_LOG(LogTemp, Log, TEXT("Remote player %d: Starting DEFEND animation"), PlayerId);
+                }
+            }
             break;
+
+        case EPlayerAction::NONE:
         default:
             break;
         }
@@ -386,9 +519,18 @@ void AMyCharacter::InterpolateToServerPosition(float DeltaTime)
     FVector NewLocation = FMath::VInterpTo(CurrentLocation, TargetLocation, DeltaTime, InterpSpeed);
     SetActorLocation(NewLocation);
 
-    // 회전 보간
+    // ===== 회전 보간 수정 - Yaw만 사용 =====
     FRotator CurrentRotation = GetActorRotation();
-    FRotator NewRotation = FMath::RInterpTo(CurrentRotation, TargetRotation, DeltaTime, InterpSpeed);
+
+    // 서버에서 받은 회전값을 필터링 (Yaw만 사용)
+    FRotator FilteredTargetRotation = FRotator(
+        0.0f,                    // Pitch = 0 (앞뒤 기울임 방지)
+        TargetRotation.Yaw,      // Yaw만 사용 (좌우 회전)
+        0.0f                     // Roll = 0 (좌우 기울임 방지)
+    );
+
+    // Yaw 각도 보간 (최단 경로로 회전)
+    FRotator NewRotation = FMath::RInterpTo(CurrentRotation, FilteredTargetRotation, DeltaTime, InterpSpeed);
     SetActorRotation(NewRotation);
 
     // 속도 보간 (부드러운 애니메이션을 위해)
@@ -421,7 +563,7 @@ bool AMyCharacter::HasInputChanged() const
 
 void AMyCharacter::DisplayDebugInfo()
 {
-    if (!bShowDebugInfo) return;
+    if (bShowDebugInfo) return;
 
     FVector Location = GetActorLocation();
     FVector Velocity = GetVelocity();
@@ -502,7 +644,7 @@ void AMyCharacter::DisplayDebugInfo()
     DrawMovementVectors(Location, Velocity);
 
     // 목표 위치 시각화 (원격 플레이어와 동일)
-    if (!TargetLocation.IsZero() && bShowDebugInfo)
+    if (!TargetLocation.IsZero() && !bShowDebugInfo)
     {
         // 목표 위치 표시 (파란 구체)
         DrawDebugSphere(GetWorld(), TargetLocation, 20.0f, 8, FColor::Blue, false, 0.0f, 0, 2.0f);

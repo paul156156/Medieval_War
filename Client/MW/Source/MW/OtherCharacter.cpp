@@ -116,12 +116,12 @@ void AOtherCharacter::UpdateFromNetwork(const FTransform& NewTransform, const FV
             bNetworkAttackPressed = true;
 			break;
         case EPlayerAction::DEFEND:
-            bNetworkDefensePressed = true;
+            bNetworkDefendPressed = true;
             break;
 		case EPlayerAction::NONE:
         default:
             bNetworkAttackPressed = false;
-            bNetworkDefensePressed = false;
+            bNetworkDefendPressed = false;
 			break;
     }
 }
@@ -176,7 +176,7 @@ void AOtherCharacter::DisplayNetworkDebugInfo()
     if (bNetworkRunPressed) ActiveActions.Add(TEXT("RUN"));
     if (bNetworkJumpPressed) ActiveActions.Add(TEXT("JUMP"));
     if (bNetworkAttackPressed) ActiveActions.Add(TEXT("ATTACK"));
-    if (bNetworkDefensePressed) ActiveActions.Add(TEXT("DEFENSE"));
+    if (bNetworkDefendPressed) ActiveActions.Add(TEXT("DEFEND"));
     FString ActionInfo = ActiveActions.Num() > 0 ?
         FString::Join(ActiveActions, TEXT(" | ")) :
         TEXT("No actions");

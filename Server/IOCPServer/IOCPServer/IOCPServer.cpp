@@ -192,21 +192,25 @@ void IOCPServer::AcceptClient(SOCKET clientSocket, SOCKADDR_IN clientAddr) {
 void IOCPServer::InitializeNewClient(ClientSession* client) {
     if (!client) return;
 
-    // 클라이언트 ID 전송
+    LOG_INFO("새 클라이언트 초기화 시작 - ID: " + std::to_string(client->id));
+
+    // 1. 새 클라이언트에게 자신의 ID만 전송
     PacketDispatcher::SendClientId(client);
 
-    // 초기 위치 전송
-    //PacketDispatcher::SendInitialPosition(client);
-
-    // 기존 플레이어들에게 새 플레이어 알림
     auto& clients = clientManager->GetClients();
     {
         std::shared_lock<std::shared_mutex> lock(clientManager->GetClientsMutex());
+
         if (clients.size() > 1) {
+            // 2. 새 클라이언트에게 기존 플레이어들의 위치 정보 전송
             PacketDispatcher::SendExistingPlayer(client, clients);
+
+            // 3. 기존 플레이어들에게 새 플레이어 정보 전송
             PacketDispatcher::BroadcastNewPlayer(client, clients);
         }
     }
+
+    LOG_INFO("새 클라이언트 초기화 완료 - ID: " + std::to_string(client->id));
 }
 
 void IOCPServer::Update(float deltaTime) {

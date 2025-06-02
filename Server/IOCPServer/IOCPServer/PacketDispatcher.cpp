@@ -423,6 +423,59 @@ void PacketDispatcher::HandleDisconnectPacket(ClientSession* client, const Disco
     LOG_INFO("클라이언트 연결 종료 요청 - ID: " + std::to_string(client->id));
 }
 
+void PacketDispatcher::SendExistingPlayerIDs(ClientSession* newClient, const std::unordered_map<int, ClientSession*>& clients) {
+    if (!newClient) {
+        LOG_ERROR("SendExistingPlayerIDs: 유효하지 않은 새 클라이언트");
+        return;
+    }
+
+    int sentCount = 0;
+    for (const auto& pair : clients) {
+        ClientSession* existingClient = pair.second;
+        if (existingClient && existingClient->id != newClient->id && existingClient->IsConnected()) {
+            ClientIdPacket packet;
+            packet.Header.PacketType = EPacketType::CLIENT_ID;
+            packet.Header.PacketSize = sizeof(ClientIdPacket);
+            packet.ClientId = existingClient->id;
+
+            if (NetworkSessionManager::SendPacketSafe(newClient, &packet, sizeof(packet), "SendExistingPlayerIDs")) {
+                sentCount++;
+            }
+        }
+    }
+
+    LOG_INFO("기존 플레이어 ID 전송 완료 - 대상: " + std::to_string(newClient->id) +
+        ", 전송된 ID 개수: " + std::to_string(sentCount));
+}
+
+void PacketDispatcher::BroadcastNewPlayerID(ClientSession* newClient, const std::unordered_map<int, ClientSession*>& clients) {
+    if (!newClient) {
+        LOG_ERROR("BroadcastNewPlayerID: 유효하지 않은 새 클라이언트");
+        return;
+    }
+
+    ClientIdPacket packet;
+    packet.Header.PacketType = EPacketType::CLIENT_ID;
+    packet.Header.PacketSize = sizeof(ClientIdPacket);
+    packet.ClientId = newClient->id;
+
+    int successCount = 0;
+    int totalCount = 0;
+
+    for (const auto& pair : clients) {
+        ClientSession* target = pair.second;
+        if (target && target->id != newClient->id && target->IsConnected()) {
+            totalCount++;
+            if (NetworkSessionManager::SendPacketSafe(target, &packet, sizeof(packet), "BroadcastNewPlayerID")) {
+                successCount++;
+            }
+        }
+    }
+
+    LOG_INFO("새 플레이어 ID 브로드캐스트 완료 - ID: " + std::to_string(newClient->id) +
+        ", 성공: " + std::to_string(successCount) + "/" + std::to_string(totalCount));
+}
+
 void PacketDispatcher::LogPacketSent(const char* packetType, int clientId, size_t size) {
     LOG_DEBUG("[SEND] " + std::string(packetType) + " -> 클라이언트 " + std::to_string(clientId) +
         " (" + std::to_string(size) + " bytes)");

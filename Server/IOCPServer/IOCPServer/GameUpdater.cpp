@@ -202,22 +202,41 @@ void GameUpdater::UpdatePlayerState(ClientSession* client) {
 }
 
 void GameUpdater::UpdatePlayerAction(ClientSession* client) {
-    // 기본적으로 아무 행동도 없음
-    client->Action = EPlayerAction::NONE;
+    // 이전 액션 상태 저장
+    EPlayerAction previousAction = client->Action;
 
-    // 공격 요청 확인
-    if (client->bAttackRequested)
-    {
+    // 기본적으로 액션 없음
+    //client->Action = EPlayerAction::NONE;
+
+    // 공격 요청 확인 - 공격은 일정 시간 동안 유지
+    if (client->bAttackRequested) {
         client->Action = EPlayerAction::ATTACK;
+        LOG_DEBUG("Attack action set for client " + std::to_string(client->id));
 
-        // 일회성 처리 후 리셋
-        client->bAttackRequested = false;
+        // 공격 상태를 일정 시간 유지하기 위해 타이머 설정 또는 프레임 카운터 사용
+        // 여기서는 간단히 몇 프레임 동안 유지하도록 설정
+        client->ActionTimer = 1.0f; // 1초 동안 유지
     }
 
-    // 방어는 유지형일 수도 있음
-    if (client->bDefendRequested)
-    {
+    // 방어는 버튼을 누르고 있는 동안 지속
+    if (client->bDefendRequested) {
         client->Action = EPlayerAction::DEFEND;
+        LOG_DEBUG("Defend action set for client " + std::to_string(client->id));
+    }
+
+    // 액션 타이머가 있으면 공격 상태 유지
+    if (client->ActionTimer > 0.0f) {
+        if (client->Action == EPlayerAction::NONE && previousAction == EPlayerAction::ATTACK) {
+            client->Action = EPlayerAction::ATTACK;
+        }
+        client->ActionTimer -= 1.0f / 60.0f; // 60FPS 가정하여 감소
+    }
+
+    // 액션이 변경되었을 때 로그
+    if (previousAction != client->Action) {
+        LOG_INFO("Action changed for client " + std::to_string(client->id) +
+            " from " + std::to_string(static_cast<int>(previousAction)) +
+            " to " + std::to_string(static_cast<int>(client->Action)));
     }
 }
 

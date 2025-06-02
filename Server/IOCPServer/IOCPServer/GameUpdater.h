@@ -53,7 +53,7 @@ private:
     struct GameSettings {
         float moveSpeed = 500.0f;
         float runMultiplier = 2.0f;
-        float jumpVelocity = 600.0f;
+        float jumpVelocity = 500.0f;
         float gravity = 980.0f;
         float groundLevel = 90.0f;
         float worldBoundary = 10000.0f;

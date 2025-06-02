@@ -1,4 +1,4 @@
-// MyCharacter.h - 로컬 플레이어 전용으로 정리
+// MyCharacter.h - 수정된 통합 버전
 #pragma once
 
 #include "CoreMinimal.h"
@@ -17,24 +17,40 @@ class MW_API AMyCharacter : public ACharacter
 public:
     AMyCharacter();
 
+    // ===== 플레이어 타입 관리 =====
+    UFUNCTION(BlueprintCallable, Category = "Player")
+    void SetIsLocalPlayer(bool bLocal);
+
+    UFUNCTION(BlueprintCallable, Category = "Player")
+    void SetIsRemoteControlled(bool bRemote);
+
+    UFUNCTION(BlueprintPure, Category = "Player")
+    virtual bool IsLocalPlayer() const { return bIsLocalPlayer; }
+
+    UFUNCTION(BlueprintPure, Category = "Player")
+    virtual bool IsRemoteControlled() const { return bIsRemoteControlled; }
+
+    // ===== 플레이어 ID 관리 =====
+    UFUNCTION(BlueprintCallable, Category = "Player")
+    void SetPlayerId(int32 Id) { PlayerId = Id; }
+
+    UFUNCTION(BlueprintPure, Category = "Player")
+    int32 GetPlayerId() const { return PlayerId; }
+
+    // ===== 네트워크 관련 =====
     void NotifySpawn();
 
-    // 플레이어 ID 접근자
-    //void SetPlayerId(int32 Id) { PlayerId = Id; }
-    //int32 GetPlayerId() const { return PlayerId; }
-
-    // 로컬 플레이어 여부 (항상 true)
-    //virtual bool IsLocalPlayer() const { return true; }
-    //virtual bool IsRemoteControlled() const { return false; }
-
-    // 추가: GameMode에서 호출할 수 있도록 더미 함수들 (호환성 유지)
-    //void SetIsLocalPlayer(bool bLocal) { /* MyCharacter는 항상 로컬 플레이어 */ }
-    //void SetIsRemoteControlled(bool bRemote) { /* MyCharacter는 항상 로컬 플레이어 */ }
-
-    // 네트워크에서 업데이트 받기 (GameMode에서 접근 가능하도록 public)
+    UFUNCTION(BlueprintCallable, Category = "Network")
     virtual void UpdateFromNetwork(const FTransform& NewTransform, const FVector& NetworkVelocity, EPlayerState NewState, EPlayerAction NewAction);
 
-    // 플레이어 상태 (외부에서 읽기용)
+    // ===== 카메라 및 입력 제어 =====
+    UFUNCTION(BlueprintCallable, Category = "Control")
+    void DisableCameraAndInput();
+
+    UFUNCTION(BlueprintCallable, Category = "Control")
+    void EnableCameraAndInput();
+
+    // ===== 플레이어 상태 (외부에서 읽기용) =====
     UPROPERTY(BlueprintReadOnly, Category = "State")
     EPlayerState CurrentState = EPlayerState::IDLE;
 
@@ -46,7 +62,7 @@ protected:
     virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
     virtual void Tick(float DeltaSeconds) override;
 
-    // 입력 처리 함수들 (로컬 플레이어 전용)
+    // ===== 입력 처리 함수들 =====
     void Move(const FInputActionValue& Value);
     void StartRun(const FInputActionValue& Value);
     void StopRun(const FInputActionValue& Value);
@@ -57,17 +73,24 @@ protected:
     void StartDefend(const FInputActionValue& Value);
     void StopDefend(const FInputActionValue& Value);
 
-    // 네트워크 관련 함수들
+    // ===== 네트워크 관련 함수들 =====
     void SendInputToServer();
     void InterpolateToServerPosition(float DeltaTime);
 
-    // 디버그 정보 표시
+    // ===== 디버그 정보 표시 =====
     void DisplayDebugInfo();
 
-    // 플레이어 ID
+    // ===== 플레이어 상태 변수들 =====
+    UPROPERTY(BlueprintReadOnly, Category = "Player State")
+    bool bIsLocalPlayer = true;  // 기본값은 로컬 플레이어
+
+    UPROPERTY(BlueprintReadOnly, Category = "Player State")
+    bool bIsRemoteControlled = false;
+
+    UPROPERTY(BlueprintReadOnly, Category = "Player State")
     int32 PlayerId = -1;
 
-    // Enhanced Input 설정
+    // ===== Enhanced Input 설정 =====
     UPROPERTY(EditAnywhere, Category = "Input")
     class UInputMappingContext* DefaultMappingContext;
 
@@ -89,14 +112,14 @@ protected:
     UPROPERTY(EditAnywhere, Category = "Input")
     class UInputAction* DefendAction;
 
-    // 카메라 컴포넌트 (로컬 플레이어만)
+    // ===== 카메라 컴포넌트 =====
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
     class USpringArmComponent* SpringArm;
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
     class UCameraComponent* FollowCamera;
 
-    // 애니메이션
+    // ===== 애니메이션 =====
     UPROPERTY(EditAnywhere, Category = "Animation")
     class UAnimMontage* AttackMontage;
 
@@ -106,14 +129,11 @@ protected:
     UPROPERTY(EditAnywhere, Category = "Animation")
     class UAnimMontage* DefendMontage;
 
-    //UPROPERTY(EditAnywhere, Category = "Animation")
-    //float DefendMontageDuration = 1.0f;
-
-    // 공격/방어 타이머
+    // ===== 공격/방어 타이머 =====
     FTimerHandle AttackResetHandle;
     FTimerHandle DefendResetHandle;
 
-    // 입력 상태 (서버 전송용)
+    // ===== 입력 상태 (서버 전송용) =====
     float ForwardInput = 0.0f;
     float RightInput = 0.0f;
     float PitchInput = 0.0f;
@@ -124,7 +144,7 @@ protected:
     bool bAttackPressed = false;
     bool bDefendPressed = false;
 
-    // 입력이 변경되었는지 체크 (불필요한 전송 방지)
+    // ===== 이전 입력값 (변경 감지용) =====
     float PreviousForwardInput = 0.0f;
     float PreviousRightInput = 0.0f;
     float PreviousPitchInput = 0.0f;
@@ -135,7 +155,7 @@ protected:
     bool bPreviousAttackPressed = false;
     bool bPreviousDefendPressed = false;
 
-    // 이동 방식 설정 옵션
+    // ===== 이동 방식 설정 옵션 =====
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
     bool bAlwaysFaceMovementDirection = true;
 
@@ -145,35 +165,42 @@ protected:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
     float MovementRotationRate = 500.0f;
 
-    // 네트워크 업데이트 빈도 제한
-    float LastInputSendTime = 0.0f;
-
+    // ===== 네트워크 업데이트 설정 =====
     UPROPERTY(EditAnywhere, Category = "Network")
     float InputSendRate = 60.0f; // 초당 60회 전송
 
-    // 서버 동기화용 (로컬 플레이어도 서버 위치로만 이동)
+    float LastInputSendTime = 0.0f;
+
+    // ===== 서버 동기화용 =====
+    UPROPERTY(BlueprintReadOnly, Category = "Network State")
     FVector TargetLocation = FVector::ZeroVector;
+
+    UPROPERTY(BlueprintReadOnly, Category = "Network State")
     FRotator TargetRotation = FRotator::ZeroRotator;
+
+    UPROPERTY(BlueprintReadOnly, Category = "Network State")
     FVector TargetVelocity = FVector::ZeroVector;
+
     bool bInitialPositionSet = false;
 
-    UPROPERTY(EditAnywhere, Category = "Network")
-    float InterpSpeed = 10.0f;  // 서버 위치로 보간 속도
+    // ===== 네트워크 보간 설정 =====
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Network Interpolation")
+    float InterpSpeed = 12.0f;
 
-    UPROPERTY(EditAnywhere, Category = "Network")
-    float VelocityInterpSpeed = 10.0f;  // 속도 보간 속도
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Network Interpolation")
+    float VelocityInterpSpeed = 8.0f;
 
-    // 디버그 표시 여부
-    UPROPERTY(EditAnywhere, Category = "Debug")
+    // ===== 디버그 설정 =====
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Debug")
     bool bShowDebugInfo = false;
 
 private:
-    // 입력 변경 감지
+    // ===== 헬퍼 함수들 =====
     bool HasInputChanged() const;
 
-    // 디버그 헬퍼 함수들
+    // ===== 디버그 헬퍼 함수들 =====
     FString GetStateString(EPlayerState State) const;
-	FString GetActionString(EPlayerAction Action) const;
+    FString GetActionString(EPlayerAction Action) const;
     FString GetPlayerTypeString() const;
     FColor GetDebugColor() const;
     void DrawMovementVectors(const FVector& Location, const FVector& Velocity) const;
